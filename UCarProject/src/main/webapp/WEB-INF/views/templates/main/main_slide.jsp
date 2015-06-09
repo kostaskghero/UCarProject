@@ -1,18 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="carousel slide" id="fullcarousel-example" data-interval="500" data-ride="carousel">
-	<div class="carousel-inner">
+<div class="carousel slide" id="fullcarousel-example" data-interval="3000" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li class="active" data-slide-to="0" data-target="#fullcarousel-example"></li>
+		<li data-slide-to="1" data-target="#fullcarousel-example"></li>
+		<li data-slide-to="2" data-target="#fullcarousel-example"></li>
+	</ol>
+	<div class="carousel-inner">		
 		<!-- slide image 1 -->
-		<div class="item" id="img_slide">
-			<img src="${initParam.root }img/up.png" style="height: 550x">
+		<div class="active item" id="img_slide" align="center">
+			<img src="${initParam.root }img/up.jpg" width="500">
 			<div class="carousel-caption">
 				<h2>Title</h2>
 				<p>Description</p>
 			</div>
 		</div>
 		<!-- slide image 2 -->
-		<div class="active item" id="img_slide" style="height: 550px">
-			<img src="${initParam.root }img/up2.png">
+		<div class="item" id="img_slide" align="center">
+			<img src="${initParam.root }img/up1.jpg" width="500">
+			<div class="carousel-caption">
+				<h2>Title</h2>
+				<p>Description</p>
+			</div>
+		</div>
+		<!-- slide image 3 -->
+		<div class="item" id="img_slide" align="center">
+			<img src="${initParam.root }img/up2.jpg" width="500">
 			<div class="carousel-caption">
 				<h2>Title</h2>
 				<p>Description</p>
