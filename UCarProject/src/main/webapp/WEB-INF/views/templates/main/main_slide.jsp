@@ -4,15 +4,15 @@
 	<div class="carousel-inner">
 		<!-- slide image 1 -->
 		<div class="item" id="img_slide">
-			<img src="${initParam.root }img/up3.jpg">
+			<img src="${initParam.root }img/up.png" style="height: 550x">
 			<div class="carousel-caption">
 				<h2>Title</h2>
 				<p>Description</p>
 			</div>
 		</div>
 		<!-- slide image 2 -->
-		<div class="active item" id="img_slide">
-			<img src="${initParam.root }img/up4.jpg">
+		<div class="active item" id="img_slide" style="height: 550px">
+			<img src="${initParam.root }img/up2.png">
 			<div class="carousel-caption">
 				<h2>Title</h2>
 				<p>Description</p>

@@ -16,11 +16,11 @@
 <link rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${initParam.root}/css/main.css" />
+<%-- <link rel="stylesheet" type="text/css" href="${initParam.root}/css/main.css" />
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
     rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-    rel="stylesheet" type="text/css">
+    rel="stylesheet" type="text/css"> --%>
 </head>
 <body>
 <div id="container">
