@@ -15,8 +15,9 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="#">Login</a></li>
+				<li class="active"><a href="">Login</a></li>
 				<li><a href="#">Join</a></li>
+				<li><a href="${initParam.root }member_register.do">회원가입</a></li>
 			</ul>
 		</div>
 	</div>
