@@ -6,15 +6,22 @@
  <!-- 컨트롤러에서 view name을 아래의 layout-tiles 라는 definition name을
  	   명시하면 아래의 페이지들이 조합된(include) 결과화면을 제공한다
   -->
-<tiles-definitions>
+<!-- <tiles-definitions>
 	<definition name="home" template="/WEB-INF/views/templates/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/templates/left.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/home.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp" />
 	</definition>	
+</tiles-definitions> -->
+<tiles-definitions>
+	<definition name="home" template="/WEB-INF/views/templates/main/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/templates/main/header.jsp" />
+		<put-attribute name="main-slide" value="/WEB-INF/views/templates/main/main_slide.jsp" />
+		<put-attribute name="main-content" value="/WEB-INF/views/templates/main/main_content.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/templates/main/footer.jsp" />
+	</definition>	
 </tiles-definitions>
-
 
 
 
