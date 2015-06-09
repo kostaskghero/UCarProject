@@ -16,6 +16,7 @@ public class HomeController {
 	@RequestMapping("{viewId}.do")
 	public String showView(@PathVariable String viewId){
 		logger.info(viewId);
+		System.out.println(viewId);
 		return viewId;
 	}
 }
