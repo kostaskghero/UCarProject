@@ -23,7 +23,7 @@ public class HomeController {
 		System.out.println(viewId);
 		return viewId;
 	}
-	@RequestMapping("register.do")
+	@RequestMapping("member_register.do")
 	public ModelAndView memberRegister(HttpServletRequest request, HttpServletResponse response){
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
@@ -31,7 +31,7 @@ public class HomeController {
 		String phone=request.getParameter("phone");
 		String birth=request.getParameter("birth");
 	
-		return new ModelAndView("register_result", "data", id+password+email+phone+birth);
+		return new ModelAndView("member_register_result", "data", id+password+email+phone+birth);
 	}
 }
 

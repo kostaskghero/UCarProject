@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>회원등록페이지</h3>
-<form action="register.do" method="post">
+<form action="member_register.do" method="post">
 아이디 <input type="text" name="id"><br>
 패스워드 <input type="password" name="password"><br>
 이메일 <input type="text" name="email"><br>
