@@ -24,7 +24,7 @@
     rel="stylesheet" type="text/css"> --%>
 </head>
 <body>
-<div id="container">
+<div class="container" id="container">
 	<div id="header"><tiles:insertAttribute name="header" /></div>
 	<div id="main-slide"><tiles:insertAttribute name="main-slide" /></div>
 	<div id="main-content"><tiles:insertAttribute name="main-content" /></div>

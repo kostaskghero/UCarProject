@@ -16,10 +16,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div id="container">
+<div class="container" id="container">
 	<div id="header"><tiles:insertAttribute name="header" /></div>
-	<div id="left"><tiles:insertAttribute name="left" /></div>
-	<div id="main"><tiles:insertAttribute name="main" /></div>
+	<div class="row clearfix">
+		<div class="col-md-2 column" id="left"><tiles:insertAttribute name="left" /></div>
+		<div class="col-md-10 column" id="main"><tiles:insertAttribute name="main" /></div>
+	</div>
 	<div id="footer"><tiles:insertAttribute name="footer" /></div>
 </div>
 </body>
