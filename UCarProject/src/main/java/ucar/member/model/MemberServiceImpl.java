@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+<<<<<<< HEAD
 	@Resource(name="memberDAOImpl")
 	private MemberDAO memberDAO;	
 	
@@ -22,5 +23,18 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO login(MemberVO vo) {
 		MemberVO mvo = memberDAO.loginByIdCheck(vo);
 		return mvo;
+=======
+	@Resource
+	private MemberDAO memberDAO;
+
+	@Override
+	public MemberVO loginMember(MemberVO mvo) {
+		return memberDAO.loginMember(mvo);
+	}
+
+	@Override
+	public void registerMember(MemberVO mvo) {
+		memberDAO.registerMember(mvo);
+>>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 	}
 }

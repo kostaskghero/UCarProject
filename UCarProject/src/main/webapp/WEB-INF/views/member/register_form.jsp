@@ -2,13 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
+<<<<<<< HEAD
 /* 	$(document).ready(function(){
 		$("#memberRegister").submit(function(){
 			$("#birthMonth").
+=======
+	$(document).ready(function(){
+		$("#memberRegisterForm").submit(function(){
+			$("#memberBirthDate").val($("#birthYear").val()+"/"+$("#birthMonth").val()+"/"+$("#birthDay").val());
+>>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 		});
 	});  */
 </script>
+<<<<<<< HEAD
 <form class="form-horizontal"  action = "memberRegister.do">
+=======
+<form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
+>>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
   <fieldset>
     <legend>회원가입</legend>
     <div class="form-group">
@@ -53,6 +63,7 @@
     </div>
     <div class="form-group">
       <label for="inputBirth" class="col-lg-2 control-label">Birth</label>
+      <input type="hidden" name="memberBirthDate" id="memberBirthDate" value="">
       <div class="col-lg-2">
         <select class="form-control" id="birthYear">
         	<option value="">년</option>
@@ -81,9 +92,13 @@
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
+<<<<<<< HEAD
         <button type="submit" class="btn btn-primary" id="memberRegister">Submit</button>
         <input type ="hidden" name ="date" value ="${year }">
  
+=======
+        <button type="submit" class="btn btn-primary">Submit</button>
+>>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
       </div>
     </div>
   </fieldset>
