@@ -1,30 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-    pageEncoding="UTF-8"%>
-<div class="navbar navbar-default navbar-static-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar">로고</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#" id="ucar"><span>Brand</span></a>
-			<a class="navbar-brand" href="#" id="ucar"><span>이용방법</span></a>
-			<a class="navbar-brand" href="#" id="ucar"><span>고객센터</span></a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
-				<li><a href="#">Join</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-=======
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <nav class="navbar navbar-default" style="height: 100px; vertical-align: middle">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -46,16 +23,15 @@
       </ul>
       <ul class="nav navbar-nav navbar-right well-lg">
         <c:choose>
-			<c:when test="${sessionScope.LoginInfo!=null }">
-				<li class="active"><a href="#">Logout</a></li>
-				</c:when>
-			<c:otherwise>
-				<li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
-				<li><a href="${initParam.root }member_register_form.do">Join</a></li>
-			</c:otherwise>
-		</c:choose>
+         <c:when test="${sessionScope.LoginInfo!=null }">
+            <li class="active"><a href="#">Logout</a></li>
+            </c:when>
+         <c:otherwise>
+            <li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
+            <li><a href="${initParam.root }member_register_form.do">Join</a></li>
+         </c:otherwise>
+      </c:choose>
       </ul>
     </div>
   </div>
 </nav>
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
