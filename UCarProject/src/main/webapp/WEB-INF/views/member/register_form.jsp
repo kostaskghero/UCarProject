@@ -8,7 +8,6 @@
 		});
 	});
 </script>
-<div class="col-lg-8">
 <form class="form-horizontal">
   <fieldset>
     <legend>회원가입</legend>
@@ -87,4 +86,3 @@
     </div>
   </fieldset>
 </form>
-</div>
