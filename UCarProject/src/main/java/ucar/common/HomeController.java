@@ -1,14 +1,10 @@
 package ucar.common;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -23,7 +19,7 @@ public class HomeController {
 		System.out.println(viewId);
 		return viewId;
 	}
-	@RequestMapping("member_register.do")
+/*	@RequestMapping("member_register.do")
 	public ModelAndView memberRegister(HttpServletRequest request, HttpServletResponse response){
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
@@ -32,7 +28,7 @@ public class HomeController {
 		String birth=request.getParameter("birth");
 	
 		return new ModelAndView("member_register_result", "data", id+password+email+phone+birth);
-	}
+	}*/
 }
 
 

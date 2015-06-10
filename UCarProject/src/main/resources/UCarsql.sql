@@ -8,12 +8,13 @@ create table member(
 	member_phone varchar2(50) not null,
 	member_point number default 2000,
 	member_level varchar2(50) default 1,
-	member_brith_date varchar2(50) not null
+	member_birth_date varchar2(50) not null
 )
 select * from member
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_brith_date)
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
 values ('java', '1234', '한효주', 'skghero@naver.com', '01020636416','19870222' )
 
+drop table driving_license
 create table driving_license(
 	license_no varchar2(50) primary key,
 	member_id varchar2(50),

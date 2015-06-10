@@ -24,7 +24,7 @@
       <ul class="nav navbar-nav navbar-right well-lg">
         <c:choose>
          <c:when test="${sessionScope.LoginInfo!=null }">
-            <li class="active"><a href="#">Logout</a></li>
+            <li class="active"><a href="${initParam.root }logout.do">Logout</a></li>
             </c:when>
          <c:otherwise>
             <li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
