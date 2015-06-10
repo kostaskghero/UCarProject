@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#memberRegister").submit(function(){
+			
+		});
+	});
+</script>
+<div class="col-lg-8">
 <form class="form-horizontal">
   <fieldset>
     <legend>회원가입</legend>
@@ -46,24 +54,27 @@
     </div>
     <div class="form-group">
       <label for="inputBirth" class="col-lg-2 control-label">Birth</label>
-      <div class="col-lg-3">
-        <select class="form-control" id="select">
-        	<c:forEach begin="1900" end="2015" step="1" var="i">
-        		<option>${i }년</option>
+      <div class="col-lg-2">
+        <select class="form-control" id="birthYear">
+        	<option value="">년</option>
+        	<c:forEach begin="1900" end="2015" step="1" var="year">
+        		<option value="${year }">${year }년</option>
         	</c:forEach>
         </select>
       </div>
-      <div class="col-lg-3">
-        <select class="form-control" id="select">
-        	<c:forEach begin="1" end="12" step="1" var="i">
-        		<option>${i }월</option>
+      <div class="col-lg-2">
+        <select class="form-control" id="birthMonth">
+        	<option value="">월</option>
+        	<c:forEach begin="1" end="12" step="1" var="month">
+        		<option value="${month }">${month }월</option>
         	</c:forEach>
         </select>
       </div>
-      <div class="col-lg-3">
-        <select class="form-control" id="select">
-        	<c:forEach begin="1" end="31" step="1" var="i">
-        		<option>${i }일</option>
+      <div class="col-lg-2">
+        <select class="form-control" id="birthDay">
+        	<option value="">일</option>
+        	<c:forEach begin="1" end="31" step="1" var="day">
+        		<option value="${day }">${day }일</option>
         	</c:forEach>
         </select>
       </div>
@@ -71,8 +82,9 @@
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="memberRegister">Submit</button>
       </div>
     </div>
   </fieldset>
 </form>
+</div>
