@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-horizontal">
+<form class="form-horizontal"  method="post" action="login.do">
   <fieldset>
     <legend>로그인</legend>
     <div class="form-group">
