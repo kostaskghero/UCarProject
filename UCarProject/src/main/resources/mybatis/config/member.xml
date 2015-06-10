@@ -15,8 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="memberBrithDate" column="member_brith_date"/>
  	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
-		insert into member(member_id, member_password, member_name, member_email, member_phone, member_level, member_brith_date)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberLevel}, #{memberBrithDate})
+		insert into member(member_id, member_password, member_name, member_email, member_phone, member_brith_date)
+		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone},  #{memberBrithDate})
 	</insert>
 	
  </mapper> 
