@@ -3,15 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
-		$("#regForm").submit(function(){
-			var memberBirthDate=$("#birthYear").val()+$("#birthMonth").val()+$("#birthDay").val();
-		alert(memberBirthDate);
-			$("#memberBirthDate").val(memberBirthDate);
-		});//keyup
-	});//ready
+		$("#memberRegisterForm").submit(function(){
+			$("#memberBirthDate").val($("#birthYear").val()+"/"+$("#birthMonth").val()+"/"+$("#birthDay").val());
+		});
+	});
 </script>
-<form class="form-horizontal" id="regForm" method="post" action="registerMember.do">
+<form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
   <fieldset>
     <legend>회원가입</legend>
     <div class="form-group">
@@ -56,6 +53,7 @@
     </div>
     <div class="form-group">
       <label for="inputBirth" class="col-lg-2 control-label">Birth</label>
+      <input type="hidden" name="memberBirthDate" id="memberBirthDate" value="">
       <div class="col-lg-2">
         <select class="form-control" id="birthYear">
         	<option value="">년</option>
@@ -84,11 +82,8 @@
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="memberRegister">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
-    </div>
-    <div class="form-group">
-    <input type="hidden" id="memberBirthDate" value="" name="memberBirthDate">
     </div>
   </fieldset>
 </form>

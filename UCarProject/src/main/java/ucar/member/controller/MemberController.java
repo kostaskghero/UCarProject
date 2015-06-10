@@ -1,6 +1,6 @@
 package ucar.member.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import ucar.member.model.MemberService;
 import ucar.member.model.MemberVO;
@@ -22,33 +20,28 @@ public class MemberController {
 	
 	@RequestMapping("member_login.do")
 	@ResponseBody
-	public boolean login(HttpServletRequest request, MemberVO vo) {
-		 System.out.println(vo.getMemberId()+"////0"+vo.getMemberPassword());
-		MemberVO mvo = memberService.login(vo);
-			if (mvo != null) {
-				request.getSession().setAttribute("loginInfo", vo);
-				return true;
-			}
-			else
-			return false;
+	public HashMap<String,Object> loginMember(MemberVO mvo, HttpServletRequest request){
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		System.out.println("mvo:"+mvo);
+		mvo=memberService.loginMember(mvo);
+		map.put("flag", "false");
+		if(mvo!=null){
+			map.put("flag", "ok");
+			HttpSession session=request.getSession(false);
+			session.setAttribute("loginInfo", mvo);
+		}
+		return map;
 	}
-	@RequestMapping("logout.do")
-	public ModelAndView logout(HttpServletRequest request) {
-		HttpSession session=request.getSession(false);
-		if(session!=null)
+	@RequestMapping("member_logout.do")
+	public String logoutMember(HttpServletRequest request){
+		HttpSession session=request.getSession();
 		session.invalidate();
-		return new ModelAndView("home");
-	}	
-	@RequestMapping(value="registerMember.do",method=RequestMethod.POST)
-	public ModelAndView register(MemberVO vo) throws UnsupportedEncodingException {		
-		System.out.println("ydrdyrsy//d//d/d//"+vo);
-		memberService.registerMember(vo);		
-		return 	new ModelAndView("redirect:registerResultView.do?id="+vo.getMemberId());
+		return "home";
 	}
-	@RequestMapping("registerResultView.do")
-	public ModelAndView registerResultView(String id)  {
-
-		MemberVO vo=memberService.findMemberById(id);		
-		return new ModelAndView("/member/register_result","data",vo);
+	@RequestMapping("member_register.do")
+	public String registerMember(MemberVO mvo){
+		System.out.println("mvo:"+mvo);
+		memberService.registerMember(mvo);
+		return "redirect:member_register_result.do";
 	}
 }

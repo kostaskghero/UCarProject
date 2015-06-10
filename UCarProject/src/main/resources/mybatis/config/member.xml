@@ -16,12 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
 		insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone},  #{memberBirthDate})
+		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberBirthDate})
 	</insert>
-	<select id="findMemberById"  parameterType="mvo" resultMap="memberRM">
-	select * from member where member_id=#{value} 
+	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
+		select member_id, member_name from member where member_id=#{memberId} and member_password=#{memberPassword}
 	</select>
-	<select id="login" resultMap="memberRM" parameterType="mvo">
-	select * from member where member_id=#{memberId} and member_password=#{memberPassword}
-	</select>
+	
  </mapper> 

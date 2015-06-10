@@ -7,22 +7,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
-	@Resource(name = "sqlSessionTemplate")
+	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public MemberVO login(MemberVO vo) {
-		// System.out.println("DAO TEST : "+sqlSessionTemplate.selectOne("member.login",vo));
-		return (MemberVO) sqlSessionTemplate.selectOne("member.login", vo);
-
-	}
-
-	public void registerMember(MemberVO vo) {
-		sqlSessionTemplate.insert("member.registerMember",vo);
+	@Override
+	public MemberVO loginMember(MemberVO mvo) {
+		return sqlSessionTemplate.selectOne("member.loginMember", mvo);
 	}
 
 	@Override
-	public MemberVO findMemberById(String id) {
-		return (MemberVO) sqlSessionTemplate.selectOne("member.findMemberById", id);
-
+	public void registerMember(MemberVO mvo) {
+		sqlSessionTemplate.insert("member.registerMember", mvo);
 	}
+	
 }

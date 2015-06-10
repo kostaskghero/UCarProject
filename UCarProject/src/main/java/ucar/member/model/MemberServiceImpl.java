@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
-	
-	public MemberVO login(MemberVO vo){
-		return memberDAO.login(vo);
+
+	@Override
+	public MemberVO loginMember(MemberVO mvo) {
+		return memberDAO.loginMember(mvo);
 	}
-	public void registerMember(MemberVO vo){
-	memberDAO.registerMember(vo);
-	}
-	public MemberVO findMemberById(String id){
-		return memberDAO.findMemberById(id);
+
+	@Override
+	public void registerMember(MemberVO mvo) {
+		memberDAO.registerMember(mvo);
 	}
 }
