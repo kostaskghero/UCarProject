@@ -13,7 +13,7 @@ create table member(
 select * from member
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
 values ('java', '1234', '한효주', 'skghero@naver.com', '01020636416','19870222' )
-
+drop table driving_license;
 create table driving_license(
 	license_no varchar2(50) primary key,
 	member_id varchar2(50),
@@ -39,10 +39,11 @@ create table card(
 select * from card
 insert into card(card_no, member_id, card_type,card_expiration_date, card_password) values ('1', 'java', '개인', '202002','1234')
 
+drop table car_model_info
 CREATE TABLE CAR_MODEL_INFO (
-		CAR_MODEL VARCHAR2(50) NOT NULL,
-		RENTAL_FEE NUMBER(22 , 0) NOT NULL,
-		DRIVING_FEE NUMBER(22 , 0) NOT NULL,
+		CAR_MODEL VARCHAR2(50) primary key,
+		RENTAL_FEE NUMBER NOT NULL,
+		DRIVING_FEE NUMBER NOT NULL,
 		CAR_PHOTO VARCHAR2(200) NOT NULL,
 		OIL_TYPE VARCHAR2(50) NOT NULL
 	)
@@ -54,7 +55,7 @@ values('티코', 100, 100, '우왕', '경유')
 	
 	create sequence car_seq nocache
 CREATE TABLE CAR (
-		CAR_NO NUMBER(22 , 0) NOT NULL,
+		CAR_NO NUMBER primary key,
 		CAR_MODEL VARCHAR2(50),
 		CAR_TYPE VARCHAR2(50) NOT NULL,
 		UCAR_ZONE_NAME VARCHAR2(50) NOT NULL,
@@ -68,7 +69,7 @@ CREATE TABLE CAR (
 	
 	create sequence car_option_seq nocache
 	CREATE TABLE CAR_OPTION (
-		OPTION_NUMBER NUMBER(22 , 0) NOT NULL,
+		OPTION_NUMBER number primary key,
 		CAR_MODEL VARCHAR2(50),
 		OPTION_INFO VARCHAR2(50) NOT NULL,
 		constraint fk_car_option foreign key(CAR_MODEL) references CAR_MODEL_INFO	
@@ -78,30 +79,31 @@ CREATE TABLE CAR (
 	values (car_option_seq.nextval, '티코', '하이패스')
 	
 	create sequence SHARING_RESERVATION_seq nocache
+	drop sequence SHARING_RESERVATION_seq
 	CREATE TABLE SHARING_RESERVATION (
 		RESERVATION_NO VARCHAR2(50) NOT NULL,
-		CAR_NO NUMBER(22 , 0),
+		CAR_NO NUMBER,
 		MEMBER_ID VARCHAR2(50),
-		RENTAL_PRICE NUMBER(22 , 0) NOT NULL,
+		RENTAL_PRICE number NOT NULL,
 		RETURN_CHECK VARCHAR2(50) NOT NULL,
 		RENTAL_DATE DATE NOT NULL,
 		RETURN_DATE DATE NOT NULL,
-		DRIVING_PRICE NUMBER(22 , 0) NOT NULL, 
-		constraint FK_RESERVATION_CAR_NO foreign key(CAR_NO) references car
+		DRIVING_PRICE NUMBER NOT NULL, 
+		constraint FK_RESERVATION_CAR_NO foreign key(CAR_NO) references car,
 		constraint FK_RESERVATION_MEMBER_ID foreign key(MEMBER_ID) references member
 	);
 	select * from SHARING_RESERVATION
 	insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_PRICE, RETURN_CHECK, RENTAL_DATE, RETURN_DATE, DRIVING_PRICE)
-	values(SHARING_RESERVATION_seq.nextval, '2', 'java', 100, '예약', sysdate, sysdate, 100)
+	values(SHARING_RESERVATION_seq.nextval, '1', 'java', 100, '예약', sysdate, sysdate, 100)
 	
 	create sequence faq_seq nocache
 	CREATE TABLE FAQ (
-		FAQ_NO NUMBER(22 , 0) NOT NULL,
-		CATEGORY VARCHAR2(200) NOT NULL,
-		TITLE VARCHAR2(200) NOT NULL,
-		MEMBER_ID VARCHAR2(50),
-		CONTENT CLOB NOT NULL,
-		constraint FK_FAQ_MEMBER_ID foreign key(MEMBER_ID) references member
+		FAQ_NO number primary key,
+		FAQ_CATEGORY VARCHAR2(200) NOT NULL,
+		FAQ_TITLE VARCHAR2(200) NOT NULL,
+		FAQ_MEMBER_ID VARCHAR2(50),
+		FAQ_CONTENT CLOB NOT NULL,
+		constraint FK_FAQ_MEMBER_ID foreign key(FAQ_MEMBER_ID) references member
 	);
 	
 create table qna_board(
@@ -125,7 +127,7 @@ drop table notice_board
 create sequence notice_board_seq nocache;
 create table notice_board(
  notice_no number primary key,
-    notice_title varchar2(100) not null,
+   notice_title varchar2(100) not null,
    notice_member_id varchar2(50) not null,
    notice_content clob not null,
    notice_time_posted date not null,
