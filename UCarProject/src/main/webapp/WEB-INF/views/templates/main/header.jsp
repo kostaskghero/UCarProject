@@ -29,7 +29,7 @@
          <c:otherwise>
             <li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
             <li><a href="${initParam.root }member_register_form.do">Join</a></li>
-         </c:otherwise>
+         </c:otherwise> 
       </c:choose>
       </ul>
     </div>
