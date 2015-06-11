@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
-
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -20,5 +19,5 @@ public class MemberDAOImpl implements MemberDAO {
 	public void registerMember(MemberVO mvo) {
 		sqlSessionTemplate.insert("member.registerMember", mvo);
 	}
-
+	
 }

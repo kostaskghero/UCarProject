@@ -19,7 +19,6 @@ public class HomeController {
 		System.out.println(viewId);
 		return viewId;
 	}
-
 }
 
 

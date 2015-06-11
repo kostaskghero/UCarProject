@@ -2,14 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-
 	$(document).ready(function(){
 		$("#memberRegisterForm").submit(function(){
 			$("#memberBirthDate").val($("#birthYear").val()+"/"+$("#birthMonth").val()+"/"+$("#birthDay").val());
 		});
-	});  
+	});
 </script>
-
 <form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
   <fieldset>
     <legend>회원가입</legend>

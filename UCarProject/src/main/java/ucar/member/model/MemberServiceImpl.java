@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
 	@Resource
 	private MemberDAO memberDAO;
 
@@ -17,7 +16,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void registerMember(MemberVO mvo) {
-
 		memberDAO.registerMember(mvo);
 	}
 }

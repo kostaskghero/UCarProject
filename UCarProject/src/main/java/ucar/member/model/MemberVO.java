@@ -16,16 +16,6 @@ public class MemberVO {
 		// TODO Auto-generated constructor stub
 	}
 	public MemberVO(String memberId, String memberPassword, String memberName,
-			String memberEmail, String memberPhone,String memberBirthDate) {
-		super();
-		this.memberId = memberId;
-		this.memberPassword = memberPassword;
-		this.memberName = memberName;
-		this.memberEmail = memberEmail;
-		this.memberPhone = memberPhone;
-		this.memberBirthDate = memberBirthDate;
-	}
-	public MemberVO(String memberId, String memberPassword, String memberName,
 			String memberEmail, String memberPhone, String memberPoint,
 			String memberLevel, String memberBirthDate,
 			DrivingLicenseVO drivingLicenseVO, CardVO cardVO) {
