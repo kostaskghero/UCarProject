@@ -11,34 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="memberEmail" column="member_email"/>
  	 	<result property="memberPhone" column="member_phone"/>
  	 	<result property="memberPoint" column="member_point"/>
-<<<<<<< HEAD
  	 	<result property="memberLevel" column="member_level"/>
  	 	<result property="memberBirthDate" column="member_birth_date"/>
- 	 	<result property="memberBrithDate" column="member_brith_date"/>
-=======
- 	 	<result property="memberLevel" column="member_level"/>
- 	 	<result property="memberBirthDate" column="member_birth_date"/>
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
  	 </resultMap>
-<<<<<<< HEAD
  	<insert id="registerMember" parameterType="mvo">
 		insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
 		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberBirthDate})
-		insert into member(member_id, member_password, member_name, member_email, member_phone, member_brith_date)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone},  #{memberBrithDate})
-=======
- 	<insert id="registerMember" parameterType="mvo">
-		insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberBirthDate})
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 	</insert>
-<<<<<<< HEAD
-	 	<select id="loginByIdCheck" resultMap="memberRM" parameterType="mvo">
-		select * from member where member_id =#{memberId}
-=======
 	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
 		select member_id, member_name from member where member_id=#{memberId} and member_password=#{memberPassword}
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 	</select>
 	
  </mapper> 

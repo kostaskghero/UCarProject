@@ -7,25 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
-<<<<<<< HEAD
-	@Resource(name="sqlSessionTemplate")
-	private SqlSessionTemplate sqlSessionTemplate;
-	
-	/* (non-Javadoc)
-	 * @see ucar.member.model.MemberDAO#memberRegister(ucar.member.model.MemberVO)
-	 */
-	@Override
-	public void memberRegister(MemberVO vo){
-		System.out.println("test");
-		sqlSessionTemplate.insert("member.registerMember", vo);
-	}
 
-	@Override
-	public MemberVO loginByIdCheck(MemberVO vo) {
-		
-		return sqlSessionTemplate.selectOne("member.loginByIdCheck", vo);
-	}
-=======
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -39,5 +21,4 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSessionTemplate.insert("member.registerMember", mvo);
 	}
 	
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 }
