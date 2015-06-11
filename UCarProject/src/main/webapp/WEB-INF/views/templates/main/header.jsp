@@ -23,13 +23,10 @@
       </ul>
       <ul class="nav navbar-nav navbar-right well-lg">
         <c:choose>
-<<<<<<< HEAD
-         <c:when test="${sessionScope.LoginInfo!=null }">
-            <li class="active"><a href="${initParam.root }logout.do">Logout</a></li>
-=======
+
          <c:when test="${sessionScope.loginInfo!=null }">
             <li class="active"><a href="${initParam.root }member_logout.do">Logout</a></li>
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
+
             </c:when>
          <c:otherwise>
             <li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>

@@ -19,19 +19,7 @@ public class HomeController {
 		System.out.println(viewId);
 		return viewId;
 	}
-<<<<<<< HEAD
-/*	@RequestMapping("member_register.do")
-	public ModelAndView memberRegister(HttpServletRequest request, HttpServletResponse response){
-		String id=request.getParameter("id");
-		String password=request.getParameter("password");
-		String email=request.getParameter("email");
-		String phone=request.getParameter("phone");
-		String birth=request.getParameter("birth");
-	
-		return new ModelAndView("member_register_result", "data", id+password+email+phone+birth);
-	}*/
-=======
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
+
 }
 
 
