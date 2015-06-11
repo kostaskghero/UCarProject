@@ -1,17 +1,14 @@
 package ucar.member.controller;
 
-
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import java.util.HashMap;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import ucar.member.model.MemberService;
 import ucar.member.model.MemberVO;
 
@@ -45,5 +42,7 @@ public class MemberController {
 		System.out.println("mvo:"+mvo);
 		memberService.registerMember(mvo);
 		return "redirect:member_register_result.do";
+
 	}
+
 }
