@@ -18,18 +18,19 @@
       <ul class="nav navbar-nav well-lg" style="font-size: 20px">
         <li><a href="#">서비스안내</a></li>
         <li><a href="#">요금안내</a></li>
-        <li><a href="#">마이페이지</a></li>
+        <li><a href="${initParam.root }auth_member_myPage.do">마이페이지</a></li>
         <li><a href="#">유카찾기/예약</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right well-lg">
         <c:choose>
          <c:when test="${sessionScope.loginInfo!=null }">
+         	<li>${sessionScope.loginInfo.memberName }님 로그인</li>
             <li class="active"><a href="${initParam.root }member_logout.do">Logout</a></li>
             </c:when>
          <c:otherwise>
             <li class="active"><a href="${initParam.root }member_login_form.do">Login</a></li>
             <li><a href="${initParam.root }member_register_form.do">Join</a></li>
-         </c:otherwise> 
+         </c:otherwise>
       </c:choose>
       </ul>
     </div>

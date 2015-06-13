@@ -4,18 +4,28 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#memberLogin").click(function(){
-			$.ajax({
-				type:"post",
-				url:"${initParam.root}member_login.do",
-				data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
-				success:function(data){
-					if(data.flag=="ok"){
-						location.href="${initParam.root}home.do";
-					} else{
-						alert("로그인실패");
+			if($("#memberId").val()==""){
+				alert("아이디 입력하세요!");
+				$("#memberId").focus();
+			} else if($("#memberPassword").val()==""){
+				alert("패스워드 입력하세요!");
+				$("#memberPassword").focus();
+			} else{
+				$.ajax({
+					type:"post",
+					url:"${initParam.root}member_login.do",
+					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
+					success:function(data){
+						if(data.flag=="ok"){
+							location.href="${initParam.root}home.do";
+						} else{
+							alert("로그인실패");
+							$("#memberId").val("");
+							$("#memberPassword").val("");
+						}
 					}
-				}
-			});
+				});
+			}
 		});
 	});
 </script>

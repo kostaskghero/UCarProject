@@ -12,14 +12,85 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="memberPhone" column="member_phone"/>
  	 	<result property="memberPoint" column="member_point"/>
  	 	<result property="memberLevel" column="member_level"/>
- 	 	<result property="memberBirthDate" column="member_birth_date"/>
+ 	 	<result property="drivingLicenseVO.licenseNo" column="license_no"/>
+ 	 	<result property="drivingLicenseVO.licenseType" column="license_type"/>
+ 	 	<result property="drivingLicenseVO.licenseRenewalTerm" column="license_renewal_term"/>
+ 	 	<result property="drivingLicenseVO.licenseIssueDate" column="license_issue_date"/>
+ 	 	<result property="drivingLicenseVO.gender" column="gender"/>
+ 	 	<result property="drivingLicenseVO.licenseBirth" column="license_birth"/>
+ 	 	<result property="cardVO.cardNo" column="card_no"/>
+ 	 	<result property="cardVO.cardType" column="card_type"/>
+ 	 	<result property="cardVO.cardExpirationDate" column="card_expiration_date"/>
+ 	 	<result property="cardVO.cardPassword" column="card_password"/>
+ 	 	<result property="cardVO.cardBirth" column="card_birth"/>
  	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
-		insert into member(member_id, member_password, member_name, member_email, member_phone, member_birth_date)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberBirthDate})
+		insert into member(member_id, member_password, member_name, member_email, member_phone)
+		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone})
 	</insert>
 	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
-		select member_id, member_name from member where member_id=#{memberId} and member_password=#{memberPassword}
+		select member_id, member_password, member_name, member_email, member_phone from member where member_id=#{memberId} and member_password=#{memberPassword}
 	</select>
-	
+	<select id="memberIdCheck" resultType="int">
+		select count(*) from member where member_id=#{value}
+	</select>
+	<select id="findMemberInfoByMemberId" resultMap="memberRM">
+		select member_id, member_password, member_name, member_email, member_phone, member_point, member_level from member where member_id=#{value}
+	</select>
+	<update id="updateMemberInfo" parameterType="mvo">
+		update member set member_email=#{memberEmail}, member_phone=#{memberPhone} where member_id=#{memberId}
+	</update>
+	<delete id="deleteMember">
+		delete from member where member_id=#{value}
+	</delete>
+	<select id="findCardInfoByCardNo" resultMap="memberRM">
+		select card_no, card_type, to_char(card_expiration_date, 'YYYY/MM') as card_expiration_date, member_id, to_char(card_birth, 'YYYY/MM/DD') as card_birth from card where card_no=#{value}
+	</select>
+	<insert id="registerCard" parameterType="mvo">
+		insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
+		values(#{cardVO.cardNo}, #{memberId}, #{cardVO.cardType}, to_date(#{cardVO.cardExpirationDate},'YYYY/MM'), #{cardVO.cardPassword}, to_date(#{cardVO.cardBirth},'YYYY/MM/DD'))
+	</insert>
+	<update id="updateCardInfo" parameterType="mvo">
+		update card set card_expiration_date=to_date(#{cardVO.cardExpirationDate},'YYYY/MM'), card_password=#{cardVO.cardPassword} where member_id=#{memberId} and card_no=#{cardVO.cardNo}
+	</update>
+	<delete id="deleteCard">
+		delete from card where card_no=#{value}
+	</delete>
+	<insert id="registerLicense" parameterType="mvo">
+		insert into driving_license(license_no, member_id, license_type, license_renewal_term, license_issue_date, gender, license_birth)
+		values(#{drivingLicenseVO.licenseNo}, #{memberId}, #{drivingLicenseVO.licenseType}, to_date(#{drivingLicenseVO.licenseRenewalTerm},'YYYY/MM/DD'), to_date(#{drivingLicenseVO.licenseIssueDate},'YYYY/MM/DD'), #{drivingLicenseVO.gender}, to_date(#{drivingLicenseVO.licenseBirth},'YYYY/MM/DD'))
+	</insert>
+	<select id="findLicenseInfoByLicenseNo" resultMap="memberRM">
+		select license_no, member_id, license_type, to_char(license_renewal_term, 'YYYY/MM/DD') as license_renewal_term, to_char(license_issue_date, 'YYYY/MM/DD') as license_issue_date, gender, to_char(license_birth, 'YYYY/MM/DD') as license_birth from driving_license where license_no=#{drivingLicenseVO.licenseNo}
+	</select>
+	<update id="updateLicenseInfo" parameterType="mvo">
+		update driving_license set license_renewal_term=to_date(#{drivingLicenseVO.licenseRenewalTerm},'YYYY/MM/DD'), license_issue_date=to_date(#{drivingLicenseVO.licenseIssueDate},'YYYY/MM/DD') where member_id=#{memberId} and license_no=#{drivingLicenseVO.licenseNo}
+	</update>
+	<delete id="deleteLicense">
+		delete from driving_license where license_no=#{value}
+	</delete>
+	<select id="memberPasswordCheck" parameterType="mvo" resultType="int">
+		select count(*) from member where member_id=#{memberId} and member_password=#{memberPassword}
+	</select>
+	<update id="updateMemberPassword" parameterType="mvo">
+		update member set member_password=#{memberPassword} where member_id=#{memberId}
+	</update>
+	<select id="getAllLicenseLocationList" resultType="string">
+		select license_location_name from license_location order by license_location_no
+	</select>
+	<delete id="deleteCardByMemberId">
+		delete from card where member_id=#{value}
+	</delete>
+	<delete id="deleteLicenseByMemberId">
+		delete from driving_license where member_id=#{value}
+	</delete>
+	<select id="findLicenseInfoByMemberId" resultMap="memberRM">
+		select member_id, license_no, license_type, to_char(license_renewal_term, 'YYYY/MM/DD') as license_renewal_term, to_char(license_issue_date, 'YYYY/MM/DD') as license_issue_date, gender, to_char(license_birth, 'YYYY/MM/DD') as license_birth from driving_license where member_id=#{value}
+	</select>
+	<select id="findCardInfoByMemberId" resultMap="memberRM">
+		select member_id, card_no, card_type, to_char(card_expiration_date, 'YYYY/MM') as card_expiration_date, member_id, to_char(card_birth, 'YYYY/MM/DD') as card_birth from card where member_id=#{value}
+	</select>
+	<select id="countCardByMemberId" resultType="int">
+		select count(*) from card where member_id=#{value}
+	</select>
  </mapper> 

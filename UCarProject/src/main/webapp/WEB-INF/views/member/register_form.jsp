@@ -1,82 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script>
 	$(document).ready(function(){
+		// id 중복 체크
+		$("#memberId").keyup(function(){
+			$("#idcheckView").html("");
+			$.ajax({
+				type:"post",
+				url:"${initParam.root}member_idCheck.do",
+				data:"memberId="+$("#memberId").val().trim(),
+				success:function(data){					
+					if(data.exception!=null){
+						$("#idcheckView").html(data.exception);
+						$("#idCheckResult").val("");
+					} else{
+						$("#idcheckView").html("아이디 사용가능");
+						$("#idCheckResult").val($("#memberId").val());
+					}
+				}
+			});
+		});
+		// 공란체크는 validation 으로
 		$("#memberRegisterForm").submit(function(){
-			$("#memberBirthDate").val($("#birthYear").val()+"/"+$("#birthMonth").val()+"/"+$("#birthDay").val());
+			if($("#idCheckResult")==""){
+				alert("사용할 수 없는 아이디입니다!");
+				return false;
+			} else if($("#memberPassword").val()!=$("#memberPasswordCheck").val()){
+				alert("비밀번호가 일치하지 않습니다!");
+				return false;
+			} else if(isNaN($("#memberPhone").val())){
+				alert("숫자 입력하세요!");
+				return false;
+			}
 		});
 	});
 </script>
-<form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
+<form:form class="form-horizontal" commandName="memberVO" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
   <fieldset>
     <legend>회원가입</legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-6">
-        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디는 4자이상 10자이하">
+        <form:input path="memberId" type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디는 4자이상 10자이하" />
+        <br><font color="red"><form:errors path="memberId"></form:errors></font>
       </div>
-      <!-- 버튼으로 하거나 ajax 로 처리 -->
+      <!-- ajax 로 처리 -->
       <div class="col-lg-4">
-        <input type="button" class="btn btn-default" id="checkId" name="checkId" value="중복확인">
+      	<input type="hidden" id="idCheckResult" value="">
+        <span id="idcheckView"></span>
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-10">
-        <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호는 8자이상 20자이하">
+        <form:input path="memberPassword" type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호는 8자이상 20자이하" />
+        <br><font color="red"><form:errors path="memberPassword"></form:errors></font>
       </div>      
     </div>
     <div class="form-group">
       <label for="inputPasswordCheck" class="col-lg-2 control-label">PasswordCheck</label>
       <div class="col-lg-10">
         <input type="password" class="form-control" id="memberPasswordCheck" placeholder="비밀번호를 동일하게 입력하세요">
+        <br><span id="passwordCheckView"></span>
       </div>      
     </div>
     <div class="form-group">
       <label for="inputName" class="col-lg-2 control-label">Name</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름">
+        <form:input path="memberName" type="text" class="form-control" id="memberName" name="memberName" placeholder="이름" />
+        <br><font color="red"><form:errors path="memberName"></form:errors></font>
       </div>
     </div>
     <div class="form-group">
       <label for="inputEmail" class="col-lg-2 control-label">Email</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일양식에 맞게 입력하세요">
+        <form:input path="memberEmail" type="text" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일양식에 맞게 입력하세요" />
+        <br><font color="red"><form:errors path="memberEmail"></form:errors></font>
       </div>
     </div>
     <div class="form-group">
-      <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
+      <label for="inputPhone" class="col-lg-2 control-label">Phone(-없이)</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="memberPhone" name="memberPhone" placeholder="휴대폰폰번호(-없이)">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputBirth" class="col-lg-2 control-label">Birth</label>
-      <input type="hidden" name="memberBirthDate" id="memberBirthDate" value="">
-      <div class="col-lg-2">
-        <select class="form-control" id="birthYear">
-        	<option value="">년</option>
-        	<c:forEach begin="1900" end="2015" step="1" var="year">
-        		<option value="${year }">${year }년</option>
-        	</c:forEach>
-        </select>
-      </div>
-      <div class="col-lg-2">
-        <select class="form-control" id="birthMonth">
-        	<option value="">월</option>
-        	<c:forEach begin="1" end="12" step="1" var="month">
-        		<option value="${month }">${month }월</option>
-        	</c:forEach>
-        </select>
-      </div>
-      <div class="col-lg-2">
-        <select class="form-control" id="birthDay">
-        	<option value="">일</option>
-        	<c:forEach begin="1" end="31" step="1" var="day">
-        		<option value="${day }">${day }일</option>
-        	</c:forEach>
-        </select>
+        <form:input path="memberPhone" type="text" class="form-control" id="memberPhone" name="memberPhone" placeholder="휴대폰폰번호(-없이)" value="01" />
+        <br><font color="red"><form:errors path="memberPhone"></form:errors></font>
       </div>
     </div>
     <div class="form-group">
@@ -86,4 +94,4 @@
       </div>
     </div>
   </fieldset>
-</form>
+</form:form>

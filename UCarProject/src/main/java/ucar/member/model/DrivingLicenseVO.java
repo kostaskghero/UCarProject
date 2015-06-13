@@ -1,38 +1,33 @@
 package ucar.member.model;
 
+
 public class DrivingLicenseVO {
 	private String licenseNo;
-	private String memberId;
 	private String licenseType;
 	private String licenseRenewalTerm;
 	private String licenseIssueDate;
 	private String gender;
+	private String licenseBirth;
 	public DrivingLicenseVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DrivingLicenseVO(String licenseNo, String memberId,
-			String licenseType, String licenseRenewalTerm,
-			String licenseIssueDate, String gender) {
+	public DrivingLicenseVO(String licenseNo, String licenseType,
+			String licenseRenewalTerm, String licenseIssueDate, String gender,
+			String licenseBirth) {
 		super();
 		this.licenseNo = licenseNo;
-		this.memberId = memberId;
 		this.licenseType = licenseType;
 		this.licenseRenewalTerm = licenseRenewalTerm;
 		this.licenseIssueDate = licenseIssueDate;
 		this.gender = gender;
+		this.licenseBirth = licenseBirth;
 	}
 	public String getLicenseNo() {
 		return licenseNo;
 	}
 	public void setLicenseNo(String licenseNo) {
 		this.licenseNo = licenseNo;
-	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 	public String getLicenseType() {
 		return licenseType;
@@ -58,12 +53,17 @@ public class DrivingLicenseVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getLicenseBirth() {
+		return licenseBirth;
+	}
+	public void setLicenseBirth(String licenseBirth) {
+		this.licenseBirth = licenseBirth;
+	}
 	@Override
 	public String toString() {
-		return "DrivingLicense [licenseNo=" + licenseNo + ", memberId="
-				+ memberId + ", licenseType=" + licenseType
-				+ ", licenseRenewalTerm=" + licenseRenewalTerm
+		return "DrivingLicenseVO [licenseNo=" + licenseNo + ", licenseType="
+				+ licenseType + ", licenseRenewalTerm=" + licenseRenewalTerm
 				+ ", licenseIssueDate=" + licenseIssueDate + ", gender="
-				+ gender + "]";
-	}
+				+ gender + ", licenseBirth=" + licenseBirth + "]";
+	}	
 }

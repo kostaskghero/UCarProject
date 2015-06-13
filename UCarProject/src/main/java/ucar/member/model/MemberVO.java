@@ -1,14 +1,26 @@
 package ucar.member.model;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 public class MemberVO {
+	@Size(min=4,max=10)
 	private String memberId;
+	@Size(min=8,max=20)
 	private String memberPassword;
+	@NotEmpty
 	private String memberName;
+	@Email
+	@NotEmpty
 	private String memberEmail;
-	private String memberPhone;
+	@NotEmpty
+	private String memberPhone;	
 	private String memberPoint;
 	private String memberLevel;
-	private String memberBirthDate;
 	private DrivingLicenseVO drivingLicenseVO;
 	private CardVO cardVO;
 	public MemberVO() {
@@ -17,8 +29,7 @@ public class MemberVO {
 	}
 	public MemberVO(String memberId, String memberPassword, String memberName,
 			String memberEmail, String memberPhone, String memberPoint,
-			String memberLevel, String memberBirthDate,
-			DrivingLicenseVO drivingLicenseVO, CardVO cardVO) {
+			String memberLevel, DrivingLicenseVO drivingLicenseVO, CardVO cardVO) {
 		super();
 		this.memberId = memberId;
 		this.memberPassword = memberPassword;
@@ -27,7 +38,6 @@ public class MemberVO {
 		this.memberPhone = memberPhone;
 		this.memberPoint = memberPoint;
 		this.memberLevel = memberLevel;
-		this.memberBirthDate = memberBirthDate;
 		this.drivingLicenseVO = drivingLicenseVO;
 		this.cardVO = cardVO;
 	}
@@ -73,12 +83,6 @@ public class MemberVO {
 	public void setMemberLevel(String memberLevel) {
 		this.memberLevel = memberLevel;
 	}
-	public String getMemberBirthDate() {
-		return memberBirthDate;
-	}
-	public void setMemberBirthDate(String memberBirthDate) {
-		this.memberBirthDate = memberBirthDate;
-	}
 	public DrivingLicenseVO getDrivingLicenseVO() {
 		return drivingLicenseVO;
 	}
@@ -97,8 +101,7 @@ public class MemberVO {
 				+ memberPassword + ", memberName=" + memberName
 				+ ", memberEmail=" + memberEmail + ", memberPhone="
 				+ memberPhone + ", memberPoint=" + memberPoint
-				+ ", memberLevel=" + memberLevel + ", memberBirthDate="
-				+ memberBirthDate + ", drivingLicenseVO=" + drivingLicenseVO
-				+ ", cardVO=" + cardVO + "]";
+				+ ", memberLevel=" + memberLevel + ", drivingLicenseVO="
+				+ drivingLicenseVO + ", cardVO=" + cardVO + "]";
 	}
 }
