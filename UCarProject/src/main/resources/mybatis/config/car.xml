@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- carVo ResultMap -->
+<mapper namespace="car">
+	<resultMap type="cvo" id="carRM">
+		<result property="carNo" column="CAR_NO" />
+		<result property="uCarZoneVO.uCarZoneName" column="UCAR_ZONE_NAME" />
+		<result property="carNickName" column="CAR_NICK_NAME" />
+		<result property="carModelInfoVO.carModel" column="CAR_MODEL" />
+		<result property="carModelInfoVO.carType" column="car_type" />
+		<result property="carModelInfoVO.rentalFee" column="rental_fee" />
+		<result property="carModelInfoVO.drivingFee" column="driving_fee" />
+		<result property="carModelInfoVO.carPhoto" column="car_photo" />
+		<result property="carModelInfoVO.oilType" column="oil_type" />
+		<result property="uCarZoneVO.uCarZoneAddress" column="UCAR_ZONE_ADDRESS" />
+	</resultMap>
+
+	<select id="getCarDetailInfoByCarNo" resultMap="carRM">
+		select
+		c.CAR_NO,c.CAR_MODEL,c.UCAR_ZONE_NAME,c.CAR_NICK_NAME,m.CAR_TYPE,m.RENTAL_FEE,m.DRIVING_FEE,m.OIL_TYPE,u.UCAR_ZONE_ADDRESS
+		from CAR c,CAR_MODEL_INFO m,ucar_zone u
+		where c.CAR_MODEL=m.CAR_MODEL
+		and c.UCAR_ZONE_NAME=u.UCAR_ZONE_NAME and
+		c.Car_NO=#{value}
+	</select>
+	<insert id="registerCar" parameterType="cvo">
+		<selectKey keyProperty="carNo" resultType="int" order="BEFORE">
+			select car_seq.nextval from dual
+		</selectKey>
+		insert into car(CAR_NO, CAR_MODEL, UCAR_ZONE_NAME, CAR_NICK_NAME)
+		values(#{carNo}, #{carModelInfoVO.carModel},
+		#{uCarZoneVO.uCarZoneName},
+		#{carNickName})
+	</insert>
+
+	<select id="getCarModelList" resultType="String">
+		select
+		distinct(CAR_Model) from CAR_MODEL_INFO order by CAR_Model asc
+	</select>
+	<select id="getCarTypeList" resultType="String">
+		select
+		distinct(CAR_type) from CAR_MODEL_INFO order by CAR_type asc
+	</select>
+	<select id="getAllCarList" resultMap="carRM">
+		select * from car order by
+		car_no asc
+	</select>
+	<select id="getCarModelByType" parameterType="String"
+		resultType="String">
+		select CAR_MODEL from CAR_MODEL_INFO where
+		car_type=#{value}
+	</select>
+	<select id="findCarByNo" resultMap="carRM">
+		select * from car where
+		car_no=#{value}
+	</select>
+	<select id="carNickNameCheck" resultMap="carRM">
+		select * from car where
+		CAR_NICK_NAME=#{value}
+	</select>
+	<update id="updateCar" parameterType="cvo">
+		update car set
+		UCAR_ZONE_NAME=#{uCarZoneVO.uCarZoneName},
+		CAR_NICK_NAME=#{carNickName}
+		where
+		CAR_NO=#{carNo}
+	</update>
+	<delete id="deleteCar">
+		delete from car where car_no=#{value}
+	</delete>
+	<select id="searchCarByModel" parameterType="cvo" resultMap="carRM">
+		select * from car where car_model=#{carModelInfoVO.carModel}
+	</select>
+	<select id="searchCarByUCarZone" parameterType="cvo" resultMap="carRM">
+		select * from car where ucar_zone_name=#{uCarZoneVO.uCarZoneName}
+	</select>
+	<select id="searchCarByNickName" parameterType="cvo" resultMap="carRM">
+		select * from car where car_nick_name=#{carNickName}
+	</select>
+	<select id="searchCarByModelAndUCarZone" parameterType="cvo"
+		resultMap="carRM">
+		select * from car where car_model=#{carModelInfoVO.carModel}
+		and ucar_zone_name=#{uCarZoneVO.uCarZoneName}
+	</select>
+	<select id="searchCarByModelAndNickName" parameterType="cvo"
+		resultMap="carRM">
+		select * from car where car_model=#{carModelInfoVO.carModel}
+		and car_nick_name=#{carNickName}
+	</select>
+	<select id="searchCarByUCarZoneAndNickName" parameterType="cvo"
+		resultMap="carRM">
+		select * from car where
+		ucar_zone_name=#{uCarZoneVO.uCarZoneName} and
+		car_nick_name=#{carNickName}
+	</select>
+	<select id="searchCarByModelAndUCarZoneAndNickName"
+		parameterType="cvo" resultMap="carRM">
+		select * from car where
+		ucar_zone_name=#{uCarZoneVO.uCarZoneName} and
+		car_nick_name=#{carNickName} and car_model=#{carModelInfoVO.carModel}
+	</select>
+</mapper> 

@@ -5,7 +5,7 @@ public class CarVO {
 	private String carNickName;
 	private UCarZoneVO uCarZoneVO;
 	private CarModelInfoVO carModelInfoVO;
-	private boolean available;
+	private boolean available=true;
 	public CarVO() {
 		super();
 	}

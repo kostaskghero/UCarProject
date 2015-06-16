@@ -20,6 +20,7 @@
         <li><a href="#">요금안내</a></li>
         <li><a href="${initParam.root }auth_member_myPage.do">마이페이지</a></li>
         <li><a href="#">유카찾기/예약</a></li>
+                 <li><a href="admin_pageView.do">관리자</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right well-lg">
         <c:choose>

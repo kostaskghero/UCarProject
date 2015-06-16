@@ -10,8 +10,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 사용할 클래스에 대한 별칭을 명시한다.  -->
 	<typeAliases>
 		<typeAlias type="ucar.member.model.MemberVO" alias="mvo"/> 
+		<typeAlias type="ucar.car.model.CarVO" alias="cvo" />
+		<typeAlias type="ucar.car.model.CarModelInfoVO" alias="carDetailVO" />
+		<typeAlias type="ucar.car.model.UCarZoneVO" alias="uCarZoneVO" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/config/member.xml"/>
+		<mapper resource="mybatis/config/car.xml" />
+		<mapper resource="mybatis/config/ucarzone.xml" />
 	</mappers>
 </configuration>

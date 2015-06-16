@@ -78,6 +78,7 @@ CREATE TABLE CAR (
 	insert into CAR_OPTION(OPTION_NUMBER, CAR_MODEL, OPTION_INFO)
 	values (car_option_seq.nextval, '티코', '하이패스')
 	
+	drop table SHARING_RESERVATION;
 	create sequence SHARING_RESERVATION_seq nocache
 	drop sequence SHARING_RESERVATION_seq
 	CREATE TABLE SHARING_RESERVATION (
@@ -97,6 +98,8 @@ CREATE TABLE CAR (
 	values(SHARING_RESERVATION_seq.nextval, '1', 'java', 100, '예약', sysdate, sysdate, 100)
 	
 	create sequence faq_seq nocache
+	drop sequence faq_seq
+	drop table faq
 	CREATE TABLE FAQ (
 		FAQ_NO number primary key,
 		FAQ_CATEGORY VARCHAR2(200) NOT NULL,
@@ -105,7 +108,7 @@ CREATE TABLE CAR (
 		FAQ_CONTENT CLOB NOT NULL,
 		constraint FK_FAQ_MEMBER_ID foreign key(FAQ_MEMBER_ID) references member
 	);
-	
+	drop table qna_board;
 create table qna_board(
    qna_no number primary key,
    qna_category varchar2(50) not null,
@@ -119,11 +122,13 @@ create table qna_board(
    constraint fk_qna_member_id foreign key(qna_member_id) references member
 )
 create sequence qna_board_seq nocache;
+drop sequence qna_board_seq
 select * from qna_board
 insert into qna_board (qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref)
 values (qna_board_seq.nextval, '예약', 'java', '예약문의', '예약어떻게하죠?', sysdate, '0')
 	
 drop table notice_board
+drop sequence notice_board_seq
 create sequence notice_board_seq nocache;
 create table notice_board(
  notice_no number primary key,
