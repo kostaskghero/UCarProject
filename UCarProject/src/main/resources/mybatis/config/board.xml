@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="board"> 
+<insert id="write" parameterType="bvo" >
+ 	 <selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
+		select notice_board_seq.nextval from dual
+	</selectKey>  
+  insert into notice_board(
+	  notice_no, notice_title, notice_member_id, notice_content, notice_time_posted  
+  )  values(#{noticeNo}, #{noticeTitle},#{noticeMemberId},#{noticeContent}, sysdate)
+  </insert>
+     <resultMap type="bvo" id="boardListRM">
+		<result property="noticeNo" column="notice_no" />			
+		<result property="noticeTitle" column="notice_title" /> 
+		<result property="noticeMemberId" column="notice_member_id" /> 
+		<result property="noticeContent" column="notice_content" /> 
+		<result property="noticeTimePosted" column="notice_time_posted" /> 
+	</resultMap>
+	<select id="getBoardList" resultMap="boardListRM">
+	SELECT notice_no, notice_title, notice_member_id, notice_content, notice_time_posted
+					    FROM(	 
+								SELECT notice_no, notice_title, notice_member_id, notice_content, notice_time_posted,
+								CEIL(rownum/5) AS page
+								FROM ( 
+									SELECT notice_no, notice_title, notice_member_id, notice_content,
+									to_char(notice_time_posted,'YYYY.MM.DD') as notice_time_posted
+									FROM notice_board
+									order by notice_no desc
+									 ) 
+    ) WHERE PAGE=#{value}
+	</select>
+	<select id="showContent" resultMap="boardListRM">
+	select  notice_no, notice_title, notice_member_id, notice_content, notice_time_posted
+	from notice_board 
+	where notice_no=#{value}
+	</select>
+<!-- 	위에서 정의했던 boardListRM 을 확장하여(속성추가) 사용
+	<resultMap type="bvo" id="boardRM" extends="boardListRM">
+	<result property="content" column="content" />		
+	</resultMap>-->
+	
+	<!-- <update id="updateCount" parameterType="int">
+	update notice_board set notice_title=#{noticeTitle}, notice_content =#{noticeContent} where notice_no=#{noticeNo}
+	</update>
+	<select id="checkPass"  resultType="int" parameterType="hashmap">
+	select count(*) from spring_board_reply 
+	where no=#{no} and password=#{pass}
+	</select>  -->
+	<delete id="deleteBoard">
+	delete from notice_board where notice_no=#{value}
+	</delete> 
+	<update id="updateBoard" parameterType="bvo">
+	update notice_board set notice_title=#{noticeTitle}, notice_content=#{noticeContent}
+	where notice_no=#{noticeNo}
+	</update>
+
+	<select id="totalContent" resultType="int">
+		select count(*) from notice_board
+	</select>	
+<!-- 	 <update id="updateRestep" parameterType="hashmap">
+	 UPDATE 	spring_board_reply 
+		  SET 		restep = restep+1
+	 	WHERE     ref=#{ref}
+	 	 AND 		restep > #{restep}
+	 </update>
+	<insert id="insertRef" parameterType="bvo">
+ 	 <selectKey keyProperty="no" resultType="int" order="BEFORE">
+		select spring_board_reply_seq.nextval from dual
+	</selectKey>  
+  insert into spring_board_reply(
+	  no,title,writer,password,
+	  content,write_date,view_count, ref, restep, relevel	  
+  )  values(#{no},#{title},#{writer},#{password},#{content},sysdate,0, #{ref}, #{restep}, #{relevel})
+  </insert>  -->
+ </mapper> 		
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

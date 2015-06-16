@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="qnaboard"> 
+	<insert id="write" parameterType="qvo" >
+ 	 <selectKey keyProperty="qnaNo" resultType="int" order="BEFORE">
+		select qna_board_reply_seq.nextval from dual
+	</selectKey>  
+  insert into qna_board_reply(
+	 qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted , qna_ref, qna_restep, qna_relevel
+  )  values(#{qnaNo}, #{qnaCategory},#{qnaMemberId},#{qnaTitle}, #{qnaContent}, sysdate, #{qnaNo}, 0, 0)
+  </insert>
+     <resultMap type="qvo" id="qnaboardListRM">
+		<result property="qnaNo" column="qna_no" />			
+		<result property="qnaCategory" column="qna_category" /> 
+		<result property="qnaMemberId" column="qna_member_id" /> 
+		<result property="qnaTitle" column="qna_title" /> 
+		<result property="qnaContent" column="qna_content" /> 
+		<result property="qnaTimePosted" column="qna_time_posted" /> 
+		<result property="qnaRef" column="qna_ref" /> 
+		<result property="qnaRestep" column="qna_restep" /> 
+		<result property="qnaRelevel" column="qna_relevel" /> 
+	</resultMap>
+	<select id="getBoardList" resultMap= "qnaboardListRM">
+	SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
+					    FROM(	 
+								SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted,
+								CEIL(rownum/5) AS page, qna_ref, qna_restep, qna_relevel
+								FROM ( 
+									SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content,
+									to_char(qna_time_posted,'YYYY.MM.DD') as qna_time_posted, qna_ref, qna_restep, qna_relevel
+									FROM qna_board_reply
+									order by qna_ref desc, qna_restep asc
+									 ) 
+    ) WHERE PAGE=#{value}
+	</select>
+	<select id="showContent" resultMap="qnaboardListRM">
+	select  qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted,  qna_ref, qna_restep, qna_relevel
+	from qna_board_reply 
+	where qna_no=#{value}
+	</select>
+	<!-- 위에서 정의했던 boardListRM 을 확장하여(속성추가) 사용
+	<resultMap type="bvo" id="boardRM" extends="boardListRM">
+	<result property="content" column="content" />		
+	</resultMap>
+	
+	<update id="updateCount" parameterType="int">
+	update notice_board set notice_title=#{noticeTitle}, notice_content =#{noticeContent} where notice_no=#{noticeNo}
+	</update>
+	<select id="checkPass"  resultType="int" parameterType="hashmap">
+	select count(*) from spring_board_reply 
+	where no=#{no} and password=#{pass}
+	</select> 
+	<delete id="deleteBoard">
+	delete from notice_board where notice_no=#{value}
+	</delete> 
+	<update id="updateBoard" parameterType="bvo">
+	update notice_board set notice_title=#{noticeTitle}, notice_content=#{noticeContent}
+	where notice_no=#{noticeNo}
+	</update>-->
+
+	<select id="totalContent" resultType="int">
+		select count(*) from qna_board_reply
+	</select>
+	 <update id="updateRestep" parameterType="hashmap">
+	 UPDATE 	qna_board_reply 
+		  SET 		qna_restep = qna_restep+1
+	 	WHERE     qna_ref=#{qnaRef}
+	 	 AND 		qna_restep > #{qnaRestep}
+	 </update>
+	<insert id="insertRef" parameterType="qvo">
+ 	 <selectKey keyProperty="qnaNo" resultType="int" order="BEFORE">
+		select qna_board_reply_seq.nextval from dual
+	</selectKey>  
+  insert into qna_board_reply(
+	  qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
+  )  values(#{qnaNo},#{qnaCategory},#{qnaMemberId},#{qnaTitle},#{qnaContent}, sysdate, #{qnaRef}, #{qnaRestep}, #{qnaRelevel})
+  </insert>
+ </mapper> 		
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -108,8 +108,9 @@ CREATE TABLE CAR (
 		FAQ_CONTENT CLOB NOT NULL,
 		constraint FK_FAQ_MEMBER_ID foreign key(FAQ_MEMBER_ID) references member
 	);
-	drop table qna_board;
-create table qna_board(
+drop sequence qna_board_reply_seq;
+	drop table qna_board_reply
+create table qna_board_reply(
    qna_no number primary key,
    qna_category varchar2(50) not null,
    qna_member_id varchar2(50) not null,
@@ -119,8 +120,12 @@ create table qna_board(
    qna_ref number not null,
    qna_restep number default 0,
    qna_relevel number default 0,
-   constraint fk_qna_member_id foreign key(qna_member_id) references member
+   constraint fk_qna_reply_member_id foreign key(qna_member_id) references member
 )
+create sequence qna_board_reply_seq nocache;
+select * from qna_board_reply
+insert into qna_board_reply (qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref)
+values (qna_board_reply_seq.nextval, '예약', 'java', '예약문의', '예약어떻게하죠?', sysdate, '0')
 create sequence qna_board_seq nocache;
 drop sequence qna_board_seq
 select * from qna_board
@@ -132,11 +137,10 @@ drop sequence notice_board_seq
 create sequence notice_board_seq nocache;
 create table notice_board(
  notice_no number primary key,
-   notice_title varchar2(100) not null,
+    notice_title varchar2(100) not null,
    notice_member_id varchar2(50) not null,
    notice_content clob not null,
    notice_time_posted date not null,
-   notice_hits number default 0,
    constraint fk_notice_member_id foreign key(notice_member_id) references member
 )
 select * from notice_board

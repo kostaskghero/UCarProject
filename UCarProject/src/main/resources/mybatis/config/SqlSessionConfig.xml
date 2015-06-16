@@ -13,10 +13,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="ucar.car.model.CarVO" alias="cvo" />
 		<typeAlias type="ucar.car.model.CarModelInfoVO" alias="carDetailVO" />
 		<typeAlias type="ucar.car.model.UCarZoneVO" alias="uCarZoneVO" />
+		<typeAlias type="ucar.board.notice.model.BoardVO" alias="bvo"/>  
+		<typeAlias type="ucar.board.qna.model.QnaBoardVO" alias="qvo"/>  
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/config/member.xml"/>
 		<mapper resource="mybatis/config/car.xml" />
 		<mapper resource="mybatis/config/ucarzone.xml" />
+		<mapper resource="mybatis/config/board.xml"/>
+		<mapper resource="mybatis/config/qnaboard.xml"/>
 	</mappers>
 </configuration>
