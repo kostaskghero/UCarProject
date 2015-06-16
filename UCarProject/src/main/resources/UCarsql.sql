@@ -126,12 +126,7 @@ create sequence qna_board_reply_seq nocache;
 select * from qna_board_reply
 insert into qna_board_reply (qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref)
 values (qna_board_reply_seq.nextval, '예약', 'java', '예약문의', '예약어떻게하죠?', sysdate, '0')
-create sequence qna_board_seq nocache;
-drop sequence qna_board_seq
-select * from qna_board
-insert into qna_board (qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref)
-values (qna_board_seq.nextval, '예약', 'java', '예약문의', '예약어떻게하죠?', sysdate, '0')
-	
+
 drop table notice_board
 drop sequence notice_board_seq
 create sequence notice_board_seq nocache;
