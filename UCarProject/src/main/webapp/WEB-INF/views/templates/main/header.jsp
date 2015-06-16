@@ -16,10 +16,11 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav well-lg" style="font-size: 20px">
-        <li><a href="#">서비스안내</a></li>
-        <li><a href="#">요금안내</a></li>
+        <li><a href="${initParam.root }service_home_usehow.do">서비스안내</a></li>
+        <li><a href="${initParam.root }feeinfo_home_feeinfo.do">요금안내</a></li>
         <li><a href="${initParam.root }auth_member_myPage.do">마이페이지</a></li>
         <li><a href="#">유카찾기/예약</a></li>
+         <li><a href="${initParam.root }customercenter_home_notice.do">고객센터</a></li>
                  <li><a href="admin_pageView.do">관리자</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right well-lg">
