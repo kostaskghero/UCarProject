@@ -20,7 +20,9 @@
 			<ul class="nav navbar-nav well-lg" style="font-size: 20px">
 				<li><a href="#">서비스안내</a></li>
 				<li><a href="#">요금안내</a></li>
+				<c:if test="${sessionScope.loginInfo!=null }">
 				<li><a href="${initParam.root }auth_member_myPage.do">마이페이지</a></li>
+				</c:if>
 				<li><a href="${initParam.root }customercenter_home_notice.do">고객센터</a></li>
 				<li><a href="${initParam.root }search_searchForm.do"">유카찾기/예약</a></li>
 				<c:choose>

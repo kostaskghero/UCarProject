@@ -20,7 +20,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session=request.getSession(false);
-		if(session==null || session.getAttribute("loginInfo")==null){
+		if(session==null || (session.getAttribute("loginInfo")==null && session.getAttribute("admin")==null)){
 			response.sendRedirect("member_login_form.do");
 			return false;
 		}

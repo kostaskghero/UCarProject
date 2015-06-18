@@ -22,7 +22,7 @@ public class QnaController {
 	 *   1:1문의글 쓰는 페이지로 이동
 	 * @return
 	 */
-	@RequestMapping("customercenter_home_qna.do")
+	@RequestMapping("auth_customercenter_home_qna.do")
 	public ModelAndView serviceinfoQna(){
 		return new ModelAndView("customercenter_qna_form");
 	}
@@ -32,7 +32,7 @@ public class QnaController {
 	 * @return
 	 * @
 	 */
-	@RequestMapping("customercenter_home_qna_boardList.do")
+	@RequestMapping("auth_customercenter_home_qna_boardList.do")
 	public ModelAndView list(String pageNo, HttpServletRequest request) {	
 		MemberVO mvo=null;
 		HttpSession session=request.getSession(false);

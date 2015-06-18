@@ -66,7 +66,7 @@
 							 end="${requestScope.lvo.pagingBean.endPageOfPageGroup}">
 							 <c:choose>
 							 <c:when test="${requestScope.lvo.pagingBean.nowPage!=i}">
-							 <a href="${initParam.root}customercenter_home_qna_boardList.do?pageNo=${i}">${i}</a>
+							 <a href="${initParam.root}auth_customercenter_home_qna_boardList.do?pageNo=${i}">${i}</a>
 							 </c:when>
 							 <c:otherwise>
 							${i}
