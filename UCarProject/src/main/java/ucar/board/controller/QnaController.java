@@ -2,6 +2,7 @@ package ucar.board.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ucar.board.qna.model.QnaBoardService;
 import ucar.board.qna.model.QnaBoardVO;
 import ucar.board.qna.model.QnaListVO;
+import ucar.member.model.MemberVO;
 @Controller
 public class QnaController {
 	@Resource(name= "qnaBoardServiceImpl")
@@ -31,8 +33,15 @@ public class QnaController {
 	 * @
 	 */
 	@RequestMapping("customercenter_home_qna_boardList.do")
-	public ModelAndView list(String pageNo, String sessionId) {	
-		QnaListVO qvo = qnaBoardService.getBoardList(pageNo, sessionId);
+	public ModelAndView list(String pageNo, HttpServletRequest request) {	
+		MemberVO mvo=null;
+		HttpSession session=request.getSession(false);
+		if(session.getAttribute("loginInfo")!=null){
+			mvo=(MemberVO)session.getAttribute("loginInfo");
+		} else if(session.getAttribute("admin")!=null){
+			mvo=(MemberVO)session.getAttribute("admin");
+		}		
+		QnaListVO qvo = qnaBoardService.getBoardList(pageNo, mvo.getMemberId());
 		return new ModelAndView("qna_qna_list_form","lvo",qvo);
 	}	
 	/**

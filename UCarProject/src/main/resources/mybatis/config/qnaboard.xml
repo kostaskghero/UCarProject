@@ -77,6 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
   )  values(#{qnaNo},#{qnaCategory},#{qnaMemberId},#{qnaTitle},#{qnaContent}, sysdate, #{qnaRef}, #{qnaRestep}, #{qnaRelevel})
   </insert>
+  <select id="totalContentByMemberId" resultType="int">
+  	select count(*) from qna_board_reply where qna_member_id=#{value}
+  </select>
  </mapper> 		
  
  

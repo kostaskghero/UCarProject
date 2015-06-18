@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-<c:when test="${sessionScope.loginInfo!=null }">
+<c:when test="${sessionScope.loginInfo!=null ||sessionScope.admin!=null }">
 <form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
 	<div class="form-group">
 	   <div class="col-lg-2"  >

@@ -17,7 +17,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<ReservationVO> searchCar(ReservationVO reservationVO) {
 		List<ReservationVO> carList=null;
-		if(reservationVO.getCarVO().getCarModelInfoVO().getCarType().equals("all")){
+		if(reservationVO.getCarVO().getCarModelInfoVO().getCarModel().equals("all")){
 			carList=reservationDAO.getAllCarListByUcarZoneName(reservationVO);
 		} else{
 			carList=reservationDAO.getCarListByUcarZoneNameAndCarModel(reservationVO);

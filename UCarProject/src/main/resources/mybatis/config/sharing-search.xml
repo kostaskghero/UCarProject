@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	<select id="getCarListByUcarZoneNameAndCarModel" parameterType="rvo" resultMap="reservationRM">
  		select c.car_no, c.car_nick_name, c.ucar_zone_name, m.car_model, 
- 			m.car_type, m.rental_fee*((to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(${rentalDate},'YYYY/MM/DD HH24:MI'))*24*60/10) as rental_price, 
+ 			m.car_type, m.rental_fee*((to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'))*24*60/10) as rental_price, 
  			m.driving_fee, m.car_photo, m.oil_type 
 		from car c, car_model_info m 
  		where c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} and m.car_model=#{carVO.carModelInfoVO.carModel} and c.car_model=m.car_model order by c.car_no

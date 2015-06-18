@@ -7,7 +7,7 @@
 			$("#qnaReplyForm").submit();
 		});
 		$("#qnaList").click(function(){
-			location.href ="${initParam.root }customercenter_home_qna_boardList.do?sessionId=${sessionScope.loginInfo.memberId}";
+			location.href ="${initParam.root }customercenter_home_qna_boardList.do";
 		});
 	});
 </script>
@@ -42,7 +42,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <c:if test="${sessionScope.loginInfo.memberId == 'admin'}">
+        <c:if test="${sessionScope.admin!=null }">
         <button type="submit" class="btn btn-primary" id ="qnaReply">답글달기</button>
         </c:if>
      	 <button type="reset" class="btn btn-default"  id ="qnaList" >목록보기</button>

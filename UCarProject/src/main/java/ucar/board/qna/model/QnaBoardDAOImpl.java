@@ -70,6 +70,13 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	public void insertRef(QnaBoardVO vo) {
 		sqlSessionTemplate.insert("qnaboard.insertRef", vo);
 	}
+
+
+
+	@Override
+	public int totalContentByMemberId(String sessionId) {
+		return sqlSessionTemplate.selectOne("qnaboard.totalContentByMemberId", sessionId);
+	}
 	
 }
 

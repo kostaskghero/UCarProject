@@ -73,7 +73,7 @@
       </div>
     </div>
   </fieldset>
-  <input type ="hidden" name = "sessionId" value ="${sessionScope.loginInfo.memberId}">  
+ <%--  <input type ="hidden" name = "sessionId" value ="${sessionScope.admin.memberId}">   --%>
 </form>
 </c:when>
 <c:otherwise>

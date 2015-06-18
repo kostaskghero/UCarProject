@@ -22,7 +22,7 @@
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">
-        <input type="text" class="form-control" id="qnaMemberId" name="qnaMemberId" value="${sessionScope.loginInfo.memberId}" readonly="readonly">
+        <input type="text" class="form-control" id="qnaMemberId" name="qnaMemberId" value="admin" readonly="readonly">
       </div>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <c:if test="${sessionScope.loginInfo.memberId == 'admin'}">
+        <c:if test="${sessionScope.admin!=null }">
         <button type="submit" class="btn btn-primary" id ="qnaReply">Reply</button>
         </c:if>
      	 <button type="reset" class="btn btn-default"  id ="qnaList" >목록보기</button>
