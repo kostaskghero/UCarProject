@@ -48,4 +48,6 @@ public interface MemberDAO {
 
 	public int countCardByMemberId(String memberId);
 
+	public int findPointByMemberId(String memberId);
+
 }

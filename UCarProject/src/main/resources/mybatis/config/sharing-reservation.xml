@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="reservation">
+ 	<resultMap type="rvo" id="reservationRM">
+ 	 	<result property="reservationNo" column="reservation_no"/>
+ 	 	<result property="rentalDate" column="rental_date"/>
+ 	 	<result property="returnDate" column="return_date"/>
+ 	 	<result property="rentalPrice" column="rental_price"/>
+ 	 	<result property="sharingStatus" column="status"/>
+ 	 	<result property="availableTime" column="available_time"/>
+ 	 	<result property="carVO.carNo" column="car_no"/>
+ 	 	<result property="carVO.carNickName" column="car_nick_name"/>
+ 	 	<result property="carVO.uCarZoneVO.uCarZoneName" column="ucar_zone_name"/>
+ 	 	<result property="carVO.uCarZoneVO.uCarZoneAddress" column="ucar_zone_address"/>
+ 	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
+ 	 	<result property="carVO.carModelInfoVO.drivingFee" column="driving_fee"/>
+ 	 	<result property="memberVO.memberId" column="member_id"/>
+ 	 </resultMap>
+ 	<insert id="reservationCar" parameterType="rvo">
+ 		<selectKey keyProperty="reservationNo" resultType="int" order="BEFORE">
+			select sharing_reservation_seq.nextval from dual
+		</selectKey>
+ 		insert into sharing_reservation(reservation_no, sharing_type, car_no, member_id, rental_price, rental_date, rental_ucar_zone_name, return_date, return_ucar_zone_name, reservation_date) 
+ 		values(#{reservationNo}, #{sharingType}, #{carVO.carNo}, #{memberVO.memberId}, #{rentalPrice}, to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'), #{rentalUcarZoneName}, to_date(#{returnDate},'YYYY/MM/DD HH24:MI'), #{returnUcarZoneName}, sysdate)
+ 	</insert>
+ 	<select id="findReservationInfoByReservationNo" resultMap="reservationRM">
+ 		select s.reservation_no, s.rental_price, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, c.ucar_zone_name, u.ucar_zone_address, 
+ 			c.car_model, to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
+ 			ceil((s.return_date-s.rental_date)*24*60) as available_time
+		from sharing_reservation s, car c, ucar_zone u, car_model_info m
+		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and c.car_model=m.car_model and reservation_no=#{value}
+ 	</select>
+ 	<select id="findReservationByMemberIdAndDate" parameterType="rvo" resultMap="reservationRM">
+ 		select to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date, 'YYYY/MM/DD DY HH24:MI') as return_date 
+		from 
+		(
+			select r.car_no, r.rental_date, r.return_date 
+			from sharing_reservation r, sharing_status s
+			where r.member_id=#{memberVO.memberId} and (s.status='예약' or s.status='이용요금결제' or s.status='사용중' or s.status='연장') and r.reservation_no=s.reservation_no
+		)
+		<![CDATA[where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
+			and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))]]>
+ 	</select>
+ 	<select id="totalReservationByMemberId" resultType="int">
+ 		select count(r.reservation_no) from sharing_reservation r, sharing_status s where r.reservation_no=s.reservation_no and r.member_id=#{value} and (s.status='예약' or s.status='이용요금결제')
+ 	</select>
+ 	<select id="getReservationListByMemberId" parameterType="rvo" resultMap="reservationRM">
+ 		SELECT car_model, car_nick_name, reservation_no, to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date,'YYYY/MM/DD DY HH24:MI') as return_date, status, rental_price
+		FROM
+		(	 
+			SELECT car_model, car_nick_name, reservation_no, rental_date, return_date, status, CEIL(rownum/10) AS page, rental_price  
+				FROM 
+				( 
+					select c.car_model, c.car_nick_name, r.reservation_no, r.rental_date, r.return_date, s.status, r.rental_price 
+					from sharing_reservation r, car c, car_model_info m, sharing_status s
+					where r.member_id=#{memberVO.memberId} and r.car_no=c.car_no and c.car_model=m.car_model and r.reservation_no=s.reservation_no and (s.status='예약' or s.status='이용요금결제') order by r.rental_date								
+				) 
+		    )
+		WHERE PAGE=#{historyPageNo}
+ 	</select>
+ 	<select id="getUsedListByMemberId" parameterType="rvo" resultMap="reservationRM">
+ 		SELECT car_model, car_nick_name, reservation_no, to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date,'YYYY/MM/DD DY HH24:MI') as return_date, status, rental_price
+		FROM
+		(	 
+			SELECT car_model, car_nick_name, reservation_no, rental_date, return_date, status, CEIL(rownum/10) AS page, rental_price  
+				FROM 
+				( 
+					select c.car_model, c.car_nick_name, r.reservation_no, r.rental_date, r.return_date, s.status, r.rental_price 
+					from sharing_reservation r, car c, car_model_info m, sharing_status s
+					where r.member_id=#{memberVO.memberId} and r.car_no=c.car_no and c.car_model=m.car_model and r.reservation_no=s.reservation_no and (s.status='사용중' or s.status='주행요금결제' or s.status='반납' or s.status='연장') order by r.rental_date								
+				) 
+		    )
+		WHERE PAGE=#{historyPageNo}
+ 	</select>
+ 	<select id="totalUsedByMemberId" resultType="int">
+ 		select count(r.reservation_no) from sharing_reservation r, sharing_status s where r.reservation_no=s.reservation_no and r.member_id=#{value} and (s.status='사용중' or s.status='주행요금결제' or s.status='반납' or s.status='연장')
+ 	</select>
+ 	<update id="cancelReservationByReservationNo" parameterType="int">
+ 		update sharing_status set status='취소' where reservation_no=#{value}
+ 	</update>
+ 	<insert id="insertSharingStatus" parameterType="int">
+ 		insert into sharing_status(reservation_no, status) values(#{value},'예약')
+ 	</insert>
+ </mapper> 

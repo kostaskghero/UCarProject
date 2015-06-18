@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="payment">
+ 	<resultMap type="rvo" id="reservationRM">
+ 	 	<!-- <result property="reservationNo" column="reservation_no"/>
+ 	 	<result property="rentalDate" column="rental_date"/>
+ 	 	<result property="returnDate" column="return_date"/>
+ 	 	<result property="rentalPrice" column="rental_price"/>
+ 	 	<result property="drivingFee" column="driving_fee"/>
+ 	 	<result property="sharingStatus" column="sharing_status"/>
+ 	 	<result property="availableTime" column="available_time"/>
+ 	 	<result property="carVO.carNo" column="car_no"/>
+ 	 	<result property="carVO.carNickName" column="car_nick_name"/>
+ 	 	<result property="carVO.uCarZoneVO.uCarZoneName" column="ucar_zone_name"/>
+ 	 	<result property="carVO.uCarZoneVO.uCarZoneAddress" column="ucar_zone_address"/>
+ 	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
+ 	 	<result property="carVO.carModelInfoVO.carType" column="car_type"/>
+ 	 	<result property="carVO.carModelInfoVO.rentalFee" column="rental_fee"/>
+ 	 	<result property="carVO.carModelInfoVO.drivingFee" column="driving_fee"/>
+ 	 	<result property="carVO.carModelInfoVO.carPhoto" column="car_photo"/>
+ 	 	<result property="carVO.carModelInfoVO.oilType" column="oil_type"/>
+ 	 	<result property="memberVO.memberId" column="member_id"/> -->
+ 	 </resultMap>
+ 	 <select id="checkCardPassword" resultType="int">
+ 	 	select count(*) from card where card_no=#{cardVO.cardNo} and member_id=#{memberId} and card_password=#{cardVO.cardPassword}
+ 	 </select>
+ 	 <insert id="insertSharingPayment" parameterType="pvo">
+ 	 	insert into sharing_payment(payment_no, reservation_no, payment_price, payment_card_no, using_point, payment_type) 
+ 	 	values(payment_no_seq.nextval, #{reservationNo}, #{paymentPrice}, #{paymentCardNo}, #{usingPoint}, #{paymentType})
+ 	 </insert>
+ 	 <update id="updateReservationStatusAboutRentalPrice" parameterType="pvo">
+ 	 	update sharing_status set status='이용요금결제' where reservation_no=#{reservationNo}
+ 	 </update>
+ </mapper> 

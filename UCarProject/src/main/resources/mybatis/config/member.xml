@@ -93,4 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countCardByMemberId" resultType="int">
 		select count(*) from card where member_id=#{value}
 	</select>
+	<select id="findPointByMemberId" resultType="int">
+		select member_point from member where member_id=#{value}
+	</select>
  </mapper> 

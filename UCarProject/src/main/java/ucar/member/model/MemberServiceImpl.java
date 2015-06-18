@@ -109,4 +109,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return "ok";
 	}
+
+	@Override
+	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId) {
+		int point=memberDAO.findPointByMemberId(memberId);
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("memberPoint", point);
+		// memberId 의 쿠폰리스트
+		return map;
+	}
 }

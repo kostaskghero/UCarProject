@@ -124,5 +124,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public int countCardByMemberId(String memberId) {
 		return sqlSessionTemplate.selectOne("member.countCardByMemberId", memberId);
 	}
+
+	@Override
+	public int findPointByMemberId(String memberId) {
+		return sqlSessionTemplate.selectOne("member.findPointByMemberId", memberId);
+	}
 	
 }
