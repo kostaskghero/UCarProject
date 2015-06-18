@@ -21,7 +21,6 @@
 				<li><a href="#">서비스안내</a></li>
 				<li><a href="#">요금안내</a></li>
 				<li><a href="${initParam.root }auth_member_myPage.do">마이페이지</a></li>
-				<li><a href="${initParam.root }customercenter_home_notice.do">고객센터</a></li>
 				<li><a href="#">유카찾기/예약</a></li>
 				<c:choose>
 					<c:when test="${sessionScope.admin!=null }">
