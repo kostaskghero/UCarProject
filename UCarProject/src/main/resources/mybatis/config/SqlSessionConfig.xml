@@ -14,6 +14,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="ucar.car.model.UCarZoneVO" alias="uCarZoneVO" />
 		<typeAlias type="ucar.board.notice.model.BoardVO" alias="bvo" />
 		<typeAlias type="ucar.board.qna.model.QnaBoardVO" alias="qvo" />
+		<typeAlias type="ucar.sharing.reservation.model.ReservationVO" alias="rvo"/>
+		<typeAlias type="ucar.sharing.payment.model.PaymentVO" alias="pvo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/config/member.xml" />
@@ -22,5 +24,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/config/board.xml" />
 		<mapper resource="mybatis/config/qnaboard.xml" />
 		<mapper resource="mybatis/config/adminMember.xml" />
+		<mapper resource="mybatis/config/sharing-search.xml"/>
+		<mapper resource="mybatis/config/sharing-reservation.xml"/>
+		<mapper resource="mybatis/config/sharing-payment.xml"/>
 	</mappers>
 </configuration>

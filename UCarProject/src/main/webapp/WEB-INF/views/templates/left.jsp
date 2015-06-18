@@ -16,7 +16,10 @@
 	<h4><a href="${initParam.root}member_logout.do">로그아웃</a></h4>
 	</c:otherwise>
 </c:choose>
-<h4><a href="${initParam.root}member_fileupload_form.do">파일업로드</a></h4><br>
-<a href="${initParam.root}auth_member_delete_form.do">auth_member_delete_form.do(회원탈퇴)</a><br>
-<a href="${initParam.root}auth_member_updateMember_form.do">auth_member_updateMember_form.do(회원정보수정폼)</a><br>
-<a href="${initParam.root}auth_member_updateMemberPassword_form.do">auth_member_updateMemberPassword_form.do(비밀번호수정폼)</a><br>
+<a href="${initParam.root}auth_member_delete_form.do">회원탈퇴</a><br>
+<a href="${initParam.root}auth_member_updateMember_form.do">회원정보수정</a><br>
+<a href="${initParam.root}auth_member_updateMemberPassword_form.do">비밀번호수정</a><br>
+<a href="${initParam.root}auth_member_reservationHistory.do">예약내역관리</a><br>
+<a href="${initParam.root}">포인트/쿠폰관리</a><br>
+<a href="${initParam.root}">즐겨찾는유카존관리</a><br>
+<a href="${initParam.root}">1:1문의</a><br>
