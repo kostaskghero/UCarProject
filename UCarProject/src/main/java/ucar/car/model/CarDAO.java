@@ -25,5 +25,8 @@ public interface CarDAO {
 	public List<CarVO> searchCarByModelAndNickName(CarVO cvo);
 	public List<CarVO> searchCarByUCarZoneAndNickName(CarVO cvo);
 	public List<CarVO> searchCarByModelAndUCarZoneAndNickName(CarVO cvo) ;
+	public void deleteUcarZone(String uCarZoneName);
+	public List<CarVO> searchCarByUCarZoneName(String uCarZoneName) ;
+	public void updateUcarZone(UCarZoneVO zvo) ;
 
 }

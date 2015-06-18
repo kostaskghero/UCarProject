@@ -2,11 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
+
 	$(document).ready(
 			function() {
-				$("#updateB").click(function(){
-					alert("제발");
+				$("#carNickName").keypress(function(e){
+					if(e.Keyword==13){
+						$("#searchCarBtn").click();
+					}
 				});
+	
 				$("#searchTable").on("click", "#updateBtn",function(){
 					if (confirm("수정하시겠습니까?"))
 						location.href = "admin_carUpdateForm.do?carNo="
@@ -59,13 +63,12 @@
 			});//ready
 </script>
 <html>
-<form class="form-horizontal"
-	action="${initParam.root }admin_searchCar.do" id="searchCar">
+<form class="form-horizontal" id="searchCar">
 	<fieldset>
 
 		<div class="col-lg-2">
 			<select class="form-control" id="carModel" name="carModel">
-				<option value="">모델</option>
+				<option value="">모델전체</option>
 				<c:forEach items="${requestScope.data.modelList }" var="data">
 					<option value="${data }">${data }</option>
 				</c:forEach>
@@ -73,7 +76,7 @@
 		</div>
 		<div class="col-lg-3">
 			<select class="form-control" id="uCarZoneName" name="uCarZoneName">
-				<option value="">유카존</option>
+				<option value="">유카존전체</option>
 				<c:forEach items="${requestScope.data.uCarZoneList }" var="data">
 					<option value="${data.uCarZoneName }">${data.uCarZoneName}</option>
 				</c:forEach>
@@ -82,7 +85,7 @@
 		<div class="form-group">
 			<div class="col-lg-3">
 				<input type="text" class="form-control" id="carNickName"
-					name="carNickName" placeholder="닉네임">
+					name="carNickName" placeholder="닉네임" onKeyDown="javascript:if (event.keyCode == 13) return false;" >
 
 			</div>
 			<button type="button" class="btn btn-primary" id="searchCarBtn">검색</button>
@@ -114,7 +117,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${requestScope.data.carList }" var="vo">
+							<c:forEach items="${requestScope.data.carList }" var="vo" >
 								<tr id="carInfo">
 									<td>${vo.carNo}</td>
 									<td>${vo.carModelInfoVO.carModel}</td>

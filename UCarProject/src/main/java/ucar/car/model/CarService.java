@@ -19,4 +19,7 @@ public interface CarService {
 	public CarVO getCarDetailInfoByCarNo(int carNo);
 	public List<String> getCarModelList();
 	public List<CarVO> searchCarByCondition(CarVO cvo);
+	public void deleteUcarZone(String uCarZoneName) ;
+	public List<CarVO> searchCarByUCarZoneName(String uCarZoneName) ;
+	public void updateUcarZone(UCarZoneVO zvo) ;
 }

@@ -43,7 +43,12 @@ public class MemberController {
 		if(memberVO!=null){
 			map.put("flag", "ok");
 			HttpSession session=request.getSession(false);
-			session.setAttribute("loginInfo", memberVO);
+			//관리자 다른세션주기
+			if(memberVO.getMemberId().equals("admin")){
+				session.setAttribute("admin", memberVO);
+			}else{
+				session.setAttribute("loginInfo", memberVO);
+			}			
 		}
 		return map;
 	}

@@ -15,6 +15,10 @@
 			<mvc:mapping path="/auth_*.do"/>
 			<bean class="ucar.common.LoginCheckInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin_*.do"/>
+			<bean class="ucar.common.AdminCheckInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

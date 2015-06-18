@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="getCarTypeList" resultType="String">
 		select
-		distinct(CAR_type) from CAR_MODEL_INFO order by CAR_type asc
+		distinct(CAR_type)
+		from CAR_MODEL_INFO order by CAR_type asc
 	</select>
 	<select id="getAllCarList" resultMap="carRM">
 		select * from car order by
@@ -101,5 +102,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from car where
 		ucar_zone_name=#{uCarZoneVO.uCarZoneName} and
 		car_nick_name=#{carNickName} and car_model=#{carModelInfoVO.carModel}
+	</select>
+	<select id="searchCarByUCarZoneName" resultMap="carRM">
+		select * from car where ucar_zone_name=#{value}
 	</select>
 </mapper> 

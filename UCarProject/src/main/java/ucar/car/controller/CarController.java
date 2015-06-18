@@ -254,9 +254,50 @@ public class CarController {
 			CarModelInfoVO modelVO) {
 		cvo.setuCarZoneVO(zvo);
 		cvo.setCarModelInfoVO(modelVO);
-		System.out.println("받아오는 cvo" + cvo);
 		List<CarVO> searchList = carService.searchCarByCondition(cvo);
 		System.out.println(searchList + "controllertest");
 		return searchList;
+	}
+	/**
+	 * ajax를 이용하여
+	 * 삭제하려는 유카존의 이름을 받아와 해당 유카존에 차량이 존재하면
+	 * 삭제하지 않고 deleteFail을 반환하며
+	 * 존재하지 않으면deleteOK를 반환하고 삭제시켜주는 메서드 
+	 * @param uCarZoneName
+	 * @return
+	 */
+	@RequestMapping("admin_deleteUcarZone.do")
+	@ResponseBody
+	public String deleteUcarZone(String uCarZoneName) {
+		List<CarVO>list=carService.searchCarByUCarZoneName(uCarZoneName);
+		String flag="";
+		if(list==null || list.size()==0){
+			carService.deleteUcarZone(uCarZoneName);
+			flag="deleteOK";
+		}else{
+			flag="deleteFail";
+		}
+		return flag;
+	}
+	/**
+	 * 유카존 수정 폼으로 이동시켜주는 메서드
+	 * @param uCarZoneName
+	 * @return
+	 */
+	@RequestMapping("admin_uCarZoneUpdateForm.do")
+	public ModelAndView updateUcarZoneForm(String uCarZoneName){
+		UCarZoneVO uvo= carService.checkUCarZone(uCarZoneName);
+		return new ModelAndView("admin_uCarZoneUpdateForm","vo",uvo);
+	}
+	/**
+	 * 유카존 수정폼에서 입력한 수정사항을
+	 * 수정하고 유카존 리스트로 이동시킨다. 
+	 * @param zvo
+	 * @return
+	 */
+	@RequestMapping("admin_uCarZoneUpdate.do")
+	public ModelAndView updateUcarZone(UCarZoneVO zvo){
+		carService.updateUcarZone(zvo);
+		return new ModelAndView("redirect:admin_uCarZone_list.do");
 	}
 }

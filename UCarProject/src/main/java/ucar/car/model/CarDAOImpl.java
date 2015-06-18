@@ -42,8 +42,10 @@ public class CarDAOImpl implements CarDAO {
 	}
 
 	public List<UCarZoneVO> getAllUCarZoneList() {
-/*		System.out.println(sqlSessionTemplate
-				.selectList("ucarzone.getAllUCarZoneList"));*/
+		/*
+		 * System.out.println(sqlSessionTemplate
+		 * .selectList("ucarzone.getAllUCarZoneList"));
+		 */
 		return sqlSessionTemplate.selectList("ucarzone.getAllUCarZoneList");
 	}
 
@@ -112,8 +114,23 @@ public class CarDAOImpl implements CarDAO {
 	}
 
 	public List<CarVO> searchCarByModelAndUCarZoneAndNickName(CarVO cvo) {
-		System.out.println("ㅇDAODODODOD"+cvo);
+		System.out.println("ㅇDAODODODOD" + cvo);
 		return sqlSessionTemplate.selectList(
 				"car.searchCarByModelAndUCarZoneAndNickName", cvo);
+	}
+
+	@Override
+	public void deleteUcarZone(String uCarZoneName) {
+		sqlSessionTemplate.delete("ucarzone.deleteUcarZone", uCarZoneName);
+	}
+
+	@Override
+	public List<CarVO> searchCarByUCarZoneName(String uCarZoneName) {
+		return sqlSessionTemplate.selectList("car.searchCarByUCarZoneName",
+				uCarZoneName);
+	}
+
+	public void updateUcarZone(UCarZoneVO zvo) {
+		sqlSessionTemplate.update("ucarzone.updateUcarZone", zvo);
 	}
 }

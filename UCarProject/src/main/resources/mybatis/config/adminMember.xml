@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- carVo ResultMap -->
+<mapper namespace="adminMember">
+	<resultMap type="mvo" id="memberRM">
+		<result property="memberId" column="member_id" />
+		<result property="memberPassword" column="member_password" />
+		<result property="memberName" column="member_name" />
+		<result property="memberEmail" column="member_email" />
+		<result property="memberPhone" column="member_phone" />
+		<result property="memberPoint" column="member_point" />
+		<result property="memberLevel" column="member_level" />
+		<result property="drivingLicenseVO.licenseNo" column="license_no" />
+		<result property="drivingLicenseVO.licenseType" column="license_type" />
+		<result property="drivingLicenseVO.licenseRenewalTerm" column="license_renewal_term" />
+		<result property="drivingLicenseVO.licenseIssueDate" column="license_issue_date" />
+		<result property="drivingLicenseVO.gender" column="gender" />
+		<result property="drivingLicenseVO.licenseBirth" column="license_birth" />
+		<result property="cardVO.cardNo" column="card_no" />
+		<result property="cardVO.cardType" column="card_type" />
+		<result property="cardVO.cardExpirationDate" column="card_expiration_date" />
+		<result property="cardVO.cardPassword" column="card_password" />
+		<result property="cardVO.cardBirth" column="card_birth" />
+	</resultMap>
+	<select id="getAllMemberList" resultMap="memberRM">
+		select * from member
+	</select>
+	<select id="findDetailMemberInfoByMemberId" resultMap="memberRM">
+		select m.member_id,m.member_password, m.member_name, m.member_email,
+		m.member_phone, m.member_point, d.license_no,d.license_type,
+		to_char(d.license_renewal_term, 'YYYY/MM/DD') as
+		license_renewal_term,to_char(d.license_issue_date, 'YYYY/MM/DD') as
+		license_issue_date,d.gender,to_char(d.license_birth, 'YYYY/MM/DD') as
+		license_birth,c.card_no,c.card_type,to_char(c.card_expiration_date,
+		'YYYY/MM/DD') as card_expiration_date,to_char(c.card_birth,
+		'YYYY/MM/DD') as card_birth
+		from member m, driving_license d, card c
+		where m.member_id=d.member_id and m.member_id=c.member_id and
+		m.member_id=#{value}
+	</select>
+	<select id="findDetailMemberInfoAndLicenseByMemberId" resultMap="memberRM">
+		select m.member_id,m.member_password, m.member_name, m.member_email,
+		m.member_phone, m.member_point, d.license_no,d.license_type,
+		to_char(d.license_renewal_term, 'YYYY/MM/DD') as
+		license_renewal_term,to_char(d.license_issue_date, 'YYYY/MM/DD') as
+		license_issue_date,d.gender,to_char(d.license_birth, 'YYYY/MM/DD') as
+		license_birth
+		from member m, driving_license d
+		where
+		m.member_id=d.member_id and m.member_id=#{value}
+	</select>
+	<select id="findDetailMemberInfoAndCardByMemberId" resultMap="memberRM">
+		select m.member_id,m.member_password, m.member_name, m.member_email,
+		m.member_phone, m.member_point,
+		c.card_no,c.card_type,to_char(c.card_expiration_date, 'YYYY/MM/DD') as
+		card_expiration_date,c.card_password,to_char(c.card_birth,
+		'YYYY/MM/DD') as card_birth
+		from member m, card c
+		where
+		m.member_id=c.member_id and m.member_id=#{value}
+	</select>
+	<delete id="adminDeleteMember">
+	delete from member where member_id=#{value}
+	</delete>
+</mapper> 
