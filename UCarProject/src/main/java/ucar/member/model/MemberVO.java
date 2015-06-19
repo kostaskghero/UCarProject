@@ -17,7 +17,7 @@ public class MemberVO {
 	private String memberEmail;
 	@NotEmpty
 	private String memberPhone;	
-	private String memberPoint;
+	private int memberPoint;
 	private String memberLevel;
 	private DrivingLicenseVO drivingLicenseVO;
 	private CardVO cardVO;
@@ -26,7 +26,7 @@ public class MemberVO {
 		// TODO Auto-generated constructor stub
 	}
 	public MemberVO(String memberId, String memberPassword, String memberName,
-			String memberEmail, String memberPhone, String memberPoint,
+			String memberEmail, String memberPhone, int memberPoint,
 			String memberLevel, DrivingLicenseVO drivingLicenseVO, CardVO cardVO) {
 		super();
 		this.memberId = memberId;
@@ -69,10 +69,10 @@ public class MemberVO {
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
-	public String getMemberPoint() {
+	public int getMemberPoint() {
 		return memberPoint;
 	}
-	public void setMemberPoint(String memberPoint) {
+	public void setMemberPoint(int memberPoint) {
 		this.memberPoint = memberPoint;
 	}
 	public String getMemberLevel() {
