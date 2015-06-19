@@ -30,7 +30,7 @@ $(document).ready(function(){
       		</div>
       </div>
       </form>
- <div class="col-md-8">      
+ <div class="col-md-9">      
      <ul class="nav nav-tabs">
       		<li class="active"><a href="#oftenquestion" data-toggle="tab">자주묻는질문</a></li>
       		<li><a href="#reserveandpaymentquestion" data-toggle="tab">예약과 결제문의</a></li>

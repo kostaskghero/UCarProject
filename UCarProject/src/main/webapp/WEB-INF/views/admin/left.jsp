@@ -26,9 +26,8 @@
 <h4><a href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a></h4>
 
 <hr>
-
-
-
+<h4><a href="${initParam.root}admin_sharing_List.do">예약/결제/반납 내역</a></h4>
+<br>
 
 
 

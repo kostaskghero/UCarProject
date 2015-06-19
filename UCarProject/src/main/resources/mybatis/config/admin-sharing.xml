@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminSharing">
+	<resultMap type="rvo" id="reservationRM">
+		<result property="reservationNo" column="reservation_no" />
+		<result property="rentalDate" column="rental_date" />
+		<result property="returnDate" column="return_date" />
+		<result property="rentalPrice" column="rental_price" />
+		<result property="sharingStatus" column="status" />
+		<result property="availableTime" column="available_time" />
+		<result property="carVO.carNo" column="car_no" />
+		<result property="carVO.carNickName" column="car_nick_name" />
+		<result property="carVO.uCarZoneVO.uCarZoneName" column="ucar_zone_name" />
+		<result property="carVO.uCarZoneVO.uCarZoneAddress" column="ucar_zone_address" />
+		<result property="carVO.carModelInfoVO.carModel" column="car_model" />
+		<result property="carVO.carModelInfoVO.drivingFee" column="driving_fee" />
+		<result property="memberVO.memberId" column="member_id" />
+	</resultMap>
+	<select id="getAllReservationList" resultMap="reservationRM">
+		select
+		r.reservation_no, r.rental_price, m.driving_fee, c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name, u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no
+	</select>
+
+	<select id="searchSharingByStatus" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		s.status=#{sharingStatus}
+	</select>
+	<select id="searchSharingByMemberId" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		r.member_id=#{memberVO.memberId}
+	</select>
+	<select id="searchSharingByCarNickName" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		c.car_nick_name=#{carVO.carNickName}
+	</select>
+	<select id="searchSharingBySatausAndMemberId" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		s.status=#{sharingStatus} and
+		r.member_id=#{memberVO.memberId}
+	</select>
+	<select id="searchSharingBySatausAndCarNickName" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		s.status=#{sharingStatus} and
+		c.car_nick_name=#{carVO.carNickName}
+	</select>
+	<select id="searchSharingByCarNickNameAndMemberId" resultMap="reservationRM"
+		parameterType="rvo">
+		select r.reservation_no, r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name, c.ucar_zone_name,
+		u.ucar_zone_address,
+		c.car_model, to_char(r.return_date, 'YYYY/MM/DD DY
+		HH24:MI') as
+		return_date, to_char(r.rental_date,'YYYY/MM/DD DY
+		HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as
+		available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u,
+		car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		c.car_nick_name=#{carVO.carNickName} and r.member_id=#{memberVO.memberId}
+	</select>
+	<select id="searchSharingByCarNickNameAndMemberIdAndStataus"
+		resultMap="reservationRM" parameterType="rvo">
+		select r.reservation_no,
+		r.rental_price, m.driving_fee,
+		c.car_no,
+		r.member_id, c.car_nick_name,
+		c.ucar_zone_name, u.ucar_zone_address,
+		c.car_model,
+		to_char(r.return_date, 'YYYY/MM/DD DY HH24:MI') as
+		return_date,
+		to_char(r.rental_date,'YYYY/MM/DD DY HH24:MI') as
+		rental_date,
+		ceil((r.return_date-r.rental_date)*24*60) as available_time,s.status
+		from sharing_reservation r, car c, ucar_zone u, car_model_info m,
+		sharing_status s
+		where r.car_no=c.car_no and
+		c.ucar_zone_name=u.ucar_zone_name and
+		c.car_model=m.car_model and
+		r.reservation_no=s.reservation_no and
+		s.status=#{sharingStatus} and
+		c.car_nick_name=#{carVO.carNickName} and r.member_id=#{memberVO.memberId}
+	</select>
+</mapper> 

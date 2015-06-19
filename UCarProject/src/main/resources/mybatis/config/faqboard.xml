@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faqboard">
+	<insert id="writeFaq" parameterType="bvo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select faq_seq.nextval from dual
+		</selectKey>
+		insert into FAQ(
+		FAQ_NO, FAQ_TITLE, FAQ_MEMBER_ID, FAQ_CONTENT, FAQ_CATEGORY
+		) values(#{no}, #{title},#{writer},#{content}, #{category})
+	</insert>
+	<resultMap type="fvo" id="FaqboardRM">
+		<result property="no" column="FAQ_NO" />
+		<result property="category" column="FAQ_CATEGORY" />
+		<result property="title" column="FAQ_TITLE" />
+		<result property="writer" column="FAQ_MEMBER_ID" />
+		<result property="content" column="FAQ_CONTENT" />
+	</resultMap>
+	<select id="getFaqListByCategory" resultMap="FaqboardRM" parameterType="String">
+	select * from faq where FAQ_CATEGORY=#{value}
+	</select>
+	<select id="findFaqByNo" resultMap="FaqboardRM">
+	select * from faq where faq_no=#{value}
+	</select>
+	<update id="updateFaq">
+	update faq set faq_title=#{title}, faq_content =#{content} where faq_no=#{no}
+	</update>
+	<delete id="deleteFaq">
+	delete from faq where  faq_no=#{no}
+	</delete>
+</mapper> 		
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
