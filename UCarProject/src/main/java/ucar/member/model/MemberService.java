@@ -34,9 +34,9 @@ public interface MemberService {
 
 	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId);
 
-	ReservationListVO getUsedListByMemberId(String memberId, String pageNo);
+	public ReservationListVO getUsedListByMemberId(String memberId, String pageNo);
 
-	ReservationListVO getReservationListByMemberId(String memberId,
+	public ReservationListVO getReservationListByMemberId(String memberId,
 			String pageNo);
 
 }

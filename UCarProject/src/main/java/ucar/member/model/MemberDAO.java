@@ -52,9 +52,9 @@ public interface MemberDAO {
 
 	public int findPointByMemberId(String memberId);
 
-	List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO);
+	public List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO);
 
-	List<ReservationVO> getUsedListByMemberId(ReservationVO reservationVO);
+	public List<ReservationVO> getUsedListByMemberId(ReservationVO reservationVO);
 
 	int totalReservationByMemberId(String memberId);
 
