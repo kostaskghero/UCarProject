@@ -10,14 +10,45 @@
 			var sharingStatus=$(this).parent().siblings().eq(5).text();
 			var flag=confirm("예약을 취소하시겠습니까?");
 			if(flag)
-				location.href="${initParam.root}auth_reservation_cancelReservation.do?reservationNo="+reservationNo+"&pageNo=${reservationList.pagingBean.nowPage}&sharingStatus="+sharingStatus;
+				location.href="${initParam.root}auth_reservation_cancelReservation.do?reservationNo="+reservationNo+"&sharingStatus="+sharingStatus;
 		});
-		$(":input[name=paymentBtn]").click(function(){
+		$(":input[name=rentalPaymentBtn]").click(function(){
 			var reservationNo=$(this).val();
 			var flag=confirm("결제 하시겠습니까?");
 			if(flag)
-				location.href="${initParam.root}auth_reservation_reservation_result.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}";
-		})
+				location.href="${initParam.root}auth_reservation_reservationResult.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}";
+		});
+		$(":input[name=useBtn]").click(function(){
+			var reservationNo=$(this).val();
+			var flag=confirm("유카 이용 하시겠습니까?");
+			if(flag)
+				location.href="${initParam.root}auth_reservation_usingSharingService.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}";
+		});
+		$(":input[name=returnViewBtn]").click(function(){
+			var reservationNo=$(this).val();
+			$("#"+reservationNo+"ButtonView").hide();
+			var inputForm="<input type='text' name='mileage' id='mileage'>km<br>";
+			inputForm+="<button type='button' class='btn btn-default btn-sm' name='returnBtn' value='"+reservationNo+"'>반납</button>";
+			inputForm+="<button type='button' class='btn btn-default btn-sm' name='cancelReturnBtn' value='"+reservationNo+"'>취소</button>";
+			$("#"+reservationNo+"inputMileageView").html(inputForm);
+		});
+		$("#usedListTable").on("click",":input[name=cancelReturnBtn]", function(){
+			var reservationNo=$(this).val();
+			$("#"+reservationNo+"inputMileageView").hide();
+			$("#"+reservationNo+"ButtonView").show();
+		});
+		$("#usedListTable").on("click",":input[name=returnBtn]", function(){
+			var reservationNo=$(this).val();
+			var flag=confirm("반납 하시겠습니까?");
+			if(flag)
+				location.href="${initParam.root}auth_reservation_returnSharingService.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}&mileage="+$(":input[name=mileage]").val();
+		});
+		$(":input[name=drivingPaymentBtn]").click(function(){
+			var reservationNo=$(this).val();
+			var flag=confirm("결제 하시겠습니까?");
+			if(flag)
+				location.href="${initParam.root}auth_reservation_returnResult.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}";
+		});
 	});
 </script>
 <div class="container">
@@ -52,7 +83,7 @@
 											<td>
 												<c:choose>
 													<c:when test="${reservationInfo.sharingStatus!='이용요금결제' }">
-														<button type="button" class="btn btn-default btn-sm" name="paymentBtn" id="paymentBtn" value="${reservationInfo.reservationNo }">결제</button>&nbsp;
+														<button type="button" class="btn btn-default btn-sm" name="rentalPaymentBtn" id="rentalPaymentBtn" value="${reservationInfo.reservationNo }">결제</button>&nbsp;
 													</c:when>
 													<c:otherwise>
 														<button type="button" class="btn btn-default btn-sm" name="useBtn" id="useBtn" value="${reservationInfo.reservationNo }">이용</button>&nbsp;
@@ -115,7 +146,7 @@
 			<div class="tab-pane fade" id="usedListView">
 				<div class="col-md-12">
 					<br><br>
-					<table class="table table-hover">
+					<table class="table table-hover" id="usedListTable">
 						<thead>
 							<tr>
 								<th>번호</th><th>차모델</th><th>대여일시</th><th>반납일시</th><th>이용요금</th><th>상태</th><th></th>
@@ -133,8 +164,30 @@
 											<td>${usedInfo.rentalPrice } 원</td>
 											<td>${usedInfo.sharingStatus }</td>
 											<td>
-												<button type="button" class="btn btn-default btn-sm" id="" value="${usedInfo.reservationNo }"></button>
-												<button type="button" class="btn btn-default btn-sm" id="" value="${usedInfo.reservationNo }"></button>
+												<div class="col-md-6">
+												<c:choose>
+													<c:when test="${usedInfo.sharingStatus =='이용중' }">
+														<span id="${usedInfo.reservationNo }ButtonView">
+															<button type="button" class="btn btn-default btn-sm" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>														
+															<button type="button" class="btn btn-default btn-sm" name="exetensionBtn" value="${usedInfo.reservationNo }">연장</button>
+														</span>
+														<span id="${usedInfo.reservationNo }inputMileageView"><%-- 
+															<input type="text" name="mileage">
+															<button type="button" class="btn btn-default btn-sm" name="returnBtn" value="${usedInfo.reservationNo }">반납</button>
+															<button type="button" class="btn btn-default btn-sm" name="cancelReturnBtn">취소</button> --%>
+														</span>
+													</c:when>
+													<c:when test="${usedInfo.sharingStatus=='반납' }">
+														<button type="button" class="btn btn-default btn-sm" name="drivingPaymentBtn" value="${usedInfo.reservationNo }">결제</button>
+													</c:when>
+													<c:when test="${usedInfo.sharingStatus=='완료' }">
+													
+													</c:when>
+													<c:otherwise>
+														<button type="button" class="btn btn-default btn-sm" name="returnBtn" value="${usedInfo.reservationNo }">반납</button>
+													</c:otherwise>
+												</c:choose>
+												</div>
 											</td>
 										</tr>
 									</c:forEach>
