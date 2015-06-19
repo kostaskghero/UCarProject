@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ucar.common.model.ReservationListVO;
 import ucar.member.model.CardVO;
 import ucar.member.model.DrivingLicenseVO;
 import ucar.member.model.MemberService;
@@ -219,25 +220,39 @@ public class MemberController {
 		}
 		return new ModelAndView("member_updateMember_result","message",map.get("message"));
 	}
+	/**
+	 * 회원의 운전면허 정보를 검색해서 제공
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("auth_member_lisenseInfo_view.do")
 	public ModelAndView licenseInfoView(MemberVO memberVO){
 		memberVO=memberService.findLicenseInfoByMemberId(memberVO.getMemberId());
-		return new ModelAndView("member_lisenseInfo_view","info",memberVO);
-		
+		return new ModelAndView("member_lisenseInfo_view","info",memberVO);		
 	}
+	/**
+	 * 회원의 카드정보를 검색해서 제공
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping("auth_member_cardInfo_view.do")
 	public ModelAndView cardInfoView(String memberId){
 		List<MemberVO> list=memberService.findCardInfoByMemberId(memberId);
-		return new ModelAndView("member_cardInfo_view","info",list);
-		
+		return new ModelAndView("member_cardInfo_view","info",list);		
 	}
+	/**
+	 * 회원의 memberId 로 저장된 결제카드의 수를 카운트
+	 * 회원 당 결제카드는 3개까지 등록가능
+	 * 3개가 초과하면 exception 메세지를 ajax 로 응답
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping("auth_member_countCard.do")
 	@ResponseBody
 	public HashMap<String,Object> countCard(String memberId){
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		try {
 			map.put("result", memberService.countCardByMemberId(memberId));
-			System.out.println("sss");
 		} catch (Exception e) {
 			map.put("exception", e.getMessage());
 		}
@@ -257,5 +272,22 @@ public class MemberController {
 			return "auth_member_delete_form.do";
 		}
 		return "redirect:member_logout.do";
+	}	
+	/**
+	 * 회원의 예약/이용내역을 List 로 제공
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("auth_member_reservationHistory.do")
+	public ModelAndView reservationHistory(HttpServletRequest request, String pageNo){
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("member_reservationHistory");
+		HttpSession session=request.getSession(false);
+		MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
+		ReservationListVO reservationListVO=memberService.getReservationListByMemberId(memberVO.getMemberId(), pageNo);
+		mv.addObject("reservationList", reservationListVO);
+		ReservationListVO usedListVO=memberService.getUsedListByMemberId(memberVO.getMemberId(), pageNo);
+		mv.addObject("usedList", usedListVO);
+		return mv;
 	}
 }

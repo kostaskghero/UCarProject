@@ -1,14 +1,11 @@
 package ucar.sharing.reservation.model;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ucar.member.model.MemberDAO;
-import ucar.member.model.MemberVO;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -39,41 +36,34 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return message;
 	}
-
+	
+	@Transactional
 	@Override
-	public ReservationListVO getReservationListByMemberId(String memberId, String pageNo) {
-		if(pageNo==null||pageNo=="") 
-			pageNo="1";
-		ReservationVO reservationVO=new ReservationVO();
-		MemberVO memberVO=new MemberVO();
-		memberVO.setMemberId(memberId);
-		reservationVO.setMemberVO(memberVO);
-		reservationVO.setHistoryPageNo(pageNo);
-		List<ReservationVO> list=reservationDAO.getReservationListByMemberId(reservationVO);
-		int total=reservationDAO.totalReservationByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
-		ReservationListVO listVO=new ReservationListVO(list,paging);
-		return listVO;
+	public void cancelReservationByReservationNo(ReservationVO reservationVO) {
+		// sharingStatus 값에 따라 예약취소/예약&결제취소 달라짐
+		if(reservationVO.getSharingStatus().equals("이용요금결제")){
+			
+		}
+		reservationVO.setSharingStatus("취소");
+		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
 	}
 
 	@Override
-	public ReservationListVO getUsedListByMemberId(String memberId,	String pageNo) {
-		if(pageNo==null||pageNo=="") 
-			pageNo="1";
-		ReservationVO reservationVO=new ReservationVO();
-		MemberVO memberVO=new MemberVO();
-		memberVO.setMemberId(memberId);
-		reservationVO.setMemberVO(memberVO);
-		reservationVO.setHistoryPageNo(pageNo);
-		List<ReservationVO> list=reservationDAO.getUsedListByMemberId(reservationVO);
-		int total=reservationDAO.totalUsedByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
-		ReservationListVO listVO=new ReservationListVO(list,paging);
-		return listVO;
+	public void usingSharingService(ReservationVO reservationVO) {
+		reservationVO.setSharingStatus("이용중");
+		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
+	}
+	
+	@Transactional
+	@Override
+	public void returnSharingService(ReservationVO reservationVO) {
+		reservationDAO.returnSharingService(reservationVO);
+		reservationVO.setSharingStatus("반납");
+		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
 	}
 
 	@Override
-	public void cancelReservationByReservationNo(int reservationNo) {
-		reservationDAO.cancelReservationByReservationNo(reservationNo);
+	public ReservationVO findReturnInfoByReservationNo(int reservationNo) {
+		return reservationDAO.findReturnInfoByReservationNo(reservationNo);
 	}
 }

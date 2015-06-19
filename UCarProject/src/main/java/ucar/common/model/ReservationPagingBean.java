@@ -1,4 +1,4 @@
-package ucar.sharing.reservation.model;
+package ucar.common.model;
 
 
 public class ReservationPagingBean {

@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import ucar.car.model.CarVO;
 import ucar.sharing.reservation.model.ReservationVO;
 
 @Service

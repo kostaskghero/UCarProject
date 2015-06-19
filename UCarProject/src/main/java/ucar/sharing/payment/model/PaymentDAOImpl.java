@@ -24,7 +24,12 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public void updateReservationStatusAboutRentalPrice(PaymentVO paymentVO) {
-		sqlSessionTemplate.update("payment.updateReservationStatusAboutRentalPrice", paymentVO);
+	public void updateSharingStatusAboutRentalPrice(PaymentVO paymentVO) {
+		sqlSessionTemplate.update("payment.updateSharingStatusAboutRentalPrice", paymentVO);
+	}
+
+	@Override
+	public void updateSharingStatusAboutDrivingPrice(PaymentVO paymentVO) {
+		sqlSessionTemplate.update("payment.updateSharingStatusAboutDrivingPrice", paymentVO);
 	}
 }

@@ -1,6 +1,8 @@
-package ucar.sharing.reservation.model;
+package ucar.common.model;
 
 import java.util.List;
+
+import ucar.sharing.reservation.model.ReservationVO;
 
 public class ReservationListVO {
 	private List<ReservationVO> list;

@@ -15,6 +15,7 @@ import ucar.sharing.payment.model.PaymentVO;
 public class PaymentController {
 	@Resource
 	private PaymentService paymentService;
+	
 	/**
 	 * 입력한 카드 비밀번호와 카드번호가 일치하는지 체크
 	 * 일치하면 ok 를 일치하지 않으면 fail 을 반환
@@ -30,14 +31,22 @@ public class PaymentController {
 	}
 	/**
 	 * 이용요금 결제
-	 * 결제 DB 에 기록을 남기고 예약번호의 상태를 변경한다.
-	 * 아직미구현 >>	포인트 차감과 결제금액에 해당하는 포인트 지급
 	 * @param paymentVO
 	 * @return
 	 */
 	@RequestMapping("auth_payment_paymentRentalPrice.do")
 	public String paymentRentalPrice(PaymentVO paymentVO){
-		paymentService.paymentRentalPriceSavingPoint(paymentVO);
+		paymentService.paymentRentalPrice(paymentVO);
+		return "redirect:auth_member_reservationHistory.do";
+	}
+	/**
+	 * 주행요금 결제
+	 * @param paymentVO
+	 * @return
+	 */
+	@RequestMapping("auth_payment_paymentDrivingPrice.do")
+	public String paymentDrivingPrice(PaymentVO paymentVO){
+		paymentService.paymentDrivingPrice(paymentVO);
 		return "redirect:auth_member_reservationHistory.do";
 	}
 }

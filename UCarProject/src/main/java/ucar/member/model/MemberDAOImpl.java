@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import ucar.sharing.reservation.model.ReservationVO;
+
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 	@Resource
@@ -128,6 +130,25 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int findPointByMemberId(String memberId) {
 		return sqlSessionTemplate.selectOne("member.findPointByMemberId", memberId);
+	}
+	@Override
+	public List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO) {
+		return sqlSessionTemplate.selectList("member.getReservationListByMemberId", reservationVO);
+	}
+
+	@Override
+	public List<ReservationVO> getUsedListByMemberId(ReservationVO reservationVO) {
+		return sqlSessionTemplate.selectList("member.getUsedListByMemberId", reservationVO);
+	}
+	
+	@Override
+	public int totalReservationByMemberId(String memberId) {
+		return sqlSessionTemplate.selectOne("member.totalReservationByMemberId", memberId);
+	}
+
+	@Override
+	public int totalUsedByMemberId(String memberId) {
+		return sqlSessionTemplate.selectOne("member.totalUsedByMemberId", memberId);
 	}
 	
 }

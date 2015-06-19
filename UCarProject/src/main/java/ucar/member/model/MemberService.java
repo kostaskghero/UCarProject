@@ -3,6 +3,8 @@ package ucar.member.model;
 import java.util.HashMap;
 import java.util.List;
 
+import ucar.common.model.ReservationListVO;
+
 
 public interface MemberService {
 
@@ -31,5 +33,10 @@ public interface MemberService {
 	public String countCardByMemberId(String memberId) throws Exception;
 
 	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId);
+
+	ReservationListVO getUsedListByMemberId(String memberId, String pageNo);
+
+	ReservationListVO getReservationListByMemberId(String memberId,
+			String pageNo);
 
 }

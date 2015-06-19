@@ -31,7 +31,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	insert into sharing_payment(payment_no, reservation_no, payment_price, payment_card_no, using_point, payment_type) 
  	 	values(payment_no_seq.nextval, #{reservationNo}, #{paymentPrice}, #{paymentCardNo}, #{usingPoint}, #{paymentType})
  	 </insert>
- 	 <update id="updateReservationStatusAboutRentalPrice" parameterType="pvo">
+ 	 <update id="updateSharingStatusAboutRentalPrice" parameterType="pvo">
  	 	update sharing_status set status='이용요금결제' where reservation_no=#{reservationNo}
+ 	 </update>
+ 	 <update id="updateSharingStatusAboutDrivingPrice" parameterType="pvo">
+ 	 	update sharing_status set status='완료' where reservation_no=#{reservationNo}
  	 </update>
  </mapper> 

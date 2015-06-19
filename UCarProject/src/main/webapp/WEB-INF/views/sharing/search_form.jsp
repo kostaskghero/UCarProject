@@ -148,7 +148,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-2">
-					<label for="carModel" class="control-label">차종</label>
+					<label for="carType" class="control-label">차종</label>
 				</div>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="carModel" name="carModel">

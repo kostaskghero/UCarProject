@@ -8,9 +8,11 @@ public interface ReservationService {
 
 	public Object checkMemberReservation(ReservationVO reservationVO);
 
-	public ReservationListVO getReservationListByMemberId(String memberId, String pageNo);
+	public void cancelReservationByReservationNo(ReservationVO reservationVO);
 
-	public ReservationListVO getUsedListByMemberId(String memberId, String pageNo);
+	public void usingSharingService(ReservationVO reservationVO);
 
-	public void cancelReservationByReservationNo(int reservationNo);
+	public void returnSharingService(ReservationVO reservationVO);
+
+	public ReservationVO findReturnInfoByReservationNo(int reservationNo);
 }

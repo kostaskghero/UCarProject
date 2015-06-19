@@ -9,7 +9,7 @@
 			if($(":input[name=pointType]:checked").val()!="pointuse"){
 				$("#pointTextView").hide();
 				$("#pointText").val("");
-				$("#payTotalView").html("${reservationInfo.rentalPrice }");
+				$("#payTotalView").html("${returnInfo.rentalPrice }");
 			} else{
 				$("#pointTextView").show();
 			}
@@ -22,10 +22,10 @@
 			} else if(Number("${PointAndCoupon.memberPoint}")<$("#pointText").val()){
 				alert("사용가능한 포인트를 초과해서 사용할 수 없습니다");
 				$("#pointText").val("");
-				$("#payTotalView").html("${reservationInfo.rentalPrice }");
+				$("#payTotalView").html("${returnInfo.returnVO.drivingPrice }");
 				return false;
 			} else{
-				$("#payTotalView").html((Number("${reservationInfo.rentalPrice }")-$("#pointText").val()));	
+				$("#payTotalView").html((Number("${returnInfo.returnVO.drivingPrice }")-$("#pointText").val()));	
 			}	
 		});
 		$("#reserveRegisterBtn").click(function(){
@@ -46,8 +46,8 @@
 					data:"cardNo="+$("#payCardNo").val()+"&memberId=${sessionScope.loginInfo.memberId}&cardPassword="+$("#cardPassword").val(),
 					success:function(data){
 						if(data=='ok'){
-							location.href="${initParam.root}auth_payment_paymentRentalPrice.do?reservationNo=${reservationInfo.reservationNo}&paymentPrice="+
-							$("#payTotalView").text()+"&paymentCardNo="+$("#payCardNo").val()+"&usingPoint="+usingPoint+"&paymentType='이용요금'";
+							location.href="${initParam.root}auth_payment_paymentDrivingPrice.do?reservationNo=${returnInfo.reservationNo}&paymentPrice="+
+							$("#payTotalView").text()+"&paymentCardNo="+$("#payCardNo").val()+"&usingPoint="+usingPoint+"&paymentType='주행요금'";
 						} else if(data=='fail'){
 							alert("카드비밀번호를 확인하세요!");
 						} else{
@@ -64,39 +64,60 @@
 		<div class="row">
 			<div class="col-md-6">
 				<fieldset>
-					<legend>예약내역</legend>
+					<legend>반납내역</legend>
 					<label for="carModel" class="col-lg-2 control-label">차량</label>
 					<div class="col-lg-10">
 						<label for="carModel" class="col-lg-10 control-label">
-							${reservationInfo.carVO.carModelInfoVO.carModel}&nbsp;${reservationInfo.carVO.carNickName }
+							${returnInfo.carVO.carModelInfoVO.carModel}&nbsp;${returnInfo.carVO.carNickName }
 						</label>
 					</div>
 					<br><br>
 					<label for="schedule" class="col-lg-2 control-label">일정</label>
 					<div class="col-lg-10">
 						<label for="schedule" class="col-lg-10 control-label">
-							${reservationInfo.sharingType } / ${reservationInfo.rentalDate } ~ ${reservationInfo.returnDate }
+							${returnInfo.sharingType } / ${returnInfo.rentalDate } ~ ${returnInfo.returnDate }
 						</label>
 					</div>
 					<br><br>
 					<label for="time" class="col-lg-2 control-label">이용시간</label>
 					<div class="col-lg-10">
 						<label for="time" class="col-lg-10 control-label">
-							총 ${reservationInfo.availableTime } 분
+							총 ${returnInfo.availableTime } 분
 						</label>
 					</div>
 					<br><br>
-					<label for="ucarZone" class="col-lg-2 control-label">유카존</label>
+					<label for="time" class="col-lg-2 control-label">반납시간</label>
+					<div class="col-lg-10">
+						<label for="time" class="col-lg-10 control-label">
+							${returnInfo.returnVO.realReturnDate }
+						</label>
+					</div>
+					<br><br>
+					<label for="driveFee" class="col-lg-2 control-label">주행요금</label>
+					<div class="col-lg-10">
+						<label for="driveFee" class="col-lg-10 control-label">
+							${returnInfo.carVO.carModelInfoVO.drivingFee }원(1km)
+						</label>
+					</div>
+					<br><br>
+					<label for="mileage" class="col-lg-2 control-label">주행거리</label>
+					<div class="col-lg-10">
+						<label for="mileage" class="col-lg-10 control-label">
+							총 ${returnInfo.returnVO.mileage } km
+						</label>
+					</div>
+					<br><br>
+					<label for="ucarZone" class="col-lg-2 control-label">반납유카존</label>
 					<div class="col-lg-10">
 						<label for="ucarZone" class="col-lg-10 control-label">
-							${reservationInfo.carVO.uCarZoneVO.uCarZoneName }
+							${returnInfo.returnVO.returnUcarZone }
 						</label>
 					</div>
 					<br><br>
 					<label for="ucarSpace" class="col-lg-2 control-label">위치</label>
 					<div class="col-lg-10">
 						<label for="ucarSpace" class="col-lg-10 control-label">
-							${reservationInfo.carVO.uCarZoneVO.uCarZoneAddress }
+							${returnInfo.carVO.uCarZoneVO.uCarZoneAddress }
 						</label>
 					</div>
 					<br><br>
@@ -105,10 +126,10 @@
 			<div class="col-md-6">
 				<fieldset>
 					<legend>결제내역</legend>
-					<label for="fee" class="col-lg-2 control-label">대여요금</label>
+					<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
 					<div class="col-lg-10">
 						<label for="fee" class="col-lg-10 control-label" id="rentalPrice">
-							${reservationInfo.rentalPrice } 원
+							${returnInfo.returnVO.drivingPrice } 원
 						</label>
 					</div>
 					<br><br>
@@ -132,13 +153,6 @@
 						</span><br>
 					</div>
 					<br><br><br>
-					<label for="driveFee" class="col-lg-2 control-label">주행요금</label>
-					<div class="col-lg-10">
-						<label for="driveFee" class="col-lg-10 control-label">
-							${reservationInfo.carVO.carModelInfoVO.drivingFee }원(1km당) ※반납 후 주행거리에 따라 부과
-						</label>
-					</div>
-					<br><br>
 					<label for="payCard" class="col-lg-2 control-label">결제카드</label>
 					<div class="col-lg-10">
 						<select class="form-control" id="payCardNo">
@@ -157,7 +171,7 @@
 					<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
 					<div class="col-lg-10">
 						<label for="payTotal" class="col-lg-10 control-label">
-							<span id="payTotalView">${reservationInfo.rentalPrice }</span> 원
+							<span id="payTotalView">${returnInfo.returnVO.drivingPrice }</span> 원
 						</label>
 					</div>
 				<br><br>

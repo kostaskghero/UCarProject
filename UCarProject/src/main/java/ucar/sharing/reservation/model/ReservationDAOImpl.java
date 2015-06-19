@@ -1,7 +1,5 @@
 package ucar.sharing.reservation.model;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,32 +26,22 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 	@Override
-	public int totalReservationByMemberId(String memberId) {
-		return sqlSessionTemplate.selectOne("reservation.totalReservationByMemberId", memberId);
-	}
-
-	@Override
-	public List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO) {
-		return sqlSessionTemplate.selectList("reservation.getReservationListByMemberId", reservationVO);
-	}
-
-	@Override
-	public List<ReservationVO> getUsedListByMemberId(ReservationVO reservationVO) {
-		return sqlSessionTemplate.selectList("reservation.getUsedListByMemberId", reservationVO);
-	}
-
-	@Override
-	public int totalUsedByMemberId(String memberId) {
-		return sqlSessionTemplate.selectOne("reservation.totalUsedByMemberId", memberId);
-	}
-
-	@Override
-	public void cancelReservationByReservationNo(int reservationNo) {
-		sqlSessionTemplate.update("reservation.cancelReservationByReservationNo", reservationNo);
+	public void changeSharingStatusByReservationNo(ReservationVO reservationVO) {
+		sqlSessionTemplate.update("reservation.changeSharingStatusByReservationNo", reservationVO);
 	}
 
 	@Override
 	public void insertSharingStatus(int reservationNo) {
 		sqlSessionTemplate.insert("reservation.insertSharingStatus", reservationNo);
+	}
+
+	@Override
+	public void returnSharingService(ReservationVO reservationVO) {
+		sqlSessionTemplate.insert("reservation.returnSharingService", reservationVO);
+	}
+
+	@Override
+	public ReservationVO findReturnInfoByReservationNo(int reservationNo) {
+		return sqlSessionTemplate.selectOne("reservation.findReturnInfoByReservationNo", reservationNo);
 	}
 }

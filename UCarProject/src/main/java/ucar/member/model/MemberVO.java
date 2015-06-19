@@ -21,7 +21,6 @@ public class MemberVO {
 	private String memberLevel;
 	private DrivingLicenseVO drivingLicenseVO;
 	private CardVO cardVO;
-	private String pageNo;
 	public MemberVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -39,11 +38,6 @@ public class MemberVO {
 		this.memberLevel = memberLevel;
 		this.drivingLicenseVO = drivingLicenseVO;
 		this.cardVO = cardVO;
-	}
-	public MemberVO(String memberId, String pageNo) {
-		super();
-		this.memberId = memberId;
-		this.pageNo = pageNo;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -98,12 +92,6 @@ public class MemberVO {
 	}
 	public void setCardVO(CardVO cardVO) {
 		this.cardVO = cardVO;
-	}
-	public String getPageNo() {
-		return pageNo;
-	}
-	public void setPageNo(String pageNo) {
-		this.pageNo = pageNo;
 	}
 	@Override
 	public String toString() {

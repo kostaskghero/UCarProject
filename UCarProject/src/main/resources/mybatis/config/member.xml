@@ -24,12 +24,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="cardVO.cardPassword" column="card_password"/>
  	 	<result property="cardVO.cardBirth" column="card_birth"/>
  	 </resultMap>
+ 	 <resultMap type="rvo" id="reservationRM">
+ 	 	<result property="reservationNo" column="reservation_no"/>
+ 	 	<result property="rentalDate" column="rental_date"/>
+ 	 	<result property="returnDate" column="return_date"/>
+ 	 	<result property="rentalPrice" column="rental_price"/>
+ 	 	<result property="sharingStatus" column="status"/>
+ 	 	<result property="carVO.carNickName" column="car_nick_name"/>
+ 	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
+ 	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
 		insert into member(member_id, member_password, member_name, member_email, member_phone)
 		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone})
 	</insert>
 	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
-		select member_id, member_password, member_name, member_email, member_phone from member where member_id=#{memberId} and member_password=#{memberPassword}
+		select member_id, member_password, member_name, member_email, member_phone, member_point from member where member_id=#{memberId} and member_password=#{memberPassword}
 	</select>
 	<select id="memberIdCheck" resultType="int">
 		select count(*) from member where member_id=#{value}
@@ -91,9 +100,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select member_id, card_no, card_type, to_char(card_expiration_date, 'YYYY/MM') as card_expiration_date, member_id, to_char(card_birth, 'YYYY/MM/DD') as card_birth from card where member_id=#{value}
 	</select>
 	<select id="countCardByMemberId" resultType="int">
-		select count(*) from card where member_id=#{value}
+		select count(card_no) from card where member_id=#{value}
 	</select>
 	<select id="findPointByMemberId" resultType="int">
 		select member_point from member where member_id=#{value}
 	</select>
+	<select id="totalReservationByMemberId" resultType="int">
+ 		select count(r.reservation_no) from sharing_reservation r, sharing_status s where r.reservation_no=s.reservation_no and r.member_id=#{value} and (s.status='예약' or s.status='이용요금결제')
+ 	</select>
+ 	<select id="getReservationListByMemberId" parameterType="rvo" resultMap="reservationRM">
+ 		SELECT car_model, car_nick_name, reservation_no, to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date,'YYYY/MM/DD DY HH24:MI') as return_date, status, rental_price
+		FROM
+		(	 
+			SELECT car_model, car_nick_name, reservation_no, rental_date, return_date, status, CEIL(rownum/10) AS page, rental_price  
+				FROM 
+				( 
+					select c.car_model, c.car_nick_name, r.reservation_no, r.rental_date, r.return_date, s.status, r.rental_price 
+					from sharing_reservation r, car c, car_model_info m, sharing_status s
+					where r.member_id=#{memberVO.memberId} and r.car_no=c.car_no and c.car_model=m.car_model and r.reservation_no=s.reservation_no and (s.status='예약' or s.status='이용요금결제') order by r.rental_date								
+				) 
+		    )
+		WHERE PAGE=#{historyPageNo}
+ 	</select>
+ 	<select id="getUsedListByMemberId" parameterType="rvo" resultMap="reservationRM">
+ 		SELECT car_model, car_nick_name, reservation_no, to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date,'YYYY/MM/DD DY HH24:MI') as return_date, status, rental_price
+		FROM
+		(	 
+			SELECT car_model, car_nick_name, reservation_no, rental_date, return_date, status, CEIL(rownum/10) AS page, rental_price  
+				FROM 
+				( 
+					select c.car_model, c.car_nick_name, r.reservation_no, r.rental_date, r.return_date, s.status, r.rental_price 
+					from sharing_reservation r, car c, car_model_info m, sharing_status s
+					where r.member_id=#{memberVO.memberId} and r.car_no=c.car_no and c.car_model=m.car_model and r.reservation_no=s.reservation_no and (s.status='이용중' or s.status='주행요금결제' or s.status='반납' or s.status='연장' or s.status='완료') order by r.rental_date desc								
+				) 
+		    )
+		WHERE PAGE=#{historyPageNo}
+ 	</select>
+ 	<select id="totalUsedByMemberId" resultType="int">
+ 		select count(r.reservation_no) from sharing_reservation r, sharing_status s where r.reservation_no=s.reservation_no and r.member_id=#{value} and (s.status='이용중' or s.status='주행요금결제' or s.status='반납' or s.status='연장' or s.status='완료')
+ 	</select>
  </mapper> 

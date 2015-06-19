@@ -8,6 +8,8 @@ public interface PaymentDAO {
 
 	public void insertSharingPayment(PaymentVO paymentVO);
 
-	public void updateReservationStatusAboutRentalPrice(PaymentVO paymentVO);
+	public void updateSharingStatusAboutRentalPrice(PaymentVO paymentVO);
+
+	public void updateSharingStatusAboutDrivingPrice(PaymentVO paymentVO);
 
 }
