@@ -19,14 +19,14 @@
 	});
 </script>
 <c:choose>
-<c:when test="${sessionScope.loginInfo!=null }">
+<c:when test="${sessionScope.admin!=null }">
 <form class="form-horizontal" method="post" action="${initParam.root }admin_notice_write.do" id="noticeWriteForm">
    <fieldset>
     <legend>공지사항 글쓰기</legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">
-        <input type="text" class="form-control" id="noticeMemberId" name="noticeMemberId" value="${sessionScope.loginInfo.memberId }" readonly="readonly">
+        <input type="text" class="form-control" id="noticeMemberId" name="noticeMemberId" value="${sessionScope.admin.memberId }" readonly="readonly">
       </div>
     </div>
     <div class="form-group">

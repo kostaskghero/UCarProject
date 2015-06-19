@@ -21,7 +21,8 @@
 		});
 	});
 </script>
-<h2>회원정보수정</h2>
+<h4>회원정보수정</h4>
+<hr>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -30,7 +31,7 @@
 						<div class="col-sm-2">
 							<label for="memberId" class="control-label">ID</label>
 						</div>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<input readonly="readonly" class="form-control input-sm" id="memberId" name="memberId" value="${sessionScope.loginInfo.memberId }" />
 						</div>
 					</div>
@@ -38,7 +39,7 @@
 						<div class="col-sm-2">
 							<label for="memberName" class="control-label">Name</label>
 						</div>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<input readonly="readonly" class="form-control" id="memberName" name="memberName" value="${sessionScope.loginInfo.memberName }" />
 						</div>
 					</div>
@@ -46,7 +47,7 @@
 						<div class="col-sm-2">
 							<label for="memberEmail" class="control-label">Email</label>
 						</div>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<form:input path="memberEmail" type="text" class="form-control" id="memberEmail" name="memberEmail" value="${sessionScope.loginInfo.memberEmail }" />
 							<br><font color="red"><form:errors path="memberEmail"></form:errors></font>
 						</div>
@@ -55,7 +56,7 @@
 						<div class="col-sm-2">
 							<label for="memberPhone" class="control-label">Phone</label>
 						</div>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<form:input path="memberPhone" type="text" class="form-control" id="memberPhone" name="memberPhone" value="${sessionScope.loginInfo.memberPhone }" />
 							<br><font color="red"><form:errors path="memberPhone"></form:errors></font>
 						</div>

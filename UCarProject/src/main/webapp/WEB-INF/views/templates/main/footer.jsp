@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<footer class="section section-primary"> 
-	<div class="container"> 
+    <br><br>
+<footer class="section section-primary" > 
+	<div class="container" style="background-color: #828282;"> 
 		<div class="row"> 
-			<div class="col-sm-6"> 
-				<h1>Footer header</h1> 
-				<p>Lorem ipsum dolor sit amet, consectetur adipisici elit, <br>
-				sed eiusmod tempor incidunt ut labore et dolore magna aliqua. <br>
-				Ut enim ad minim veniam, quis nostrud</p>
+			<div class="col-sm-12"> 
+			<br>
+				<div class="btn-group" style="backgroun">
+					<a href="#" class="btn btn-default">조 소개</a>
+					<a href="#" class="btn btn-default">만든소감</a>
+				</div>
+				<br>
+				<h4 ><font color ="#ffffff">힘들어요ㅠㅠ</font></h4>
 			</div>
 			<div class="col-sm-6"> 
 				<p class="text-info text-right"> <br><br></p>

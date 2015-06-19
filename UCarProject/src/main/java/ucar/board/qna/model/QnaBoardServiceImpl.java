@@ -17,29 +17,54 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	public void write(QnaBoardVO bvo) {
 		qnaboardDAO.write(bvo);
 	}
-
+	/**
+	 *    뽑긴 뽑았으니 레벨정리가 안됨..ㅁㄴ럼나ㅣㅓ림ㄴㅇㄹ너이런미러ㅣ
+	 */
 	@Override
 	public QnaListVO getBoardList(String pageNo, String sessionId) {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
 		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
+		List<QnaBoardVO> adminList = new ArrayList<QnaBoardVO>();
+		List<QnaBoardVO> memberList = new ArrayList<QnaBoardVO>();
+		List<QnaBoardVO> totalList = new ArrayList<QnaBoardVO>();
 		List<QnaBoardVO> list = qnaboardDAO.getBoardList(pageNo);
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getQnaMemberId().equals("admin")) {
+				adminList.add(list.get(i));
+			}
+			if(list.get(i).getQnaMemberId().equals(sessionId)) {
+				memberList.add(list.get(i));
+			}
+		}
 		int total =0;
 		System.out.println("aaaa" + sessionId);
 		if (sessionId.equals("admin")) {
-			resultList = list;
+			totalList = list;
 			total=qnaboardDAO.totalContent();
 		} else {
 			total=qnaboardDAO.totalContentByMemberId(sessionId);
+			System.out.println(total + "sfasfasfasfs");
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("리스트이름" + list.get(i).getQnaMemberId());
-				if(list.get(i).getQnaMemberId().equals(sessionId)){
-					resultList.add(list.get(i));
-				}		
+				System.out.println("REF:"+ list.get(i).getQnaRef());
+				for(int j = 0; j<memberList.size(); j++) {
+					for(int k =0; k<adminList.size(); k++) {
+						if(list.get(i).getQnaMemberId().equals(sessionId)){
+							if(memberList.get(j).getQnaRef() == adminList.get(k).getQnaRef()) {
+								resultList.add(adminList.get(k));
+								resultList.add(memberList.get(j));
+							}
+						}	
+					}
+				}
+			}
+			for(int i =0; i<resultList.size(); i++){
+				totalList.add(resultList.get(i));
 			}
 		}
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
-		QnaListVO lvo = new QnaListVO(resultList, paging);
+		QnaListVO lvo = new QnaListVO(totalList, paging);
 		return lvo;
 	}
 

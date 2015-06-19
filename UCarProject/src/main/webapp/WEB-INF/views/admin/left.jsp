@@ -17,13 +17,13 @@
 	</c:otherwise>
 </c:choose>
  --%>
- <a href="${initParam.root}admin_member_list.do">회원목록</a><br>
+ <h4><a href="${initParam.root}admin_member_list.do">회원목록</a></h4>
 <hr>
-<a href="${initParam.root}admin_carRegisterForm.do">차량등록</a><br>
-<a href="${initParam.root}admin_car_list.do">차량목록</a><br>
+<h4><a href="${initParam.root}admin_carRegisterForm.do">차량등록</a></h4><br>
+<h4><a href="${initParam.root}admin_car_list.do">차량목록</a></h4>
 <hr>
-<a href="${initParam.root}admin_uCarZoneRegisterForm.do">유카존 등록</a><br>
-<a href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a><br>
+<h4><a href="${initParam.root}admin_uCarZoneRegisterForm.do">유카존 등록</a></h4><br>
+<h4><a href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a></h4>
 
 <hr>
 

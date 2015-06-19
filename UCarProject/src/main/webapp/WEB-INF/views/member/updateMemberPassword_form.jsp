@@ -19,7 +19,8 @@
 		});
 	});
 </script>
-패스워드변경
+<h4>패스워드변경</h4>
+<hr>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -29,7 +30,7 @@
 					<div class="col-sm-2">
 						<label for="oriMemberPassword" class="control-label">기존 Password</label>
 					</div>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<input type="password" class="form-control" id="oriMemberPassword" name="oriMemberPassword" placeholder="기존 password 입력하세요">
 					</div>
 				</div>
@@ -37,7 +38,7 @@
 					<div class="col-sm-2">
 						<label for="memberPassword" class="control-label">새로운 Password</label>
 					</div>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="변경할 password 입력하세요">
 					</div>
 				</div>
@@ -45,7 +46,7 @@
 					<div class="col-sm-2">
 						<label for="memberPasswordCheck" class="control-label">새로운 Password 확인</label>
 					</div>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<input type="password" class="form-control" id="memberPasswordCheck" name="memberPasswordCheck" placeholder="변경할 password 를 한번 더 입력하세요">
 					</div>
 				</div>

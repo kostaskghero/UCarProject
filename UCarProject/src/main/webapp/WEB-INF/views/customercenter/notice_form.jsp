@@ -41,7 +41,7 @@
               </tbody>
             </table>
           <%--   관리자 글쓰기 추가 버튼미리 해둠! --%>
-          <c:if test="${sessionScope.loginInfo.memberId == 'admin'}">
+          <c:if test="${sessionScope.admin != null}">
           <div class = "col-md-12 col-lg-offset-11">
           <a href="${initParam.root}customercenter_notice_write_form.do"><img id="writeImg" src="${initParam.root }/img/boardimg/write_btn.jpg" border="0"></a>
 		 	</div>

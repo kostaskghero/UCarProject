@@ -8,27 +8,24 @@
 	</ol>
 	<div class="carousel-inner">		
 		<!-- slide image 1 -->
-		<div class="active item" id="img_slide" align="center">
-			<img src="${initParam.root }img/up.jpg" width="500">
+		<div class="active item" id="img_slide" align="center" >
+			<img src="${initParam.root }img/main1.jpg" >
 			<div class="carousel-caption">
-				<h2>Title</h2>
-				<p>Description</p>
+
 			</div>
 		</div>
 		<!-- slide image 2 -->
 		<div class="item" id="img_slide" align="center">
-			<img src="${initParam.root }img/up1.jpg" width="500">
+			<img src="${initParam.root }img/main2.jpg" >
 			<div class="carousel-caption">
-				<h2>Title</h2>
-				<p>Description</p>
+
 			</div>
 		</div>
 		<!-- slide image 3 -->
 		<div class="item" id="img_slide" align="center">
-			<img src="${initParam.root }img/up2.jpg" width="500">
+			<img src="${initParam.root }img/main3.jpg" >
 			<div class="carousel-caption">
-				<h2>Title</h2>
-				<p>Description</p>
+
 			</div>
 		</div>
 	</div>

@@ -21,27 +21,30 @@
 		});
 	});
 </script>
-${requestScope.bvo.noticeNo}
 <form class="form-horizontal" method="post" action="admin_notice_update.do" id="noticeWriteForm">
 	 <fieldset>
-    <legend>공지 사항 글</legend>
+    <legend>공지 사항 글 수정</legend>
      <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">
         <input type="text" class="form-control" id="noticeMemberId" name="noticeMemberId" value="${requestScope.bvo.noticeMemberId }" readonly="readonly">
       </div>
     </div>
+     <c:choose>
+	<c:when test="${sessionScope.admin !=null }">
     <div class="form-group">
       <label for="inputTitle" class="col-lg-2 control-label">제목</label>
       <div class="col-lg-5">
         <input type="text" class="form-control" id="noticeTitle" name="noticeTitle"  value ="${requestScope.bvo.noticeTitle }" readonly="readonly">
       </div>
     </div>
+    </c:when>
+    </c:choose>
      <div class="form-group">
       <label for="inputContent" class="col-lg-2 control-label">내용</label>
       <div class="col-lg-5">
           <c:choose>
-	<c:when test="${sessionScope.loginInfo!=null }">
+	<c:when test="${sessionScope.admin !=null }">
        <textarea cols="50" rows="10" name="noticeContent" id="noticeContent" >${requestScope.bvo.noticeContent }</textarea>
       	</c:when>
       	<c:otherwise>
@@ -51,7 +54,7 @@ ${requestScope.bvo.noticeNo}
       </div>
     </div>
      <c:choose>
-	<c:when test="${sessionScope.loginInfo!=null }">
+	<c:when test="${sessionScope.admin != null}">
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="submit" class="btn btn-primary" id ="noticeUpdate">수정</button>
