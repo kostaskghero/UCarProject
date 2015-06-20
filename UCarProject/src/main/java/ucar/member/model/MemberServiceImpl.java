@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO loginMember(MemberVO mvo) {
 		return memberDAO.loginMember(mvo);
 	}
-
+	@Transactional
 	@Override
 	public void registerMemberSavingPoint(MemberVO mvo) {
 		memberDAO.registerMember(mvo);

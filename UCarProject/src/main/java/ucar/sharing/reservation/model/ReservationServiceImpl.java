@@ -40,10 +40,6 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional
 	@Override
 	public void cancelReservationByReservationNo(ReservationVO reservationVO) {
-		// sharingStatus 값에 따라 예약취소/예약&결제취소 달라짐
-		if(reservationVO.getSharingStatus().equals("이용요금결제")){
-			
-		}
 		reservationVO.setSharingStatus("취소");
 		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
 	}

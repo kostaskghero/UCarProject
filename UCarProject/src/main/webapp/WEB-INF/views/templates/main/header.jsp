@@ -26,7 +26,7 @@
 				<li><a href="${initParam.root }search_searchForm.do">유카찾기/예약</a></li>
 				<c:choose>
 					<c:when test="${sessionScope.admin!=null }">
-						<li><a href="admin_pageView.do">관리자</a></li>
+						<li><a href="admin_sharing_List.do">관리자</a></li>
 					</c:when>
 				</c:choose>
 			</ul>
