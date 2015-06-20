@@ -45,10 +45,10 @@
       <div class="col-lg-5">
           <c:choose>
 	<c:when test="${sessionScope.admin !=null }">
-       <textarea cols="50" rows="10" name="noticeContent" id="noticeContent" >${requestScope.bvo.noticeContent }</textarea>
+       <textarea cols="90" rows="40" name="noticeContent" id="noticeContent" >${requestScope.bvo.noticeContent }</textarea>
       	</c:when>
       	<c:otherwise>
-      	<textarea cols="50" rows="10" name="noticeContent" id="noticeContent"  readonly="readonly">${requestScope.bvo.noticeContent }</textarea>
+      	<textarea cols="90" rows="40" name="noticeContent" id="noticeContent"  readonly="readonly">${requestScope.bvo.noticeContent }</textarea>
       	</c:otherwise>
     </c:choose>
       </div>

@@ -109,6 +109,7 @@ CREATE TABLE CAR (
 		constraint FK_FAQ_MEMBER_ID foreign key(FAQ_MEMBER_ID) references member
 	);
 drop sequence qna_board_reply_seq;
+drop table qna_board
 	drop table qna_board_reply
 create table qna_board_reply(
    qna_no number primary key,
@@ -139,6 +140,5 @@ create table notice_board(
    constraint fk_notice_member_id foreign key(notice_member_id) references member
 )
 select * from notice_board
-insert into notice_board(notice_no, notice_title, notice_member_id, notice_content, notice_time_posted)
-values (notice_board_seq.nextval, '주차', 'java','어떻게하죠?', sysdate)
+
 

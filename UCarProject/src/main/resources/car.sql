@@ -9,14 +9,7 @@ CREATE TABLE CAR_MODEL_INFO (
 		OIL_TYPE VARCHAR2(50) NOT NULL
 	)
 	select * from CAR_MODEL_INFO;
-	insert into CAR_MODEL_INFO(CAR_MODEL,CAR_TYPE, RENTAL_FEE, DRIVING_FEE, CAR_PHOTO, OIL_TYPE) 
-	values('모닝', '경차A',1050, 170, '경로', '휘발유');
-	insert into CAR_MODEL_INFO(CAR_MODEL,CAR_TYPE, RENTAL_FEE, DRIVING_FEE, CAR_PHOTO, OIL_TYPE) 
-	values('스파크', '경차A',1050, 170, '경로', '휘발유');
-	insert into CAR_MODEL_INFO(CAR_MODEL,CAR_TYPE, RENTAL_FEE, DRIVING_FEE, CAR_PHOTO, OIL_TYPE) 
-	values('프라이드','소형', 1250, 180, '경로', '휘발유');
-	insert into CAR_MODEL_INFO(CAR_MODEL, CAR_TYPE,RENTAL_FEE, DRIVING_FEE, CAR_PHOTO, OIL_TYPE) 
-	values('K3', '준준형',1390, 170, '경로', '휘발유');
+	
 --유카존
 drop table ucar_zone;
 create table ucar_zone(
