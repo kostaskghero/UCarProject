@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
  	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
-		insert into member(member_id, member_password, member_name, member_email, member_phone)
-		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone})
+		insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, sysdate)
 	</insert>
 	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
 		select member_id, member_password, member_name, member_email, member_phone, member_point from member where member_id=#{memberId} and member_password=#{memberPassword}
