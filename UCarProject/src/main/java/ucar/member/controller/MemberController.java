@@ -109,6 +109,7 @@ public class MemberController {
 			return "member_register_form"; 
 		}
 		memberService.registerMemberSavingPoint(memberVO);
+		memberVO=memberService.findMemberInfoByMemberId(memberVO.getMemberId());
 		HttpSession session=request.getSession(false);
 		session.setAttribute("loginInfo", memberVO);
 		return "redirect:member_register_result.do";
@@ -175,7 +176,9 @@ public class MemberController {
 		return mv;
 	}
 	@RequestMapping("auth_member_myPage.do")
-	public ModelAndView memberPage(MemberVO memberVO){
+	public ModelAndView memberPage(HttpServletRequest request){
+		HttpSession session=request.getSession(false);
+		MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
 		memberVO=memberService.findMemberInfoByMemberId(memberVO.getMemberId());
 		return new ModelAndView("member_myPage", "memberInfo", memberVO);
 	}

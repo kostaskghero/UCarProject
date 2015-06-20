@@ -24,7 +24,7 @@ public class PaymentServiceImpl implements PaymentService {
 		paymentDAO.insertSharingPayment(paymentVO);
 		paymentDAO.updateSharingStatusAboutRentalPrice(paymentVO);
 	}
-
+	@Transactional
 	@Override
 	public void paymentDrivingPriceSavingPoint(PaymentVO paymentVO, String memberId) {
 		paymentVO.setPaymentStatus("완료");
@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
 	public PaymentVO findPaymentInfoByReservationNo(int reservationNo) {
 		return paymentDAO.findPaymentInfoByReservationNo(reservationNo);
 	}
-
+	@Transactional
 	@Override
 	public void paymentRentalPriceCancel(PaymentVO paymentVO, String memberId) {
 		paymentVO.setPaymentStatus("취소");

@@ -19,12 +19,14 @@
 			<ul class="nav navbar-nav well-lg" style="font-size: 15px">
 				<li><a href="${initParam.root }service_home_usehow.do">서비스안내</a></li>
         		<li><a href="${initParam.root }feeinfo_home_feeinfo.do">요금안내</a></li>
+        		<c:if test="${sessionScope.loginInfo!=null }">
 				<li><a href="${initParam.root }auth_member_myPage.do?memberId=${sessionScope.loginInfo.memberId}">마이페이지</a></li>
+			</c:if>
 				<li><a href="${initParam.root }customercenter_home_notice.do">고객센터</a></li>
 				<li><a href="${initParam.root }search_searchForm.do">유카찾기/예약</a></li>
 				<c:choose>
 					<c:when test="${sessionScope.admin!=null }">
-						<li><a href="admin_pageView.do">관리자</a></li>
+						<li><a href="admin_sharing_List.do">관리자</a></li>
 					</c:when>
 				</c:choose>
 			</ul>

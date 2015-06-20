@@ -267,6 +267,6 @@ insert into faq( FAQ_NO, FAQ_TITLE, FAQ_MEMBER_ID, FAQ_CONTENT, FAQ_CATEGORY
   
   
   
-  
+  select * from qna_board_reply
   
   
