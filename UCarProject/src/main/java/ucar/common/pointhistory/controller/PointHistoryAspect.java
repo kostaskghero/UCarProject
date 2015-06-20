@@ -24,6 +24,7 @@ public class PointHistoryAspect {
 		PointHistoryVO pointHistoryVO=new PointHistoryVO();
 		pointHistoryVO.setPointType("적립");
 		String methodName=point.getSignature().getName();
+		System.out.println("point"+methodName);
 		if(methodName.contains("payment")){	// 반납결제
 			PaymentVO paymentVO=(PaymentVO) param[0];
 			pointHistoryVO.setMemberId((String)param[1]);

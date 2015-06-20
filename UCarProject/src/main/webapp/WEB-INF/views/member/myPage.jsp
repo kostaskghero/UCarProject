@@ -22,6 +22,10 @@
 					<td>PHONE</td>
 					<td>${sessionScope.loginInfo.memberPhone }</td>
 				</tr>
+				<tr>
+					<td>POINT</td>
+					<td>${sessionScope.loginInfo.memberPoint }</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

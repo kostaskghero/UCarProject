@@ -18,22 +18,7 @@ CREATE TABLE SHARING_RESERVATION (
 )
 
 select RESERVATION_NO, CAR_NO, MEMBER_ID, to_char(RENTAL_DATE, 'YYYY/MM/DD HH24:MI') as rental_date, to_char(RETURN_DATE, 'YYYY/MM/DD HH24:MI') as return_date from SHARING_RESERVATION order by reservation_no
--- 예약
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '1', 'java', to_date('2015/04/10 15:30','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 18:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '2', 'java', to_date('2015/04/10 15:30','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 18:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '1', 'java', to_date('2015/04/10 12:00','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 14:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '3', 'java', to_date('2015/04/10 9:30','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 10:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '4', 'java', to_date('2015/04/10 15:30','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 18:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '5', 'java', to_date('2015/04/10 12:00','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 14:00','YYYY/MM/DD HH24:MI'));
-insert into SHARING_RESERVATION(RESERVATION_NO, CAR_NO, MEMBER_ID, RENTAL_DATE, RETURN_DATE)
-	values(SHARING_RESERVATION_seq.nextval, '2', 'java', to_date('2015/04/10 9:30','YYYY/MM/DD HH24:MI'), to_date('2015/04/10 10:00','YYYY/MM/DD HH24:MI'));
-	
+
 -- 예약여부
 -- 해당시간에 예약상태인 차번호를 조회
 select distinct(car_no) from (select r.car_no, r.rental_date, r.return_date from car c, sharing_reservation r where c.ucar_zone_name='신천역' and c.car_no=r.car_no)
@@ -76,3 +61,4 @@ create table sharing_status(
 	status varchar2(50) not null,
 	constraint fk_reservation_no foreign key(reservation_no) references sharing_reservation
 )
+select * from sharing_status

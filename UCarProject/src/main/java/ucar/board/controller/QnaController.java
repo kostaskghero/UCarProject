@@ -56,7 +56,7 @@ public class QnaController {
 	public ModelAndView QnaRegister(QnaBoardVO qvo, String qnamemberId, HttpServletRequest request) {	
 		qvo.setQnaMemberId(qnamemberId);
 		qnaBoardService.write(qvo);
-		return new ModelAndView("redirect:customercenter_home_qna_boardList.do");
+		return new ModelAndView("redirect:auth_customercenter_home_qna_boardList.do");
 	}	
 	/**
 	 * 관리자가 1:1게시판의 글을 클릭하면 
@@ -94,4 +94,5 @@ public class QnaController {
 		 qnaBoardService.insertRef(qvo);
 		return new ModelAndView("redirect:customercenter_home_qna_boardList.do?sessionId="+sessionId);
 	}
+	
 }
