@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- <style type="text/css">   
+	html { height: 100% }   
+	body { height: 100%; margin: 0px; padding: 0px }   
+	#map_canvas { } 
+</style> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script> -->
+<script type="text/javascript">
 	$(document).ready(function(){
 		$("#carSearchBtn").click(function(){
 			if($("#ucarZoneName").val()==""){
@@ -111,22 +119,39 @@
 			
 		});
 	});
+	var map;
+	function initialize() {
+		var latlng = new google.maps.LatLng(37.402036, 127.106138);     
+		var myOptions = {       
+			zoom: 15,       
+			center: latlng,       
+			mapTypeId: google.maps.MapTypeId.ROADMAP     
+		};     
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+		map.setTilt(45);
+	}
+	window.onload = function() {
+		initialize();
+	}
 </script>
-<div class="container">
-	<div class="col-md-7">
-		<form class="form-horizontal" role="form" id="searchForm">
-			<div class="form-group">
-				<div class="col-sm-2">
-					<label for="sharingType" class="control-label"></label>
-				</div>
-				<div class="col-sm-10">
-					왕복
-					편도
-				</div>
+ <div class="section">
+	<div class="container">
+		<div class="row">
+	  	<div class="col-md-6">
+			<form class="form-horizontal" role="form" id="searchForm">
+				<div class="form-group">
+					<div class="col-sm-2">
+						<label for="sharingType" class="control-label"></label>
+					</div>
+					<div class ="col-md-5">
+		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
+							<input type = "radio" name = "travelType" value = "oneway">편도<br>
+			 		 </div>
+			  <br><br>
 				<div class="col-sm-2">
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="uCarZoneName" name="uCarZoneName" placeholder="지역">
 				</div>
 			</div>
@@ -134,7 +159,7 @@
 				<div class="col-sm-2">
 					<label for="rentalDate" class="control-label">대여일</label>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="YYYY/MM/DD HH:MM">
 				</div>
 			</div>
@@ -142,7 +167,7 @@
 				<div class="col-sm-2">
 					<label for="returnDate" class="control-label">반납일</label>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="returnDate" name="returnDate" placeholder="YYYY/MM/DD HH:MM">
 				</div>
 			</div>
@@ -150,21 +175,26 @@
 				<div class="col-sm-2">
 					<label for="carType" class="control-label">차종</label>
 				</div>
-				<div class="col-sm-10">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="carModel" name="carModel">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
+				<div class="col-sm-offset-4 col-sm-6">
 					<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
 				</div>
 			</div>
-		</form>
-	</div>
-	<div class="col-md-12">
-		<hr>
-	</div>
-	<!-- 검색결과 -->
-	<div class="col-md-12" id="carSearchResultView">
+			</form> 
+	      </div>
+		</div>
+<!-- 		<div class="col-md-4">
+          	<div id="map_canvas" style="width:200px;height:200px;"></div> 
+		</div> -->
+		<div class="col-md-12">
+			<hr>
+		</div>
+		<!-- 검색결과 -->
+		<div class="col-md-12" id="carSearchResultView">
+		</div>
 	</div>
 </div>

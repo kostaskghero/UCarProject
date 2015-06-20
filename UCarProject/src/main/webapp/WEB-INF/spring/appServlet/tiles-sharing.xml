@@ -8,10 +8,11 @@
   -->
   <!-- 검색, 예약 부분 뷰 정리 필요 -->
 <tiles-definitions>
-	<definition name="sharing_*" extends="member_*">
-		<put-attribute name="left" value="/WEB-INF/views/sharing/left.jsp" />
+<definition name="sharing_*" template="/WEB-INF/views/sharing/main/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/sharing/main/header.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/sharing/{1}.jsp" />
-	</definition>	
+		<put-attribute name="footer" value="/WEB-INF/views/sharing/main/footer.jsp" />
+	</definition>	 
 </tiles-definitions>
 
 

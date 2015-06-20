@@ -99,6 +99,10 @@
 							${reservationInfo.carVO.uCarZoneVO.uCarZoneAddress }
 						</label>
 					</div>
+					<br><br><br><br><br><br><br><br><br><br>
+					<div class="col-lg-10 col-lg-offset-5">
+						<a href="${initParam.root }auth_member_myPage.do"><button type="button" class="btn btn-primary" id ="">다음에 결제하기</button></a>
+					</div>
 					<br><br>
 				</fieldset>
 			</div>
@@ -165,9 +169,7 @@
 				<div class="col-lg-10 col-lg-offset-9">
 					<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
 				</div>				
-			</div>
-			<a href="${initParam.root }auth_member_myPage.do"><button type="button" class="btn btn-primary" id ="">다음에 결제하기</button></a>
-		</div>
 	</div>
 </div>
+<br><br>
  

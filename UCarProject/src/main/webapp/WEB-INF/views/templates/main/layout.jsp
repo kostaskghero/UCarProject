@@ -23,11 +23,13 @@
     rel="stylesheet" type="text/css"> --%>
 </head>
 <body>
-<div class="container" id="container">
 	<div id="header"><tiles:insertAttribute name="header" /></div>
 	<div id="main-slide"><tiles:insertAttribute name="main-slide" /></div>
+	<div class="container" id="container">
 	<div id="main-content"><tiles:insertAttribute name="main-content" /></div>
-	<div id="footer"><tiles:insertAttribute name="footer" /></div>
-</div>
+	 </div>
+	 <br><br><br>
+	<div id="footer" style="background-color: #F6756F;"><tiles:insertAttribute name="footer" /></div>
+	
 </body>
 </html>
