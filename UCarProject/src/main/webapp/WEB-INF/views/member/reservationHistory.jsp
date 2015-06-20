@@ -10,7 +10,7 @@
 			var sharingStatus=$(this).parent().siblings().eq(5).text();
 			var flag=confirm("예약을 취소하시겠습니까?");
 			if(flag)
-				location.href="${initParam.root}auth_reservation_cancelReservation.do?reservationNo="+reservationNo+"&sharingStatus="+sharingStatus;
+				location.href="${initParam.root}auth_reservation_cancelReservation.do?reservationNo="+reservationNo+"&sharingStatus="+sharingStatus+"&memberId=${sessionScope.loginInfo.memberId}";
 		});
 		$(":input[name=rentalPaymentBtn]").click(function(){
 			var reservationNo=$(this).val();

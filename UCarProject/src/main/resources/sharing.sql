@@ -53,7 +53,7 @@ create table sharing_payment(
 	payment_card_no varchar2(50),
 	using_point number default 0,
 	payment_type varchar2(50) not null,
-	payment_status VARCHAR2(50) default '완료' NOT NULL,
+	payment_status VARCHAR2(50) NOT NULL,
 	constraint fk_payment_reservation_no foreign key(reservation_no) references sharing_reservation
 )
 select * from sharing_payment;

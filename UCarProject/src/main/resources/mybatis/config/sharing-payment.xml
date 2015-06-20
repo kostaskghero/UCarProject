@@ -4,37 +4,30 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="payment">
- 	<resultMap type="rvo" id="reservationRM">
- 	 	<!-- <result property="reservationNo" column="reservation_no"/>
- 	 	<result property="rentalDate" column="rental_date"/>
- 	 	<result property="returnDate" column="return_date"/>
- 	 	<result property="rentalPrice" column="rental_price"/>
- 	 	<result property="drivingFee" column="driving_fee"/>
- 	 	<result property="sharingStatus" column="sharing_status"/>
- 	 	<result property="availableTime" column="available_time"/>
- 	 	<result property="carVO.carNo" column="car_no"/>
- 	 	<result property="carVO.carNickName" column="car_nick_name"/>
- 	 	<result property="carVO.uCarZoneVO.uCarZoneName" column="ucar_zone_name"/>
- 	 	<result property="carVO.uCarZoneVO.uCarZoneAddress" column="ucar_zone_address"/>
- 	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
- 	 	<result property="carVO.carModelInfoVO.carType" column="car_type"/>
- 	 	<result property="carVO.carModelInfoVO.rentalFee" column="rental_fee"/>
- 	 	<result property="carVO.carModelInfoVO.drivingFee" column="driving_fee"/>
- 	 	<result property="carVO.carModelInfoVO.carPhoto" column="car_photo"/>
- 	 	<result property="carVO.carModelInfoVO.oilType" column="oil_type"/>
- 	 	<result property="memberVO.memberId" column="member_id"/> -->
+ 	<resultMap type="paymentVO" id="paymentRM">
+ 		<result property="paymentNo" column="payment_no"/>
+ 	 	<result property="reservationNo" column="reservation_no"/>
+ 	 	<result property="paymentPrice" column="payment_price"/>
+ 	 	<result property="paymentCardNo" column="payment_card_no"/>
+ 	 	<result property="usingPoint" column="using_point"/>
+ 	 	<result property="paymentType" column="payment_type"/>
+ 	 	<result property="paymentStatus" column="payment_status"/>
  	 </resultMap>
  	 <select id="checkCardPassword" resultType="int">
  	 	select count(*) from card where card_no=#{cardVO.cardNo} and member_id=#{memberId} and card_password=#{cardVO.cardPassword}
  	 </select>
- 	 <insert id="insertSharingPayment" parameterType="pvo">
- 	 	insert into sharing_payment(payment_no, reservation_no, payment_price, payment_card_no, using_point, payment_type) 
- 	 	values(payment_no_seq.nextval, #{reservationNo}, #{paymentPrice}, #{paymentCardNo}, #{usingPoint}, #{paymentType})
+ 	 <insert id="insertSharingPayment" parameterType="paymentVO">
+ 	 	insert into sharing_payment(payment_no, reservation_no, payment_price, payment_card_no, using_point, payment_type, payment_status) 
+ 	 	values(payment_no_seq.nextval, #{reservationNo}, #{paymentPrice}, #{paymentCardNo}, #{usingPoint}, #{paymentType}, #{paymentStatus})
  	 </insert>
- 	 <update id="updateSharingStatusAboutRentalPrice" parameterType="pvo">
+ 	 <update id="updateSharingStatusAboutRentalPrice" parameterType="paymentVO">
  	 	update sharing_status set status='이용요금결제' where reservation_no=#{reservationNo}
  	 </update>
- 	 <update id="updateSharingStatusAboutDrivingPrice" parameterType="pvo">
+ 	 <update id="updateSharingStatusAboutDrivingPrice" parameterType="paymentVO">
  	 	update sharing_status set status='완료' where reservation_no=#{reservationNo}
  	 </update>
+ 	 <select id="findPaymentInfoByReservationNo" parameterType="int" resultMap="paymentRM">
+ 	 	select payment_no, reservation_no, payment_price, payment_card_no, using_point, payment_type, payment_status
+ 	 	from sharing_payment where reservation_no=#{value}
+ 	 </select>
  </mapper> 

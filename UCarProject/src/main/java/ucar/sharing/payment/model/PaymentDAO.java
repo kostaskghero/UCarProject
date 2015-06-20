@@ -12,4 +12,6 @@ public interface PaymentDAO {
 
 	public void updateSharingStatusAboutDrivingPrice(PaymentVO paymentVO);
 
+	public PaymentVO findPaymentInfoByReservationNo(int reservationNo);
+
 }

@@ -6,8 +6,12 @@ public interface PaymentService {
 
 	public String checkCardPassword(MemberVO memberVO);
 	
-	public void paymentRentalPrice(PaymentVO paymentVO);
+	public void paymentRentalPrice(PaymentVO paymentVO, String memberId);
 
-	public void paymentDrivingPrice(PaymentVO paymentVO);
+	public void paymentDrivingPriceSavingPoint(PaymentVO paymentVO, String memberId);
+
+	public PaymentVO findPaymentInfoByReservationNo(int reservationNo);
+
+	public void paymentRentalPriceCancel(PaymentVO paymentVO, String memberId);
 
 }

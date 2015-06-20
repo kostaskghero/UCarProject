@@ -10,7 +10,7 @@ public interface MemberService {
 
 	public MemberVO loginMember(MemberVO mvo);
 
-	public void registerMember(MemberVO mvo);
+	public void registerMemberSavingPoint(MemberVO mvo);
 
 	public String memberIdCheck(String memberId) throws Exception;
 
@@ -38,5 +38,7 @@ public interface MemberService {
 
 	public ReservationListVO getReservationListByMemberId(String memberId,
 			String pageNo);
+
+	public MemberVO findMemberInfoByMemberId(String memberId);
 
 }

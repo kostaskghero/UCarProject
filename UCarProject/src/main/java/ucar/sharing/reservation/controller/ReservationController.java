@@ -69,7 +69,6 @@ public class ReservationController {
 		}
 		else{
 			reservationVO=reservationService.findReturnInfoByReservationNo(reservationVO.getReservationNo());
-			System.out.println(reservationVO);
 		}
 		List<MemberVO> cardList=memberService.findCardInfoByMemberId(memberVO.getMemberId());
 		HashMap<String, Object> map=memberService.findPointAndCouponByMemberId(memberVO.getMemberId());
@@ -88,8 +87,12 @@ public class ReservationController {
 	 * @return
 	 */
 	@RequestMapping("auth_reservation_cancelReservation.do")
-	public String cancelReservation(ReservationVO reservationVO){
+	public String cancelReservation(ReservationVO reservationVO, String memberId){
+		String sharingStatus=reservationVO.getSharingStatus();
 		reservationService.cancelReservationByReservationNo(reservationVO);
+		if(sharingStatus.equals("이용요금결제")){
+			return "redirect:auth_payment_paymentCancel.do?reservationNo="+reservationVO.getReservationNo()+"&memberId="+memberId;
+		}
 		return "redirect:auth_member_reservationHistory.do";
 	}
 	/**

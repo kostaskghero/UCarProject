@@ -35,8 +35,8 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping("auth_payment_paymentRentalPrice.do")
-	public String paymentRentalPrice(PaymentVO paymentVO){
-		paymentService.paymentRentalPrice(paymentVO);
+	public String paymentRentalPrice(PaymentVO paymentVO, String memberId){
+		paymentService.paymentRentalPrice(paymentVO, memberId);
 		return "redirect:auth_member_reservationHistory.do";
 	}
 	/**
@@ -45,8 +45,14 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping("auth_payment_paymentDrivingPrice.do")
-	public String paymentDrivingPrice(PaymentVO paymentVO){
-		paymentService.paymentDrivingPrice(paymentVO);
+	public String paymentDrivingPrice(PaymentVO paymentVO, String memberId){
+		paymentService.paymentDrivingPriceSavingPoint(paymentVO, memberId);
+		return "redirect:auth_member_reservationHistory.do";
+	}
+	@RequestMapping("auth_payment_paymentCancel.do")
+	public String paymentRentalPriceCancel(PaymentVO paymentVO, String memberId){
+		paymentVO=paymentService.findPaymentInfoByReservationNo(paymentVO.getReservationNo());
+		paymentService.paymentRentalPriceCancel(paymentVO, memberId);
 		return "redirect:auth_member_reservationHistory.do";
 	}
 }

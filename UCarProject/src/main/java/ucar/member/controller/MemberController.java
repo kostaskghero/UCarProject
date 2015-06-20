@@ -104,11 +104,11 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="member_register.do",method=RequestMethod.POST)
-	public String registerMember(@Valid MemberVO memberVO,BindingResult result, HttpServletRequest request){
+	public String registerMember(@Valid MemberVO memberVO, BindingResult result, HttpServletRequest request){
 		if(result.hasErrors()){			
 			return "member_register_form"; 
 		}
-		memberService.registerMember(memberVO);
+		memberService.registerMemberSavingPoint(memberVO);
 		HttpSession session=request.getSession(false);
 		session.setAttribute("loginInfo", memberVO);
 		return "redirect:member_register_result.do";
@@ -174,6 +174,11 @@ public class MemberController {
 		}
 		return mv;
 	}
+	@RequestMapping("auth_member_myPage.do")
+	public ModelAndView memberPage(MemberVO memberVO){
+		memberVO=memberService.findMemberInfoByMemberId(memberVO.getMemberId());
+		return new ModelAndView("member_myPage", "memberInfo", memberVO);
+	}
 	/**
 	 * 회원정보 수정하는 폼 제공
 	 * validation 적용을 위해 MemberVO 객체 생성
@@ -198,8 +203,6 @@ public class MemberController {
 			return new ModelAndView("member_updateMember_form"); 
 		}
 		memberVO=memberService.updateMember(memberVO);
-		HttpSession session=request.getSession(false);
-		session.setAttribute("loginInfo", memberVO);
 		return new ModelAndView("member_updateMember_result","message","회원정보수정완료");
 	}
 	/**

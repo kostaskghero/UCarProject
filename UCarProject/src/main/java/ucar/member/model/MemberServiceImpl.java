@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void registerMember(MemberVO mvo) {
+	public void registerMemberSavingPoint(MemberVO mvo) {
 		memberDAO.registerMember(mvo);
 	}
 
@@ -152,5 +152,10 @@ public class MemberServiceImpl implements MemberService {
 		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
 		ReservationListVO listVO=new ReservationListVO(list,paging);
 		return listVO;
+	}
+
+	@Override
+	public MemberVO findMemberInfoByMemberId(String memberId) {
+		return memberDAO.findMemberInfoByMemberId(memberId);
 	}
 }

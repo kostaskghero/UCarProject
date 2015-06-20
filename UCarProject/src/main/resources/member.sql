@@ -5,7 +5,7 @@ create table member(
 	member_name varchar2(50) not null,
 	member_email varchar2(50) not null,
 	member_phone varchar2(50) not null,
-	member_point number default 2000,
+	member_point number default 0,
 	member_level varchar2(50) default 1
 )
 select * from member;
@@ -80,18 +80,3 @@ insert into LICENSE_LOCATION values(license_location_seq.nextval, '23');
 insert into LICENSE_LOCATION values(license_location_seq.nextval, '24');
 insert into LICENSE_LOCATION values(license_location_seq.nextval, '25');
 insert into LICENSE_LOCATION values(license_location_seq.nextval, '26');
-
--- 포인트
-drop sequence point_history_seq;
-create sequence point_history_seq nocache;
-drop table point_history;
-create table point_history(
-	point_history_no number primary key,
-	member_id varchar2(50),
-	point_value number not null,
-	point_date date not null,
-	point_content varchar2(100) not null,
-	point_type varchar2(50) not null,
-	constraint fk_point_member_id foreign key (member_id) references member
-)
-select * from point_history;

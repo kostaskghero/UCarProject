@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- carVo ResultMap -->
+<mapper namespace="point">
+	<insert id="insertPointHistory" parameterType="pointHistoryVO">
+		insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+		values(point_history_seq.nextval, #{memberId}, #{pointValue}, sysdate, #{pointContent}, #{pointType})
+	</insert>
+	<update id="memberPointSubtraction" parameterType="pointHistoryVO">
+		update member set member_point=member_point-#{pointValue} where member_id=#{memberId}
+	</update>
+	<update id="memberPointAddition" parameterType="pointHistoryVO">
+		update member set member_point=member_point+#{pointValue} where member_id=#{memberId}
+	</update>
+</mapper> 

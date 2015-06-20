@@ -32,4 +32,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public void updateSharingStatusAboutDrivingPrice(PaymentVO paymentVO) {
 		sqlSessionTemplate.update("payment.updateSharingStatusAboutDrivingPrice", paymentVO);
 	}
+
+	@Override
+	public PaymentVO findPaymentInfoByReservationNo(int reservationNo) {
+		return sqlSessionTemplate.selectOne("payment.findPaymentInfoByReservationNo", reservationNo);
+	}
 }

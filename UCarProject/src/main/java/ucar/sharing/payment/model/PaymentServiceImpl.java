@@ -19,20 +19,27 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	@Transactional
 	@Override
-	public void paymentRentalPrice(PaymentVO paymentVO) {
-		if(paymentVO.getUsingPoint()>0){
-			// 사용하는 포인트만큼 회원의 포인트 차감
-		}
+	public void paymentRentalPrice(PaymentVO paymentVO, String memberId) {
+		paymentVO.setPaymentStatus("완료");
 		paymentDAO.insertSharingPayment(paymentVO);
 		paymentDAO.updateSharingStatusAboutRentalPrice(paymentVO);
 	}
 
 	@Override
-	public void paymentDrivingPrice(PaymentVO paymentVO) {
-		if(paymentVO.getUsingPoint()>0){
-			// 사용하는 포인트만큼 회원의 포인트 차감
-		}// 총 결제액에 해당하는 포인트 지급
+	public void paymentDrivingPriceSavingPoint(PaymentVO paymentVO, String memberId) {
+		paymentVO.setPaymentStatus("완료");
 		paymentDAO.insertSharingPayment(paymentVO);
 		paymentDAO.updateSharingStatusAboutDrivingPrice(paymentVO);
+	}
+
+	@Override
+	public PaymentVO findPaymentInfoByReservationNo(int reservationNo) {
+		return paymentDAO.findPaymentInfoByReservationNo(reservationNo);
+	}
+
+	@Override
+	public void paymentRentalPriceCancel(PaymentVO paymentVO, String memberId) {
+		paymentVO.setPaymentStatus("취소");
+		paymentDAO.insertSharingPayment(paymentVO);
 	}
 }
