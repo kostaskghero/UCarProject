@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script>
 
-<!-- <style type="text/css">   
+<style type="text/css">   
 	html { height: 100% }   
 	body { height: 100%; margin: 0px; padding: 0px }   
 	#map_canvas { } 
 </style> 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script> -->
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#carSearchBtn").click(function(){
@@ -118,6 +122,16 @@
 			});
 			
 		});
+		 $("#rentalDate").datetimepicker({
+			 	minDate: 0, 
+			 	ang:'ko',
+			    format:'Y/m/d H:i' 
+		    });
+			$("#returnDate").datetimepicker({
+				minDate: 0, 
+			 	ang:'ko',
+			    format:'Y/m/d H:i' 
+		    });
 	});
 	var map;
 	function initialize() {
@@ -137,7 +151,7 @@
  <div class="section">
 	<div class="container">
 		<div class="row">
-	  	<div class="col-md-6">
+	  	<div class="col-md-5">
 			<form class="form-horizontal" role="form" id="searchForm">
 				<div class="form-group">
 					<div class="col-sm-2">
@@ -180,16 +194,16 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-6">
+				<div class="col-sm-offset-4 col-sm-4">
 					<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
 				</div>
 			</div>
 			</form> 
 	      </div>
+	      <div class="col-md-4">
+          	   <div id="map_canvas" style="width:730px;height:500px;"></div> 
+		</div> 
 		</div>
-<!-- 		<div class="col-md-4">
-          	<div id="map_canvas" style="width:200px;height:200px;"></div> 
-		</div> -->
 		<div class="col-md-12">
 			<hr>
 		</div>

@@ -1,7 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	.modalDialog {
+		position: fixed;
+		font-family: Arial, Helvetica, sans-serif;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		z-index: 99999;
+		opacity:0;
+		-webkit-transition: opacity 400ms ease-in;
+		-moz-transition: opacity 400ms ease-in;
+		transition: opacity 400ms ease-in;
+		pointer-events: none;
+	}
 
+	.modalDialog:target {
+		opacity:1;
+		pointer-events: auto;
+	}
+
+	.modalDialog > div {
+		width: 400px;
+		position: relative;
+		margin: 10% auto;
+		padding: 5px 20px 13px 20px;
+		border-radius: 10px;
+		background: #fff;
+		background: -moz-linear-gradient(#fff, #999);
+		background: -webkit-linear-gradient(#fff, #999);
+		background: -o-linear-gradient(#fff, #999);
+	}
+
+	.close {
+		background: #606061;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: -12px;
+		text-align: center;
+		top: -10px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+
+	.close:hover { background: #00d9ff; }
+	</style>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#memberLogin").click(function(){
+			if($("#memberId").val()==""){
+				alert("아이디 입력하세요!");
+				$("#memberId").focus();
+			} else if($("#memberPassword").val()==""){
+				alert("패스워드 입력하세요!");
+				$("#memberPassword").focus();
+			} else{
+				$.ajax({
+					type:"post",
+					url:"${initParam.root}member_login.do",
+					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
+					success:function(data){
+						if(data.flag=="ok"){
+							location.href="${initParam.root}home.do";
+						} else{
+							alert("로그인실패");
+							$("#memberId").val("");
+							$("#memberPassword").val("");
+						}
+					}
+				});
+			}
+		});
+	});
+</script>
 <nav class="navbar navbar-default"
 	style="height: 100px; vertical-align: middle">
 	<div class="container-fluid">
@@ -44,11 +126,39 @@
 					</c:when>
 					<c:otherwise>
 						<li class="active">
-						<a href="${initParam.root }member_login_form.do">Login</a></li>
+						<%-- <a href="${initParam.root }member_login_form.do">Login</a></li> --%>
+						<a href="#openModal">login</a></li>
 						<li><a href="${initParam.root }member_register_form.do">Join</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
 		</div>
 	</div>
+	<div id="openModal" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<form class="form-horizontal" action="${initParam.root }member_login.do">
+  <fieldset>
+    <legend>로그인</legend>
+    <div class="form-group">
+      <label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">Id</label>
+      <div class="col-lg-6">
+        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
+      <div class="col-lg-6">
+        <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호">
+      </div>      
+    </div>
+    <div class="form-group" >
+      <div class="col-lg-10 col-lg-offset-3">
+        <button type="button" class="btn btn-primary" id="memberLogin" >Login</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+	</div>
+</div>
 </nav>
