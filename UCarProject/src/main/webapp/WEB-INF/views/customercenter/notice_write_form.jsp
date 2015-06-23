@@ -50,10 +50,4 @@
   </fieldset>
 </form>
 </c:when>
-<c:otherwise>
-	<script type="text/javascript">
-		alert("로그인하세요");
-		location.href = "${initParam.root }member_login_form.do";
-	</script>
-</c:otherwise> 
 </c:choose>

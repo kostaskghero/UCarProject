@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css">
+<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script>
+<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
 
 <style type="text/css">   
 	html { height: 100% }   
@@ -122,16 +121,19 @@
 			});
 			
 		});
-		 $("#rentalDate").datetimepicker({
+		$("#rentalDate").datetimepicker({
 			 	minDate: 0, 
 			 	ang:'ko',
-			    format:'Y/m/d H:i' 
+			    format:'Y/m/d H:i',
+			    step: 10 //시간 설정을 10분단위로 나눔
 		    });
-			$("#returnDate").datetimepicker({
-				minDate: 0, 
-			 	ang:'ko',
-			    format:'Y/m/d H:i' 
-		    });
+		
+		$("#returnDate").datetimepicker({
+		 	minDate: 0, 
+		 	ang:'ko',
+		    format:'Y/m/d H:i',
+		    step: 10 //시간 설정을 10분단위로 나눔
+	    }); 
 	});
 	var map;
 	function initialize() {
@@ -154,15 +156,12 @@
 	  	<div class="col-md-5">
 			<form class="form-horizontal" role="form" id="searchForm">
 				<div class="form-group">
-					<div class="col-sm-2">
-						<label for="sharingType" class="control-label"></label>
-					</div>
-					<div class ="col-md-5">
+					<div class ="col-md-5 col-md-offset-5">
 		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
 							<input type = "radio" name = "travelType" value = "oneway">편도<br>
 			 		 </div>
 			  <br><br>
-				<div class="col-sm-2">
+				<div class="col-sm-3 col-sm-offset-2">
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
 				<div class="col-sm-4">
@@ -170,7 +169,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-3 col-sm-offset-2" >
 					<label for="rentalDate" class="control-label">대여일</label>
 				</div>
 				<div class="col-sm-4">
@@ -178,7 +177,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-3 col-sm-offset-2">
 					<label for="returnDate" class="control-label">반납일</label>
 				</div>
 				<div class="col-sm-4">
@@ -186,7 +185,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2">
+				<div class="col-sm-3 col-sm-offset-2">
 					<label for="carType" class="control-label">차종</label>
 				</div>
 				<div class="col-sm-4">
@@ -194,7 +193,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-4">
+				<div class="col-sm-offset-5 col-sm-5">
 					<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
 				</div>
 			</div>

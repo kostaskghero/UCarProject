@@ -7,11 +7,9 @@
  	   명시하면 아래의 페이지들이 조합된(include) 결과화면을 제공한다
   -->
 <tiles-definitions>
-	<definition name="member_*" template="/WEB-INF/views/templates/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/templates/main/header.jsp" />
-		<put-attribute name="left" value="/WEB-INF/views/templates/left.jsp" />
+	<definition name="member_*"  extends="admin_*">
+		<put-attribute name="left" value="/WEB-INF/views/member/left.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/member/{1}.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/templates/main/footer.jsp" />
 	</definition>
 	<definition name="auth_member_*" extends="member_*">
 		<put-attribute name="main"  value="/WEB-INF/views/member/{1}.jsp"  />

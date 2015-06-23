@@ -23,7 +23,8 @@
 <c:choose>
 	<c:when test="${fn:length(info)!=0}">
 		<c:forEach items="${info }" var="cardInfo" varStatus="i">
-			<h2>결제카드${i.count }</h2>
+			<h4>결제카드${i.count }</h4>
+			<hr>
 			<div class="container">
 				<div class="col-md-8">
 					<table class="table">

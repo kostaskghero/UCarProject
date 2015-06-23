@@ -3,18 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#memberLogin").click(function(){
-			if($("#memberId").val()==""){
+		$("#memberLoginCheck").click(function(){
+			 if($("#memberIdCheck").val()==""){
 				alert("아이디 입력하세요!");
-				$("#memberId").focus();
-			} else if($("#memberPassword").val()==""){
+				$("#memberIdCheck").focus();
+			} else if($("#memberPasswordCheck").val()==""){
 				alert("패스워드 입력하세요!");
-				$("#memberPassword").focus();
+				$("#memberPasswordCheck").focus();
 			} else{
 				$.ajax({
 					type:"post",
 					url:"${initParam.root}member_login.do",
-					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
+					data:"memberId="+$("#memberIdCheck").val()+"&memberPassword="+$("#memberPasswordCheck").val(),
 					success:function(data){
 						if(data.flag=="ok"){
 							location.href="${initParam.root}home.do";
@@ -25,7 +25,7 @@
 						}
 					}
 				});
-			}
+			} 
 		});
 	});
 </script>
@@ -35,18 +35,18 @@
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-6">
-        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+        <input type="text" class="form-control" id="memberIdCheck" name="memberId" placeholder="아이디">
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-6">
-        <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호">
+        <input type="password" class="form-control" id="memberPasswordCheck" name="memberPassword" placeholder="비밀번호">
       </div>      
     </div>
     <div class="form-group" >
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="button" class="btn btn-primary" id="memberLogin" >Login</button>
+        <button type="button" class="btn btn-primary" id="memberLoginCheck" >Login</button>
       </div>
     </div>
   </fieldset>

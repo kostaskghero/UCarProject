@@ -42,17 +42,27 @@
 </script>
 <form method="post" action="${initParam.root }auth_member_registerCard.do" id="registerCardForm">
 	<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId }">
-	<h2>결제카드</h2>
+	<h4>결제카드</h4>
 	<hr>
-	카드종류
-		<input type="radio" name="cardType" id="cardType"value="개인카드">개인카드
-		<input type="radio" name="cardType" id="cardType"value="법인카드">법인카드
+	<div class = "col-md -5">
+		<label for="carModel" class="col-lg-2 control-label">카드종류</label>
+	</div>
+	<div class = "col-md -1">
+			<input type="radio" name="cardType" id="cardType"value="개인카드">개인카드&nbsp;&nbsp;
+		<input type="radio" name="cardType" id="cardType"value="법인카드">법인카드 &nbsp;&nbsp;
+		</div>
 	<br>
-	카드번호
+	<div class = "col-md -5">
+		<label for="carModel" class="col-lg-2 control-label">카드번호</label>
+	</div>
 		<input type="hidden" id="cardNo" name="cardNo" value="">
 		<input type="text" name="cardNo1" id="cardNo1">-<input type="text" name="cardNo2" id="cardNo2">-<input type="text" name="cardNo3" id="cardNo3">-<input type="text" name="cardNo4" id="cardNo4">
 		<br>
-	유효기간
+	<br>
+	<div class = "col-md -5">
+		<label for="carModel" class="col-lg-2 control-label">유효기간</label>
+	</div>
+
 		<input type="hidden" id="cardExpirationDate" name="cardExpirationDate" value="">
 		<select id="cardExpirationDateMonth">
 			<option value="">월</option>
@@ -67,7 +77,10 @@
 			</c:forEach>
 		</select>
 		<br>
-	생년월일(6자리)
+		<br>
+		<div class = "col-md -5">
+		<label for="carModel" class="col-lg-2 control-label">생년월일(6자리)</label>
+	</div>
 		<input type="hidden" id="cardBirth" name="cardBirth" value="">
 		<!-- 1930년 1월 1일부터 현재날짜까지/ 월별로 날짜 달라짐 -->
 		<select id="cardBirthYear">
@@ -89,7 +102,10 @@
 			</c:forEach>
 		</select>
 		<br>
-	비밀번호(앞2자리)
+		<br>
+		<div class = "col-md -5">
+		<label for="carModel" class="col-lg-2 control-label">비밀번호(앞2자리)</label>
+	</div>
 		<input type="password" name="cardPassword" id="cardPassword">**<br>
 		<hr>
 	<input type="submit" value="등록">

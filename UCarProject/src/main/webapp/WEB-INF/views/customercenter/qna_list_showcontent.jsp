@@ -12,7 +12,7 @@
 	});
 </script>
 
-<form class="form-horizontal" method="post" action="${initParam.root }qna_reply_form.do" id="qnaReplyForm">
+<form class="form-horizontal" method="post" action="${initParam.root }admin_qna_reply_form.do" id="qnaReplyForm">
    <fieldset>
     <legend>1:1 상세내용</legend>
     <div class="form-group">

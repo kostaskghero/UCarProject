@@ -20,7 +20,7 @@
 	});
 </script>
 <c:choose>
-<c:when test="${sessionScope.loginInfo!=null }">
+<c:when test="${sessionScope.loginInfo!=null ||sessionScope.admin!=null }">
 <form class="form-horizontal" method="post" action="${initParam.root }qna_register.do" id="inquiretypeForm">
    <fieldset>
     <legend>1:1 문의 게시판</legend>
@@ -76,10 +76,4 @@
  <%--  <input type ="hidden" name = "sessionId" value ="${sessionScope.admin.memberId}">   --%>
 </form>
 </c:when>
-<c:otherwise>
-	<script type="text/javascript">
-		alert("로그인하세요");
-		location.href = "${initParam.root }member_login_form.do";
-	</script>
-</c:otherwise> 
 </c:choose>
