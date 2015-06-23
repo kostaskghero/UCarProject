@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import ucar.board.reviewcomment.model.ReviewCommentVO;
 import ucar.common.pointhistory.model.PointHistoryService;
 import ucar.common.pointhistory.model.PointHistoryVO;
 import ucar.member.model.MemberVO;
@@ -34,6 +35,10 @@ public class PointHistoryAspect {
 			pointHistoryVO.setMemberId(((MemberVO)param[0]).getMemberId());
 			pointHistoryVO.setPointValue(10000);
 			pointHistoryVO.setPointContent("회원가입");
+		} else if(methodName.contains("Comment")){
+			pointHistoryVO.setMemberId(((ReviewCommentVO)param[0]).getReviewCommentMemberId());
+			pointHistoryVO.setPointValue(500);
+			pointHistoryVO.setPointContent("댓글작성");
 		}
 		pointHistoryService.savingPoint(pointHistoryVO);
 		System.out.println(("메서드 인자값 : "+param[0]));

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewComment">
+	<resultMap type="reviewCommentVO" id="reviewCommentRM">
+		<result property="reviewCommentNo" column="review_comment_no"/>
+		<result property="reviewNo" column="review_no"/>
+		<result property="reviewCommentMemberId" column="review_comment_member_id"/>
+		<result property="reviewCommentContent" column="review_comment_content"/>
+		<result property="reviewCommentTimePosted" column="review_comment_time_posted"/>
+	</resultMap>
+	<insert id="writeComment" parameterType="reviewCommentVO">
+		<selectKey keyProperty="reviewCommentNo" resultType="int" order="BEFORE">
+			select review_comment_seq.nextval from dual
+		</selectKey>
+		insert into review_comment(review_comment_no, review_no, review_comment_member_id, review_comment_content, review_comment_time_posted)
+		values(#{reviewCommentNo}, #{reviewNo}, #{reviewCommentMemberId}, #{reviewCommentContent}, sysdate)
+	</insert>
+	<select id="getAllCommentListByReviewNo" parameterType="int" resultMap="reviewCommentRM">
+		select review_comment_no, review_no, review_comment_member_id, review_comment_content, to_char(review_comment_time_posted, 'YYYY/MM/DD HH24:MI:SS') as review_comment_time_posted 
+		from review_comment where review_no=#{value}
+		order by review_comment_no
+	</select>
+	<update id="editComment" parameterType="reviewCommentVO">
+		update review_comment set review_comment_content=#{reviewCommentContent} where review_comment_no=#{reviewCommentNo}
+	</update>
+	<delete id="deleteComment" parameterType="int">
+		delete from review_comment where review_comment_no=#{value}
+	</delete>
+</mapper> 		
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

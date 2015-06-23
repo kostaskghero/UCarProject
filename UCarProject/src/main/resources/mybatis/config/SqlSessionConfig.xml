@@ -21,6 +21,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="ucar.board.faq.model.FaqBoardVO" alias="fvo" />
 		<typeAlias type="ucar.sharing.payment.model.PaymentVO" alias="paymentVO"/>
 		<typeAlias type="ucar.common.pointhistory.model.PointHistoryVO" alias="pointHistoryVO"/>
+		<typeAlias type="ucar.board.review.model.ReviewVO" alias="reviewVO" />
+		<typeAlias type="ucar.board.reviewcomment.model.ReviewCommentVO" alias="reviewCommentVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/config/member.xml" />
@@ -35,5 +37,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/config/admin-sharing.xml" />
 		<mapper resource="mybatis/config/faqboard.xml" />
 		<mapper resource="mybatis/config/point-history.xml"/>
+		<mapper resource="mybatis/config/review.xml" />
+		<mapper resource="mybatis/config/review-comment.xml"/>
 	</mappers>
 </configuration>
