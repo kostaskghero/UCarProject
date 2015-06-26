@@ -17,6 +17,10 @@ public class ReservationVO {
 	private String sharingStatus;
 	private String availableTime;
 	private String historyPageNo;
+	private String extensionDate;
+	private int extensionPrice;
+	private long lateTime;
+	private int lateFee;
 	private ReturnVO returnVO;
 	private PaymentVO paymentVO;
 	public ReservationVO() {
@@ -27,7 +31,8 @@ public class ReservationVO {
 			MemberVO memberVO, String rentalDate, String rentalUcarZoneName,
 			String returnDate, String returnUcarZoneName, int rentalPrice,
 			String sharingStatus, String availableTime, String historyPageNo,
-			ReturnVO returnVO, PaymentVO paymentVO) {
+			String extensionDate, int extensionPrice, int lateTime,
+			int lateFee, ReturnVO returnVO, PaymentVO paymentVO) {
 		super();
 		this.reservationNo = reservationNo;
 		this.sharingType = sharingType;
@@ -41,6 +46,10 @@ public class ReservationVO {
 		this.sharingStatus = sharingStatus;
 		this.availableTime = availableTime;
 		this.historyPageNo = historyPageNo;
+		this.extensionDate = extensionDate;
+		this.extensionPrice = extensionPrice;
+		this.lateTime = lateTime;
+		this.lateFee = lateFee;
 		this.returnVO = returnVO;
 		this.paymentVO = paymentVO;
 	}
@@ -116,6 +125,30 @@ public class ReservationVO {
 	public void setHistoryPageNo(String historyPageNo) {
 		this.historyPageNo = historyPageNo;
 	}
+	public String getExtensionDate() {
+		return extensionDate;
+	}
+	public void setExtensionDate(String extensionDate) {
+		this.extensionDate = extensionDate;
+	}
+	public int getExtensionPrice() {
+		return extensionPrice;
+	}
+	public void setExtensionPrice(int extensionPrice) {
+		this.extensionPrice = extensionPrice;
+	}
+	public long getLateTime() {
+		return lateTime;
+	}
+	public void setLateTime(long lateTime) {
+		this.lateTime = lateTime;
+	}
+	public int getLateFee() {
+		return lateFee;
+	}
+	public void setLateFee(int lateFee) {
+		this.lateFee = lateFee;
+	}
 	public ReturnVO getReturnVO() {
 		return returnVO;
 	}
@@ -138,6 +171,9 @@ public class ReservationVO {
 				+ returnUcarZoneName + ", rentalPrice=" + rentalPrice
 				+ ", sharingStatus=" + sharingStatus + ", availableTime="
 				+ availableTime + ", historyPageNo=" + historyPageNo
-				+ ", returnVO=" + returnVO + ", paymentVO=" + paymentVO + "]";
+				+ ", extensionDate=" + extensionDate + ", extensionPrice="
+				+ extensionPrice + ", lateTime=" + lateTime + ", lateFee="
+				+ lateFee + ", returnVO=" + returnVO + ", paymentVO="
+				+ paymentVO + "]";
 	}
 }

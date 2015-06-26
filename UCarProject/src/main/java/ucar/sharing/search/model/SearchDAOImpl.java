@@ -28,4 +28,14 @@ public class SearchDAOImpl implements SearchDAO {
 	public List<Integer> checkSchedule(ReservationVO reservationVO) {
 		return sqlSessionTemplate.selectList("search.checkSchedule", reservationVO);
 	}
+
+	@Override
+	public List<String> searchUCarZone(String term) {
+		return sqlSessionTemplate.selectList("search.searchUCarZone", term);
+	}
+
+	@Override
+	public List<String> getAllCarModelList() {
+		return sqlSessionTemplate.selectList("search.getAllCarModelList");
+	}
 }

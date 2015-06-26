@@ -11,17 +11,17 @@ import ucar.sharing.reservation.model.ReservationVO;
 @Service
 public class SearchServiceImpl implements SearchService {
 	@Resource
-	private SearchDAO reservationDAO;
+	private SearchDAO searchDAO;
 
 	@Override
 	public List<ReservationVO> searchCar(ReservationVO reservationVO) {
 		List<ReservationVO> carList=null;
 		if(reservationVO.getCarVO().getCarModelInfoVO().getCarModel().equals("all")){
-			carList=reservationDAO.getAllCarListByUcarZoneName(reservationVO);
+			carList=searchDAO.getAllCarListByUcarZoneName(reservationVO);
 		} else{
-			carList=reservationDAO.getCarListByUcarZoneNameAndCarModel(reservationVO);
+			carList=searchDAO.getCarListByUcarZoneNameAndCarModel(reservationVO);
 		}
-		List<Integer> scheduledCarList=reservationDAO.checkSchedule(reservationVO);
+		List<Integer> scheduledCarList=searchDAO.checkSchedule(reservationVO);
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).setRentalDate(reservationVO.getRentalDate());
 			carList.get(i).setReturnDate(reservationVO.getReturnDate());
@@ -32,5 +32,15 @@ public class SearchServiceImpl implements SearchService {
 			}
 		}
 		return carList;
+	}
+
+	@Override
+	public List<String> searchUCarZone(String term) {
+		return searchDAO.searchUCarZone(term);
+	}
+
+	@Override
+	public List<String> getAllCarModelList() {
+		return searchDAO.getAllCarModelList();
 	}
 }

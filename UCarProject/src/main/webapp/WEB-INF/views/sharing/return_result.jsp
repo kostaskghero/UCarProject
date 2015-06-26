@@ -79,14 +79,14 @@
 						</label>
 					</div>
 					<br><br>
-					<label for="time" class="col-lg-2 control-label">이용시간</label>
+					<label for="availableTime" class="col-lg-2 control-label">이용시간</label>
 					<div class="col-lg-10">
 						<label for="time" class="col-lg-10 control-label">
 							총 ${returnInfo.availableTime } 분
 						</label>
 					</div>
 					<br><br>
-					<label for="time" class="col-lg-2 control-label">반납시간</label>
+					<label for="realReturnDate" class="col-lg-2 control-label">반납시간</label>
 					<div class="col-lg-10">
 						<label for="time" class="col-lg-10 control-label">
 							${returnInfo.returnVO.realReturnDate }
@@ -107,7 +107,7 @@
 						</label>
 					</div>
 					<br><br>
-					<label for="ucarZone" class="col-lg-2 control-label">반납유카존</label>
+					<label for="returnUcarZone" class="col-lg-2 control-label">반납유카존</label>
 					<div class="col-lg-10">
 						<label for="ucarZone" class="col-lg-10 control-label">
 							${returnInfo.returnVO.returnUcarZone }
@@ -121,6 +121,31 @@
 						</label>
 					</div>
 					<br><br>
+					<c:if test="${returnInfo.extensionPrice>0 }">
+						<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
+						<div class="col-lg-10">
+							<label for="extensionPrice" class="col-lg-10 control-label">
+								${returnInfo.extensionPrice } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
+					<c:if test="${returnInfo.lateFee>0 }">
+						<label for="lateTime" class="col-lg-2 control-label">연체이용시간</label>
+						<div class="col-lg-10">
+							<label for="lateFee" class="col-lg-10 control-label">
+								${returnInfo.lateTime } 분
+							</label>
+						</div>
+						<br><br>
+						<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
+						<div class="col-lg-10">
+							<label for="lateFee" class="col-lg-10 control-label">
+								${returnInfo.lateFee } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
 				</fieldset>
 			</div>
 			<div class="col-md-6">
@@ -133,6 +158,24 @@
 						</label>
 					</div>
 					<br><br>
+					<c:if test="${returnInfo.extensionPrice>0 }">
+						<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
+						<div class="col-lg-10">
+							<label for="extensionPrice" class="col-lg-10 control-label">
+								${returnInfo.extensionPrice } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
+					<c:if test="${returnInfo.lateFee>0 }">
+						<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
+						<div class="col-lg-10">
+							<label for="lateFee" class="col-lg-10 control-label">
+								${returnInfo.lateFee } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
 					<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
 					<div class="col-lg-10">
 						<select class="form-control" id="couponType">
@@ -143,7 +186,7 @@
 						</select>
 					</div>
 					<br><br><br>
-					<label for="fee" class="col-lg-2 control-label">포인트</label>
+					<label for="point" class="col-lg-2 control-label">포인트</label>
 					<div class="col-lg-10" id = "pointForm">
 						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
 						<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
@@ -171,7 +214,7 @@
 					<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
 					<div class="col-lg-10">
 						<label for="payTotal" class="col-lg-10 control-label">
-							<span id="payTotalView">${returnInfo.returnVO.drivingPrice }</span> 원
+							<span id="payTotalView">${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }</span> 원
 						</label>
 					</div>
 				<br><br>

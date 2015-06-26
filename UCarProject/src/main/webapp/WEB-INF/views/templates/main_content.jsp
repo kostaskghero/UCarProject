@@ -24,6 +24,9 @@ $(document).ready(function(){
 		    format:'Y/m/d H:i',
 		    step: 10 //시간 설정을 10분단위로 나눔
 	    });
+		$("#carSearchBtn").click(function(){
+			alert("어떻게보내지? 고민할것");
+		});
 });
 /* 자동완성 */
 $(function(){
@@ -76,7 +79,7 @@ $(function(){
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="uCarZoneName1" name="uCarZoneName1" placeholder="지역">
+					<input type="text" class="form-control" id="uCarZoneName1" name="uCarZoneName" placeholder="지역">
 				</div>
 			</div>
 			<div class="form-group">
@@ -100,7 +103,12 @@ $(function(){
 					<label for="carType" class="control-label">차종</label>
 				</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="carModel" name="carModel">
+					<select id="carModel" name="carModel">
+						<option value="all">전체차종</option>
+						<c:forEach items="${carModelList }" var="carModel">
+							<option value="${carModel }">${carModel }</option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

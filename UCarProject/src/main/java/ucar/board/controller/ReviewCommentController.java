@@ -1,7 +1,6 @@
 package ucar.board.controller;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -16,7 +15,11 @@ import ucar.board.reviewcomment.model.ReviewCommentVO;
 public class ReviewCommentController {
 	@Resource
 	private ReviewCommentService reviewCommentService;
-	//auth_reviewComment_writeComment.do
+	/**
+	 * 댓글작성
+	 * @param reviewCommentVO
+	 * @return
+	 */
 	@RequestMapping("auth_reviewComment_writeComment.do")
 	@ResponseBody
 	public HashMap<String, Object> writeComment(ReviewCommentVO reviewCommentVO){
@@ -25,6 +28,11 @@ public class ReviewCommentController {
 		map.put("commentList", reviewCommentService.writeCommentSavingPoint(reviewCommentVO));
 		return map;
 	}
+	/**
+	 * 댓글수정
+	 * @param reviewCommentVO
+	 * @return
+	 */
 	@RequestMapping("auth_reviewComment_editComment.do")
 	@ResponseBody
 	public HashMap<String, Object> editComment(ReviewCommentVO reviewCommentVO){
@@ -33,6 +41,11 @@ public class ReviewCommentController {
 		map.put("commentList", reviewCommentService.editComment(reviewCommentVO));
 		return map;
 	}
+	/**
+	 * 댓글삭제
+	 * @param reviewCommentVO
+	 * @return
+	 */
 	@RequestMapping("auth_reviewComment_deleteComment.do")
 	@ResponseBody
 	public HashMap<String, Object> deleteComment(ReviewCommentVO reviewCommentVO){

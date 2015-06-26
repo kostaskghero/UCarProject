@@ -13,6 +13,10 @@ CREATE TABLE SHARING_RESERVATION (
 	RETURN_DATE DATE NOT NULL,
 	return_ucar_zone_name varchar2(50),
 	reservation_date date not null,
+	extension_date date default null,
+	extension_price number default 0,
+	late_fee number default 0,
+	late_time number default 0,
 	constraint FK_RESERVATION_CAR_NO foreign key(CAR_NO) references car,
 	constraint FK_RESERVATION_MEMBER_ID foreign key(MEMBER_ID) references member
 )

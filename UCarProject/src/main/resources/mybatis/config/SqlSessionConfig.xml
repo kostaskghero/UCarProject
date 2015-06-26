@@ -39,5 +39,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/config/point-history.xml"/>
 		<mapper resource="mybatis/config/review.xml" />
 		<mapper resource="mybatis/config/review-comment.xml"/>
+		<mapper resource="mybatis/config/member-sharing.xml"/>
 	</mappers>
 </configuration>
