@@ -79,5 +79,14 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("likeCount", reviewDAO.findReviewLikeCountByReviewNo(reviewVO.getReviewNo()));
 		return map;
 	}
+	@Override
+	public void registerFile(ReviewFileVO rfvo) {
+		reviewDAO.registerFile(rfvo);
 
+	}
+
+	@Override
+	public List<ReviewFileVO> getFileByReviewNo(int reviewNo) {
+		return reviewDAO.getFileByReviewNo(reviewNo);
+	}
 }

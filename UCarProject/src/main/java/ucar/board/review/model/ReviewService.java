@@ -23,5 +23,9 @@ public interface ReviewService {
 	public HashMap<String, String> likeReview(ReviewVO reviewVO);
 
 	public HashMap<String, String> likeReviewCancel(ReviewVO reviewVO);
+	
+	public void registerFile(ReviewFileVO rfvo);
+
+	public List<ReviewFileVO> getFileByReviewNo(int reviewNo);
 
 }

@@ -69,4 +69,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void deleteReviewLike(ReviewVO reviewVO) {
 		sqlSessionTemplate.delete("review.deleteReviewLike", reviewVO);
 	}
+	public void registerFile(ReviewFileVO rfvo){
+		sqlSessionTemplate.insert("reviewFile.registerFile",rfvo);
+	}
+	public List<ReviewFileVO> getFileByReviewNo(int reviewNo){
+		return sqlSessionTemplate.selectList("reviewFile.getFileByReviewNo",reviewNo);
+	}
 }
