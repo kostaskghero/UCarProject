@@ -15,9 +15,20 @@
 		});
 	});
 </script>
-탈퇴하시겠습니까
+<h4>탈퇴하시겠습니까</h4>
+<hr>
 <form method="post" action="${initParam.root }auth_member_deleteMember.do" id="deleteForm">
-	아이디<input readonly="readonly" name="memberId" value="${sessionScope.loginInfo.memberId }"><br>
-	패스워드<input type="password" name="memberPassword" id="memberPassword"><br>
+	 <label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">아이디</label>
+	<div class="col-lg-8">
+		<input readonly="readonly" name="memberId" value="${sessionScope.loginInfo.memberId }"><br>
+	</div>
+	<br><br>
+	<label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">패스워드</label>
+	<div class="col-lg-8">
+		<input type="password" name="memberPassword" id="memberPassword"><br>
+	</div>
+	<br><br>
+	<div class="col-lg-9 col-lg-offset-5">
 	<input type="submit" value="탈퇴">
+	</div>
 </form>
