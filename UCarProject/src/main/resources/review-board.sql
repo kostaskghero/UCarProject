@@ -42,3 +42,12 @@ create table review_like(
    constraint fk_review_like_no foreign key(review_no) references review
 )
 select * from review_like
+
+--이용후기 사진 테이블 
+create sequence review_file_seq nocache;
+create table review_file(
+review_file_no number primary key,
+review_no number not null,
+file_path varchar2(200) not null,
+constraint review_no_fk foreign key(review_no) references review(review_no) on DELETE CASCADE 
+)
