@@ -149,4 +149,40 @@ public class CarServiceImpl implements CarService {
 	public void updateUcarZone(UCarZoneVO zvo) {
 		carDAO.updateUcarZone(zvo);
 	}
+
+	@Override
+	public void registerCarModel(CarModelInfoVO carModelVO) {
+		carDAO.registerCarModel(carModelVO);
+
+	}
+
+	@Override
+	public void registerCarPic(CarPicVO carPicVO) {
+		carDAO.registerCarPic(carPicVO);
+	}
+
+	@Override
+	public void registerCarOption(CarOptionVO carOptionVO) {
+		for (int i = 0; i < carOptionVO.getoptionInfo().size(); i++) {
+			carOptionVO.setOptionComp(carOptionVO.getoptionInfo().get(i));
+			carDAO.registerCarOption(carOptionVO);
+		}
+	}
+
+	@Override
+	public CarModelInfoVO carModelNameCheck(String modelName) {
+		return carDAO.carModelNameCheck(modelName);
+	}
+
+	@Override
+	public List<CarModelInfoVO> getAllModelList() {
+		return carDAO.getAllModelList();
+	}
+
+	@Override
+	public CarModelInfoVO getModelDetailInfo(String carModel) {
+		CarModelInfoVO carModelVO=carDAO.getMdoelDetailInfo(carModel);
+		carModelVO.setCarOption(carDAO.getModelOption(carModel));
+		return carModelVO;
+	}
 }

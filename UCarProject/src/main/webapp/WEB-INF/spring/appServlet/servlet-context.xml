@@ -55,10 +55,24 @@
 		경로 C:\java-kosta\servers\spring2-tomcat\webapps\springmvc28-fileupload-inst\upload -->
 	<bean id="uploadPath" class="java.lang.String">
 		<constructor-arg>
-			<value>C:\\java-kosta\\spring2-workspace\\springmvc28-fileupload-inst\\src\\main\\webapp\\upload\\
-			</value>
+			<value>C:\\Users\\KOSTA\\git\\UCarProject\\UCarProject\\src\\main\\webapp\\upload\\</value>
 		</constructor-arg>
 	</bean>
+		<bean id="uploadCarPicPath" class="java.lang.String">
+		<constructor-arg>
+			<value>C:\\Users\\KOSTA\\git\\UCarProject\\UCarProject\\src\\main\\webapp\\car-pic\\</value>
+		</constructor-arg>
+	</bean>
+	<bean id="viewPath" class="java.lang.String">
+      <constructor-arg>
+         <value>upload/</value>
+      </constructor-arg>
+   </bean>
+   <bean id="viewCarPath" class="java.lang.String">
+      <constructor-arg>
+         <value>car-pic/</value>
+      </constructor-arg>
+   </bean>
 	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="1"></property>
 	</bean>

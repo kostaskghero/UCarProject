@@ -5,6 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- carVo ResultMap -->
 <mapper namespace="car">
+	<resultMap type="carPicVO" id="carPicRM">
+		<result property="carModel" column="CAR_MODEL" />
+		<result property="originalName" column="original_name" />
+		<result property="filePath" column="file_path" />
+		<result property="carPicNo" column="car_pic_no" />
+	</resultMap>
+	<resultMap type="carOptionVO" id="carOptionRM">
+		<result property="optionNo" column="OPTION_NUMBER" />
+		<result property="carModel" column="car_model" />
+		<result property="optionInfo" column="OPTION_INFO" />
+	</resultMap>
+	<resultMap type="carModelVO" id="carModelRM">
+		<result property="carModel" column="CAR_MODEL" />
+		<result property="carType" column="car_type" />
+		<result property="rentalFee" column="rental_fee" />
+		<result property="drivingFee" column="driving_fee" />
+		<result property="oilType" column="oil_type" />
+		<result property="carPhoto" column="file_path" />
+	</resultMap>
 	<resultMap type="cvo" id="carRM">
 		<result property="carNo" column="CAR_NO" />
 		<result property="uCarZoneVO.uCarZoneName" column="UCAR_ZONE_NAME" />
@@ -104,6 +123,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		car_nick_name=#{carNickName} and car_model=#{carModelInfoVO.carModel}
 	</select>
 	<select id="searchCarByUCarZoneName" resultMap="carRM">
-		select * from car where ucar_zone_name=#{value}
+		select * from car
+		where ucar_zone_name=#{value}
+	</select>
+	<insert id="registerCarPic" parameterType="carPicVO">
+		insert into car_pic
+		(car_pic_no,CAR_MODEL, file_path,original_name)
+		values(car_pic_seq.nextval,#{carModel},#{filePath},#{originalName})
+	</insert>
+	<insert id="registerCarModel" parameterType="carModelVO">
+		insert into
+		CAR_MODEL_INFO
+		(CAR_MODEL,CAR_TYPE,RENTAL_FEE,DRIVING_FEE,OIL_TYPE)
+		values(#{carModel},#{carType},#{rentalFee},#{drivingFee},#{oilType})
+	</insert>
+	<insert id="registerCarOption" parameterType="carOptionVO">
+		insert into
+		car_option (OPTION_NUMBER,CAR_MODEL,OPTION_INFO)
+		values(car_option_seq.nextval,#{carModel},#{optionComp})
+	</insert>
+	<select id="carModelNameCheck" resultMap="carModelRM">
+		select * from
+		CAR_MODEL_INFO where CAR_MODEL=#{value}
+	</select>
+	<select id="getAllModelList" resultMap="carModelRM">
+		select
+		c.CAR_MODEL,c.CAR_TYPE,c.RENTAL_FEE,c.DRIVING_FEE,c.OIL_TYPE,p.file_path
+		from CAR_MODEL_INFO c, car_pic p
+		where c.CAR_MODEL=p.CAR_MODEL
+	</select>
+	<select id="getModelOption" parameterType="String" resultType="String">
+		select option_info from CAR_OPTION where car_model=#{value}
+	</select>
+	<select id="getMdoelDetailInfo" resultMap="carModelRM">
+		select
+		c.CAR_MODEL,c.CAR_TYPE,c.RENTAL_FEE,c.DRIVING_FEE,c.OIL_TYPE,p.file_path
+		from CAR_MODEL_INFO c, car_pic p
+		where c.CAR_MODEL=p.CAR_MODEL and c.car_model=#{value}
 	</select>
 </mapper> 

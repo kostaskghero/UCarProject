@@ -19,6 +19,8 @@
  --%>
  <h4><a href="${initParam.root}admin_member_list.do">회원목록</a></h4>
 <hr>
+<h4><a href="${initParam.root}admin_carModelRegisterForm.do">차량 모델 등록</a></h4><br>
+<h4><a href="${initParam.root}admin_carModel_list.do">차량 모델 목록</a></h4><br>
 <h4><a href="${initParam.root}admin_carRegisterForm.do">차량등록</a></h4><br>
 <h4><a href="${initParam.root}admin_car_list.do">차량목록</a></h4>
 <hr>

@@ -133,4 +133,29 @@ public class CarDAOImpl implements CarDAO {
 	public void updateUcarZone(UCarZoneVO zvo) {
 		sqlSessionTemplate.update("ucarzone.updateUcarZone", zvo);
 	}
+
+	public void registerCarModel(CarModelInfoVO carDetailVO){
+		sqlSessionTemplate.insert("car.registerCarModel",carDetailVO);
+	}
+	public void registerCarPic(CarPicVO carPicVO){
+		sqlSessionTemplate.insert("car.registerCarPic",carPicVO);
+	}
+
+	@Override
+	public void registerCarOption(CarOptionVO carOptionVO) {
+
+		sqlSessionTemplate.insert("car.registerCarOption",carOptionVO);
+	}
+	public CarModelInfoVO carModelNameCheck(String modelName){
+		return sqlSessionTemplate.selectOne("carModelNameCheck",modelName);
+	}
+	public List<CarModelInfoVO> getAllModelList(){
+		return sqlSessionTemplate.selectList("car.getAllModelList");
+	}
+	public List<String> getModelOption(String carModel){
+		return sqlSessionTemplate.selectList("car.getModelOption",carModel);
+	}
+	public CarModelInfoVO getMdoelDetailInfo(String carModel){
+		return sqlSessionTemplate.selectOne("car.getMdoelDetailInfo",carModel);
+	}
 }
