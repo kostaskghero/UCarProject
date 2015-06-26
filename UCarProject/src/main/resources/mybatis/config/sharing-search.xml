@@ -44,4 +44,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
 		and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))]]>
  	</select>
+ 	<select id="searchUCarZone" resultType="string">
+ 		select UCAR_ZONE_NAME from ucar_zone where UCAR_ZONE_NAME like '%${value}%'
+ 	</select>
+ 	<select id="getAllCarModelList" resultType="string">
+ 		select distinct(car_model) from car_model_info
+ 	</select>
  </mapper> 

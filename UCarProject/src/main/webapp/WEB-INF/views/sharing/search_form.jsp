@@ -207,10 +207,9 @@
 	} 
 	$(function(){
 		$("#uCarZoneNames").autocomplete({
-			source:function(request,response){
-				//alert(request.term);// 검색어 입력 정보가 출력 
+			source:function(request,response){ 
 				$.ajax({
-					url:"searchUCarZone.do",
+					url:"search_searchUCarZone.do",
 					dataType:"json",
 					data:"term="+request.term,
 					success:function(data){
@@ -237,7 +236,7 @@
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneNames" placeholder="지역">
+					<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneName" placeholder="지역">
 				</div>
 			</div>
 			<div class="form-group">
@@ -260,8 +259,13 @@
 				<div class="col-sm-3 col-sm-offset-2">
 					<label for="carType" class="control-label">차종</label>
 				</div>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="carModel" name="carModel">
+				<div class="col-sm-4">
+					<select id="carModel" name="carModel">
+						<option value="all">전체차종</option>
+						<c:forEach items="${carModelList }" var="carModel">
+							<option value="${carModel }">${carModel }</option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

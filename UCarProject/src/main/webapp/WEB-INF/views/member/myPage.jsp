@@ -8,23 +8,23 @@
 			<tbody>
 				<tr>
 					<td>ID</td>
-					<td>${sessionScope.loginInfo.memberId }</td>
+					<td>${memberInfo.memberId }</td>
 				</tr>
 				<tr>
 					<td>NAME</td>
-					<td>${sessionScope.loginInfo.memberName }</td>
+					<td>${memberInfo.memberName }</td>
 				</tr>
 				<tr>
 					<td>E-MAIL</td>
-					<td>${sessionScope.loginInfo.memberEmail }</td>
+					<td>${memberInfo.memberEmail }</td>
 				</tr>
 				<tr>
 					<td>PHONE</td>
-					<td>${sessionScope.loginInfo.memberPhone }</td>
+					<td>${memberInfo.memberPhone }</td>
 				</tr>
 				<tr>
 					<td>POINT</td>
-					<td>${sessionScope.loginInfo.memberPoint }</td>
+					<td>${memberInfo.memberPoint }</td>
 				</tr>
 			</tbody>
 		</table>

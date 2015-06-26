@@ -8,14 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ucar.common.model.ReservationListVO;
-import ucar.common.model.ReservationPagingBean;
 import ucar.member.model.exception.DuplicateCardNumberException;
 import ucar.member.model.exception.DuplicateLicenseNumberException;
 import ucar.member.model.exception.DuplicateMemberIdException;
 import ucar.member.model.exception.ExceedNumberOfCardException;
 import ucar.member.model.exception.InvalidMemberIdException;
-import ucar.sharing.reservation.model.ReservationVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -120,39 +117,7 @@ public class MemberServiceImpl implements MemberService {
 		map.put("memberPoint", point);
 		// memberId 의 쿠폰리스트
 		return map;
-	}
-	
-	@Override
-	public ReservationListVO getReservationListByMemberId(String memberId, String pageNo) {
-		if(pageNo==null||pageNo=="") 
-			pageNo="1";
-		ReservationVO reservationVO=new ReservationVO();
-		MemberVO memberVO=new MemberVO();
-		memberVO.setMemberId(memberId);
-		reservationVO.setMemberVO(memberVO);
-		reservationVO.setHistoryPageNo(pageNo);
-		List<ReservationVO> list=memberDAO.getReservationListByMemberId(reservationVO);
-		int total=memberDAO.totalReservationByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
-		ReservationListVO listVO=new ReservationListVO(list,paging);
-		return listVO;
-	}
-
-	@Override
-	public ReservationListVO getUsedListByMemberId(String memberId,	String pageNo) {
-		if(pageNo==null||pageNo=="") 
-			pageNo="1";
-		ReservationVO reservationVO=new ReservationVO();
-		MemberVO memberVO=new MemberVO();
-		memberVO.setMemberId(memberId);
-		reservationVO.setMemberVO(memberVO);
-		reservationVO.setHistoryPageNo(pageNo);
-		List<ReservationVO> list=memberDAO.getUsedListByMemberId(reservationVO);
-		int total=memberDAO.totalUsedByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
-		ReservationListVO listVO=new ReservationListVO(list,paging);
-		return listVO;
-	}
+	}		
 
 	@Override
 	public MemberVO findMemberInfoByMemberId(String memberId) {

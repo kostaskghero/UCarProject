@@ -6,10 +6,14 @@ import ucar.sharing.reservation.model.ReservationVO;
 
 public interface SearchDAO {
 
-	List<ReservationVO> getAllCarListByUcarZoneName(ReservationVO reservationVO);
+	public List<ReservationVO> getAllCarListByUcarZoneName(ReservationVO reservationVO);
 
-	List<ReservationVO> getCarListByUcarZoneNameAndCarModel(ReservationVO reservationVO);
+	public List<ReservationVO> getCarListByUcarZoneNameAndCarModel(ReservationVO reservationVO);
 
-	List<Integer> checkSchedule(ReservationVO reservationVO);
+	public List<Integer> checkSchedule(ReservationVO reservationVO);
+
+	public List<String> searchUCarZone(String term);
+
+	public List<String> getAllCarModelList();
 
 }

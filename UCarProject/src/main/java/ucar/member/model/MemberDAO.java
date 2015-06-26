@@ -2,8 +2,6 @@ package ucar.member.model;
 
 import java.util.List;
 
-import ucar.sharing.reservation.model.ReservationVO;
-
 public interface MemberDAO {
 
 	public MemberVO loginMember(MemberVO memberVO);
@@ -51,13 +49,5 @@ public interface MemberDAO {
 	public int countCardByMemberId(String memberId);
 
 	public int findPointByMemberId(String memberId);
-
-	public List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO);
-
-	public List<ReservationVO> getUsedListByMemberId(ReservationVO reservationVO);
-
-	int totalReservationByMemberId(String memberId);
-
-	int totalUsedByMemberId(String memberId);
 
 }

@@ -8,4 +8,8 @@ public interface SearchService {
 
 	public List<ReservationVO> searchCar(ReservationVO reservationVO);
 
+	public List<String> searchUCarZone(String term);
+
+	public List<String> getAllCarModelList();
+
 }

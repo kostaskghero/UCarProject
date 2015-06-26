@@ -36,30 +36,14 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return message;
 	}
-	
-	@Transactional
-	@Override
-	public void cancelReservationByReservationNo(ReservationVO reservationVO) {
-		reservationVO.setSharingStatus("취소");
-		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
-	}
 
 	@Override
-	public void usingSharingService(ReservationVO reservationVO) {
-		reservationVO.setSharingStatus("이용중");
-		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
-	}
-	
-	@Transactional
-	@Override
-	public void returnSharingService(ReservationVO reservationVO) {
-		reservationDAO.returnSharingService(reservationVO);
-		reservationVO.setSharingStatus("반납");
-		reservationDAO.changeSharingStatusByReservationNo(reservationVO);
+	public ReservationVO findReturnInfoByReservationNo(ReservationVO reservationVO) {
+		if(reservationVO.getExtensionPrice()>0){
+			return reservationDAO.findExtensionInfoByReservationNo(reservationVO.getReservationNo());
+		} else{
+			return reservationDAO.findReturnInfoByReservationNo(reservationVO.getReservationNo());
+		}		
 	}
 
-	@Override
-	public ReservationVO findReturnInfoByReservationNo(int reservationNo) {
-		return reservationDAO.findReturnInfoByReservationNo(reservationNo);
-	}
 }

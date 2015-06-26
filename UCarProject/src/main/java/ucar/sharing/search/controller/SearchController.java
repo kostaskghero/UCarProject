@@ -18,7 +18,7 @@ import ucar.sharing.search.model.SearchService;
 @Controller
 public class SearchController {
 	@Resource
-	private SearchService reservationService;
+	private SearchService searchService;
 	/**
 	 * 차량검색폼으로 이동
 	 * 차종리스트를 반환한다.
@@ -26,7 +26,7 @@ public class SearchController {
 	 */
 	@RequestMapping("search_searchForm.do")
 	public ModelAndView searchForm(){
-		return new ModelAndView("sharing_search_form");
+		return new ModelAndView("sharing_search_form", "carModelList", searchService.getAllCarModelList());
 	}
 	/**
 	 * searchVO 의 ucarZoneName 에 해당하는 모든 carList 를 리턴
@@ -41,6 +41,12 @@ public class SearchController {
 		carVO.setuCarZoneVO(uCarZoneVO);
 		carVO.setCarModelInfoVO(carModelInfoVO);
 		reservationVO.setCarVO(carVO);
-		return reservationService.searchCar(reservationVO);
+		return searchService.searchCar(reservationVO);
+	}
+	
+	@RequestMapping("search_searchUCarZone.do")
+	@ResponseBody
+	public List<String> searchUCarZone(String term){
+		return searchService.searchUCarZone(term);
 	}
 }

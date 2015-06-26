@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import ucar.common.model.ReservationListVO;
 import ucar.member.model.CardVO;
 import ucar.member.model.DrivingLicenseVO;
 import ucar.member.model.MemberService;
@@ -279,21 +278,5 @@ public class MemberController {
 		}
 		return "redirect:member_logout.do";
 	}	
-	/**
-	 * 회원의 예약/이용내역을 List 로 제공
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("auth_member_reservationHistory.do")
-	public ModelAndView reservationHistory(HttpServletRequest request, String pageNo){
-		ModelAndView mv=new ModelAndView();
-		mv.setViewName("member_reservationHistory");
-		HttpSession session=request.getSession(false);
-		MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
-		ReservationListVO reservationListVO=memberService.getReservationListByMemberId(memberVO.getMemberId(), pageNo);
-		mv.addObject("reservationList", reservationListVO);
-		ReservationListVO usedListVO=memberService.getUsedListByMemberId(memberVO.getMemberId(), pageNo);
-		mv.addObject("usedList", usedListVO);
-		return mv;
-	}
+	
 }
