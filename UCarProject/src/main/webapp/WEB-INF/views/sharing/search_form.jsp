@@ -1,16 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <!-- 자동완성 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<!-- 데이터 타임피커 -->
 <link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 <script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
+<style>
+	#searchForm {
 
+		font-size:medium;
+		background: #f2f2f2; /* Old browsers */
+		width: 400px;
+		position: relative;
+		margin: 10% auto;
+		padding: 5px 20px 13px 20px;
+		border-radius: 10px;
+	}
+
+</style> 
 <style type="text/css">   
 	html { height: 100% }   
 	body { height: 100%; margin: 0px; padding: 0px }   
 	#map_canvas { } 
 </style> 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#carSearchBtn").click(function(){
@@ -136,6 +153,18 @@
 	    }); 
 	});
 	var map;
+	var marker;
+	var geocoder;
+	var location;
+	//지도에 찍을 위치정보를 저장함
+	var locaTest = [ // 영역설정을 위한 Polygon의 꼭지점 좌표
+	                	   new google.maps.LatLng(37.402136,127.106238),
+	                       new google.maps.LatLng(37.402236,127.106338),
+	                       new google.maps.LatLng(37.402336,127.106438),
+	                       new google.maps.LatLng(37.402436,127.106538),
+	                       new google.maps.LatLng(37.402536,127.106638),
+	                       new google.maps.LatLng(37.402636,127.106738)
+	                       ];
 	function initialize() {
 		var latlng = new google.maps.LatLng(37.402036, 127.106138);     
 		var myOptions = {       
@@ -145,10 +174,53 @@
 		};     
 		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
 		map.setTilt(45);
+		for(var i =0; i < locaTest.length; i++) {
+		   marker = new google.maps.Marker({
+			   position: locaTest[i],
+			   map : map
+			});   
+		   marker.setTitle((i + 1).toString());
+	       attachSecretMessage(marker, i);
+		}
+	  /*   // 지도클릭시 마커 생성
+		google.maps.event.addListener(map, 'click', function(event) {
+			marker = new google.maps.Marker({
+			position: event.latLng,
+			map: map,
+			title: '위치마커'
+			});
+		}); */
 	}
+	 //마커클릭시 정보
+	function attachSecretMessage(marker, num) {
+		  var message = ['This', 'is', 'the', 'secret', 'message','haha'];
+		  var infowindow = new google.maps.InfoWindow({
+		    content: message[num]
+		  });
+
+		  google.maps.event.addListener(marker, 'click', function() {
+		    infowindow.open(marker.get('map'), marker);
+		  });
+		}
 	window.onload = function() {
 		initialize();
-	}
+	} 
+	$(function(){
+		$("#uCarZoneNames").autocomplete({
+			source:function(request,response){
+				//alert(request.term);// 검색어 입력 정보가 출력 
+				$.ajax({
+					url:"searchUCarZone.do",
+					dataType:"json",
+					data:"term="+request.term,
+					success:function(data){
+						response(data);
+					}
+				});//ajax
+			}//source
+		});//autocomplete
+	});//ready
+
 </script>
  <div class="section">
 	<div class="container">
@@ -158,21 +230,21 @@
 				<div class="form-group">
 					<div class ="col-md-5 col-md-offset-5">
 		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
-							<input type = "radio" name = "travelType" value = "oneway">편도<br>
+						<!-- 	<input type = "radio" name = "travelType" value = "oneway">편도<br> -->
 			 		 </div>
 			  <br><br>
 				<div class="col-sm-3 col-sm-offset-2">
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="uCarZoneName" name="uCarZoneName" placeholder="지역">
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneNames" placeholder="지역">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-3 col-sm-offset-2" >
 					<label for="rentalDate" class="control-label">대여일</label>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-5">
 					<input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="YYYY/MM/DD HH:MM">
 				</div>
 			</div>
@@ -180,7 +252,7 @@
 				<div class="col-sm-3 col-sm-offset-2">
 					<label for="returnDate" class="control-label">반납일</label>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-5">
 					<input type="text" class="form-control" id="returnDate" name="returnDate" placeholder="YYYY/MM/DD HH:MM">
 				</div>
 			</div>
@@ -188,19 +260,19 @@
 				<div class="col-sm-3 col-sm-offset-2">
 					<label for="carType" class="control-label">차종</label>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-5">
 					<input type="text" class="form-control" id="carModel" name="carModel">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-5 col-sm-5">
+				<div class="col-sm-offset-7 col-sm-7">
 					<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
 				</div>
 			</div>
 			</form> 
 	      </div>
 	      <div class="col-md-4">
-          	   <div id="map_canvas" style="width:730px;height:500px;"></div> 
+          	   <div id="map_canvas" style="width:730px;height:500px;"></div>   
 		</div> 
 		</div>
 		<div class="col-md-12">

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tiles Layout</title>
 <script type="text/javascript" src="${initParam.root}js/jquery-1.11.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${initParam.root}/css/home.css" />
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
