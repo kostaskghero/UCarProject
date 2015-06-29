@@ -39,6 +39,14 @@
 				alert("유카존 이름을 확인하세요");
 				return false;
 			}
+			if ($("#longitude").val() == "") {
+				alert("경도를 입력하세요");
+				return false;
+			}
+			if ($("#latitude").val() == "") {
+				alert("위도를 입력하세요");
+				return false;
+			}
 			$("#uCarZoneRegisterForm").submit();
 		});
 	});
@@ -62,7 +70,20 @@
 				<input type="text" class="form-control" id="uCarZoneAddress"
 					name="uCarZoneAddress" placeholder="유카존 주소">
 			</div>
-
+		</div>
+		<div class="form-group">
+			<label for="inputLatitude" class="col-lg-2 control-label">위도</label>
+			<div class="col-lg-4">
+				<input type="text" class="form-control" id="latitude"
+					name="latitude" placeholder="유카존 위도">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputLongitude" class="col-lg-2 control-label">경도</label>
+			<div class="col-lg-4">
+				<input type="text" class="form-control" id="longitude"
+					name="longitude" placeholder="유카존 경도">
+			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-lg-10 col-lg-offset-2">
