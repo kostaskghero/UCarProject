@@ -55,7 +55,7 @@
 								tableInfo+="<div id='"+carList.carVO.carNo+"Info'>";
 								tableInfo+="<tr><input type='hidden' name='selectCar' value='"+carList.carVO.carNo+"'>";	// car_no 를 넘겨야할듯?
 								tableInfo+="<td>"+carList.carVO.uCarZoneVO.uCarZoneName+"</td>";	// 유카존
-								tableInfo+="<td>"+carList.carVO.carModelInfoVO.carPhoto+"</td>";	// 차외관
+								tableInfo+="<td><img src='"+carList.carVO.carModelInfoVO.carPhoto+"'></td>";	// 차외관
 								tableInfo+="<td>"+carList.carVO.carModelInfoVO.carModel+" "+carList.carVO.carNickName+"</td>";	// 차량정보(닫 : 모델명, 닉네임, 간략한 스케쥴 / 열 : 닫 + 유종, 옵션, 스케쥴 자세히)
 								tableInfo+="<td>"+carList.rentalPrice+"원</td>";	// 대여요금
 								tableInfo+="<td>"+carList.carVO.carModelInfoVO.drivingFee+"원/km</td>";	// 주행요금

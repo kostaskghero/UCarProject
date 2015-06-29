@@ -47,7 +47,7 @@
 					success:function(data){
 						if(data=='ok'){
 							location.href="${initParam.root}auth_payment_paymentDrivingPrice.do?reservationNo=${returnInfo.reservationNo}&paymentPrice="+
-							$("#payTotalView").text()+"&paymentCardNo="+$("#payCardNo").val()+"&usingPoint="+usingPoint+"&paymentType='주행요금'&memberId=${sessionScope.loginInfo.memberId}";
+							$("#payTotalView").text()+"&paymentCardNo="+$("#payCardNo").val()+"&usingPoint="+usingPoint+"&paymentType=주행요금결제&memberId=${sessionScope.loginInfo.memberId}";
 						} else if(data=='fail'){
 							alert("카드비밀번호를 확인하세요!");
 						} else{

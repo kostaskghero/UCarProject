@@ -168,7 +168,7 @@
 						<c:choose>
 							<c:when test="${reservationList.pagingBean.nextPageGroup}">
 								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.endPageOfPageGroup+1}">«</a>
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.endPageOfPageGroup+1}">»</a>
 								</li>
 							</c:when>
 							<c:otherwise>
@@ -177,9 +177,6 @@
 								</li>
 							</c:otherwise>
 						</c:choose>
-						<c:if test="">
-							<li><a href="#">»</a></li>
-						</c:if>
 					</ul>
 				</div>
 			</div>
@@ -271,7 +268,7 @@
 						<c:choose>
 							<c:when test="${usedList.pagingBean.nextPageGroup}">
 								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.endPageOfPageGroup+1}">«</a>
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.endPageOfPageGroup+1}">»</a>
 								</li>
 							</c:when>
 							<c:otherwise>
@@ -280,9 +277,6 @@
 								</li>
 							</c:otherwise>
 						</c:choose>
-						<c:if test="">
-							<li><a href="#">»</a></li>
-						</c:if>
 					</ul>
 				</div>
 			</div>
