@@ -52,4 +52,6 @@ public interface CarService {
 	public List<CarModelInfoVO> getAllModelList();
 
 	public CarModelInfoVO getModelDetailInfo(String carModel);
+
+	public void deleteCarModelAndOption(String carModel);
 }

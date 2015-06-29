@@ -110,6 +110,11 @@ public class FaqController {
 		faqBoardService.deleteFaq(no);
 		return new ModelAndView("redirect:customercenter_home_faq.do");
 	}
+	@RequestMapping("customercenter_searchFaqByKeyWord.do")
+	public ModelAndView searchFaqByKeyWord(String word){
+		List<FaqBoardVO> faqList=	faqBoardService.searchFaqByKeyWord(word);
+		return new ModelAndView("customercenter_faq_search","faqList",faqList);
+	}
 	/*
 	 * @RequestMapping("customercenter_searchdata.do") public String
 	 * searchdata(HttpServletRequest request){ System.out.println("qna 검색");

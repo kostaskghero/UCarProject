@@ -66,5 +66,7 @@ public interface CarDAO {
 	public List<String> getModelOption(String carModel);
 
 	public CarModelInfoVO getMdoelDetailInfo(String carModel);
+	public void deleteCarModel(String carModel);
+	public void deleteCarOption(String carModel);
 
 }

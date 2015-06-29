@@ -8,4 +8,6 @@ public interface FaqBoardDAO {
 	public FaqBoardVO findFaqByNo(String no);
 	public void updateFaq(FaqBoardVO fvo);
 	public void deleteFaq(String no );
+	public List<FaqBoardVO> searchFaqByKeyWord(String word);
+
 }

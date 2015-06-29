@@ -27,4 +27,7 @@ public class FaqBoardDAOImpl implements FaqBoardDAO {
 	public void deleteFaq(String no ){
 		sqlSessionTemplate.delete("faqboard.deleteFaq",no);
 	}
+	public List<FaqBoardVO> searchFaqByKeyWord(String word){
+		return sqlSessionTemplate.selectList("faqboard.searchFaqByKeyWord",word);
+	}
 }

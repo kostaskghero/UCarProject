@@ -36,4 +36,8 @@ public class FaqBoardServiceImpl implements FaqBoardService {
 		faqBoardDAO.deleteFaq(no);
 
 	}
+	@Override
+	public List<FaqBoardVO> searchFaqByKeyWord(String word) {
+		return faqBoardDAO.searchFaqByKeyWord(word);
+	}
 }

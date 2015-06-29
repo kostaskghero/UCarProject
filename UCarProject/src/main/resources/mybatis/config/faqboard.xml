@@ -30,6 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteFaq">
 	delete from faq where  faq_no=#{no}
 	</delete>
+	<select id="searchFaqByKeyWord" resultMap="FaqboardRM">
+	select FAQ_NO, faq_title ,faq_content from faq where faq_title like '%${value}%' or  faq_content like '%${value}%'
+	</select>
 </mapper> 		
  
  

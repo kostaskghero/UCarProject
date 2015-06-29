@@ -158,4 +158,10 @@ public class CarDAOImpl implements CarDAO {
 	public CarModelInfoVO getMdoelDetailInfo(String carModel){
 		return sqlSessionTemplate.selectOne("car.getMdoelDetailInfo",carModel);
 	}
+	public void deleteCarModel(String carModel){
+		sqlSessionTemplate.delete("car.deleteCarModel",carModel);
+	}
+	public void deleteCarOption(String carModel){
+		sqlSessionTemplate.delete("car.deleteCarOption",carModel);
+	}
 }

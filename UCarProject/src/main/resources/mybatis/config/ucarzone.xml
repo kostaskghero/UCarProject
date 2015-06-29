@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="registerUCarZone" parameterType="uCarZoneVO">
 		insert into
-		ucar_zone(UCAR_ZONE_NAME,UCAR_ZONE_ADDRESS)
-		values(#{uCarZoneName},#{uCarZoneAddress})
+		ucar_zone(UCAR_ZONE_NAME,UCAR_ZONE_ADDRESS,latitude,longitude)
+		values(#{uCarZoneName},#{uCarZoneAddress},#{latitude},#{longitude})
 	</insert>
 	<select id="getAllUCarZoneList" resultMap="uCarZoneRM">
 		select * from
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	<update id="updateUcarZone" parameterType="uCarZoneVO">
 		update UCAR_ZONE set
-		UCAR_ZONE_ADDRESS =#{uCarZoneAddress} where
+		UCAR_ZONE_ADDRESS =#{uCarZoneAddress} ,latitude=#{latitude},longitude=#{longitude} where
 		UCAR_ZONE_NAME=#{uCarZoneName}
 	</update>
 </mapper> 

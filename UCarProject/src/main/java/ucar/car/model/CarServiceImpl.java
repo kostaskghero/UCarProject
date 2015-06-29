@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -184,5 +185,12 @@ public class CarServiceImpl implements CarService {
 		CarModelInfoVO carModelVO=carDAO.getMdoelDetailInfo(carModel);
 		carModelVO.setCarOption(carDAO.getModelOption(carModel));
 		return carModelVO;
+	}
+
+	@Override
+	@Transactional
+	public void deleteCarModelAndOption(String carModel) {
+	 carDAO.deleteCarModel(carModel);
+	 carDAO.deleteCarOption(carModel);
 	}
 }

@@ -15,9 +15,6 @@ $(document).ready(function(){
 	$("#faqWriteForm").click(function(){
 		location.href="${initParam.root}admin_faq_write_form.do";
 	});
-	$("#searchdataForm").submit(function(){
-		$("#searchWord").val($("#questionlist").val());
-	});
 	$("#tab1").click(function(){
 		location.href="${initParam.root}customercenter_home_faq.do";
 	});
@@ -38,6 +35,9 @@ $(document).ready(function(){
 		});
 		$("#tab7").click(function(){
 			location.href="${initParam.root}customercenter_getFaqListByCategory.do?category=기타";
+		});
+		$("#searchBtn").click(function(){
+			location.href="customercenter_searchFaqByKeyWord.do?word="+$("#word").val();
 		});
 		$(":input[name=faqDeleteBtn]").click(
 				function() {
@@ -60,20 +60,12 @@ $(document).ready(function(){
 		<div class="col-lg-2">
 			<h4>자주 묻는 질문</h4>
 		</div>
-		<div class="col-lg-2">
-			<select class="form-control" id="questionlist">
-				<option value="">전체</option>
-				<c:forEach items="${requestScope.data.list }" var="data">
-					<option value="${data }">${data }</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div class="col-lg-4">
-			<input type="text" class="form-control" id="memberId" name="memberId"
+		<div class="col-lg-5">
+			<input type="text" class="form-control" id="word" name="word"
 				placeholder="검색할 내용 입력">
 		</div>
 		<div class="col-lg-2 ">
-			<button type="submit" class="btn btn-primary">검색</button>
+			<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
 		</div>
 	</div>
 </form>
