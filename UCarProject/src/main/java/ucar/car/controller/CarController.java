@@ -434,4 +434,9 @@ public class CarController {
 	System.out.println(carModelInfoVO);
 		return new ModelAndView("sharing_cargaragedetail","info",carModelInfoVO);
 	}
+	@RequestMapping("admin_deleteCarModelAndOption.do")
+	public ModelAndView deleteCarModelAndOption(String carModel){
+		carService.deleteCarModelAndOption(carModel);
+		return new ModelAndView("redirect:admin_carModel_list.do");
+	}
 }
