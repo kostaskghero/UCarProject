@@ -5,19 +5,19 @@
 <script>
 	$(document).ready(function(){
 		// id 중복 체크
-		$("#memberId").keyup(function(){
-			$("#idcheckView").html("");
+		$("#memberIds").keyup(function(){
+			$("#idcheckViews").html("");
 			$.ajax({
 				type:"post",
 				url:"${initParam.root}member_idCheck.do",
-				data:"memberId="+$("#memberId").val().trim(),
+				data:"memberId="+$("#memberIds").val().trim(),
 				success:function(data){					
 					if(data.exception!=null){
-						$("#idcheckView").html(data.exception);
-						$("#idCheckResult").val("");
+						$("#idcheckViews").html(data.exception);
+						$("#idCheckResults").val("");
 					} else{
-						$("#idcheckView").html("아이디 사용가능");
-						$("#idCheckResult").val($("#memberId").val());
+						$("#idcheckViews").html("아이디 사용가능");
+						$("#idCheckResults").val($("#memberIds").val());
 					}
 				}
 			});
@@ -27,7 +27,9 @@
 			if($("#idCheckResult")==""){
 				alert("사용할 수 없는 아이디입니다!");
 				return false;
-			} else if($("#memberPassword").val()!=$("#memberPasswordCheck").val()){
+			} else if($("#memberPasswords").val()!=$("#memberPasswordCheck").val()){
+				alert($("#memberPasswords").val());
+				alert($("#memberPasswordCheck").val());
 				alert("비밀번호가 일치하지 않습니다!");
 				return false;
 			} else if(isNaN($("#memberPhone").val())){
@@ -43,19 +45,19 @@
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-6">
-        <form:input path="memberId" type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디는 4자이상 10자이하" />
+        <form:input path="memberId" type="text" class="form-control" id="memberIds" name="memberId" placeholder="아이디는 4자이상 10자이하" />
         <br><font color="red"><form:errors path="memberId"></form:errors></font>
       </div>
       <!-- ajax 로 처리 -->
       <div class="col-lg-4">
-      	<input type="hidden" id="idCheckResult" value="">
-        <span id="idcheckView"></span>
+      	<input type="hidden" id="idCheckResults" value="">
+        <span id="idcheckViews"></span>
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-10">
-        <form:input path="memberPassword" type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호는 8자이상 20자이하" />
+        <form:input path="memberPassword" type="password" class="form-control" id="memberPasswords" name="memberPassword" placeholder="비밀번호는 8자이상 20자이하" />
         <br><font color="red"><form:errors path="memberPassword"></form:errors></font>
       </div>      
     </div>
