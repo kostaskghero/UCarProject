@@ -24,6 +24,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="cardVO.cardPassword" column="card_password"/>
  	 	<result property="cardVO.cardBirth" column="card_birth"/>
  	 </resultMap>
+ 	 
+ 	  <resultMap type="mvo" id="memberListRM">
+ 	  <result property="memberId" column="member_id"/>
+      <result property="memberName" column="member_name" />         
+      <result property="memberPassword" column="member_password" /> 
+      <result property="memberEmail" column="member_email" /> 
+      <result property="memberPhone" column="member_phone" /> 
+      <result property="memberPoint" column="member_point" /> 
+      <result property="memberLevel" column="member_level" /> 
+	</resultMap>
+ 	 
  	 <resultMap type="rvo" id="reservationRM">
  	 	<result property="reservationNo" column="reservation_no"/>
  	 	<result property="rentalDate" column="rental_date"/>
@@ -129,4 +140,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalPointHistoryByMemberId" parameterType="pointHistoryVO" resultType="int">
 		select count(*) from point_history <![CDATA[where member_id=#{memberId} and point_date>add_months(sysdate,-#{searchPeriod})]]>
 	</select>
+	<select id="member_findMemberId" resultMap="memberListRM">
+ 		select member_id,member_password,member_name,member_email,member_phone,member_point from member where member_name=#{memberName} and member_email=#{memberEmail} and member_phone=#{memberPhone}
+ 	</select>
+ 	<select id="member_findMemberPassword" resultMap="memberListRM">
+ 		select member_id,member_password,member_name,member_email,member_phone,member_point from member where member_id=#{memberId} and member_name=#{memberName} and member_email=#{memberEmail} and member_phone=#{memberPhone}
+ 	</select>
  </mapper> 

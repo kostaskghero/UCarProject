@@ -396,6 +396,15 @@ public class CarController {
 		return new ModelAndView("admin_carModel_list","list",list);
 	}
 	/**
+	 *메인화면 차고 보기 누르면 페이지로 이동
+	 * @return
+	 */
+	@RequestMapping("sharing_carModelGarage_list.do")
+	public  ModelAndView carModelListGarage (){
+		List<CarModelInfoVO> list=	carService.getAllModelList();
+		return new ModelAndView("sharing_cargarage","list",list);
+	}
+	/**
 	 * 차량 모델 수정으로 보내는 메서드
 	 */
 	@RequestMapping("admin_carModelUpdateForm.do")
@@ -413,5 +422,16 @@ public class CarController {
 	CarModelInfoVO carModelInfoVO=	carService.getModelDetailInfo(carModel);
 	System.out.println(carModelInfoVO);
 		return new ModelAndView("admin_carModelDetailInfo","info",carModelInfoVO);
+	}
+	/**
+	 * 사용자 차량 상세보기 
+	 * @param carModel
+	 * @return
+	 */
+	@RequestMapping("sharing_carModelDetailInfoGarage.do")
+	public ModelAndView carModelDetailInfoGarage(String carModel){
+	CarModelInfoVO carModelInfoVO=	carService.getModelDetailInfo(carModel);
+	System.out.println(carModelInfoVO);
+		return new ModelAndView("sharing_cargaragedetail","info",carModelInfoVO);
 	}
 }

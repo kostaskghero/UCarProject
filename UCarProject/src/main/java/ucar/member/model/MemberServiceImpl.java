@@ -136,4 +136,14 @@ public class MemberServiceImpl implements MemberService {
 		PointListVO listVO=new PointListVO(list, pagingBean);
 		return listVO;
 	}
+	@Override
+	public MemberVO findMemberId(MemberVO memberVO){
+	      System.out.println("아이디 찾기 서비스");
+	      return memberDAO.findMemberId(memberVO);
+	   }
+	@Override
+	public MemberVO findMemberPassword(MemberVO memberVO){
+	      System.out.println("패스워드 찾기 서비스");
+	      return memberDAO.findMemberPassword(memberVO);
+	   }
 }

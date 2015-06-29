@@ -55,5 +55,9 @@ public interface MemberDAO {
 	public List<PointHistoryVO> getPointListByMemberId(PointHistoryVO pointHistoryVO);
 
 	public int totalPointHistoryByMemberId(PointHistoryVO pointHistoryVO);
+	
+	public MemberVO findMemberId(MemberVO vo);
+
+	public MemberVO findMemberPassword(MemberVO vo);
 
 }

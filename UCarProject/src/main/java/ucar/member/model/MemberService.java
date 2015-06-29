@@ -38,5 +38,9 @@ public interface MemberService {
 	public MemberVO findMemberInfoByMemberId(String memberId);
 
 	public PointListVO getPointListByMemberId(PointHistoryVO pointHistoryVO);
+	
+	public MemberVO findMemberId(MemberVO vo);
+	
+	public MemberVO findMemberPassword(MemberVO vo);
 
 }
