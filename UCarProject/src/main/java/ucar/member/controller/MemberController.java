@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -297,4 +298,49 @@ public class MemberController {
 		mv.addObject("searchPeriod", pointHistoryVO.getSearchPeriod());
 		return mv;
 	}
+	@RequestMapping(value="member_findMemberIdForm.do", method=RequestMethod.GET)
+	public ModelAndView findMemberIdForm(){
+		System.out.println("아이디 찾기 폼으로~");
+		return new ModelAndView("member_findMemberIdForm","memberVO",new MemberVO());
+	}
+	/**
+	 * 회원 아이디 찾기 
+	 * @param request
+	 * @param vo
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("member_findMemberId.do")
+	   public String findMemberId(HttpServletRequest request,Model model,MemberVO mvo){
+	      MemberVO vo = memberService.findMemberId(mvo);
+		if (vo.getMemberId() != null) {
+			model.addAttribute("vo", vo);
+			return "member_findMemberId_result";
+	      } else {
+	    	  return "member_findMemberId_fail";
+	      }
+	   }
+	@RequestMapping(value="member_findMemberPasswordForm.do", method=RequestMethod.GET)
+	public ModelAndView findMemberPasswordForm(){
+		System.out.println("비밀번호 찾기 폼으로~");
+		return new ModelAndView("member_findMemberPasswordForm","memberVO",new MemberVO());
+	}
+	/**
+	 * 회원 비밀번호 찾기
+	 * @param request
+	 * @param mvo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("member_findMemberPassword.do")
+	   public String findMemberPassword(HttpServletRequest request,Model model ,MemberVO mvo) {
+	      MemberVO vo = memberService.findMemberPassword(mvo);
+	      System.out.println(vo);
+	      if (vo != null) {
+	    	  model.addAttribute("vo", vo);
+				return "member_findMemberPassword_result";
+	      } else {
+	    	 return "member_findMemberPassword_resultfail";
+	      }
+	   }
 }

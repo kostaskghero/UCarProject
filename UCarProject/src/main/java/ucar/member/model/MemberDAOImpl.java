@@ -141,6 +141,15 @@ public class MemberDAOImpl implements MemberDAO {
 	public int totalPointHistoryByMemberId(PointHistoryVO pointHistoryVO) {
 		return sqlSessionTemplate.selectOne("member.totalPointHistoryByMemberId", pointHistoryVO);
 	}
+	@Override
+	public MemberVO findMemberId(MemberVO vo){
+		return sqlSessionTemplate.selectOne("member_findMemberId",vo);
+	}
+	
+	@Override
+	public MemberVO findMemberPassword(MemberVO vo){
+		return sqlSessionTemplate.selectOne("member_findMemberPassword",vo);
+	}
 	
 	
 }
