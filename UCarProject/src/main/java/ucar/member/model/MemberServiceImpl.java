@@ -8,6 +8,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ucar.common.model.PagingBean;
+import ucar.common.model.PointListVO;
+import ucar.common.pointhistory.model.PointHistoryVO;
 import ucar.member.model.exception.DuplicateCardNumberException;
 import ucar.member.model.exception.DuplicateLicenseNumberException;
 import ucar.member.model.exception.DuplicateMemberIdException;
@@ -122,5 +125,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO findMemberInfoByMemberId(String memberId) {
 		return memberDAO.findMemberInfoByMemberId(memberId);
+	}
+	@Override
+	public PointListVO getPointListByMemberId(PointHistoryVO pointHistoryVO) {
+		if(pointHistoryVO.getPointPageNo()==null||pointHistoryVO.getPointPageNo().equals("")) 
+			pointHistoryVO.setPointPageNo("1");
+		List<PointHistoryVO> list=memberDAO.getPointListByMemberId(pointHistoryVO);
+		int total=memberDAO.totalPointHistoryByMemberId(pointHistoryVO);
+		PagingBean pagingBean=new PagingBean(total, Integer.parseInt(pointHistoryVO.getPointPageNo()));
+		PointListVO listVO=new PointListVO(list, pagingBean);
+		return listVO;
 	}
 }

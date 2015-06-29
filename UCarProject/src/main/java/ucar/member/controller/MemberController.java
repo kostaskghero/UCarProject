@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ucar.common.model.PointListVO;
+import ucar.common.pointhistory.model.PointHistoryVO;
 import ucar.member.model.CardVO;
 import ucar.member.model.DrivingLicenseVO;
 import ucar.member.model.MemberService;
@@ -277,6 +279,22 @@ public class MemberController {
 			return "auth_member_delete_form.do";
 		}
 		return "redirect:member_logout.do";
-	}	
+	}
 	
+	@RequestMapping("auth_member_getPointListByMemberId.do")
+	public ModelAndView getPointListByMemberId(PointHistoryVO pointHistoryVO, HttpServletRequest request){
+		if(pointHistoryVO.getSearchPeriod()==null || pointHistoryVO.getSearchPeriod().equals(""))
+			pointHistoryVO.setSearchPeriod("1");
+		ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession(false);
+		MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
+		memberVO=memberService.findMemberInfoByMemberId(memberVO.getMemberId());
+		pointHistoryVO.setMemberId(memberVO.getMemberId());
+		PointListVO listVO=memberService.getPointListByMemberId(pointHistoryVO);
+		mv.setViewName("member_pointHistory");
+		mv.addObject("memberVO", memberVO);
+		mv.addObject("pointList", listVO);
+		mv.addObject("searchPeriod", pointHistoryVO.getSearchPeriod());
+		return mv;
+	}
 }

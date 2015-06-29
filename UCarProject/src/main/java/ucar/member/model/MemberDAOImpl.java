@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import ucar.common.pointhistory.model.PointHistoryVO;
+
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 	@Resource
@@ -128,6 +130,16 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int findPointByMemberId(String memberId) {
 		return sqlSessionTemplate.selectOne("member.findPointByMemberId", memberId);
+	}
+
+	@Override
+	public List<PointHistoryVO> getPointListByMemberId(PointHistoryVO pointHistoryVO) {
+		return sqlSessionTemplate.selectList("member.getPointListByMemberId", pointHistoryVO);
+	}
+
+	@Override
+	public int totalPointHistoryByMemberId(PointHistoryVO pointHistoryVO) {
+		return sqlSessionTemplate.selectOne("member.totalPointHistoryByMemberId", pointHistoryVO);
 	}
 	
 	

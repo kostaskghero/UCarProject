@@ -19,6 +19,10 @@ import ucar.sharing.search.model.SearchService;
 public class SearchController {
 	@Resource
 	private SearchService searchService;
+	@Resource(name = "uploadCarPicPath")
+	private String uploadCarPicPath;
+	@Resource(name = "viewCarPath")
+	private String viewCarPath;
 	/**
 	 * 차량검색폼으로 이동
 	 * 차종리스트를 반환한다.

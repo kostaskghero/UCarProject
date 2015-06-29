@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import ucar.board.review.model.ReviewVO;
 import ucar.board.reviewcomment.model.ReviewCommentVO;
 import ucar.common.pointhistory.model.PointHistoryService;
 import ucar.common.pointhistory.model.PointHistoryVO;
@@ -39,8 +40,14 @@ public class PointHistoryAspect {
 			pointHistoryVO.setMemberId(((ReviewCommentVO)param[0]).getReviewCommentMemberId());
 			pointHistoryVO.setPointValue(500);
 			pointHistoryVO.setPointContent("댓글작성");
+		} else if(methodName.contains("Review")){
+			pointHistoryVO.setMemberId(((ReviewVO)param[0]).getMemberId());
+			pointHistoryVO.setPointValue(2000);
+			pointHistoryVO.setPointContent("후기작성");
 		}
-		pointHistoryService.savingPoint(pointHistoryVO);
+		if(!pointHistoryVO.getMemberId().equals("admin")){
+			pointHistoryService.savingPoint(pointHistoryVO);
+		}		
 		System.out.println(("메서드 인자값 : "+param[0]));
 		System.out.println("메서드명:"+point.getClass().getName());
 	}
@@ -57,10 +64,4 @@ public class PointHistoryAspect {
 			pointHistoryService.payingByPoint(paymentVO, memberId);
 		}
 	}
-	// transaction 안됨
-	/*@Around("execution(public * ucar..*Service.payment*(..)) || execution(public * ucar..*Service.*SavingPoint(..))")
-	public Object savingPayingPoint(ProceedingJoinPoint point) throws Throwable{
-		Object param[]=point.getArgs();
-		if()
-	}*/
 }

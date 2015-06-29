@@ -3,6 +3,9 @@ package ucar.member.model;
 import java.util.HashMap;
 import java.util.List;
 
+import ucar.common.model.PointListVO;
+import ucar.common.pointhistory.model.PointHistoryVO;
+
 
 public interface MemberService {
 
@@ -33,5 +36,7 @@ public interface MemberService {
 	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId);
 
 	public MemberVO findMemberInfoByMemberId(String memberId);
+
+	public PointListVO getPointListByMemberId(PointHistoryVO pointHistoryVO);
 
 }

@@ -282,7 +282,14 @@
       <div class="col-md-1">댓글</div>
       <div class="col-md-9">
          <input type="hidden" id="reviewNo" name="reviewNo" value="${requestScope.vo.reviewNo }">
-         <input type="hidden" name="reviewCommentMemberId" id="reviewCommentMemberId" value="${sessionScope.loginInfo.memberId }">
+         <c:choose>
+         	<c:when test="${sessionScope.admin!=null }">
+         		<input type="hidden" name="reviewCommentMemberId" id="reviewCommentMemberId" value="${sessionScope.admin.memberId }">
+         	</c:when>
+         	<c:when test="${sessionScope.loginInfo!=null }">
+         		<input type="hidden" name="reviewCommentMemberId" id="reviewCommentMemberId" value="${sessionScope.loginInfo.memberId }">
+         	</c:when>
+         </c:choose>         
          <input class="form-control" type="text" name="reviewCommentContent" id="reviewCommentContent">
       </div>
       <div class="col-md-2">

@@ -6,12 +6,12 @@ import ucar.sharing.reservation.model.ReservationVO;
 
 public class ReservationListVO {
 	private List<ReservationVO> list;
-	private ReservationPagingBean pagingBean;
+	private PagingBean pagingBean;
 	public ReservationListVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReservationListVO(List<ReservationVO> list, ReservationPagingBean pagingBean) {
+	public ReservationListVO(List<ReservationVO> list, PagingBean pagingBean) {
 		super();
 		this.list = list;
 		this.pagingBean = pagingBean;
@@ -22,10 +22,10 @@ public class ReservationListVO {
 	public void setList(List<ReservationVO> list) {
 		this.list = list;
 	}
-	public ReservationPagingBean getPagingBean() {
+	public PagingBean getPagingBean() {
 		return pagingBean;
 	}
-	public void setPagingBean(ReservationPagingBean pagingBean) {
+	public void setPagingBean(PagingBean pagingBean) {
 		this.pagingBean = pagingBean;
 	}
 	@Override

@@ -1,7 +1,7 @@
 package ucar.common.model;
 
 
-public class ReservationPagingBean {
+public class PagingBean {
 	/**
 	 * 현재 페이지
 	 */
@@ -9,11 +9,11 @@ public class ReservationPagingBean {
 	/**
 	 * 페이지 당 보여줄 게시물 수 
 	 */
-	private int contentNumberPerPage=ReservationCommonConstants.CONTENT_NUMBER_PER_PAGE;
+	private int contentNumberPerPage=CommonConstants.CONTENT_NUMBER_PER_PAGE;
 	/**
 	 * 페이지 그룹 당 페이지 수 
 	 */
-	private int pageNumberPerPageGroup=ReservationCommonConstants.PAGE_NUMBER_PER_PAGEGROUP;
+	private int pageNumberPerPageGroup=CommonConstants.PAGE_NUMBER_PER_PAGEGROUP;
 	/**
 	 * 현재 db에 저장된 총 게시물 수 
 	 */
@@ -23,7 +23,7 @@ public class ReservationPagingBean {
 	 * @param totalContents
 	 * @param nowPage
 	 */
-	public ReservationPagingBean(int totalContents,int nowPage){
+	public PagingBean(int totalContents,int nowPage){
 		this.totalContents=totalContents;
 		this.nowPage=nowPage;
 	}

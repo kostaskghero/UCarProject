@@ -1,6 +1,6 @@
 package ucar.common.model;
 
-public interface ReservationCommonConstants {
+public interface CommonConstants {
 	/**
 	 * 한 페이지에서 보여질 게시물 수
 	 */

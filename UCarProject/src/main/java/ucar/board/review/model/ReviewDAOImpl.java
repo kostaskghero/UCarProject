@@ -75,4 +75,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public List<ReviewFileVO> getFileByReviewNo(int reviewNo){
 		return sqlSessionTemplate.selectList("reviewFile.getFileByReviewNo",reviewNo);
 	}
+
+	@Override
+	public int countReviewCommentByReviewNo(int reviewNo) {
+		return sqlSessionTemplate.selectOne("review.countReviewCommentByReviewNo", reviewNo);
+	}
+
+	@Override
+	public int countReviewLikeByReviewNo(int reviewNo) {
+		return sqlSessionTemplate.selectOne("review.countReviewLikeByReviewNo", reviewNo);
+	}
 }

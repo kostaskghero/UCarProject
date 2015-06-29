@@ -29,16 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewCommentTimePosted" column="review_comment_time_posted"/>
 	</resultMap>
 	<select id="getReviewList" resultMap="reviewRM">
-		SELECT review_no, review_title, review_member_id, review_content, review_time_posted,review_hit,
-			(select count(*) from review_like l where l.review_no=review_no) as review_like_count,
-			(select count(*) from review_comment c where c.review_no=review_no) as review_comment_count
+		SELECT review_no, review_title, review_member_id, review_time_posted,review_hit
 		FROM
 		(	 
-			SELECT review_no, review_title, review_member_id, review_content, review_time_posted,review_hit,
+			SELECT review_no, review_title, review_member_id, review_time_posted,review_hit,
 				CEIL(rownum/5) AS page
 			FROM 
 			( 
-				SELECT review_no, review_title, review_member_id, review_content, review_like_count, review_hit,
+				SELECT review_no, review_title, review_member_id, review_like_count, review_hit,
 					to_char(review_time_posted,'YYYY.MM.DD') as review_time_posted
 				FROM review
 				order by review_no desc
@@ -85,6 +83,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteReviewLike" parameterType="reviewVO">
 		delete from review_like where review_no=#{reviewNo} and review_like_member_id=#{memberId}
 	</delete>
+	<select id="countReviewCommentByReviewNo" parameterType="int" resultType="int">
+		select count(review_no) from review_comment where review_no=#{value}
+	</select>
+	<select id="countReviewLikeByReviewNo" parameterType="int" resultType="int">
+		select count(review_no) from review_like where review_no=#{value}
+	</select>
  </mapper> 		
  
  

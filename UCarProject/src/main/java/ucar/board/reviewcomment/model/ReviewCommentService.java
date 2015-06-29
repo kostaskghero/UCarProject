@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ReviewCommentService {
 
-	public List<ReviewCommentVO> writeCommentSavingPoint(ReviewCommentVO reviewCommentVO);
+	public List<ReviewCommentVO> writeComment(ReviewCommentVO reviewCommentVO);
 
 	public List<ReviewCommentVO> editComment(ReviewCommentVO reviewCommentVO);
 

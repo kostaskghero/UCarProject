@@ -6,7 +6,7 @@ import java.util.List;
 import ucar.board.reviewcomment.model.ReviewCommentVO;
 
 public interface ReviewService {
-	public void writeReview(ReviewVO vo);
+	public void writeReviewSavingPoint(ReviewVO vo);
 
 	public void updateReview(ReviewVO vo);
 

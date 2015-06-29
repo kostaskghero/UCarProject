@@ -15,7 +15,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDAO reviewDAO;
 
 	@Override
-	public void writeReview(ReviewVO vo) {
+	public void writeReviewSavingPoint(ReviewVO vo) {
 		reviewDAO.writeReview(vo);
 
 	}
@@ -35,6 +35,10 @@ public class ReviewServiceImpl implements ReviewService {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
 		List<ReviewVO> list = reviewDAO.getReviewList(pageNo);
+		for(int i=0; i<list.size(); i++){
+			list.get(i).setReviewCommentCount(reviewDAO.countReviewCommentByReviewNo(list.get(i).getReviewNo()));
+			list.get(i).setReviewLikeCount(reviewDAO.countReviewLikeByReviewNo(list.get(i).getReviewNo()));
+		}
 		int total = reviewDAO.totalContent();
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
 		ListVO lvo = new ListVO(list, paging);

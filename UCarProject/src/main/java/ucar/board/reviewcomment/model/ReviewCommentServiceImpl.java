@@ -12,7 +12,7 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 	private ReviewCommentDAO reviewCommentDAO;
 
 	@Override
-	public List<ReviewCommentVO> writeCommentSavingPoint(ReviewCommentVO reviewCommentVO) {
+	public List<ReviewCommentVO> writeComment(ReviewCommentVO reviewCommentVO) {
 		reviewCommentDAO.writeComment(reviewCommentVO);
 		return reviewCommentDAO.getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
 	}

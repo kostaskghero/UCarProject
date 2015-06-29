@@ -39,7 +39,7 @@ public class ReviewController {
 	 */
 	@RequestMapping(value = "auth_review_write.do", method = RequestMethod.POST)
 	public ModelAndView write(ReviewVO vo, ReviewFileVO rfvo) {
-		reviewService.writeReview(vo);
+		reviewService.writeReviewSavingPoint(vo);
 		// System.out.println(rfvo);
 		List<MultipartFile> list = rfvo.getFile();
 		rfvo.setReviewNo(vo.getReviewNo());

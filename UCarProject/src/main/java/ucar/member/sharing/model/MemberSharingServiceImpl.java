@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ucar.common.model.ReservationListVO;
-import ucar.common.model.ReservationPagingBean;
+import ucar.common.model.PagingBean;
 import ucar.member.model.MemberVO;
 import ucar.sharing.reservation.model.ReservationVO;
 
@@ -29,7 +29,7 @@ public class MemberSharingServiceImpl implements MemberSharingService {
 		reservationVO.setHistoryPageNo(pageNo);
 		List<ReservationVO> list=memberSharingDAO.getReservationListByMemberId(reservationVO);
 		int total=memberSharingDAO.totalReservationByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
+		PagingBean paging=new PagingBean(total,Integer.parseInt(pageNo));
 		ReservationListVO listVO=new ReservationListVO(list,paging);
 		return listVO;
 	}
@@ -45,7 +45,7 @@ public class MemberSharingServiceImpl implements MemberSharingService {
 		reservationVO.setHistoryPageNo(pageNo);
 		List<ReservationVO> list=memberSharingDAO.getUsedListByMemberId(reservationVO);
 		int total=memberSharingDAO.totalUsedByMemberId(memberId);
-		ReservationPagingBean paging=new ReservationPagingBean(total,Integer.parseInt(pageNo));
+		PagingBean paging=new PagingBean(total,Integer.parseInt(pageNo));
 		ReservationListVO listVO=new ReservationListVO(list,paging);
 		return listVO;
 	}

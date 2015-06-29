@@ -25,7 +25,7 @@ public class ReviewCommentController {
 	public HashMap<String, Object> writeComment(ReviewCommentVO reviewCommentVO){
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("flag", "ok");
-		map.put("commentList", reviewCommentService.writeCommentSavingPoint(reviewCommentVO));
+		map.put("commentList", reviewCommentService.writeComment(reviewCommentVO));
 		return map;
 	}
 	/**
