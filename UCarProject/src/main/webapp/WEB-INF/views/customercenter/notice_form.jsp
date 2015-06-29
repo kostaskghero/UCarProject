@@ -34,7 +34,7 @@
 				            <td class="titleView" >               
 				             <a href="${initParam.root}notice_showContent.do?noticeNo=${bvo.noticeNo }">${bvo.noticeTitle}</a>
 				            </td>
-				            <td>${sessionScope.loginInfo.memberName }</td>
+				             <td>${bvo.noticeMemberId}</td>
 				            <td>${bvo.noticeTimePosted }</td>
 			         </tr>      
         		 </c:forEach>
