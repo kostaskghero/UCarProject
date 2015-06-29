@@ -56,7 +56,7 @@
 								tableInfo+="<tr><input type='hidden' name='selectCar' value='"+carList.carVO.carNo+"'>";	// car_no 를 넘겨야할듯?
 								tableInfo+="<td>"+carList.carVO.uCarZoneVO.uCarZoneName+"</td>";	// 유카존
 								tableInfo+="<td><img src='"+carList.carVO.carModelInfoVO.carPhoto+"'></td>";	// 차외관
-								tableInfo+="<td>"+carList.carVO.carModelInfoVO.carModel+" "+carList.carVO.carNickName+"</td>";	// 차량정보(닫 : 모델명, 닉네임, 간략한 스케쥴 / 열 : 닫 + 유종, 옵션, 스케쥴 자세히)
+								tableInfo+="<td>"+carList.carVO.carModelInfoVO.carModel+" "+carList.carVO.carNickName+'     '+"<button type='button' class='btn btn-default' id='detailBtn' value='"+carList.carVO.carNo+"'>상세정보</button></td>";	// 차량정보(닫 : 모델명, 닉네임, 간략한 스케쥴 / 열 : 닫 + 유종, 옵션, 스케쥴 자세히)
 								tableInfo+="<td>"+carList.rentalPrice+"원</td>";	// 대여요금
 								tableInfo+="<td>"+carList.carVO.carModelInfoVO.drivingFee+"원/km</td>";	// 주행요금
 								if(carList.carVO.available){	// true 이면 예약버튼 활성화 false 이면 예약버튼 비활성화
@@ -75,6 +75,8 @@
 									tableInfo+="<td><button type='button' class='btn btn-default disabled'>Reserve</button></td>";
 								}
 								tableInfo+="</tr></div>";
+								tableInfo+="<div class = 'col-md-10' id = 'detailView'><tr>";
+								tableInfo+="<td colspan = '9'  align = 'center'><p id = '"+carList.carVO.carNo+"'>"+carList.carVO.carModelInfoVO.carType+"</p></td></tr></span>";	//세부정보
 								/* tableInfo+="<div id='"+carList.carVO.carNo+"Detail'>";
 								tableInfo+="<tr><input type='hidden' name='selectCar' value='"+carList.carVO.carNo+"'>";
 								tableInfo+="<td rowspan='2'>6</td>";	// 유카존
@@ -137,6 +139,11 @@
 				}
 			});
 			
+		});
+		$("#carSearchResultView").on("click","#detailBtn",function(){
+			detailName="#"+$(this).val();
+			 $(detailName).toggle(1000, function(){
+			}); 
 		});
 		$("#rentalDate").datetimepicker({
 			 	minDate: 0, 

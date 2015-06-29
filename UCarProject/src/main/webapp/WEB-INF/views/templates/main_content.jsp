@@ -61,12 +61,12 @@ $(function(){
 			<fieldset>
 			<legend align="center">유카차고</legend>
 			</fieldset>
-			<a href = "${initParam.root }sharing_cargarage.do"><img src ="${initParam.root }img/ucargarage.png"  width="300" height="200" ><br>
+			<a href = "${initParam.root }sharing_carModelGarage_list.do"><img src ="${initParam.root }img/ucargarage.png"  width="300" height="200" ><br>
 			<h5>다양한 차들을 직접 선택하여 드라이빙 하세요!</h5></a>
 			</div>
 			<!-- find car form -->
 		<div class="col-md-4">
-			<form class="form-horizontal" role="form" id="searchForm" action = "#">
+			<form class="form-horizontal" role="form" id="searchForm" action = "${initParam.root }search_searchForm.do">
 				<div class="form-group">
 					<div class="col-sm-2">
 						<label for="sharingType" class="control-label"></label>
