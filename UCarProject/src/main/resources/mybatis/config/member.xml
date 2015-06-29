@@ -33,6 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="carVO.carNickName" column="car_nick_name"/>
  	 	<result property="carVO.carModelInfoVO.carModel" column="car_model"/>
  	 </resultMap>
+ 	 <resultMap type="pointHistoryVO" id="pointHistoryRM">
+ 	 	<result property="pointValue" column="point_value"/>
+ 	 	<result property="pointDate" column="point_date"/>
+ 	 	<result property="pointContent" column="point_content"/>
+ 	 	<result property="pointType" column="point_type"/>
+ 	 </resultMap>
  	<insert id="registerMember" parameterType="mvo">
 		insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
 		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, sysdate)
@@ -104,5 +110,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="findPointByMemberId" resultType="int">
 		select member_point from member where member_id=#{value}
+	</select>
+	<select id="getPointListByMemberId" parameterType="pointHistoryVO" resultMap="pointHistoryRM">
+		SELECT point_value, to_char(point_date, 'YYYY/MM/DD HH24:MI') as point_date, point_content, point_type
+		FROM
+		(	 
+			SELECT point_value, point_date, point_content, point_type, CEIL(rownum/10) AS page  
+				FROM 
+				( 
+					select point_value, point_date, point_content, point_type 
+					from point_history
+					<![CDATA[where member_id=#{memberId} and point_date>add_months(sysdate,-#{searchPeriod})]]>
+					order by point_history_no desc			
+				) 
+		    )
+		WHERE PAGE=#{pointPageNo}
+	</select>
+	<select id="totalPointHistoryByMemberId" parameterType="pointHistoryVO" resultType="int">
+		select count(*) from point_history <![CDATA[where member_id=#{memberId} and point_date>add_months(sysdate,-#{searchPeriod})]]>
 	</select>
  </mapper> 

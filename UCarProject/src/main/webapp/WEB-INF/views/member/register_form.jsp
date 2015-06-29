@@ -57,7 +57,7 @@
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-10">
-        <form:input path="memberPassword" type="password" class="form-control" id="memberPasswords" name="memberPassword" placeholder="비밀번호는 8자이상 20자이하" />
+        <form:input path="memberPassword" type="password" class="form-control" id="memberPasswords" name="memberPassword" placeholder="비밀번호는 4자이상 15자이하" />
         <br><font color="red"><form:errors path="memberPassword"></form:errors></font>
       </div>      
     </div>
