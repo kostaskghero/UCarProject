@@ -1,26 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<form class="form-horizontal" method="post" action="${initParam.root}"
-	id="">
-	<div class="form-group">
-		<div class="col-lg-2">
-			<h4>이용후기 목록</h4>
-		</div>
-		<div class="col-lg-6 col-lg-offset-2">
-			<input type="text" class="form-control" id="memberId" name="memberId"
-				placeholder="검색할 내용 입력">
-		</div>
-		<div class="col-lg-2 ">
-			<button type="submit" class="btn btn-primary">검색</button>
-		</div>
+<div class="container">
+	<div class="col-lg-2">
+		<h4>베스트 이용후기</h4>
 	</div>
-</form>
+</div>
+<div class="container">
+	<div class="row">
+		<c:forEach items="${bestList }" var="best">
+			<div class="col-md-4">
+				<c:choose>
+					<c:when test="${best.reviewFileVO !=null }">
+						<img src="${best.reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+					</c:when>
+					<c:otherwise>
+						<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+					</c:otherwise>
+				</c:choose>
+				<h2>${best.reviewTitle }</h2>
+				<p>작성자 : ${best.memberId } / 추천수 : ${best.reviewLikeCount }</p>
+			</div>
+		</c:forEach>
+	</div>
+</div>
+<div class="container">
+	<div class="col-lg-2">
+		<h4>이용후기</h4>
+	</div>
+</div>
 <div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-10">
 				<table class="table">
 					<thead>
 						<tr>

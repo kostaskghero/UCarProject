@@ -78,8 +78,11 @@ public class ReviewController {
 	 */
 	@RequestMapping("customercenter_review_list.do")
 	public ModelAndView list(String pageNo) {
-		return new ModelAndView("customercenter_review_list", "lvo",
-				reviewService.getReviewList(pageNo));
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("customercenter_review_list");
+		mv.addObject("lvo",reviewService.getReviewList(pageNo));
+		mv.addObject("bestList", reviewService.getBestReview());
+		return mv;
 	}
 
 	/**
