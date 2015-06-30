@@ -55,7 +55,6 @@
 						id="writeImg" src="${initParam.root }/img/boardimg/write_btn.jpg"
 						border="0"></a>
 				</div>
-
 				<br></br> <br>
 				<br>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

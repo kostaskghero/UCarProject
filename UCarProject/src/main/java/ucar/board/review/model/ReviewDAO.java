@@ -18,7 +18,7 @@ public interface ReviewDAO {
 	public String findReviewLikeCountByReviewNo(int reviewNo);
 	public void deleteReviewLike(ReviewVO reviewVO);
 	public void registerFile(ReviewFileVO rfvo);
-	public List<ReviewFileVO> getFileByReviewNo(int reviewNo);
 	public int countReviewCommentByReviewNo(int reviewNo);
 	public int countReviewLikeByReviewNo(int reviewNo);
+	public void deleteFileByReviewNo(int reviewNo);
 }

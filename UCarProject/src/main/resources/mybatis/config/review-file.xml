@@ -14,11 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       (review_file_no,review_no, file_path) 
       values(review_file_seq.nextval,#{reviewNo},#{filePath})
    </insert>
-
-   <select id="getFileByReviewNo" resultMap="reviewFileRM">
-      select * from review_file where review_no=#{value}
-   </select>
-
+	<delete id="deleteFileByReviewNo" parameterType="int">
+		delete from review_file where review_no=#{value}
+	</delete>
  <!--   <delete id="deleteInnPic" parameterType="int">
    delete from review_file where review_file_no=#{value}
    </delete> -->

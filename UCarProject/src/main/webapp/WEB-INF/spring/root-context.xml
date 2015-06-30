@@ -50,4 +50,14 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg>
+			<value>C:\\java-kosta\\ucarproject-workspace\\ucar-test7-editor\\src\\main\\webapp\\upload\\</value>
+		</constructor-arg>
+	</bean>
+	<bean id="viewPath" class="java.lang.String">
+      <constructor-arg>
+         <value>upload/</value>
+      </constructor-arg>
+   </bean>
 </beans>

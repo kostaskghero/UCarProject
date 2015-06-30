@@ -51,10 +51,48 @@ $(function(){
 		<div class="row"> 
 			<!-- best consumer review -->
 			<div class="col-md-4" align="center">
-			<fieldset>
-			<legend align="center">이용후기</legend>
-			</fieldset>
-						이용후기글
+				<fieldset>
+					<legend align="center">이용후기</legend>
+				</fieldset>
+            	<!-- <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive">
+            	<h2>A Title</h2>
+            	<p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
+              	<br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+              	<br>Ut enim ad minim veniam, quis nostrud</p> -->
+              	<div class="carousel slide" id="review_carousel" data-interval="3000" data-ride="carousel">
+              		<!-- 오른쪽 위에 있으면 좋겠음 색도 바뀌면 좋겠음 -->
+					<ol class="carousel-indicators" style="background-color: red; ">
+						<li class="active" data-slide-to="0" data-target="#review_carousel"></li>
+						<li data-slide-to="1" data-target="#review_carousel"></li>
+						<li data-slide-to="2" data-target="#review_carousel"></li>
+					</ol>
+					<div class="carousel-inner">
+						<!-- slide image 1 -->
+						<div class="active item thumbnail" id="img_slide" align="center" >
+							<img src="${bestList.fileList[0].filePath }" class="img-responsive" width="250" height="200">
+							<div class="caption">
+								<h2>A Title</h2>
+								<p>${bestList.reviewList[0].reviewContent}</p>
+							</div>
+						</div>
+						<!-- slide image 2 -->
+						<div class="item thumbnail" id="img_slide" align="center">
+							<img src="${bestList.fileList[1].filePath }" class="img-responsive" width="250" height="200">
+							<div class="caption">
+								<h2>A Title</h2>
+								<p>${bestList.reviewList[1].reviewContent }</p>
+							</div>
+						</div>
+						<!-- slide image 3 -->
+						<div class="item thumbnail" id="img_slide" align="center">
+							<img src="${bestList.fileList[2].filePath }" class="img-responsive" width="250" height="200">
+							<div class="caption">
+								<h2>A Title</h2>
+								<p>${bestList.reviewList[2].reviewContent }</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- UCar garage -->
 			<div class="col-md-4" align="center">

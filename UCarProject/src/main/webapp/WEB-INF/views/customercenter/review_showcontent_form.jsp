@@ -228,19 +228,10 @@
 
 		<div class="form-group">
 			<label for="inputContent" class="col-lg-2 control-label">내용</label>
-			<div class="col-lg-5">
-
-				<textarea cols="90" rows="40" name="noticeContent"
-					id="noticeContent" readonly="readonly">${requestScope.vo.reviewContent }</textarea>
-
-			</div>
-		</div>
-			<div class="form-group">
-			<label for="inputFile" class="col-lg-2 control-label">파일</label>
-			<div class="col-lg-5">
-				<c:forEach items="${requestScope.file }" var="data">
-					<img src="${data.filePath }" width="500" height="400">
-				</c:forEach>
+			<div class="col-lg-8">
+				<div class="well">
+				${requestScope.vo.reviewContent }
+				</div>
 			</div>
 		</div>
 		<c:choose>

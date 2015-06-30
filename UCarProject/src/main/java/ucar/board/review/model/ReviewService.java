@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ucar.board.reviewcomment.model.ReviewCommentVO;
+import ucar.member.model.MemberVO;
 
 public interface ReviewService {
 	public void writeReviewSavingPoint(ReviewVO vo);
@@ -23,9 +24,9 @@ public interface ReviewService {
 	public HashMap<String, String> likeReview(ReviewVO reviewVO);
 
 	public HashMap<String, String> likeReviewCancel(ReviewVO reviewVO);
-	
-	public void registerFile(ReviewFileVO rfvo);
 
-	public List<ReviewFileVO> getFileByReviewNo(int reviewNo);
+	public HashMap<String, String> fileNameFomat(MemberVO memberVO, String oriName)	throws Exception;
+
+	public HashMap<String, Object> getBestReviewListForMain();
 
 }

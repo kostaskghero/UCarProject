@@ -53,21 +53,13 @@
 	</bean>
 	<!-- upload path 개발시에는 workspace 경로를 주입시키고 운영시에는 실제 서버 경로를 주입시킨다. 운영 업로드 
 		경로 C:\java-kosta\servers\spring2-tomcat\webapps\springmvc28-fileupload-inst\upload -->
-	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg>
-			<value>C:\\Users\\KOSTA\\git\\UCarProject\\UCarProject\\src\\main\\webapp\\upload\\</value>
-		</constructor-arg>
-	</bean>
-		<bean id="uploadCarPicPath" class="java.lang.String">
+	
+	<bean id="uploadCarPicPath" class="java.lang.String">
 		<constructor-arg>
 			<value>C:\\Users\\KOSTA\\git\\UCarProject\\UCarProject\\src\\main\\webapp\\car-pic\\</value>
 		</constructor-arg>
 	</bean>
-	<bean id="viewPath" class="java.lang.String">
-      <constructor-arg>
-         <value>upload/</value>
-      </constructor-arg>
-   </bean>
+	
    <bean id="viewCarPath" class="java.lang.String">
       <constructor-arg>
          <value>car-pic/</value>

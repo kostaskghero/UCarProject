@@ -1,34 +1,33 @@
 package ucar.board.controller;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import ucar.board.review.model.ReviewFileVO;
 import ucar.board.review.model.ReviewService;
 import ucar.board.review.model.ReviewVO;
+import ucar.member.model.MemberVO;
 
 @Controller
 public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
-	@Resource(name="uploadPath")
-	private String path;
-	@Resource(name="viewPath")
-	private String viewPath;
+	
 	@RequestMapping("auth_review_write_form.do")
 	public ModelAndView writeReviewForm() {
 		return new ModelAndView("customercenter_review_write_form");
@@ -38,41 +37,38 @@ public class ReviewController {
 	 * 게시글을 insert 새로고침시 재입력을 막기 위해 redirect 시킨다. post 방식일때만 등록가능
 	 */
 	@RequestMapping(value = "auth_review_write.do", method = RequestMethod.POST)
-	public ModelAndView write(ReviewVO vo, ReviewFileVO rfvo) {
+	public ModelAndView write(ReviewVO vo) {
 		reviewService.writeReviewSavingPoint(vo);
-		// System.out.println(rfvo);
-		List<MultipartFile> list = rfvo.getFile();
-		rfvo.setReviewNo(vo.getReviewNo());
-		ArrayList<String> nameList = new ArrayList<String>();
-
-		for (int i = 0; i < list.size(); i++) {
-			// System.out.println(list.get(i).getOriginalFilename().equals(""));
-			// String fileName=list.get(i).getOriginalFilename();
-			String fileName = list.get(i).getOriginalFilename();
-
-			if (!fileName.equals("")) {
-				try {
-					nameList.add(viewPath  + vo.getReviewNo()+ "_"+System.currentTimeMillis() +"_"+fileName);
-					list.get(i).transferTo(
-							new File(path + vo.getReviewNo() + "_"+System.currentTimeMillis() +"_"+fileName));
-					System.out.println("fileupload ok:" + fileName);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		rfvo.setFilePathes(nameList);
-		System.out.println(nameList);
-		for (int j = 0; j < nameList.size(); j++) {
-			rfvo.setFilePath(rfvo.getFilePathes().get(j));
-			reviewService.registerFile(rfvo);
-		}
-		// ModelAndView("member_fileupload_result","nameList",nameList);
-		System.out.println(rfvo);
-		return new ModelAndView("redirect:review_showContentNoHit.do?reviewNo="
-				+ vo.getReviewNo());
+		return new ModelAndView("redirect:review_showContentNoHit.do?reviewNo="+ vo.getReviewNo());
 	}
-
+	
+	@RequestMapping("auth_review_multiplePhotoUpload.do")
+	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			HttpSession session=request.getSession(false);
+			MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
+			String oriName = request.getHeader("file-name");
+			HashMap<String, String> map = reviewService.fileNameFomat(memberVO, oriName);
+			InputStream is = request.getInputStream();
+			OutputStream os = new FileOutputStream(map.get("filePath"));
+			int numRead;
+			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+			while ((numRead = is.read(b, 0, b.length)) != -1) {
+				os.write(b, 0, numRead);
+			}
+			if (is != null) {
+				is.close();
+			}
+			os.flush();
+			os.close();
+			PrintWriter print = response.getWriter();
+			print.print(map.get("fileInfo"));
+			print.flush();
+			print.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 	/**
 	 * 최근 게시물 5개를 보여주는 메서드 , 이후 페이징시 업데이트 해야 한다.
 	 * 
@@ -101,7 +97,6 @@ public class ReviewController {
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("customercenter_review_showcontent_form");
 		ReviewVO vo = null;
-		List<ReviewFileVO> file=reviewService.getFileByReviewNo(reviewNo);
 		if (cookieValue == null) {
 			// log.info("springboard2 cookie 존재하지 않으므로 cookie 생성하고 count 증가");
 			response.addCookie(new Cookie("springboard2", "|" + reviewNo + "|"));
@@ -118,7 +113,6 @@ public class ReviewController {
 		}
 		mv.addObject("vo", vo);
 		mv.addObject("commentList", reviewService.getCommentListByReviewNo(reviewNo));
-		mv.addObject("file",file);
 		return mv;
 	}
 
