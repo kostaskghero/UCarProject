@@ -7,7 +7,7 @@
 			$("#qnaReplyForm").submit();
 		});
 		$("#qnaList").click(function(){
-			location.href ="${initParam.root }customercenter_home_qna_boardList.do";
+			location.href ="${initParam.root }auth_customercenter_home_qna_boardList.do";
 		});
 	});
 </script>
@@ -18,36 +18,60 @@
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">
-        <input type="text" class="form-control" id="qnaMemberId" name="qnaMemberId" value="${requestScope.qvo.qnaMemberId }" readonly="readonly">
+        <input type="text" class="form-control" id="qnaMemberId" name="qnaMemberId" value="${requestScope.data.qvo.qnaMemberId }" readonly="readonly">
       </div>
     </div>
     <div class="form-group">
       <label for="inputTitle" class="col-lg-2 control-label">문의유형</label>
       <div class="col-lg-5">
-        <input type="text" class="form-control" id="qnaCategory" name="qnaCategory" value="${requestScope.qvo.qnaCategory }" readonly="readonly">
+        <input type="text" class="form-control" id="qnaCategory" name="qnaCategory" value="${requestScope.data.qvo.qnaCategory }" readonly="readonly">
       </div>
     </div>
     <div class="form-group">
       <label for="inputTitle" class="col-lg-2 control-label">제목</label>
       <div class="col-lg-5">
-        <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" value="${requestScope.qvo.qnaTitle }" readonly="readonly">
+        <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" value="${requestScope.data.qvo.qnaTitle }" readonly="readonly">
       </div>
     </div>
 
     <div class="form-group">
       <label for="inputContent" class="col-lg-2 control-label">내용</label>
       <div class="col-lg-5">
-		<textarea cols="50" rows="10" name="qnaContent" id="qnaContent"  readonly="readonly">${requestScope.qvo.qnaContent }</textarea>
+		<%-- <textarea cols="50" rows="10" name="qnaContent" id="qnaContent"  readonly="readonly">${requestScope.data.qvo.qnaContent }</textarea> --%>
+     	<div class="jumbotron">${requestScope.data.qvo.qnaContent }</div>
       </div>
     </div>
-    <div class="form-group">
+        <c:if test="${requestScope.data.replyList.size()!=0}">
+        <legend>1:1 답변</legend>
+		<div class="form-group">
+		<%-- 	${requestScope.data.replyList} --%>
+			<c:forEach items="${requestScope.data.replyList}" var="reply">
+				<div class="form-group">
+					<label for="inputTitle" class="col-lg-2 control-label">제목</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="replyTitle"
+							name="replyTitle" value="${reply.qnaTitle}" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputTitle" class="col-lg-2 control-label">내용</label>
+					<div class="col-lg-5">
+						<div class="jumbotron">${reply.qnaContent}</div>
+					</div>
+				</div>
+			</c:forEach>
+
+		</div>
+		</c:if>
+		<div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <c:if test="${sessionScope.admin!=null }">
         <button type="submit" class="btn btn-primary" id ="qnaReply">답글달기</button>
         </c:if>
-     	 <button type="reset" class="btn btn-default"  id ="qnaList" >목록보기</button>
+     	 <button type="button" class="btn btn-default"  id ="qnaList" >목록보기</button>
       </div>
     </div>
    </fieldset>
-   <input type ="hidden" name = "qnaNo" value ="${requestScope.qvo.qnaNo}">  
+   <input type ="hidden" name = "qnaNo" value ="${requestScope.data.qvo.qnaNo}">  
+   <hr>
 </form>

@@ -27,5 +27,9 @@ public interface QnaBoardDAO {
 	public void updateRestep(int ref, int restep);
 
 	public int totalContentByMemberId(String sessionId);
+	
+	public List<QnaBoardVO> getReplyByQnaNo(int no);
+	
+	public List<QnaBoardVO> getQnaListById(String memberId, String pageNo);
 
 }

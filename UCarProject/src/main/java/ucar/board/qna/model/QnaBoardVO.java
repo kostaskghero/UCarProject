@@ -10,7 +10,32 @@ public class QnaBoardVO {
 	private int qnaRef;   //답변글 묶음 번호(원 게시글 번호)
 	private int qnaRestep; //답변글 묶음내 순서
 	private int qnaRelevel; //답변의 단계
+	private boolean checkReply=false;
 	
+	public QnaBoardVO(int qnaNo, String qnaCategory, String qnaMemberId,
+			String qnaTitle, String qnaContent, String qnaTimePosted,
+			int qnaRef, int qnaRestep, int qnaRelevel, boolean checkReply) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qnaCategory = qnaCategory;
+		this.qnaMemberId = qnaMemberId;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.qnaTimePosted = qnaTimePosted;
+		this.qnaRef = qnaRef;
+		this.qnaRestep = qnaRestep;
+		this.qnaRelevel = qnaRelevel;
+		this.checkReply = checkReply;
+	}
+
+	public boolean isCheckReply() {
+		return checkReply;
+	}
+
+	public void setCheckReply(boolean checkReply) {
+		this.checkReply = checkReply;
+	}
+
 	public QnaBoardVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -120,7 +145,8 @@ public class QnaBoardVO {
 				+ ", qnaMemberId=" + qnaMemberId + ", qnaTitle=" + qnaTitle
 				+ ", qnaContent=" + qnaContent + ", qnaTimePosted="
 				+ qnaTimePosted + ", qnaRef=" + qnaRef + ", qnaRestep="
-				+ qnaRestep + ", qnaRelevel=" + qnaRelevel + "]";
+				+ qnaRestep + ", qnaRelevel=" + qnaRelevel + ", checkReply="
+				+ checkReply + "]";
 	}
 
 	

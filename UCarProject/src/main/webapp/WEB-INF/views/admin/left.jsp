@@ -29,6 +29,8 @@
 
 <hr>
 <h4><a href="${initParam.root}admin_sharing_List.do">예약/결제/반납 내역</a></h4>
+<hr>
+<h4><a href="${initParam.root }admin_customercenter_home_qna_boardList.do?sessionId=${sessionScope.admin.memberId}">이용후기 관리</a></h4>
 <br>
 
 

@@ -76,6 +76,15 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	public int totalContentByMemberId(String sessionId) {
 		return sqlSessionTemplate.selectOne("qnaboard.totalContentByMemberId", sessionId);
 	}
+	public List<QnaBoardVO> getReplyByQnaNo(int no){
+		return sqlSessionTemplate.selectList("qnaboard.getReplyByQnaNo",no);
+	}
+	public List<QnaBoardVO> getQnaListById(String memberId, String pageNo){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberId", memberId);
+		map.put("pageNo", pageNo);
+		return sqlSessionTemplate.selectList("qnaboard.getQnaListById",map);
+	}
 	
 }
 

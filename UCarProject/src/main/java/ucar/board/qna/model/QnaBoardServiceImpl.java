@@ -17,11 +17,63 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	public void write(QnaBoardVO bvo) {
 		qnaboardDAO.write(bvo);
 	}
-	/**
-	 *    뽑긴 뽑았으니 레벨정리가 안됨..ㅁㄴ럼나ㅣㅓ림ㄴㅇㄹ너이런미러ㅣ
-	 */
+
+	
 	@Override
 	public QnaListVO getBoardList(String pageNo, String sessionId) {
+		if (pageNo == null || pageNo == "")
+			pageNo = "1";
+		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
+		List<QnaBoardVO> list = qnaboardDAO.getBoardList(pageNo);
+		int total =qnaboardDAO.totalContent();
+	//	System.out.println("aaaa" + sessionId);
+	/*	if (sessionId.equals("admin")) {
+			resultList = list;
+			total=qnaboardDAO.totalContent();
+		} else {
+			total=qnaboardDAO.totalContentByMemberId(sessionId);
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("리스트이름" + list.get(i).getQnaMemberId());
+				if(list.get(i).getQnaMemberId().equals(sessionId)){
+					resultList.add(list.get(i));
+				}		
+			}
+		}*/
+	
+
+		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
+		QnaListVO lvo = new QnaListVO(list, paging);
+		return lvo;
+	}
+	public QnaListVO getQnaListById(String pageNo, String sessionId) {
+		if (pageNo == null || pageNo == "")
+			pageNo = "1";
+		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
+		List<QnaBoardVO> list = qnaboardDAO.getQnaListById(sessionId, pageNo);
+		int total =qnaboardDAO.totalContentByMemberId(sessionId);
+	//	System.out.println("aaaa" + sessionId);
+/*		if (sessionId.equals("admin")) {
+			resultList = list;
+			total=qnaboardDAO.totalContent();
+		} else {
+			total=qnaboardDAO.totalContentByMemberId(sessionId);
+			for (int i = 0; i < list.size(); i++) {
+			//	System.out.println("리스트이름" + list.get(i).getQnaMemberId());
+				if(list.get(i).getQnaMemberId().equals(sessionId)){
+					resultList.add(list.get(i));
+				}		
+			}
+		}*/
+		for(int i =0;i<list.size();i++){
+			if(qnaboardDAO.getReplyByQnaNo(list.get(i).getQnaNo()).size()!=0){
+				list.get(i).setCheckReply(true);
+			}
+		}
+		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
+		QnaListVO lvo = new QnaListVO(list, paging);
+		return lvo;
+	}
+	/*public QnaListVO getBoardList(String pageNo, String sessionId) {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
 		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
@@ -66,7 +118,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
 		QnaListVO lvo = new QnaListVO(totalList, paging);
 		return lvo;
-	}
+	}*/
 
 	@Override
 	public QnaBoardVO showContent(int no) {
@@ -125,5 +177,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		vo.setQnaRestep(restep + 1);
 		vo.setQnaRelevel(relevel + 1);
 		qnaboardDAO.insertRef(vo);// 답변 글 입력
+	}
+	public List<QnaBoardVO> getReplyByQnaNo(int no){
+		return qnaboardDAO.getReplyByQnaNo(no);
 	}
 }

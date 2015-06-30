@@ -80,35 +80,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="totalContentByMemberId" resultType="int">
   	select count(*) from qna_board_reply where qna_member_id=#{value}
   </select>
+  <select id="getReplyByQnaNo" resultMap="qnaboardListRM">
+   select qna_no,qna_category,qna_member_id,qna_title,qna_content,qna_time_posted, qna_ref,qna_restep,qna_relevel
+    from qna_board_reply
+    where qna_ref=#{value} and
+    <![CDATA[ qna_restep>0]]>
+  </select>
+  <select id="getQnaListById" parameterType="hashmap" resultMap="qnaboardListRM">
+  	SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
+					    FROM(	 
+								SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted,
+								CEIL(rownum/5) AS page, qna_ref, qna_restep, qna_relevel
+								FROM ( 
+									SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content,
+									to_char(qna_time_posted,'YYYY.MM.DD') as qna_time_posted, qna_ref, qna_restep, qna_relevel
+									FROM qna_board_reply where qna_member_id=#{memberId}
+									order by qna_ref desc, qna_restep asc
+									 ) 
+    ) WHERE  page=#{pageNo}
+  </select>
  </mapper> 		
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

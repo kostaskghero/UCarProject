@@ -7,7 +7,7 @@
  	   명시하면 아래의 페이지들이 조합된(include) 결과화면을 제공한다
   -->
 <tiles-definitions>
-	<definition name="qna_*" extends="admin">
+	<definition name="qna_*" extends="admin_*">
 		<put-attribute name="left" value="/WEB-INF/views/customercenter/left.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/customercenter/{1}.jsp" />
 	</definition>	
