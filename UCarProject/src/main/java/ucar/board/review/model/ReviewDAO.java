@@ -21,4 +21,5 @@ public interface ReviewDAO {
 	public int countReviewCommentByReviewNo(int reviewNo);
 	public int countReviewLikeByReviewNo(int reviewNo);
 	public void deleteFileByReviewNo(int reviewNo);
+	public List<Integer> getBestReviewNo();
 }

@@ -160,4 +160,13 @@ public class ReviewServiceImpl implements ReviewService {
 		System.out.println(list);
 		return map;
 	}
+	public List<ReviewVO> getBestReview(){
+		List<Integer> list= reviewDAO.getBestReviewNo();
+		 List<ReviewVO> bestReviewList= new ArrayList<ReviewVO>();
+		for(int i=0;i<list.size();i++){
+			bestReviewList.add(reviewDAO.showContent(list.get(i)));
+		}
+		System.out.println(bestReviewList);
+		return bestReviewList;
+	}
 }
