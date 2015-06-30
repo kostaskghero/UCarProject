@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewHit" column="review_hit"/>
 		<result property="reviewLikeCount" column="review_like_count"/>
 		<result property="reviewCommentCount" column="review_comment_count"/>
+		<result property="reviewFileVO.filePath" column="file_path"/>
 	</resultMap>
 	<resultMap type="reviewCommentVO" id="reviewCommentRM">
 		<result property="reviewCommentNo" column="review_comment_no"/>
@@ -93,6 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select review_no from (select count(*) as like_count  ,review_no  from review_like
     group by review_no  order by like_count desc) where
      <![CDATA[ rownum<4 and like_count>=5 ]]>
+	</select>
+	<select id="getBestReviewByReviewNo" parameterType="int" resultMap="reviewRM">
+		select review_no, review_title, review_member_id, 
+			(select file_path from review_file  <![CDATA[where rownum<2 and review_no=#{value}]]>) as file_path,
+			(select count(*) from review_like where review_no=#{value}) as review_like_count 
+		from review 
+		where review_no=#{value}
 	</select>
  </mapper> 		
  

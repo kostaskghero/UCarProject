@@ -44,7 +44,7 @@ public class HomeController {
 	public ModelAndView homeView(){
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("home");
-		mv.addObject("bestList",reviewService.getBestReviewListForMain());
+		mv.addObject("bestList",reviewService.getBestReview());
 		mv.addObject("carModelList", searchService.getAllCarModelList());
 		return mv;
 	}

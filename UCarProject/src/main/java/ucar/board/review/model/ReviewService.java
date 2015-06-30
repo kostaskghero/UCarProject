@@ -26,8 +26,6 @@ public interface ReviewService {
 	public HashMap<String, String> likeReviewCancel(ReviewVO reviewVO);
 
 	public HashMap<String, String> fileNameFomat(MemberVO memberVO, String oriName)	throws Exception;
-
-	public HashMap<String, Object> getBestReviewListForMain();
 	
 	public List<ReviewVO> getBestReview();
 

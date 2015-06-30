@@ -143,30 +143,12 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 	@Override
-	public HashMap<String, Object> getBestReviewListForMain() {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		ReviewFileVO reviewFileVO=new ReviewFileVO();
-		List<ReviewVO> list=new ArrayList<ReviewVO>();
-		List<ReviewFileVO> fileList=new ArrayList<ReviewFileVO>();
-		for(int i=0; i<3; i++){
-			ReviewVO reviewVO=new ReviewVO();
-			reviewVO.setReviewContent("aaaa"+i);
-			reviewFileVO.setFilePath("img/logo.jpg");
-			list.add(reviewVO);
-			fileList.add(reviewFileVO);
-		}
-		map.put("reviewList", list);
-		map.put("fileList", fileList);
-		System.out.println(list);
-		return map;
-	}
 	public List<ReviewVO> getBestReview(){
 		List<Integer> list= reviewDAO.getBestReviewNo();
 		 List<ReviewVO> bestReviewList= new ArrayList<ReviewVO>();
 		for(int i=0;i<list.size();i++){
-			bestReviewList.add(reviewDAO.showContent(list.get(i)));
+			bestReviewList.add(reviewDAO.getBestReviewByReviewNo(list.get(i)));
 		}
-		System.out.println(bestReviewList);
 		return bestReviewList;
 	}
 }

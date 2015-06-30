@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ucar.admin.member.model.AdminMemberDAO;
+import ucar.board.review.model.ReviewService;
 import ucar.car.model.CarDAO;
 import ucar.member.model.MemberDAO;
 import ucar.member.model.MemberDAOImpl;
@@ -33,10 +34,12 @@ public class TestJUnitMember {
 	private MemberDAO memberDAO;
 	@Resource(name="carDAOImpl")
 	private CarDAO carDAO;
+	@Resource
+	private ReviewService reviewServie;
 
 	@Test
 	public void memberTest() {
-		System.out.println(carDAO.checkUCarZone("신천역"));
+		reviewServie.getBestReview();
 	}
 
 }

@@ -92,4 +92,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public List<Integer> getBestReviewNo(){
 		return sqlSessionTemplate.selectList("review.getBestReviewNo");
 	}
+
+	@Override
+	public ReviewVO getBestReviewByReviewNo(int reviewNo) {
+		return sqlSessionTemplate.selectOne("review.getBestReviewByReviewNo", reviewNo);
+	}
 }

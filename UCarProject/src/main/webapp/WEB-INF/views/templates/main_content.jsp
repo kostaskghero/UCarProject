@@ -69,26 +69,26 @@ $(function(){
 					<div class="carousel-inner">
 						<!-- slide image 1 -->
 						<div class="active item thumbnail" id="img_slide" align="center" >
-							<img src="${bestList.fileList[0].filePath }" class="img-responsive" width="250" height="200">
+							<img src="${bestList[0].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
 							<div class="caption">
-								<h2>A Title</h2>
-								<p>${bestList.reviewList[0].reviewContent}</p>
+								<h2>${bestList[0].reviewTitle }</h2>
+								<p>작성자 : ${bestList[0].memberId} 추천수 : ${bestList[0].reviewLikeCount}</p>
 							</div>
 						</div>
 						<!-- slide image 2 -->
 						<div class="item thumbnail" id="img_slide" align="center">
-							<img src="${bestList.fileList[1].filePath }" class="img-responsive" width="250" height="200">
+							<img src="" class="img-responsive" width="250" height="200">
 							<div class="caption">
-								<h2>A Title</h2>
-								<p>${bestList.reviewList[1].reviewContent }</p>
+								<h2>${bestList[1].reviewTitle }</h2>
+								<p>작성자 : ${bestList[1].memberId} 추천수 : ${bestList[1].reviewLikeCount}</p>
 							</div>
 						</div>
 						<!-- slide image 3 -->
 						<div class="item thumbnail" id="img_slide" align="center">
-							<img src="${bestList.fileList[2].filePath }" class="img-responsive" width="250" height="200">
+							<img src="${bestList[2].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
 							<div class="caption">
-								<h2>A Title</h2>
-								<p>${bestList.reviewList[2].reviewContent }</p>
+								<h2>${bestList[2].reviewTitle }</h2>
+								<p>작성자 : ${bestList[2].memberId} 추천수 : ${bestList[2].reviewLikeCount}</p>
 							</div>
 						</div>
 					</div>

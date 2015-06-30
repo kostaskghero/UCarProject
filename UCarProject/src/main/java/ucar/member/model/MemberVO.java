@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class MemberVO {
 	@Size(min=4,max=10)
 	private String memberId;
-	@Size(min=8,max=20)
+	@Size(min=4,max=15)
 	private String memberPassword;
 	@NotEmpty
 	private String memberName;
