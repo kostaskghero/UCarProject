@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/config/ucarzone.xml" />
 		<mapper resource="mybatis/config/board.xml" />
 		<mapper resource="mybatis/config/qnaboard.xml" />
-		<mapper resource="mybatis/config/adminMember.xml" />
+		<mapper resource="mybatis/config/admin-member.xml" />
 		<mapper resource="mybatis/config/sharing-search.xml" />
 		<mapper resource="mybatis/config/sharing-reservation.xml" />
 		<mapper resource="mybatis/config/sharing-payment.xml" />

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ucar.admin.member.model.AdminMemberService;
+import ucar.common.model.PointListVO;
 import ucar.member.model.MemberService;
 import ucar.member.model.MemberVO;
 
@@ -35,5 +36,20 @@ public class AdminMemberController {
 	public ModelAndView adminDeleteMember(String memberId){
 		adminMemberService.adminDeleteMember(memberId);
 		return new ModelAndView("redirect:admin_member_list.do");
+	}
+	@RequestMapping("admin_pointHistoryList.do")
+	public ModelAndView pointHistory(String pageNo){
+		PointListVO listVO=adminMemberService.getAllPointHistory(pageNo);
+		return new ModelAndView("admin_pointHistory_admin","lvo",listVO);
+	}
+	@RequestMapping("admin_getAllPointHistoryById.do")
+	public ModelAndView getAllPointHistoryById(String memberId,String pageNo){
+		System.out.println(memberId+pageNo+"test!!!");
+		ModelAndView mv=new ModelAndView();
+		PointListVO listVO=adminMemberService.getAllPointHistoryById(memberId,pageNo);
+		mv.addObject("lvo",listVO);
+		mv.addObject("memberId",memberId);
+		mv.setViewName("admin_PointHistoryById");
+		return mv;
 	}
 }

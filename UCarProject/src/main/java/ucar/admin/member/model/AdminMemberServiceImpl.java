@@ -8,6 +8,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ucar.common.model.PagingBean;
+import ucar.common.model.PointListVO;
+import ucar.common.pointhistory.model.PointHistoryVO;
 import ucar.member.model.MemberDAO;
 import ucar.member.model.MemberVO;
 
@@ -71,6 +74,27 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		memberDAO.deleteCardByMemberId(memberId);
 		memberDAO.deleteLicenseByMemberId(memberId);
 		adminMemberDAO.adminDeleteMember(memberId);
+	}
+
+	public PointListVO getAllPointHistory(String pageNo) {
+		if (pageNo == null || pageNo == "")
+			pageNo = "1";
+		List<PointHistoryVO> list=adminMemberDAO.getAllPointHistory(pageNo);
+		int total=adminMemberDAO.getTotalPointHistory();
+		PagingBean pagingBean=new PagingBean(total, Integer.parseInt(pageNo));
+		PointListVO listVO=new PointListVO(list, pagingBean);
+		return listVO;
+	}
+	public PointListVO getAllPointHistoryById(String memberId,String pageNo) {
+		System.out.println(pageNo+"/"+memberId+"controlelr");
+		if (pageNo == null || pageNo == "")
+			pageNo = "1";
+		List<PointHistoryVO> list=adminMemberDAO.getAllPointHistoryById(memberId,pageNo);
+		System.out.println(list+"service test");
+		int total=adminMemberDAO.getTotalPointHistoryById(memberId);
+		PagingBean pagingBean=new PagingBean(total, Integer.parseInt(pageNo));
+		PointListVO listVO=new PointListVO(list, pagingBean);
+		return listVO;
 	}
 
 }

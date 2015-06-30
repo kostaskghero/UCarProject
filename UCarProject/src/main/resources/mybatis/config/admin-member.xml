@@ -25,6 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="cardVO.cardPassword" column="card_password" />
 		<result property="cardVO.cardBirth" column="card_birth" />
 	</resultMap>
+	 <resultMap type="pointHistoryVO" id="pointHistoryRM">
+ 	 	<result property="pointValue" column="point_value"/>
+ 	 	<result property="pointDate" column="point_date"/>
+ 	 	<result property="pointContent" column="point_content"/>
+ 	 	<result property="pointType" column="point_type"/>
+ 	 	<result property="memberId" column="member_id"/>
+ 	 </resultMap>
 	<select id="getAllMemberList" resultMap="memberRM">
 		select * from member
 	</select>
@@ -65,4 +72,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="adminDeleteMember">
 	delete from member where member_id=#{value}
 	</delete>
+	<select id="getAllPointHistory" resultMap="pointHistoryRM" parameterType="String">
+	SELECT member_id, point_value,  to_char(point_date, 'YYYY/MM/DD HH24:MI') as point_date, point_content,point_type
+					    FROM(	 
+								SELECT member_id, point_value, point_date, point_content, point_type,
+								CEIL(rownum/10) AS page
+								FROM ( 
+									SELECT member_id, point_value, point_date, point_content,
+									point_type
+									FROM point_history
+									order by point_history_no desc
+									 ) 
+    ) WHERE PAGE=#{value}
+	</select>
+		<select id="getAllPointHistoryById" resultMap="pointHistoryRM" parameterType="HashMap">
+	SELECT member_id, point_value,  to_char(point_date, 'YYYY/MM/DD HH24:MI') as point_date, point_content,point_type
+					    FROM(	 
+								SELECT member_id, point_value, point_date, point_content, point_type,
+								CEIL(rownum/10) AS page
+								FROM ( 
+									SELECT member_id, point_value, point_date, point_content,
+									point_type
+									FROM point_history
+										where member_id=#{memberId}
+									order by point_history_no desc
+									 ) 
+    ) WHERE PAGE=#{pageNo}
+	</select>
+	<select id="getTotalPointHistory" resultType="Integer">
+	select count(*) from point_history
+	</select>
+	<select id="getTotalPointHistoryById" resultType="Integer">
+	select count(*) from point_history where member_id=#{value}
+	</select>
 </mapper> 
