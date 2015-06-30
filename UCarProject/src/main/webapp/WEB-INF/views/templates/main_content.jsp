@@ -61,37 +61,65 @@ $(function(){
               	<br>Ut enim ad minim veniam, quis nostrud</p> -->
               	<div class="carousel slide" id="review_carousel" data-interval="3000" data-ride="carousel">
               		<!-- 오른쪽 위에 있으면 좋겠음 색도 바뀌면 좋겠음 -->
-					<ol class="carousel-indicators" style="background-color: red; ">
+					<!-- <ol class="carousel-indicators" style="background-color: red; ">
 						<li class="active" data-slide-to="0" data-target="#review_carousel"></li>
 						<li data-slide-to="1" data-target="#review_carousel"></li>
 						<li data-slide-to="2" data-target="#review_carousel"></li>
-					</ol>
+					</ol> -->					
 					<div class="carousel-inner">
 						<!-- slide image 1 -->
-						<div class="active item thumbnail" id="img_slide" align="center" >
-							<img src="${bestList[0].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+						<div class="active item" id="img_slide" align="center" >
+							<div class="thumbnail">
+								<c:choose>
+									<c:when test="${bestList[0].reviewFileVO !=null }">
+										<img src="${bestList[0].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+									</c:when>
+									<c:otherwise>
+										<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+									</c:otherwise>
+								</c:choose>								
+							</div>
 							<div class="caption">
 								<h2>${bestList[0].reviewTitle }</h2>
 								<p>작성자 : ${bestList[0].memberId} 추천수 : ${bestList[0].reviewLikeCount}</p>
 							</div>
 						</div>
 						<!-- slide image 2 -->
-						<div class="item thumbnail" id="img_slide" align="center">
-							<img src="" class="img-responsive" width="250" height="200">
+						<div class="item" id="img_slide" align="center" >
+							<div class="thumbnail">
+								<c:choose>
+									<c:when test="${bestList[1].reviewFileVO !=null }">
+										<img src="${bestList[1].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+									</c:when>
+									<c:otherwise>
+										<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+									</c:otherwise>
+								</c:choose>
+							</div>
 							<div class="caption">
 								<h2>${bestList[1].reviewTitle }</h2>
 								<p>작성자 : ${bestList[1].memberId} 추천수 : ${bestList[1].reviewLikeCount}</p>
 							</div>
 						</div>
 						<!-- slide image 3 -->
-						<div class="item thumbnail" id="img_slide" align="center">
-							<img src="${bestList[2].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+						<div class="item" id="img_slide" align="center" >
+							<div class="thumbnail">
+								<c:choose>
+									<c:when test="${bestList[2].reviewFileVO !=null }">
+										<img src="${bestList[2].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+									</c:when>
+									<c:otherwise>
+										<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+									</c:otherwise>
+								</c:choose>
+							</div>
 							<div class="caption">
 								<h2>${bestList[2].reviewTitle }</h2>
 								<p>작성자 : ${bestList[2].memberId} 추천수 : ${bestList[2].reviewLikeCount}</p>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			<!-- UCar garage -->
