@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import ucar.car.model.UCarZoneVO;
 import ucar.sharing.reservation.model.ReservationVO;
 
 @Repository
@@ -37,5 +38,11 @@ public class SearchDAOImpl implements SearchDAO {
 	@Override
 	public List<String> getAllCarModelList() {
 		return sqlSessionTemplate.selectList("search.getAllCarModelList");
+	}
+
+	@Override
+	public List<UCarZoneVO> getMapInfo() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("ucarzone.getAllUCarZoneList");
 	}
 }

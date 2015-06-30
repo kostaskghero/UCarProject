@@ -6,38 +6,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- carVo ResultMap -->
 <mapper namespace="ucarzone">
 
-	<!-- uCarZoneVO ResultMap -->
-	<resultMap type="uCarZoneVO" id="uCarZoneRM">
-		<result property="uCarZoneName" column="UCAR_ZONE_NAME" />
-		<result property="uCarZoneAddress" column="UCAR_ZONE_ADDRESS" />
-	</resultMap>
+   <!-- uCarZoneVO ResultMap -->
+   <resultMap type="uCarZoneVO" id="uCarZoneRM">
+      <result property="uCarZoneName" column="UCAR_ZONE_NAME" />
+      <result property="uCarZoneAddress" column="UCAR_ZONE_ADDRESS" />
+   </resultMap>
 
-	<insert id="registerUCarZone" parameterType="uCarZoneVO">
-		insert into
-		ucar_zone(UCAR_ZONE_NAME,UCAR_ZONE_ADDRESS,latitude,longitude)
-		values(#{uCarZoneName},#{uCarZoneAddress},#{latitude},#{longitude})
-	</insert>
-	<select id="getAllUCarZoneList" resultMap="uCarZoneRM">
-		select * from
-		ucar_zone order by UCAR_ZONE_NAME asc
-	</select>
-	<select id="uCarZoneNameCheck" parameterType="String" resultMap="uCarZoneRM">
-		select * from ucar_zone where UCAR_ZONE_NAME=#{value}
-	</select>
-	<select id="searchUCarZone" resultType="String">
-		select UCAR_ZONE_NAME
-		from ucar_zone where UCAR_ZONE_NAME like '%${value}%'
-	</select>
-	<select id="checkUCarZone" resultMap="uCarZoneRM">
-		select * from UCAR_ZONE
-		where UCAR_ZONE_NAME=#{value}
-	</select>
-	<delete id="deleteUcarZone">
-		delete from ucar_zone where UCAR_ZONE_NAME=#{value}
-	</delete>
-	<update id="updateUcarZone" parameterType="uCarZoneVO">
-		update UCAR_ZONE set
-		UCAR_ZONE_ADDRESS =#{uCarZoneAddress} ,latitude=#{latitude},longitude=#{longitude} where
-		UCAR_ZONE_NAME=#{uCarZoneName}
-	</update>
+   <insert id="registerUCarZone" parameterType="uCarZoneVO">
+      insert into
+      ucar_zone(UCAR_ZONE_NAME,UCAR_ZONE_ADDRESS,latitude,longitude)
+      values(#{uCarZoneName},#{uCarZoneAddress},#{latitude},#{longitude})
+   </insert>
+   <select id="getAllUCarZoneList" resultMap="uCarZoneRM">
+      select * from
+      ucar_zone order by UCAR_ZONE_NAME asc
+   </select>
+   <select id="uCarZoneNameCheck" parameterType="String" resultMap="uCarZoneRM">
+      select * from ucar_zone where UCAR_ZONE_NAME=#{value}
+   </select>
+   <select id="searchUCarZone" resultType="String">
+      select UCAR_ZONE_NAME
+      from ucar_zone where UCAR_ZONE_NAME like '%${value}%'
+   </select>
+   <select id="checkUCarZone" resultMap="uCarZoneRM">
+      select * from UCAR_ZONE
+      where UCAR_ZONE_NAME=#{value}
+   </select>
+   <delete id="deleteUcarZone">
+      delete from ucar_zone where UCAR_ZONE_NAME=#{value}
+   </delete>
+   <update id="updateUcarZone" parameterType="uCarZoneVO">
+      update UCAR_ZONE set
+      UCAR_ZONE_ADDRESS =#{uCarZoneAddress} ,latitude=#{latitude},longitude=#{longitude} where
+      UCAR_ZONE_NAME=#{uCarZoneName}
+   </update>
 </mapper> 

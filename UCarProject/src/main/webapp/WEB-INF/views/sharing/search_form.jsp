@@ -29,9 +29,10 @@
 </style> 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		$("#carSearchBtn").click(function(){
-			if($("#ucarZoneName").val()==""){
+			if($("#ucarZoneNames").val()==""){
 				alert("이용할 지역이나 유카존 입력하세요!");
 				return false;
 			} else if($("#rentalDate").val()=="" || $("#returnDate").val()==""){
@@ -46,7 +47,7 @@
 					success:function(data){
 						if(data.length==0){
 							alert("이용할 수 있는 차량이 없습니다.");
-							$("#ucarZoneName").val("").focus();
+							$("#ucarZoneNames").val("").focus();
 						} else{
 							var tableInfo="<table class='table table-hover' id='carTable'>";
 							tableInfo+="<thead><tr><th>유카존</th><th></th><th>차량</th><th>대여요금</th><th>주행요금</th><th></th></tr></thead>";
@@ -159,59 +160,6 @@
 		    step: 10 //시간 설정을 10분단위로 나눔
 	    }); 
 	});
-	var map;
-	var marker;
-	var geocoder;
-	var location;
-	//지도에 찍을 위치정보를 저장함
-	var locaTest = [ // 영역설정을 위한 Polygon의 꼭지점 좌표
-	                	   new google.maps.LatLng(37.402136,127.106238),
-	                       new google.maps.LatLng(37.402236,127.106338),
-	                       new google.maps.LatLng(37.402336,127.106438),
-	                       new google.maps.LatLng(37.402436,127.106538),
-	                       new google.maps.LatLng(37.402536,127.106638),
-	                       new google.maps.LatLng(37.402636,127.106738)
-	                       ];
-	function initialize() {
-		var latlng = new google.maps.LatLng(37.402036, 127.106138);     
-		var myOptions = {       
-			zoom: 15,       
-			center: latlng,       
-			mapTypeId: google.maps.MapTypeId.ROADMAP     
-		};     
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
-		map.setTilt(45);
-		for(var i =0; i < locaTest.length; i++) {
-		   marker = new google.maps.Marker({
-			   position: locaTest[i],
-			   map : map
-			});   
-		   marker.setTitle((i + 1).toString());
-	       attachSecretMessage(marker, i);
-		}
-	  /*   // 지도클릭시 마커 생성
-		google.maps.event.addListener(map, 'click', function(event) {
-			marker = new google.maps.Marker({
-			position: event.latLng,
-			map: map,
-			title: '위치마커'
-			});
-		}); */
-	}
-	 //마커클릭시 정보
-	function attachSecretMessage(marker, num) {
-		  var message = ['This', 'is', 'the', 'secret', 'message','haha'];
-		  var infowindow = new google.maps.InfoWindow({
-		    content: message[num]
-		  });
-
-		  google.maps.event.addListener(marker, 'click', function() {
-		    infowindow.open(marker.get('map'), marker);
-		  });
-		}
-	window.onload = function() {
-		initialize();
-	} 
 	$(function(){
 		$("#uCarZoneNames").autocomplete({
 			source:function(request,response){ 
@@ -225,9 +173,19 @@
 				});//ajax
 			}//source
 		});//autocomplete
-	});//ready
-
+	});//read	alert("dddd:   "+$("#test").val()); 
 </script>
+
+<c:forEach items="${requestScope.mapDate.uCarZoneListLati } " var="Lati" varStatus="i">
+		<input type="hidden" value="${Lati }" id="${i.count}LatiValue">
+</c:forEach>
+<c:forEach items="${requestScope.mapDate.uCarZoneListLong } " var="Long" varStatus="i">
+	<input type="hidden" value="${Long }" id="${i.count}LongValue">
+</c:forEach>
+<c:forEach items="${requestScope.mapDate.uCarZoneListName } " var="Name" varStatus="i">
+<input type="hidden" value="${Name }" id="${i.count}NameValue">
+</c:forEach>
+
  <div class="section">
 	<div class="container">
 		<div class="row">
@@ -269,7 +227,7 @@
 				<div class="col-sm-4">
 					<select id="carModel" name="carModel">
 						<option value="all">전체차종</option>
-						<c:forEach items="${carModelList }" var="carModel">
+						<c:forEach items="${requestScope.mapDate.carModelList }" var="carModel">
 							<option value="${carModel }">${carModel }</option>
 						</c:forEach>
 					</select>
@@ -294,3 +252,59 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+
+var map;
+var marker;
+var geocoder;
+var location;
+//지도에 찍을 위치정보를 저장함
+var locaTest =[];
+for(var i=0; i<50; i++) {
+	locaTest[i] = new google.maps.LatLng($("#"+i+"LatiValue").val(), $("#"+i+"LongValue").val());
+} 
+
+function initialize() {
+	var latlng = new google.maps.LatLng(37.5632667, 126.9798625);     
+	var myOptions = {       
+		zoom: 10,       
+		center: latlng,       
+		mapTypeId: google.maps.MapTypeId.ROADMAP     
+	};     
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+	map.setTilt(45);
+	for(var i =0; i < locaTest.length; i++) {
+	   marker = new google.maps.Marker({
+		   position: locaTest[i],
+		   map : map
+		});   
+	   marker.setTitle((i + 1).toString());
+       attachSecretMessage(marker, i);
+	}
+  /*   // 지도클릭시 마커 생성
+	google.maps.event.addListener(map, 'click', function(event) {
+		marker = new google.maps.Marker({
+		position: event.latLng,
+		map: map,
+		title: '위치마커'
+		});
+	}); */
+}
+ //마커클릭시 정보
+function attachSecretMessage(marker, num) {
+	  var message = [];              
+	  for(var i =0; i<50; i++) {
+		  message[i] = $("#"+i+"NameValue").val();
+	  } 
+	  var infowindow = new google.maps.InfoWindow({
+	    content: message[num]
+	  });
+
+	  google.maps.event.addListener(marker, 'click', function() {
+	    infowindow.open(marker.get('map'), marker);
+	  });
+	}
+window.onload = function() {
+	initialize();
+} 
+</script> 

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import ucar.car.model.UCarZoneVO;
 import ucar.sharing.reservation.model.ReservationVO;
 
 @Service
@@ -42,5 +43,11 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<String> getAllCarModelList() {
 		return searchDAO.getAllCarModelList();
+	}
+
+	@Override
+	public List<UCarZoneVO> getMapInfo() {
+		return searchDAO.getMapInfo();
+		
 	}
 }

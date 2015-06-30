@@ -1,6 +1,9 @@
 package ucar.sharing.search.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,6 +17,7 @@ import ucar.car.model.CarVO;
 import ucar.car.model.UCarZoneVO;
 import ucar.sharing.reservation.model.ReservationVO;
 import ucar.sharing.search.model.SearchService;
+
 
 @Controller
 public class SearchController {
@@ -30,7 +34,41 @@ public class SearchController {
 	 */
 	@RequestMapping("search_searchForm.do")
 	public ModelAndView searchForm(){
-		return new ModelAndView("sharing_search_form", "carModelList", searchService.getAllCarModelList());
+/*		List<UCarZoneVO> list = searchService.getMapInfo();
+		 private double latitude;//위도
+   private double longitude;//경도
+		System.out.println(list.toString()); 
+		return new ModelAndView("sharing_search_form", "carModelList", searchService.getAllCarModelList());*/
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<UCarZoneVO> list = searchService.getMapInfo();
+		ArrayList<Double> listLatitude = new ArrayList<Double>();
+		ArrayList<Double> listLongitude = new ArrayList<Double>();
+		ArrayList<String> listName = new ArrayList<String>();
+		map.put("carModelList", searchService.getAllCarModelList());
+		map.put("uCarZoneListLati", listLatitude);
+		map.put("uCarZoneListLong", listLongitude);
+		map.put("uCarZoneListName", listName);
+		map.put("longCount", list.size());
+		System.out.println(list.size());
+		System.out.println(list.toString());
+		
+		for(int i=0; i<list.size(); i++){
+			listLatitude.add(list.get(i).getLatitude());
+			listLongitude.add(list.get(i).getLongitude());
+			listName.add(list.get(i).getuCarZoneName());
+		}
+	/*	
+		for(int i=0; i<listLatitude.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		for(int i=0; i<listLongitude.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		for(int i=0; i<listName.size(); i++) {
+			System.out.println(list.get(i));
+		}*/
+		return new ModelAndView("sharing_search_form", "mapDate", map);
 	}
 	/**
 	 * searchVO 의 ucarZoneName 에 해당하는 모든 carList 를 리턴
@@ -46,6 +84,14 @@ public class SearchController {
 		carVO.setCarModelInfoVO(carModelInfoVO);
 		reservationVO.setCarVO(carVO);
 		return searchService.searchCar(reservationVO);
+	}
+	
+	@RequestMapping("search_searchMapList.do")
+	@ResponseBody
+	public List<UCarZoneVO> searchMapList(){
+		List<UCarZoneVO> list = searchService.getMapInfo();
+		System.out.println("맵위도경도:"	+ list.size());
+		return searchService.getMapInfo();
 	}
 	
 	@RequestMapping("search_searchUCarZone.do")

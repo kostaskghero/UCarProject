@@ -2,7 +2,7 @@
 create sequence SHARING_RESERVATION_seq nocache
 drop sequence SHARING_RESERVATION_seq
 drop table SHARING_RESERVATION
-CREATE TABLE SHARING_RESERVATION (
+CREATE TABLE SHARING_RESERVATION (s
 	RESERVATION_NO number primary key,
 	sharing_type varchar2(50) not null,
 	CAR_NO NUMBER,
