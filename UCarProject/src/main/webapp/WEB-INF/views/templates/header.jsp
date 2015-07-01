@@ -74,7 +74,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 				$.ajax({
 					type:"post",
 					url:"${initParam.root}member_login.do",
-					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
+					data:"memberId="+$("#modalMemberId").val()+"&memberPassword="+$("#modalMemberPassword").val(),
 					success:function(data){
 						if(data.flag=="ok"){
 							location.href="${initParam.root}home.do";
@@ -148,20 +148,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">Id</label>
       <div class="col-lg-6">
-        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+        <input type="text" class="form-control" id="modalMemberId" name="memberId" placeholder="아이디">
       </div>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
       <div class="col-lg-6">
-        <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호">
+        <input type="password" class="form-control" id="modalMemberPassword" name="memberPassword" placeholder="비밀번호">
       </div>      
     </div>
     <div class="form-group" >
       <div class="col-lg-10 col-lg-offset-3">
         <button type="button" class="btn btn-primary" id="memberLogin" >Login</button>
-        <a href="${initParam.root }member_findMemberIdForm.do?carModel=${carVO.carModel}" class="btn btn-primary" role="button">FindId</a>
-        <a href="${initParam.root }member_findMemberPasswordForm.do?carModel=${carVO.carModel}" class="btn btn-primary" role="button">FindId</a>
+        <a href="${initParam.root }member_findMemberIdForm.do" class="btn btn-primary" role="button">FindId</a>
+        <a href="${initParam.root }member_findMemberPasswordForm.do" class="btn btn-primary" role="button">FindPassword</a>
       </div>
     </div>
   </fieldset>
