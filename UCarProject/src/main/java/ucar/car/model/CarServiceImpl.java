@@ -217,6 +217,10 @@ public class CarServiceImpl implements CarService {
 		carPicVO.setCarModel(carModelInfoVO.getCarModel());
 		String fileOriginalName = file.getOriginalFilename();
 		String fileName = "";
+		File picFile = new File(uploadCarPicPath);
+	      if (!picFile.exists()) {
+	    	  picFile.mkdirs();
+	      }
 		if (!fileOriginalName.equals("")) {
 			try {
 				fileName = viewCarPath + System.currentTimeMillis()
