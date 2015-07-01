@@ -33,7 +33,7 @@ public interface MemberService {
 
 	public String countCardByMemberId(String memberId) throws Exception;
 
-	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId);
+	public int findPointByMemberId(String memberId);
 
 	public MemberVO findMemberInfoByMemberId(String memberId);
 

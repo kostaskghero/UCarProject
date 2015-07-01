@@ -30,10 +30,7 @@
 		});
 		$("#reserveRegisterBtn").click(function(){
 			var usingPoint=Number($("#pointText").val());
-			/* if($("#couponType").val()==""){
-				alert("쿠폰을 선택하세요!");
-				return false;
-			} else */ if($("#payCardType").val()==""){
+			if($("#payCardType").val()==""){
 				alert("결제카드를 선택하세요!");
 				return false;
 			} else if($(":input[name=pointType]:checked").val()=="pointuse" && $("#pointText").val()==""){
@@ -75,7 +72,7 @@
 					<label for="schedule" class="col-lg-2 control-label">일정</label>
 					<div class="col-lg-10">
 						<label for="schedule" class="col-lg-10 control-label">
-							${returnInfo.sharingType } / ${returnInfo.rentalDate } ~ ${returnInfo.returnDate }
+							${returnInfo.rentalDate } ~ ${returnInfo.returnDate }
 						</label>
 					</div>
 					<br><br>
@@ -107,20 +104,6 @@
 						</label>
 					</div>
 					<br><br>
-					<label for="returnUcarZone" class="col-lg-2 control-label">반납유카존</label>
-					<div class="col-lg-10">
-						<label for="ucarZone" class="col-lg-10 control-label">
-							${returnInfo.returnVO.returnUcarZone }
-						</label>
-					</div>
-					<br><br>
-					<label for="ucarSpace" class="col-lg-2 control-label">위치</label>
-					<div class="col-lg-10">
-						<label for="ucarSpace" class="col-lg-10 control-label">
-							${returnInfo.carVO.uCarZoneVO.uCarZoneAddress }
-						</label>
-					</div>
-					<br><br>
 					<c:if test="${returnInfo.extensionPrice>0 }">
 						<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
 						<div class="col-lg-10">
@@ -148,83 +131,74 @@
 					</c:if>
 				</fieldset>
 			</div>
-			<div class="col-md-6">
-				<fieldset>
-					<legend>결제내역</legend>
-					<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
+		</div>
+		<div class="col-md-6">
+			<fieldset>
+				<legend>결제내역</legend>
+				<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
+				<div class="col-lg-10">
+					<label for="fee" class="col-lg-10 control-label" id="rentalPrice">
+						${returnInfo.returnVO.drivingPrice } 원
+					</label>
+				</div>
+				<br><br>
+				<c:if test="${returnInfo.extensionPrice>0 }">
+					<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
 					<div class="col-lg-10">
-						<label for="fee" class="col-lg-10 control-label" id="rentalPrice">
-							${returnInfo.returnVO.drivingPrice } 원
+						<label for="extensionPrice" class="col-lg-10 control-label">
+							${returnInfo.extensionPrice } 원
 						</label>
 					</div>
 					<br><br>
-					<c:if test="${returnInfo.extensionPrice>0 }">
-						<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
-						<div class="col-lg-10">
-							<label for="extensionPrice" class="col-lg-10 control-label">
-								${returnInfo.extensionPrice } 원
-							</label>
-						</div>
-						<br><br>
-					</c:if>
-					<c:if test="${returnInfo.lateFee>0 }">
-						<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
-						<div class="col-lg-10">
-							<label for="lateFee" class="col-lg-10 control-label">
-								${returnInfo.lateFee } 원
-							</label>
-						</div>
-						<br><br>
-					</c:if>
-					<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
+				</c:if>
+				<c:if test="${returnInfo.lateFee>0 }">
+					<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
 					<div class="col-lg-10">
-						<select class="form-control" id="couponType">
-							<option value="">쿠폰선택</option>
-							<c:forEach items="${PointAndCoupon }">
-								<option value=""></option>
-							</c:forEach>
-						</select>
-					</div>
-					<br><br><br>
-					<label for="point" class="col-lg-2 control-label">포인트</label>
-					<div class="col-lg-10" id = "pointForm">
-						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
-						<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
-						<span id = "pointTextView">
-							사용가능한 포인트 : ${PointAndCoupon.memberPoint} 점<br>
-							<input type="text" id="pointText" name="pointText" placeholder="숫자를 입력하세요!">
-						</span><br>
-					</div>
-					<br><br><br>
-					<label for="payCard" class="col-lg-2 control-label">결제카드</label>
-					<div class="col-lg-10">
-						<select class="form-control" id="payCardNo">
-							<option value="">결제카드</option>
-							<c:forEach items="${cardListByMember }" var="cardInfo">
-								<option value="${cardInfo.cardVO.cardNo }">${cardInfo.cardVO.cardNo }</option>
-							</c:forEach>
-						</select>
-					</div>
-					<br><br><br>
-					<label for="payCard" class="col-lg-2 control-label">카드비밀번호</label>
-					<div class="col-lg-10">
-						<input type="password" id="cardPassword" maxlength="2">**
-					</div>
-					<br><br><br>
-					<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
-					<div class="col-lg-10">
-						<label for="payTotal" class="col-lg-10 control-label">
-							<span id="payTotalView">${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }</span> 원
+						<label for="lateFee" class="col-lg-10 control-label">
+							${returnInfo.lateFee } 원
 						</label>
 					</div>
+					<br><br>
+				</c:if>
+				<br>
+				<label for="point" class="col-lg-2 control-label">포인트</label>
+				<div class="col-lg-10" id = "pointForm">
+					<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
+					<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
+					<span id = "pointTextView">
+						사용가능한 포인트 : ${memberPoint} 점<br>
+						<input type="text" id="pointText" name="pointText" placeholder="숫자를 입력하세요!">
+					</span><br>
+				</div>
+				<br><br><br>
+				<label for="payCard" class="col-lg-2 control-label">결제카드</label>
+				<div class="col-lg-10">
+					<select class="form-control" id="payCardNo">
+						<option value="">결제카드</option>
+						<c:forEach items="${cardListByMember }" var="cardInfo">
+							<option value="${cardInfo.cardVO.cardNo }">${cardInfo.cardVO.cardNo }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<br><br><br>
+				<label for="payCard" class="col-lg-2 control-label">카드비밀번호</label>
+				<div class="col-lg-10">
+					<input type="password" id="cardPassword" maxlength="2">**
+				</div>
+				<br><br><br>
+				<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
+				<div class="col-lg-10">
+					<label for="payTotal" class="col-lg-10 control-label">
+						<span id="payTotalView">${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }</span> 원
+					</label>
+				</div>
 				<br><br>
-				</fieldset>
-				<div class="col-lg-10 col-lg-offset-9">
-					<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
-				</div>				
-			</div>
-			<a href="${initParam.root }auth_member_myPage.do"><button type="button" class="btn btn-primary" id ="">다음에 결제하기</button></a>
+			</fieldset>
+			<div class="col-lg-10 col-lg-offset-9">
+				<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
+			</div>				
 		</div>
+		<a href="${initParam.root }auth_member_myPage.do"><button type="button" class="btn btn-primary" id ="">다음에 결제하기</button></a>
 	</div>
 </div>
  

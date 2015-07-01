@@ -25,7 +25,7 @@ $(document).ready(function(){
 		    step: 10 //시간 설정을 10분단위로 나눔
 	    });
 		$("#carSearchBtn").click(function(){
-			alert("어떻게보내지? 고민할것");
+			$("#searchForm").submit();
 		});
 });
 /* 자동완성 */
@@ -140,14 +140,7 @@ $(function(){
 		<div class="col-md-4">
 			<form class="form-horizontal" role="form" id="searchForm" action = "${initParam.root }search_searchForm.do">
 				<div class="form-group">
-					<div class="col-sm-2">
-						<label for="sharingType" class="control-label"></label>
-					</div>
-					<div class ="col-md-5 col-md-offset-2">
-		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
-			 		 </div>
-			  <br><br>
-				<div class="col-sm-3 col-sm-offset-1">
+					<div class="col-sm-3 col-sm-offset-1">
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
 				<div class="col-sm-5">
@@ -175,9 +168,9 @@ $(function(){
 					<label for="carType" class="control-label">차종</label>
 				</div>
 				<div class="col-sm-5">
-					<select id="carModel" name="carModel">
+					<select id="carModel" name="carModel"class="form-control">
 						<option value="all">전체차종</option>
-						<c:forEach items="${carModelList }" var="carModel">
+						<c:forEach items="${carModelList }" var="carModel" >
 							<option value="${carModel }">${carModel }</option>
 						</c:forEach>
 					</select>

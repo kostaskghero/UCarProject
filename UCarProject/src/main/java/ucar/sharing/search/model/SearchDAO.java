@@ -18,4 +18,6 @@ public interface SearchDAO {
 
 	public List<UCarZoneVO> getMapInfo();
 
+	public List<String> getAllCarOptionByCarModel(String carModel);
+
 }

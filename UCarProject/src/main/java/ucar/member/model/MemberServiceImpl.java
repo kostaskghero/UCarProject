@@ -53,8 +53,9 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int deleteMember(MemberVO memberVO) {
-		memberDAO.deleteCardByMemberId(memberVO.getMemberId());
-		memberDAO.deleteLicenseByMemberId(memberVO.getMemberId());		
+		if(memberDAO.memberPasswordCheck(memberVO)!="ok"){
+			return 0;
+		}
 		return memberDAO.deleteMember(memberVO.getMemberId());
 	}
 	@Override
@@ -114,12 +115,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public HashMap<String, Object> findPointAndCouponByMemberId(String memberId) {
-		int point=memberDAO.findPointByMemberId(memberId);
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("memberPoint", point);
-		// memberId 의 쿠폰리스트
-		return map;
+	public int findPointByMemberId(String memberId) {
+		return memberDAO.findPointByMemberId(memberId);
 	}		
 
 	@Override

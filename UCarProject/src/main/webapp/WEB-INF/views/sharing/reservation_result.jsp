@@ -30,10 +30,7 @@
 		});
 		$("#reserveRegisterBtn").click(function(){
 			var usingPoint=Number($("#pointText").val());
-			/* if($("#couponType").val()==""){
-				alert("쿠폰을 선택하세요!");
-				return false;
-			} else */ if($("#payCardType").val()==""){
+			if($("#payCardType").val()==""){
 				alert("결제카드를 선택하세요!");
 				return false;
 			} else if($(":input[name=pointType]:checked").val()=="pointuse" && $("#pointText").val()==""){
@@ -75,7 +72,7 @@
 					<label for="schedule" class="col-lg-2 control-label">일정</label>
 					<div class="col-lg-10">
 						<label for="schedule" class="col-lg-10 control-label">
-							${reservationInfo.sharingType } / ${reservationInfo.rentalDate } ~ ${reservationInfo.returnDate }
+							 ${reservationInfo.rentalDate } ~ ${reservationInfo.returnDate }
 						</label>
 					</div>
 					<br><br>
@@ -115,23 +112,13 @@
 							${reservationInfo.rentalPrice } 원
 						</label>
 					</div>
-					<br><br>
-					<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
-					<div class="col-lg-10">
-						<select class="form-control" id="couponType">
-							<option value="">쿠폰선택</option>
-							<c:forEach items="${PointAndCoupon }">
-								<option value=""></option>
-							</c:forEach>
-						</select>
-					</div>
 					<br><br><br>
 					<label for="fee" class="col-lg-2 control-label">포인트</label>
 					<div class="col-lg-10" id = "pointForm">
 						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
 						<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
 						<span id = "pointTextView">
-							사용가능한 포인트 : ${PointAndCoupon.memberPoint} 점<br>
+							사용가능한 포인트 : ${memberPoint} 점<br>
 							<input type="text" id="pointText" name="pointText" placeholder="숫자를 입력하세요!">
 						</span><br>
 					</div>
@@ -168,7 +155,9 @@
 				</fieldset>
 				<div class="col-lg-10 col-lg-offset-9">
 					<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
-				</div>				
+				</div>
+			</div>
+		</div>				
 	</div>
 </div>
 <br><br>

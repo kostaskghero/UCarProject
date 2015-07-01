@@ -267,19 +267,20 @@ public class MemberController {
 		return map;
 	}
 	/**
-	 * 회원탈퇴 시 카드정보와 운전면허 정보를 먼저 삭제하고 회원정보를 삭제한다.
+	 * 회원탈퇴
 	 * 정상적으로 삭제완료되면 session 을 종료하는 member_logout.do 로 이동하고
 	 * 정상적으로 삭제되지 않으면 다시 회원탈퇴 폼으로 이동한다.
 	 * @param memberVO
 	 * @return
 	 */
 	@RequestMapping("auth_member_deleteMember.do")
+	@ResponseBody
 	public String deleteMember(MemberVO memberVO){
 		int count=memberService.deleteMember(memberVO);
 		if(count==0){
-			return "auth_member_delete_form.do";
+			return "fail";
 		}
-		return "redirect:member_logout.do";
+		return "ok";
 	}
 	
 	@RequestMapping("auth_member_getPointListByMemberId.do")
@@ -313,7 +314,7 @@ public class MemberController {
 	@RequestMapping("member_findMemberId.do")
 	   public String findMemberId(HttpServletRequest request,Model model,MemberVO mvo){
 	      MemberVO vo = memberService.findMemberId(mvo);
-		if (vo.getMemberId() != null) {
+		if (vo != null) {
 			model.addAttribute("vo", vo);
 			return "member_findMemberId_result";
 	      } else {
