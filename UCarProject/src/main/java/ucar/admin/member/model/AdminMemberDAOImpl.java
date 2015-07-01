@@ -70,4 +70,11 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 		return sqlSessionTemplate.selectOne(
 				"adminMember.getTotalPointHistoryById", memberId);
 	}
+	@Override
+	public void givePointByAdminHistory(PointHistoryVO phvo) {
+	sqlSessionTemplate.insert("point.insertPointHistory",phvo);
+	}
+	public void givePointByAdminUpdate(MemberVO mvo){
+		sqlSessionTemplate.update("adminMember.givePointByAdminUpdate",mvo);
+	}
 }

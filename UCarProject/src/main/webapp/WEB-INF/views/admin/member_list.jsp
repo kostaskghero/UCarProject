@@ -10,6 +10,12 @@ $(document).ready(function(){
 					location.href = "admin_deleteMember.do?memberId="
 							+ $(this).val(); 
 			});
+	$(":input[name=pointBtn]").click(function() {
+		var point=$("#"+$(this).val()+"memberPoint").val();
+	if(	confirm($(this).val() +"님에게 "+point+"점을 지금하시겠습니까?"))
+		location.href="admin_givePoint.do?point="+point+"&memberId="+$(this).val();
+});
+	
 });
 </script>
 <html>
@@ -29,10 +35,10 @@ $(document).ready(function(){
 						<table class="table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Name</th>
-									<th>Point</th>
-									<th>회원관리</th>
+									<th>아이디</th>
+									<th>이름</th>
+									<th>포인트</th>
+									<th>포인트지급</th>
 									<th>회원삭제</th>
 								</tr>
 							</thead>
@@ -44,8 +50,14 @@ $(document).ready(function(){
 										<td>${vo.memberName}</td>
 										<td>${vo.memberPoint}</td>
 										<td>
-											<button type="button" class="btn btn-xs" name="updateBtn"
-												value="${vo.memberId}">관리</button>
+
+											<div class="col-lg-6">
+												<input type="text" class="form-control" name="memberPoint"
+													id="${vo.memberId}memberPoint" placeholder="포인트">
+											</div>
+											<button type="button" class="btn btn-xs" name="pointBtn"
+												id="pointBtn" value="${vo.memberId}">지급</button>
+
 										</td>
 										<td>
 											<button type="button" class="btn btn-xs" name="deleteBtn"

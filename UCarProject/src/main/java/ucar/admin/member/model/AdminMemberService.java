@@ -12,4 +12,5 @@ public interface AdminMemberService {
 	public void adminDeleteMember(String memberId);
 	public PointListVO getAllPointHistory(String pageNo) ;
 	public PointListVO getAllPointHistoryById(String memberId,String pageNo);
+	public void givePoint(MemberVO mvo) ;
 }

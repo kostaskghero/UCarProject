@@ -105,4 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTotalPointHistoryById" resultType="Integer">
 	select count(*) from point_history where member_id=#{value}
 	</select>
+		<update id="givePointByAdminUpdate" parameterType="mvo">
+	update member set member_point=member_point+#{memberPoint} where member_id=#{memberId}
+	</update>
 </mapper> 

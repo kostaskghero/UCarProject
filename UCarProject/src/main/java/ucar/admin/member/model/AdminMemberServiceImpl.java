@@ -96,5 +96,15 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		PointListVO listVO=new PointListVO(list, pagingBean);
 		return listVO;
 	}
-
+	@Override
+	@Transactional
+	public void givePoint(MemberVO mvo) {
+	PointHistoryVO phvo=new PointHistoryVO();
+	phvo.setMemberId(mvo.getMemberId());
+	phvo.setPointValue(mvo.getMemberPoint());
+	phvo.setPointContent("운영자지급");
+	phvo.setPointType("적립");
+		adminMemberDAO.givePointByAdminHistory(phvo);
+		adminMemberDAO.givePointByAdminUpdate(mvo);
+	}
 }

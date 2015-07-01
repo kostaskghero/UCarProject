@@ -52,4 +52,12 @@ public class AdminMemberController {
 		mv.setViewName("admin_PointHistoryById");
 		return mv;
 	}
+	@RequestMapping("admin_givePoint.do")
+	public ModelAndView givePoint(int point, String memberId) {
+		MemberVO mvo = new MemberVO();
+		mvo.setMemberPoint(point);
+		mvo.setMemberId(memberId);
+		adminMemberService.givePoint(mvo);
+		return new ModelAndView("redirect:admin_member_list.do");
+	}
 }
