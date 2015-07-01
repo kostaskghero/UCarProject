@@ -111,7 +111,7 @@ public class ReviewServiceImpl implements ReviewService {
 		String filePath = destPath + fileName;
 		String fileInfo = "&bNewLine=true";
 		fileInfo += "&sFileName=" + fileName;
-		fileInfo += "&sFileURL=" + "/ucar-test7-editor/upload/" + memberVO.getMemberId()+ "/" + fileName;
+		fileInfo += "&sFileURL=" + "/ucar/upload/" + memberVO.getMemberId()+ "/" + fileName;
 		map.put("filePath", filePath);
 		map.put("fileInfo", fileInfo);
 		return map;
