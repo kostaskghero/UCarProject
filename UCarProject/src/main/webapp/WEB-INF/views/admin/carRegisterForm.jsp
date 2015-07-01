@@ -70,16 +70,7 @@ $(document).ready(function(){
 			alert("닉네임을 확인하세요");
 			return false;
 		}
-		/* if(checkZone=="fail"){
-			alert("유카존 확인 ");
-			return false;
-		} */
 
-
-	 /* 	 if(checkZone=="fail"){
-		alert("유카존을 확인하세요. ");
-		return false;
-		}   */ 
 		$("#carRegisterForm").submit();	
 	});
 	$("#carType").change(function(){	
@@ -103,7 +94,6 @@ $(document).ready(function(){
 	$(function(){
 		$("#uCarZoneName").autocomplete({
 			source:function(request,response){
-				//alert(request.term);// 검색어 입력 정보가 출력 
 				$.ajax({
 					url:"searchUCarZone.do",
 					dataType:"json",

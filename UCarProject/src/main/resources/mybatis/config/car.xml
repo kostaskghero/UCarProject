@@ -161,4 +161,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from CAR_MODEL_INFO c, car_pic p
 		where c.CAR_MODEL=p.CAR_MODEL and c.car_model=#{value}
 	</select>
+		<delete id="deleteCarModel" >
+	delete from CAR_MODEL_INFO where CAR_MODEL=#{value}
+	</delete>
+	<delete id="deleteCarOption">
+	delete from car_option where car_model=#{value}
+	</delete>
 </mapper> 

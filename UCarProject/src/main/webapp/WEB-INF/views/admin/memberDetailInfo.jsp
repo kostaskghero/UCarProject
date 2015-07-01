@@ -3,16 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<h2>회원정보</h2>
-<br>
-<c:choose>
-	<c:when test="${vo.size()==1 }">
-
-	</c:when>
-	<c:otherwise>
-	</c:otherwise>
-</c:choose>
-
+<legend>회원 정보 </legend>
 
 <html>
 <body>
@@ -31,11 +22,11 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>&nbsp;Name&nbsp;</th>
-									<th>Point</th>
-									<th>Email</th>
-									<th>Phone</th>
+									<th>아이디</th>
+									<th>&nbsp;이름&nbsp;</th>
+									<th>포인트</th>
+									<th>이메일</th>
+									<th>핸드폰</th>
 
 
 
@@ -76,11 +67,11 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th>LicenseNo</th>
-									<th>LicenseType</th>
-									<th>licenseRenewalTerm</th>
-									<th>licenseIssueDate</th>
-									<th>Gender</th>
+									<th>면허번호</th>
+									<th>면허종류</th>
+									<th>갱신기간</th>
+									<th>발급일</th>
+									<th>성별</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -118,10 +109,10 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th>CardNo</th>
-												<th>CardType</th>
-												<th>CardExpirationDate</th>
-												<th>Birth</th>
+												<th>카드번호</th>
+												<th>카드종류</th>
+												<th>유효기간</th>
+												<th>생년월일</th>
 
 											</tr>
 										</thead>

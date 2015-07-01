@@ -1,16 +1,22 @@
 package ucar.car.model;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CarServiceImpl implements CarService {
 	@Resource
 	private CarDAO carDAO;
+	@Resource(name = "uploadCarPicPath")
+	private String uploadCarPicPath;
+	@Resource(name = "viewCarPath")
+	private String viewCarPath;
 
 	public List<String> getCarTypeList() {
 		return carDAO.getCarTypeList();
@@ -192,5 +198,41 @@ public class CarServiceImpl implements CarService {
 	public void deleteCarModelAndOption(String carModel) {
 	 carDAO.deleteCarModel(carModel);
 	 carDAO.deleteCarOption(carModel);
+	}
+	
+	@Override
+	@Transactional
+	public void registerCarModelAndOption(CarModelInfoVO carModelInfoVO,
+			CarPicVO carPicVO, CarOptionVO carOptionVO) {
+
+		carDAO.registerCarModel(carModelInfoVO);
+		if (carOptionVO.getOptionComp() != null
+				|| carOptionVO.getOptionInfo().size() != 0) {
+			for (int i = 0; i < carOptionVO.getoptionInfo().size(); i++) {
+				carOptionVO.setOptionComp(carOptionVO.getoptionInfo().get(i));
+				carDAO.registerCarOption(carOptionVO);
+			}
+		}
+		MultipartFile file = carPicVO.getFile();
+		carPicVO.setCarModel(carModelInfoVO.getCarModel());
+		String fileOriginalName = file.getOriginalFilename();
+		String fileName = "";
+		if (!fileOriginalName.equals("")) {
+			try {
+				fileName = viewCarPath + System.currentTimeMillis()
+						+ fileOriginalName;
+				file.transferTo(new File(uploadCarPicPath
+						+ System.currentTimeMillis() + fileOriginalName));
+				System.out.println(new File(uploadCarPicPath
+						+ System.currentTimeMillis() + fileOriginalName));
+				System.out.println("fileupload ok:" + fileName);
+				carPicVO.setOriginalName(fileOriginalName);
+				carPicVO.setFilePath(fileName);
+				carDAO.registerCarPic(carPicVO);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

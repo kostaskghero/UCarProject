@@ -60,4 +60,14 @@
          <value>upload/</value>
       </constructor-arg>
    </bean>
+   <bean id="uploadCarPicPath" class="java.lang.String">
+		<constructor-arg>
+			<value>C:\\Users\\KOSTA\\git\\UCarProject\\UCarProject\\src\\main\\webapp\\car-pic1\\</value>
+		</constructor-arg>
+	</bean>
+	<bean id="viewCarPath" class="java.lang.String">
+      <constructor-arg>
+         <value>car-pic/</value>
+      </constructor-arg>
+   </bean>
 </beans>

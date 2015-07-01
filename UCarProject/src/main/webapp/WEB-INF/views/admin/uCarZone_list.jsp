@@ -38,6 +38,7 @@
 										});
 					});
 </script>
+<legend>유카존 목록 </legend>
 <html>
 <body>
 	<div class="section">

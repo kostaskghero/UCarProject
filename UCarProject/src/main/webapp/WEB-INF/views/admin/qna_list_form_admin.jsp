@@ -2,21 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:choose>
-<c:when test="${sessionScope.loginInfo!=null ||sessionScope.admin!=null }">
-<form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
-	<div class="form-group">
-	   <div class="col-lg-2"  >
-      	<h4>1:1문의게시판</h4>
-     </div>
-      <div class="col-lg-6 col-lg-offset-2">
-        		<input type="text" class="form-control" id="memberId" name="memberId" placeholder="검색할 내용 입력">
-      		</div>
-      		<div class="col-lg-2 ">
-        		<button type="submit" class="btn btn-primary">검색</button>
-      		</div>
-	</div>
-</form>
+<legend>이용후기  관리 </legend>
 <div class="section">
       <div class="container">
         <div class="row">
@@ -91,11 +77,5 @@
         </div>
       </div>
     </div>
-    </c:when>
-<c:otherwise>
-	<script type="text/javascript">
-		alert("로그인하세요");
-		location.href = "${initParam.root }member_login_form.do";
-	</script>
-</c:otherwise> 
-</c:choose>
+
+

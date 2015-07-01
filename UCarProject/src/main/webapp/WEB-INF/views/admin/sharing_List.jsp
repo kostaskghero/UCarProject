@@ -36,14 +36,13 @@
 	});
 </script>
 
-<%-- <c:forEach items="${requestScope.data.reservationList }" var="vo"
-	varStatus="i">
-	${vo}<br>
-	<br>
-</c:forEach> --%>
+
+<legend>예약내역 </legend>
 <form class="form-horizontal" id="searchSharingForm">
-	<fieldset>
-		<div class="col-lg-2">
+	
+	<fieldset><br>
+	<label for="searchInput" class="col-lg-1 control-label col-lg-offset-1"><h4>검색</h4></label>
+		<div class="col-lg-2 col-lg-offset-1" >
 			<select class="form-control" id="sharingStatus" name="sharingStatus">
 				<option value="">상태</option>
 				<c:forEach items="${requestScope.data.statusList }" var="data">
@@ -67,7 +66,6 @@
 
 	</fieldset>
 </form>
-<h3>예약내역</h3>
 <body>
 	<div class="section">
 		<div class="container">

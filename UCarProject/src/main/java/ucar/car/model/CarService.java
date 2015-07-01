@@ -54,4 +54,7 @@ public interface CarService {
 	public CarModelInfoVO getModelDetailInfo(String carModel);
 
 	public void deleteCarModelAndOption(String carModel);
+	
+	public void registerCarModelAndOption(CarModelInfoVO carModelInfoVO,
+			CarPicVO carPicVO, CarOptionVO carOptionVO);
 }

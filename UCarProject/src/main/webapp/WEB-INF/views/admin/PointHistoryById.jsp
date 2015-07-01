@@ -17,7 +17,7 @@ $(document).ready(function(){
 	<legend>포인트 내역 </legend>
 	<div class="form-group">
 		<div class="col-lg-5">
-
+	<label for="searchInput" class="col-lg-2 control-label col-lg-offset-1"><h4>아이디 검색</h4></label>
 			<input type="text" class="form-control" id="searchId" name="searchId"
 				placeholder="아이디"
 				onKeyDown="javascript:if (event.keyCode == 13) return false;">

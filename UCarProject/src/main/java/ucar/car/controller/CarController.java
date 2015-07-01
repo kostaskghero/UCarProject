@@ -27,10 +27,7 @@ public class CarController {
 
 	@Resource
 	private CarService carService;
-	@Resource(name = "uploadCarPicPath")
-	private String uploadCarPicPath;
-	@Resource(name = "viewCarPath")
-	private String viewCarPath;
+	
 
 	/**
 	 * 차량리스트 jsp로 이동하는 메서드 이때 테이블에서 사용할 모든 차량목록과 select에 넣을 모델과 유카존 리스트를 맵에 담아
@@ -340,37 +337,10 @@ public class CarController {
 	 */
 	@RequestMapping(value = "admin_carModelRegister.do", method = RequestMethod.POST)
 	public ModelAndView carModelRegister(CarModelInfoVO carModelInfoVO,
-			CarPicVO carPicVO,CarOptionVO carOptionVO) {
-		System.out.println(carModelInfoVO);
-		System.out.println(carPicVO);
-		System.out.println(carOptionVO);
-		carService.registerCarModel(carModelInfoVO);
-		if(carOptionVO.getOptionComp()!=null||carOptionVO.getOptionInfo().size()!=0)
-		carService.registerCarOption(carOptionVO);
-		MultipartFile file = carPicVO.getFile();
-		carPicVO.setCarModel(carModelInfoVO.getCarModel());
-		String fileOriginalName = file.getOriginalFilename();
-		String fileName = "";
-		if (!fileOriginalName.equals("")) {
-			try {
-				fileName = viewCarPath + System.currentTimeMillis()
-						+ fileOriginalName;
-				file.transferTo(new File(uploadCarPicPath
-						+ System.currentTimeMillis() + fileOriginalName));
-				System.out.println(new File(uploadCarPicPath
-						+ System.currentTimeMillis() + fileOriginalName));
-				System.out.println("fileupload ok:" + fileName);
-				carPicVO.setOriginalName(fileOriginalName);
-				carPicVO.setFilePath(fileName);
-				carService.registerCarPic(carPicVO);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
-		
-		 return new ModelAndView("redirect:admin_carModel_list.do");
+			CarPicVO carPicVO, CarOptionVO carOptionVO) {
+		carService.registerCarModelAndOption(carModelInfoVO, carPicVO,
+				carOptionVO);
+		return new ModelAndView("redirect:admin_carModel_list.do");
 	}
 	/**
 	 * 차량 모델 이름 중복검사 하는 메서드 

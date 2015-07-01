@@ -15,22 +15,22 @@ $(document).ready(function(){
 	if(	confirm($(this).val() +"님에게 "+point+"점을 지금하시겠습니까?"))
 		location.href="admin_givePoint.do?point="+point+"&memberId="+$(this).val();
 });
-	
 });
 </script>
+<legend>회원 목록 </legend>
 <html>
 <body>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6"></div>
+				<div class="col-md-7"></div>
 			</div>
 		</div>
 	</div>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div id="searchTable">
 						<table class="table">
 							<thead>
@@ -38,7 +38,7 @@ $(document).ready(function(){
 									<th>아이디</th>
 									<th>이름</th>
 									<th>포인트</th>
-									<th>포인트지급</th>
+									<th>회원관리</th>
 									<th>회원삭제</th>
 								</tr>
 							</thead>
@@ -51,7 +51,7 @@ $(document).ready(function(){
 										<td>${vo.memberPoint}</td>
 										<td>
 
-											<div class="col-lg-6">
+											<div class="col-lg-5">
 												<input type="text" class="form-control" name="memberPoint"
 													id="${vo.memberId}memberPoint" placeholder="포인트">
 											</div>
