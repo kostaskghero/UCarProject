@@ -61,60 +61,62 @@
 		<div class="row">
 			<div class="col-md-6">
 				<fieldset>
-					<legend>예약확인</legend>
+					<legend>예약내역</legend>
 					<label for="carModel" class="col-lg-2 control-label">차량</label>
-					<div class="col-lg-10">
-						<label for="carModel" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="carModel" class="col-lg-9 control-label">
 							${reservationInfo.carVO.carModelInfoVO.carModel}&nbsp;${reservationInfo.carVO.carNickName }
 						</label>
 					</div>
 					<br><br>
 					<label for="schedule" class="col-lg-2 control-label">일정</label>
-					<div class="col-lg-10">
-						<label for="schedule" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="schedule" class="col-lg-9 control-label">
 							 ${reservationInfo.rentalDate } ~ ${reservationInfo.returnDate }
 						</label>
 					</div>
 					<br><br>
 					<label for="time" class="col-lg-2 control-label">이용시간</label>
-					<div class="col-lg-10">
-						<label for="time" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="time" class="col-lg-9 control-label">
 							총 ${reservationInfo.availableTime } 분
 						</label>
 					</div>
 					<br><br>
 					<label for="ucarZone" class="col-lg-2 control-label">유카존</label>
-					<div class="col-lg-10">
-						<label for="ucarZone" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="ucarZone" class="col-lg-9 control-label">
 							${reservationInfo.carVO.uCarZoneVO.uCarZoneName }
 						</label>
 					</div>
 					<br><br>
 					<label for="ucarSpace" class="col-lg-2 control-label">위치</label>
-					<div class="col-lg-10">
-						<label for="ucarSpace" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="ucarSpace" class="col-lg-9 control-label">
 							${reservationInfo.carVO.uCarZoneVO.uCarZoneAddress }
 						</label>
 					</div>
 					<br><br><br><br><br><br><br><br><br><br>
-					<div class="col-lg-10 col-lg-offset-5">
+				
+				</fieldset>
+					<div class="col-lg-9 col-lg-offset-4">
 						<a href="${initParam.root }auth_member_myPage.do"><button type="button" class="btn btn-primary" id ="">다음에 결제하기</button></a>
 					</div>
 					<br><br>
-				</fieldset>
+				</div>
 			</div>
 			<div class="col-md-6">
 				<fieldset>
-					<legend>결제</legend>
+					<legend>결제내역</legend>
 					<label for="fee" class="col-lg-2 control-label">대여요금</label>
-					<div class="col-lg-10">
-						<label for="fee" class="col-lg-10 control-label" id="rentalPrice">
+					<div class="col-lg-9">
+						<label for="fee" class="col-lg-9 control-label" id="rentalPrice">
 							${reservationInfo.rentalPrice } 원
 						</label>
 					</div>
 					<br><br><br>
 					<label for="fee" class="col-lg-2 control-label">포인트</label>
-					<div class="col-lg-10" id = "pointForm">
+					<div class="col-lg-9" id = "pointForm">
 						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
 						<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
 						<span id = "pointTextView">
@@ -124,14 +126,14 @@
 					</div>
 					<br><br><br><br>
 					<label for="driveFee" class="col-lg-2 control-label">주행요금</label>
-					<div class="col-lg-10">
-						<label for="driveFee" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="driveFee" class="col-lg-9 control-label">
 							${reservationInfo.carVO.carModelInfoVO.drivingFee }원(1km당) ※반납 후 주행거리에 따라 부과
 						</label>
 					</div>
 					<br><br>
 					<label for="payCard" class="col-lg-2 control-label">결제카드</label>
-					<div class="col-lg-10">
+					<div class="col-lg-9">
 						<select class="form-control" id="payCardNo">
 							<option value="">결제카드</option>
 							<c:forEach items="${cardListByMember }" var="cardInfo">
@@ -141,24 +143,23 @@
 					</div>
 					<br><br><br>
 					<label for="payCard" class="col-lg-2 control-label">카드비밀번호</label>
-					<div class="col-lg-10">
+					<div class="col-lg-9">
 						<input type="password" id="cardPassword" maxlength="2">**
 					</div>
 					<br><br><br>
 					<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
-					<div class="col-lg-10">
-						<label for="payTotal" class="col-lg-10 control-label">
+					<div class="col-lg-9">
+						<label for="payTotal" class="col-lg-9 control-label">
 							<span id="payTotalView">${reservationInfo.rentalPrice }</span> 원
 						</label>
 					</div>
 				<br><br>
 				</fieldset>
-				<div class="col-lg-10 col-lg-offset-9">
+				<div class="col-lg-9 col-lg-offset-9">
 					<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
 				</div>
 			</div>
 		</div>				
 	</div>
-</div>
 <br><br>
  
