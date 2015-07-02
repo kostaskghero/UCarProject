@@ -61,7 +61,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<fieldset>
-					<legend>반납내역</legend>
+					<legend>반납확인</legend>
 					<label for="carModel" class="col-lg-3 control-label">차량</label>
 					<div class="col-lg-9">
 						<label for="carModel" class="col-lg-9 control-label">
@@ -138,7 +138,7 @@
 		</div>
 		<div class="col-md-6">
 			<fieldset>
-				<legend>결제내역</legend>
+				<legend>결제</legend>
 				<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
 				<div class="col-lg-10">
 					<label for="fee" class="col-lg-10 control-label" id="rentalPrice">
