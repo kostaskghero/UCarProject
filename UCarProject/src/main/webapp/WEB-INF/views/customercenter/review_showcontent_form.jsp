@@ -70,19 +70,15 @@
 							$.each(data.commentList, function(index, comment){
 								commentTable+="<tr>";
 								commentTable+="<td>";
-								commentTable+="<div class='col-md-2'>"+comment.reviewCommentMemberId+"</div>";
-								commentTable+="<div id='"+comment.reviewCommentNo+"CommentEditView'>";
-								commentTable+="<div class='col-md-6' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
+								commentTable+="<div class='col-md-1'>"+comment.reviewCommentMemberId+"</div>";
+								commentTable+="<div class='col-md-8' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
 								commentTable+="<div class='col-md-2'>"+comment.reviewCommentTimePosted+"</div>";
 								if((comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}") || ("${sessionScope.admin.memberId}"=="admin")){
 									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
-									commentTable+="</div>";
-									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' value='"+comment.reviewCommentNo+"'>삭제</button>";
 									commentTable+="</div>";
 								}
-								commentTable+="</div>";
 								commentTable+="</td>";
 								commentTable+="</tr>";
 							});
@@ -100,15 +96,43 @@
 		$("#ReviewCommentView").on("click", ":input[name=editCommentFormBtn]", function(){
 			var commentNo=$(this).val();
 			var commentContent=$("#"+commentNo+"CommentContent").text();
-			var editComment="<form id='"+commentNo+"editForm'>";
-			editComment="<div class='col-md-8'><input class='form-control' type='text' id='"+commentNo+"CommentContent' name='reviewCommentContent' value='"+commentContent+"'></div>";
-			editComment+="<div class='col-md-2'>";
-			editComment+="<button type='button' class='btn btn-primary btn-xs' name='editCommentBtn' value='"+commentNo+"'>수정</button>";
-			editComment+="<input type='hidden' name='reviewCommentNo' value='"+commentNo+"'>";
-			editComment+="<input type='hidden' name='reviewNo' value='"+$("#reviewNo").val()+"'>";
-			editComment+="</div>";
-			editComment+="</form>";
-			$("#"+commentNo+"CommentEditView").html(editComment);
+			$.ajax({
+				type:"post",
+				url:"${initParam.root }reviewComment_editCommentForm.do",
+				data:"reviewNo=${vo.reviewNo}",
+				success:function(data){
+					var commentTable="<table class='table'>";
+					commentTable+="<tbody>";
+					$.each(data, function(index, comment){
+						commentTable+="<tr>";
+						commentTable+="<td>";
+						commentTable+="<div class='col-md-1'>"+comment.reviewCommentMemberId+"</div>";
+						if(comment.reviewCommentNo==commentNo){
+							commentTable+="<form id='"+commentNo+"editForm'>";
+							commentTable+="<div class='col-md-10'><input class='form-control' type='text' id='"+commentNo+"CommentContent' name='reviewCommentContent' value='"+commentContent+"'></div>";
+							commentTable+="<div class='col-md-1'>";
+							commentTable+="<button type='button' class='btn btn-primary btn-xs' name='editCommentBtn' value='"+commentNo+"'>수정</button>";
+							commentTable+="<input type='hidden' name='reviewCommentNo' value='"+commentNo+"'>";
+							commentTable+="<input type='hidden' name='reviewNo' value='${vo.reviewNo}'>";
+							commentTable+="</div></form>";
+						} else{
+							commentTable+="<div class='col-md-8' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
+							commentTable+="<div class='col-md-2'>"+comment.reviewCommentTimePosted+"</div>";
+							if((comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}") || ("${sessionScope.admin.memberId}"=="admin")){
+								commentTable+="<div class='col-md-1'>";
+								commentTable+="<button type='button' class='btn btn-xs' name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
+								commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' value='"+comment.reviewCommentNo+"'>삭제</button>";
+								commentTable+="</div>";
+							}
+						}
+						commentTable+="</td>";
+						commentTable+="</tr>";
+					});
+					commentTable+="</tbody>";
+					commentTable+="</table>";
+					$("#ReviewCommentView").html(commentTable);
+				}
+			});
 		});
 		$("#ReviewCommentView").on("click", ":input[name=editCommentBtn]", function(){
 			var commentNo=$(this).val();
@@ -129,19 +153,15 @@
 							$.each(data.commentList, function(index, comment){
 								commentTable+="<tr>";
 								commentTable+="<td>";
-								commentTable+="<div class='col-md-2'>"+comment.reviewCommentMemberId+"</div>";
-								commentTable+="<div id='"+comment.reviewCommentNo+"CommentEditView'>";
-								commentTable+="<div class='col-md-6' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
+								commentTable+="<div class='col-md-1'>"+comment.reviewCommentMemberId+"</div>";
+								commentTable+="<div class='col-md-8' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
 								commentTable+="<div class='col-md-2'>"+comment.reviewCommentTimePosted+"</div>";
 								if(comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}" || ("${sessionScope.admin.memberId}"=="admin")){
 									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
-									commentTable+="</div>";
-									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' value='"+comment.reviewCommentNo+"'>삭제</button>";
 									commentTable+="</div>";
 								}
-								commentTable+="</div>";
 								commentTable+="</td>";
 								commentTable+="</tr>";
 							});
@@ -170,25 +190,23 @@
 							$.each(data.commentList, function(index, comment){
 								commentTable+="<tr>";
 								commentTable+="<td>";
-								commentTable+="<div class='col-md-2'>"+comment.reviewCommentMemberId+"</div>";
-								commentTable+="<div id='"+comment.reviewCommentNo+"CommentEditView'>";
-								commentTable+="<div class='col-md-6' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
+								commentTable+="<div class='col-md-1'>"+comment.reviewCommentMemberId+"</div>";
+								commentTable+="<div class='col-md-8' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
 								commentTable+="<div class='col-md-2'>"+comment.reviewCommentTimePosted+"</div>";
 								if(comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}" || ("${sessionScope.admin.memberId}"=="admin")){
 									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
-									commentTable+="</div>";
-									commentTable+="<div class='col-md-1'>";
 									commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' value='"+comment.reviewCommentNo+"'>삭제</button>";
 									commentTable+="</div>";
 								}
-								commentTable+="</div>";
 								commentTable+="</td>";
 								commentTable+="</tr>";
 							});
 							commentTable+="</tbody>";
 							commentTable+="</table>";
 							$("#ReviewCommentView").html(commentTable);
+						} else if(data.flag=="empty"){
+							$("#ReviewCommentView").html("");
 						} else{
 							location.href="${initParam.root}member_login_form.do";
 						}
@@ -265,8 +283,6 @@
 			</c:otherwise>
 		</c:choose>
 	</fieldset>
-	<input type="hidden" name="reviewNo"
-		value="${requestScope.vo.reviewNo }">
 </form>
 <div class="col-md-12">
    <form id="commentForm">
@@ -296,19 +312,17 @@
 				<c:forEach items="${commentList }" var="comment">
 					<tr>
 						<td>
-							<div class="col-md-2">${comment.reviewCommentMemberId }</div>
-							<div id="${comment.reviewCommentNo }CommentEditView">
-								<div class="col-md-6" id="${comment.reviewCommentNo }CommentContent">${comment.reviewCommentContent }</div>
-								<div class="col-md-2">${comment.reviewCommentTimePosted }</div>
-								<c:if test="${(comment.reviewCommentMemberId==sessionScope.loginInfo.memberId) || sessionScope.admin != null }">
-									<div class="col-md-1">
-										<button type="button" class="btn btn-xs" name="editCommentFormBtn" value="${comment.reviewCommentNo }">수정</button>
-									</div>
-									<div class="col-md-1">
-										<button type="button" class="btn btn-xs" name="deleteCommentBtn" value="${comment.reviewCommentNo }">삭제</button>
-									</div>
-								</c:if>
+							<div class="col-md-1">${comment.reviewCommentMemberId }</div>
+							<div class="col-md-8" id="${comment.reviewCommentNo }CommentContent">
+								<p>${comment.reviewCommentContent }</p>
 							</div>
+							<div class="col-md-2">${comment.reviewCommentTimePosted }</div>
+							<c:if test="${(comment.reviewCommentMemberId==sessionScope.loginInfo.memberId) || sessionScope.admin != null }">
+								<div class="col-md-1">
+									<button type="button" class="btn btn-xs" name="editCommentFormBtn" value="${comment.reviewCommentNo }">수정</button><br>
+									<button type="button" class="btn btn-xs" name="deleteCommentBtn" value="${comment.reviewCommentNo }">삭제</button>
+								</div>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>

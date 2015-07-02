@@ -14,19 +14,24 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 	@Override
 	public List<ReviewCommentVO> writeComment(ReviewCommentVO reviewCommentVO) {
 		reviewCommentDAO.writeComment(reviewCommentVO);
-		return reviewCommentDAO.getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
+		return getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
 	}
 
 	@Override
 	public List<ReviewCommentVO> editComment(ReviewCommentVO reviewCommentVO) {
 		reviewCommentDAO.editComment(reviewCommentVO);
-		return reviewCommentDAO.getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
+		return getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
 	}
 
 	@Override
 	public List<ReviewCommentVO> deleteComment(ReviewCommentVO reviewCommentVO) {
 		reviewCommentDAO.deleteComment(reviewCommentVO.getReviewCommentNo());
-		return reviewCommentDAO.getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
+		return getAllCommentListByReviewNo(reviewCommentVO.getReviewNo());
+	}
+	
+	@Override
+	public List<ReviewCommentVO> getAllCommentListByReviewNo(int reviewNo){
+		return reviewCommentDAO.getAllCommentListByReviewNo(reviewNo);
 	}
 
 }

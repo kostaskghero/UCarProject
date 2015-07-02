@@ -10,4 +10,6 @@ public interface ReviewCommentService {
 
 	public List<ReviewCommentVO> deleteComment(ReviewCommentVO reviewCommentVO);
 
+	public List<ReviewCommentVO> getAllCommentListByReviewNo(int reviewNo);
+
 }

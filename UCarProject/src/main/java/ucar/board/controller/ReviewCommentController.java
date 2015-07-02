@@ -1,6 +1,7 @@
 package ucar.board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -49,9 +50,19 @@ public class ReviewCommentController {
 	@RequestMapping("auth_reviewComment_deleteComment.do")
 	@ResponseBody
 	public HashMap<String, Object> deleteComment(ReviewCommentVO reviewCommentVO){
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("flag", "ok");
-		map.put("commentList", reviewCommentService.deleteComment(reviewCommentVO));
+		HashMap<String, Object> map=new HashMap<String, Object>();		
+		List<ReviewCommentVO> list=reviewCommentService.deleteComment(reviewCommentVO);
+		if(list.size()!=0){
+			map.put("commentList", list);
+			map.put("flag", "ok");
+		} else{
+			map.put("flag", "empty");
+		}		
 		return map;
+	}
+	@RequestMapping("reviewComment_editCommentForm.do")
+	@ResponseBody
+	public List<ReviewCommentVO> editCommentForm(int reviewNo){
+		return reviewCommentService.getAllCommentListByReviewNo(reviewNo);
 	}
 }
