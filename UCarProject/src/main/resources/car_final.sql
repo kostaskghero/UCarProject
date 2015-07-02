@@ -72,5 +72,6 @@ constraint car_pic_fk foreign key(CAR_MODEL) references CAR_MODEL_INFO(CAR_MODEL
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('부산대 정문','부산시 금정구 장전동 422-26',35.230585, 129.086054);
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('제주공항','제주도 제주시 도두2동 44',33.504782, 126.491494);
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('해운대역','부산시 해운대구 우동 541-29',35.163013, 129.158914);
+	
 select * from UCAR_ZONE;
 
