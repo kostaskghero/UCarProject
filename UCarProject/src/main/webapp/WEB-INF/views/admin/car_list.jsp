@@ -62,7 +62,7 @@
 				});//click
 			});//ready
 </script>
-<legend>차량 목록 </legend>
+<legend><h2>차량 목록</h2> </legend>
 <html>
 
 <form class="form-horizontal" id="searchCar">

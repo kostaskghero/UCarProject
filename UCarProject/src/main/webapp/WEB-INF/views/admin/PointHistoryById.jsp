@@ -14,7 +14,7 @@ $(document).ready(function(){
 });k
 </script>
 <fieldset>
-	<legend>포인트 내역 </legend>
+	<legend><h2>포인트 내역</h2> </legend>
 	<div class="form-group">
 		<div class="col-lg-5">
 	<label for="searchInput" class="col-lg-2 control-label col-lg-offset-1"><h4>아이디 검색</h4></label>

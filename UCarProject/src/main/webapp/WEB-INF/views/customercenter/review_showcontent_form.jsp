@@ -221,7 +221,7 @@
 		<legend>이용후기 내용</legend>
 		<div class="form-group">
 			<label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
-			<div class="col-lg-5">
+			<div class="col-lg-9">
 				<input type="text" class="form-control" id="memberId"
 					name="memberId" value="${requestScope.vo.memberId }"
 					readonly="readonly">
@@ -229,7 +229,7 @@
 		</div>
 		<div class="form-group">
 			<label for="inputMemberId" class="col-lg-2 control-label">조회수</label>
-			<div class="col-lg-5">
+			<div class="col-lg-9">
 				<input type="text" class="form-control" id="reviewHit"
 					name="reviewHit" value="${requestScope.vo.reviewHit }"
 					readonly="readonly">
@@ -237,7 +237,7 @@
 		</div>
 		<div class="form-group">
 			<label for="inputTitle" class="col-lg-2 control-label">제목</label>
-			<div class="col-lg-5">
+			<div class="col-lg-9">
 				<input type="text" class="form-control" id="reviewTitle"
 					name="reviewTitle" value="${requestScope.vo.reviewTitle }"
 					readonly="readonly">
@@ -246,7 +246,7 @@
 
 		<div class="form-group">
 			<label for="inputContent" class="col-lg-2 control-label">내용</label>
-			<div class="col-lg-8">
+			<div class="col-lg-9">
 				<div class="well">
 				${requestScope.vo.reviewContent }
 				</div>

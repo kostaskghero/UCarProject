@@ -38,7 +38,7 @@
 										});
 					});
 </script>
-<legend>유카존 목록 </legend>
+<legend><h2>유카존 목록</h2> </legend>
 <html>
 <body>
 	<div class="section">

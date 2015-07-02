@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<legend>차량 모델 목록 </legend>
+<legend><h2>차량 모델 목록 </h2></legend>
 <div class="section">
       <div class="container">
         <div class="row">
@@ -14,7 +14,6 @@
 					<p>주행요금 : ${carVO.drivingFee} 원/km</p>
 					<p>오일타입 : ${carVO.oilType}</p>
 		 		<p>
-					<a href="admin_carModelUpdateForm.do" class="btn btn-default" role="button">수정하기</a>
 					<a href="admin_carModelDetailInfo.do?carModel=${carVO.carModel}" class="btn btn-default" role="button">상세보기</a>
 				</p> 
           </div>

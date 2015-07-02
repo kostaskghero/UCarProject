@@ -36,7 +36,7 @@ $(document).ready(function(){
 				});
 });
 </script>
-    <legend>자주 묻는 질문</legend>
+    <legend class="col-md-11">자주 묻는 질문</legend>
 <form class="form-horizontal" method="post"
 	action="${initParam.root}customercenter_searchdata.do"
 	id="searchdataForm">
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 </form>
-<div class="col-md-9">
+<div class="col-md-11">
 
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade active in" id="oftenquestion">
