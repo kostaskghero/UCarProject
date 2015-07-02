@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-  <legend>베스트 이용 후기</legend>
+<div class="container">
+	<div class="col-lg-11">
+		<h4>베스트 이용후기</h4>
+		<hr>
+	</div>
+</div>
+<div class="section">
 <div class="container">
 	<div class="row">
 		<c:forEach items="${bestList }" var="best">
-			<div class="col-md-4">
+			<div class="col-md-3" >
 				<c:choose>
 					<c:when test="${best.reviewFileVO !=null }">
-						<img src="${best.reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+						<img src="${best.reviewFileVO.filePath }" width="250" height="200">
 					</c:when>
 					<c:otherwise>
-						<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+						<img src="${initParam.root }/img/logo.jpg"  width="250" height="200">
 					</c:otherwise>
 				</c:choose>
 				<h2>${best.reviewTitle }</h2>
@@ -20,10 +26,10 @@
 		</c:forEach>
 	</div>
 </div>
-  <legend>이용후기</legend>
+</div>
 <div class="container">
 	<div class="col-lg-2">
-
+		<h4>이용후기</h4>
 	</div>
 </div>
 <div class="section">

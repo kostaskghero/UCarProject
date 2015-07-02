@@ -72,10 +72,10 @@ $(function(){
 							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[0].reviewNo }">														
 									<c:choose>
 										<c:when test="${bestList[0].reviewFileVO !=null }">
-											<img src="${bestList[0].reviewFileVO.filePath }" alt="..." class="img-responsive" width="250" height="200">
+											<img src="${bestList[0].reviewFileVO.filePath }" alt="..." width="250" height="200">
 										</c:when>
 										<c:otherwise>
-											<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
+											<img src="${initParam.root }/img/logo.jpg" width="250" height="200">
 										</c:otherwise>
 									</c:choose>
 								<div class="caption">
