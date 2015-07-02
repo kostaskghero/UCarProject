@@ -140,12 +140,9 @@ $(function(){
 		<div class="col-md-4">
 			<form class="form-horizontal" role="form" id="searchForm" action = "${initParam.root }search_searchForm.do">
 				<div class="form-group">
-<<<<<<< HEAD
+				<label>예약하기</label>
 			  <br><br>
-				<div class="col-sm-3 col-sm-offset-1">
-=======
 					<div class="col-sm-3 col-sm-offset-1">
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 					<label for="uCarZoneName" class="control-label">지역</label>
 				</div>
 				<div class="col-sm-5">
