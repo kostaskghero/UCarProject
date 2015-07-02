@@ -7,14 +7,18 @@
 	$(document).ready(function(){
 		$("#searchPeriod").change(function(){
 			location.href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod="+$(this).val();
-		});
-	});
-</script>
-<div class="jumbotron">
-현재 보유한 포인트 ${memberVO.memberPoint }점
+		})
+	})
+</script>&nbsp;&nbsp;&nbsp;
+<div class="jumbotron col-lg-7">
+<h2>현재 보유한 포인트</h2>
 </div>
+<div class="jumbotron col-lg-5">
+<h2 style="color: red" align="right">${memberVO.memberPoint }점</h2>
+</div>
+
 <div class="form-group">
-	<label for="select" class="col-lg-2 control-label">조회기간</label>
+	<label for="select" class="col-lg-2 control-label" >조회기간</label>
 	<div class="col-lg-2">
 		<select class="form-control" id="searchPeriod">
 			<option value="">----</option>
@@ -28,7 +32,7 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th></th><th>일시</th><th>내용</th><th>포인트</th>
+				<th></th><th><h5 align="center">일시</h5></th><th><h5 align="center">내용</h5></th><th><h5 align="center">포인트</h5></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,15 +40,15 @@
 				<c:when test="${fn:length(pointList.list)!=0}">
 					<c:forEach items="${pointList.list }" var="pointInfo" varStatus="i">
 						<tr>
-							<td>${i.count }</td>
-							<td>${pointInfo.pointDate }</td>
-							<td>${pointInfo.pointContent }</td>
+							<td><h5 align="center">${i.count }</h5></td>
+							<td><h5 align="center">${pointInfo.pointDate }</h5></td>
+							<td><h5 align="center">${pointInfo.pointContent }</h5></td>
 							<c:choose>
 								<c:when test="${pointInfo.pointType=='적립' }">
-									<td>+ ${pointInfo.pointValue } 점</td>
+									<td><h5 align="center">+ ${pointInfo.pointValue } 점</h5></td>
 								</c:when>
 								<c:otherwise>
-									<td>- ${pointInfo.pointValue } 점</td>
+									<td><h5 align="center">- ${pointInfo.pointValue } 점</h5></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -58,40 +62,40 @@
 			</c:choose>
 		</tbody>
 	</table>
-	<br></br>
-	<br><br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<div class="col-md-12">
-		<ul class="pager">
-			<li>
-				<c:if test="${pointList.pagingBean.previousPageGroup}">
-					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.startPageOfPageGroup-1}">
-						Prev
-					</a>
-				</c:if>
-				&nbsp;&nbsp;
-			</li>
-			<li>
-				<c:forEach var="i" begin="${pointList.pagingBean.startPageOfPageGroup}" end="${pointList.pagingBean.endPageOfPageGroup}">
-					<c:choose>
-						<c:when test="${pointList.pagingBean.nowPage!=i}">
-							<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${i}">
-								${i}
-							</a>
-						</c:when>
-						<c:otherwise>
-							${i}
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				&nbsp;&nbsp;
-			</li>
-			<li>
-				<c:if test="${pointList.pagingBean.nextPageGroup}">
-					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.endPageOfPageGroup+1}">
-						Next
-					</a>
-				</c:if>
-			</li>
-		</ul>
-	</div>
+	<ul class="pagination">
+		<c:choose>
+			<c:when test="${pointList.pagingBean.previousPageGroup}">
+				<li>
+					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.startPageOfPageGroup-1}">«</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="disabled">
+					<a href="#">«</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${pointList.pagingBean.startPageOfPageGroup}" end="${pointList.pagingBean.endPageOfPageGroup}">
+			<c:choose>
+				<c:when test="${pointList.pagingBean.nowPage!=i}">
+					<li><a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${i}">${i }</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="active"><a href="#">${i }</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${pointList.pagingBean.nextPageGroup}">
+				<li>
+					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.endPageOfPageGroup+1}">»</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="disabled">
+					<a href="#">»</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+	</ul>
 </div>

@@ -34,41 +34,56 @@
 <hr>
 <h4><a href="${initParam.root }admin_pointHistoryList.do">포인트 내역</a></h4>
 <br> --%>
-<h4><a href="${initParam.root}admin_member_list.do">회원목록</a></h4>
-<hr>
+
 <ul class="nav nav-pills nav-stacked">
-  <li class="active"><a href="#">Home</a></li>
-  <li><a href="#">Profile</a></li>
-  <li class="disabled"><a href="#">Disabled</a></li>
-<li class="dropdown">
-  <button class="btn btn-submit dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+  <li class="active"><a href="#">관리자 메뉴</a><br></li>
+  <li><h4><a href="${initParam.root}admin_member_list.do">회원목록</a></h4><hr></li>
+<li class="dropdown" >
+  <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false">
     차량메뉴
     <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+  <ul class="dropdown-menu" >
  <%--    <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_member_list.do">회원목록</a></li> --%>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_carModelRegisterForm.do">차량 모델 등록</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_carModel_list.do">차량 모델 목록</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_carRegisterForm.do">차량등록</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_car_list.do">차량목록</a></li>
+    <li ><a href="${initParam.root}admin_carModelRegisterForm.do">차량 모델 등록</a></li>
+    <li><a  href="${initParam.root}admin_carModel_list.do">차량 모델 목록</a></li>
+    <li ><a href="${initParam.root}admin_carRegisterForm.do">차량등록</a></li>
+    <li ><a href="${initParam.root}admin_car_list.do">차량목록</a></li>
    <%--  <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_uCarZoneRegisterForm.do">유카존 등록</a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_sharing_List.do">예약/결제/반납 내역</a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_customercenter_home_qna_boardList.do?sessionId=${sessionScope.admin.memberId}">이용후기 관리</a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="${initParam.root}admin_pointHistoryList.do">포인트 내역</a></li> --%>
   </ul>
+  </a>
 </li>	
+
+
+<li class="dropdown">
+  <hr>
+  <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    유카존메뉴
+    <span class="caret"></span>
+  <ul class="dropdown-menu" >
+    <li ><a href="${initParam.root}admin_uCarZoneRegisterForm.do">유카존 등록</a></li>
+    <li ><a href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a></li>
+  </ul>
+  </a>
+</li>	
+
+  <li><hr><h4><a href="${initParam.root}admin_sharing_List.do">예약/결제/반납 내역</a></h4> <hr></li>
+  <li><h4><a href="${initParam.root }admin_customercenter_home_qna_boardList.do?sessionId=${sessionScope.admin.memberId}">이용후기 관리</a></h4><hr></li>
+  <li><h4><a href="${initParam.root }admin_pointHistoryList.do">포인트 내역</a></h4></li>
   </ul>
 
-<hr>
+<%-- <hr>
 <h4><a href="${initParam.root}admin_uCarZoneRegisterForm.do">유카존 등록</a></h4><br>
 <h4><a href="${initParam.root}admin_uCarZone_list.do">유카존 목록</a></h4>
-
-<hr>
+ --%>
+<%-- <hr>
 <h4><a href="${initParam.root}admin_sharing_List.do">예약/결제/반납 내역</a></h4>
 <hr>
 <h4><a href="${initParam.root }admin_customercenter_home_qna_boardList.do?sessionId=${sessionScope.admin.memberId}">이용후기 관리</a></h4>
 <hr>
 <h4><a href="${initParam.root }admin_pointHistoryList.do">포인트 내역</a></h4>
-
+ --%>
 
