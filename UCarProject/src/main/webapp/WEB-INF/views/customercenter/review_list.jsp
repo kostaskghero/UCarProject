@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="container">
-	<div class="col-lg-2">
-		<h4>베스트 이용후기</h4>
-	</div>
-</div>
+  <legend>베스트 이용 후기</legend>
 <div class="container">
 	<div class="row">
 		<c:forEach items="${bestList }" var="best">
@@ -24,9 +20,10 @@
 		</c:forEach>
 	</div>
 </div>
+  <legend>이용후기</legend>
 <div class="container">
 	<div class="col-lg-2">
-		<h4>이용후기</h4>
+
 	</div>
 </div>
 <div class="section">

@@ -1,19 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-horizontal" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
-	<div class="form-group">
-	   <div class="col-lg-2"  >
-      	<h4>공지사항</h4>
-     </div>
-      <div class="col-lg-6 col-lg-offset-2">
-        		<input type="text" class="form-control" id="memberId" name="memberId" placeholder="검색할 내용 입력">
-      		</div>
-      		<div class="col-lg-2 ">
-        		<button type="submit" class="btn btn-primary">검색</button>
-      		</div>
-	</div>
-</form>
+
+<legend>공지사항</legend>
 <div class="section">
       <div class="container">
         <div class="row">
