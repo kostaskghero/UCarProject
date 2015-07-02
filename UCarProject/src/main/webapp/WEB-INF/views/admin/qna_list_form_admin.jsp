@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<legend>이용후기  관리 </legend>
+<legend><h2>1:1문의  관리 </h2></legend>
 <div class="section">
       <div class="container">
         <div class="row">

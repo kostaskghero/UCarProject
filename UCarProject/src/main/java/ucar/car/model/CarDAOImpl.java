@@ -164,4 +164,7 @@ public class CarDAOImpl implements CarDAO {
 	public void deleteCarOption(String carModel){
 		sqlSessionTemplate.delete("car.deleteCarOption",carModel);
 	}
+	public List<CarVO> modelDeleteCheck(String carModel){
+		return sqlSessionTemplate.selectList("car.modelDeleteCheck",carModel);
+	}
 }

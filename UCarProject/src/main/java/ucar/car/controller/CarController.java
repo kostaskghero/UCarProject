@@ -409,4 +409,17 @@ public class CarController {
 		carService.deleteCarModelAndOption(carModel);
 		return new ModelAndView("redirect:admin_carModel_list.do");
 	}
+	/**
+	 * 모델삭제할때 해당 모델인 차량이 존재하면 false 삭제불가
+	 * 존재하지않으면 true삭제가능
+	 * 
+	 * @param carModel
+	 * @return
+	 */
+	@RequestMapping("admin_modelDeleteCheck.do")
+	@ResponseBody
+	public boolean modelDeleteCheck(String carModel){
+	
+		return carService.modelDeleteCheck(carModel);
+	}
 }

@@ -14,7 +14,7 @@
 
 <form class="form-horizontal" method="post" action="${initParam.root }admin_qna_reply_form.do" id="qnaReplyForm">
    <fieldset>
-    <legend>1:1 상세내용</legend>
+    <legend><h2>1:1 상세내용</h2></legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">

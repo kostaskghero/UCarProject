@@ -21,12 +21,7 @@
 						location.href = "admin_carDeleteForm.do?carNo="
 								+ $(this).val();
 				});
-				$(":input[name=deleteBtn]").click(
-						function() {
-							if (confirm("삭제하시겠습니까?"))
-								location.href = "admin_carDeleteForm.do?carNo="
-										+ $(this).val();
-						});
+	
 				$(":input[name=updateBtn]").click(
 						function() {
 							if (confirm("수정하시겠습니까?"))
@@ -52,7 +47,6 @@
 									table+="<td>"+vo.uCarZoneVO.uCarZoneName+"</td>";
 							 	 	table+="<td><a href='admin_carDetailInfo.do?carNo="+vo.carNo+"'>"+vo.carNickName+"</a></td>";
 									table+="<td ><button type='button' class='btn btn-xs' id='updateBtn' value='"+vo.carNo+"'>수정</button></td>";
-									table+="<td><button type='button' class='btn btn-xs' id='deleteBtn'value='"+vo.carNo+"'> 삭제 </button></td>";  
 									table+="</tr>";
 								});
 								table+="</tbody></table>"; 
@@ -62,13 +56,12 @@
 				});//click
 			});//ready
 </script>
-<legend>차량 목록 </legend>
+<legend ><h2>차량 목록</h2> </legend>
 <html>
-
+<br>
 <form class="form-horizontal" id="searchCar">
 	<fieldset>
-
-		<div class="col-lg-2">
+		<div class="col-lg-2" >
 			<select class="form-control" id="carModel" name="carModel">
 				<option value="">모델전체</option>
 				<c:forEach items="${requestScope.data.modelList }" var="data">
@@ -94,28 +87,28 @@
 		</div>
 	</fieldset>
 </form>
-<body>
+<form class="form-horizontal" id="searchCar">
+	<fieldset>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6"></div>
+				<div class="col-md-8"></div>
 			</div>
 		</div>
 	</div>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-8">
 				<div id="searchTable">
 					<table class="table" >
 						<thead>
 							<tr>
-								<th>No</th>
-								<th>Mdoel</th>
-								<th>UcarZone</th>
-								<th>NickName</th>
+								<th>번호</th>
+								<th>모델</th>
+								<th>유카존</th>
+								<th>닉네임</th>
 								<th>수정</th>
-								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -130,10 +123,6 @@
 											value="${vo.carNo}">수정</button>
 											
 									</td>
-									<td>
-										<button type="button" class="btn btn-xs" name="deleteBtn"
-											value="${vo.carNo}">삭제</button>
-									</td>
 								</tr>
 
 							</c:forEach>
@@ -144,6 +133,6 @@
 			</div>
 		</div>
 	</div>
-</body>
-
+</fieldset>
+</form>
 </html>

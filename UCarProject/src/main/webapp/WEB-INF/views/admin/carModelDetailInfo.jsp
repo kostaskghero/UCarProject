@@ -4,8 +4,23 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#deleteModel').click(function(){
-			if(confirm("삭제하시겠습니까?"))
-				location.href="admin_deleteCarModelAndOption.do?carModel=${info.carModel}";
+			$.ajax({
+				type : "POST",
+				url : "admin_modelDeleteCheck.do",
+				dataType : "json",
+				data : "carModel=${info.carModel}",
+				success : function(data) {
+					if(data==true){
+						if(confirm("삭제하시겠습니까?"))
+							location.href="admin_deleteCarModelAndOption.do?carModel=${info.carModel}";
+					}else{
+						alert("해당 모델에 차량이존재하여 삭제할 수 없습니다.");
+						return false;
+					}
+					
+				}
+			});//ajax
+			
 		});
 	});
 </script>
@@ -26,7 +41,7 @@
 				<c:forEach items="${requestScope.info.carOption }" var="list">
               ${list}
               </c:forEach>
-              <button type="submit" class="btn btn-primary" id="deleteModel">삭제</button>
+              <button type="bytton" class="btn btn-primary" id="deleteModel">삭제</button>
 			</div>
 		
 		</div>
