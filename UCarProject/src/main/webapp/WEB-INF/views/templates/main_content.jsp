@@ -69,17 +69,15 @@ $(function(){
 					<div class="carousel-inner">
 						<!-- slide image 1 -->
 						<div class="active item" id="img_slide" align="center" >
-							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[0].reviewNo }">
-								<div class="thumbnail">																
+							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[0].reviewNo }">														
 									<c:choose>
 										<c:when test="${bestList[0].reviewFileVO !=null }">
-											<img src="${bestList[0].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
+											<img src="${bestList[0].reviewFileVO.filePath }" alt="..." class="img-responsive" width="250" height="200">
 										</c:when>
 										<c:otherwise>
 											<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
 										</c:otherwise>
-									</c:choose>								
-								</div>
+									</c:choose>
 								<div class="caption">
 									<h2>${bestList[0].reviewTitle }</h2>
 									<p>작성자 : ${bestList[0].memberId} 추천수 : ${bestList[0].reviewLikeCount}</p>
@@ -89,7 +87,6 @@ $(function(){
 						<!-- slide image 2 -->
 						<div class="item" id="img_slide" align="center" >
 							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[1].reviewNo }">
-								<div class="thumbnail">
 									<c:choose>
 										<c:when test="${bestList[1].reviewFileVO !=null }">
 											<img src="${bestList[1].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
@@ -98,7 +95,6 @@ $(function(){
 											<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
 										</c:otherwise>
 									</c:choose>
-								</div>
 								<div class="caption">
 									<h2>${bestList[1].reviewTitle }</h2>
 									<p>작성자 : ${bestList[1].memberId} 추천수 : ${bestList[1].reviewLikeCount}</p>
@@ -108,7 +104,6 @@ $(function(){
 						<!-- slide image 3 -->
 						<div class="item" id="img_slide" align="center" >
 							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[2].reviewNo }">
-								<div class="thumbnail">
 									<c:choose>
 										<c:when test="${bestList[2].reviewFileVO !=null }">
 											<img src="${bestList[2].reviewFileVO.filePath }" class="img-responsive" width="250" height="200">
@@ -117,7 +112,6 @@ $(function(){
 											<img src="${initParam.root }/img/logo.jpg" class="img-responsive" width="250" height="200">
 										</c:otherwise>
 									</c:choose>
-								</div>
 								<div class="caption">
 									<h2>${bestList[2].reviewTitle }</h2>
 									<p>작성자 : ${bestList[2].memberId} 추천수 : ${bestList[2].reviewLikeCount}</p>

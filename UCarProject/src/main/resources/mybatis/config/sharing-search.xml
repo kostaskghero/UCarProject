@@ -52,4 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="getAllCarModelList" resultType="string">
  		select distinct(car_model) from car_model_info
  	</select>
+ 	<select id="getAllCarOptionByCarModel" parameterType="string" resultType="string">
+ 		select option_info from CAR_OPTION where car_model=#{value}
+ 	</select>
  </mapper> 
