@@ -167,4 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteCarOption">
 	delete from car_option where car_model=#{value}
 	</delete>
+	<select id="modelDeleteCheck" resultMap="carRM">
+	select * from car where car_model=#{value}
+	</select>
 </mapper> 

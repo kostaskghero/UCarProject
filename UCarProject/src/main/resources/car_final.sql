@@ -1,4 +1,4 @@
---자동차 모델 테이블
+--자동차 모델정보
 drop table CAR_MODEL_INFO;
 CREATE TABLE CAR_MODEL_INFO (
 		CAR_MODEL VARCHAR2(50) primary key,
@@ -8,29 +8,36 @@ CREATE TABLE CAR_MODEL_INFO (
 		OIL_TYPE VARCHAR2(50) NOT NULL
 	)
 	select * from CAR_MODEL_INFO;
-	-- 자동차 테이블
-	drop sequence car_seq 
-	drop table car
-	create sequence car_seq nocache
+--유카존
+drop table ucar_zone;
+create table ucar_zone (
+		UCAR_ZONE_NAME varchar2(200) primary key,
+		ucar_zone_address varchar2(300),
+		latitude number not null,
+		longitude number  not null
+		);
+--자동차 테이블
+	drop sequence car_seq ;
+	drop table car;
+	create sequence car_seq nocache;
 	CREATE TABLE CAR (
 		CAR_NO NUMBER primary key,
 		CAR_MODEL VARCHAR2(50),
 		UCAR_ZONE_NAME VARCHAR2(50) NOT NULL,
 		CAR_NICK_NAME VARCHAR2(50) NOT NULL,
-		constraint fk_car foreign key(CAR_MODEL) references CAR_MODEL_INFO,
-		constraint fk_ucar_zone_name foreign key(UCAR_ZONE_NAME) references ucar_zone
+		constraint fk_car foreign key(CAR_MODEL) references CAR_MODEL_INFO on DELETE CASCADE,
+		constraint fk_ucar_zone_name foreign key(UCAR_ZONE_NAME) references ucar_zone on DELETE CASCADE 
 	);	
 	select * from CAR
 	--차량 옵션 테이블
-		drop sequence car_option_seq
-	drop table car_option
-	create sequence car_option_seq nocache
+		drop sequence car_option_seq;
+	drop table car_option;
+	create sequence car_option_seq nocache;
 	CREATE TABLE CAR_OPTION (
 		OPTION_NUMBER number primary key,
 		CAR_MODEL VARCHAR2(50),
 		OPTION_INFO VARCHAR2(50) NOT NULL
 	);
-	select * from car_option
 --자동차 모델 사진 테이블 
 	drop sequence car_pic_seq;
 	drop table car_pic;
@@ -42,24 +49,7 @@ file_path varchar2(200) not null,
 original_name varchar2(200) not null,
 constraint car_pic_fk foreign key(CAR_MODEL) references CAR_MODEL_INFO(CAR_MODEL) on DELETE CASCADE 
 )
-delete from CAR_MODEL_INFO where CAR_MODEL='sss'
-delete from car_option where car_model='dddd';
-select * from car_pic;
-select * from CAR_MODEL_INFO;
-select * from car_option;
-select * from UCAR_ZONE;
---예약쪽까지 다 drop안할꺼면 ALTER로 컬럼추가하고 테이블내용들 edit에서 지워서 다시insert
- ALTER TABLE ucar_zone ADD(latitude number);
-  ALTER TABLE ucar_zone ADD(longitude number);
-
-drop table ucar_zone;
-create table ucar_zone(
-		UCAR_ZONE_NAME varchar2(200) primary key,
-		ucar_zone_address varchar2(300),
-		latitude number not null,
-		longitude number number not null
-	)
-	
+--유카존 인서트
 	insert into ucar_zone(UCAR_ZONE_NAME,UCAR_ZONE_ADDRESS,latitude,longitude)
 	values('장위시장','서울시 성북구 장위동 238-401',37.613476,127.050878);
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('신천역','서울시 송파구 잠실동 186-9',37.511306,127.084053);
@@ -82,8 +72,5 @@ create table ucar_zone(
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('부산대 정문','부산시 금정구 장전동 422-26',35.230585, 129.086054);
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('제주공항','제주도 제주시 도두2동 44',33.504782, 126.491494);
 	insert into ucar_zone(UCAR_ZONE_NAME,ucar_zone_address,latitude,longitude) values('해운대역','부산시 해운대구 우동 541-29',35.163013, 129.158914);
-select * from UCAR_ZONE
+select * from UCAR_ZONE;
 
-update UCAR_ZONE set
-		UCAR_ZONE_ADDRESS ='서울시 송파구 잠실동 186-9',latitude=37.511306,longitude=127.084053 where
-		UCAR_ZONE_NAME='신천역'

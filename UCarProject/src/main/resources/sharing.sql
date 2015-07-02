@@ -1,7 +1,7 @@
 -- 예약테이블
-create sequence SHARING_RESERVATION_seq nocache
-drop sequence SHARING_RESERVATION_seq
-drop table SHARING_RESERVATION
+create sequence SHARING_RESERVATION_seq nocache;
+drop sequence SHARING_RESERVATION_seq;
+drop table SHARING_RESERVATION;
 CREATE TABLE SHARING_RESERVATION (
 	RESERVATION_NO number primary key,
 	CAR_NO NUMBER,
@@ -15,10 +15,10 @@ CREATE TABLE SHARING_RESERVATION (
 	extension_price number default 0,
 	late_fee number default 0,
 	late_time number default 0,
-	constraint FK_RESERVATION_CAR_NO foreign key(CAR_NO) references car,
+	constraint FK_RESERVATION_CAR_NO foreign key (CAR_NO) references car on DELETE CASCADE,
 	constraint FK_RESERVATION_MEMBER_ID foreign key(MEMBER_ID) references member(member_id) on DELETE CASCADE
 )
-
+select * from SHARING_RESERVATION;
 select RESERVATION_NO, CAR_NO, MEMBER_ID, to_char(RENTAL_DATE, 'YYYY/MM/DD HH24:MI') as rental_date, to_char(RETURN_DATE, 'YYYY/MM/DD HH24:MI') as return_date from SHARING_RESERVATION order by reservation_no
 
 -- 예약여부
@@ -62,4 +62,4 @@ create table sharing_status(
 	status varchar2(50) not null,
 	constraint fk_reservation_no foreign key(reservation_no) references sharing_reservation(reservation_no) on DELETE CASCADE
 )
-select * from sharing_status
+select * from sharing_status;

@@ -239,4 +239,12 @@ public class CarServiceImpl implements CarService {
 			}
 		}
 	}
+	public boolean  modelDeleteCheck(String carModel){
+		boolean flag=false;
+		List<CarVO> list=carDAO.modelDeleteCheck(carModel);
+		if(list==null||list.size()==0){//존재x 삭제가능
+			flag=true;
+		}
+		return flag;
+	}
 }
