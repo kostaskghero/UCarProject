@@ -130,18 +130,18 @@
 			
 		});
 		$("#rentalDate").datetimepicker({
-			 	minDate: 0, 
-			 	ang:'ko',
-			    format:'Y/m/d H:i',
-			    step: 10 //시간 설정을 10분단위로 나눔
-		    });
+			minDate: 0, 
+			ang:'ko',
+			format:'Y/m/d H:i',
+			step: 10 //시간 설정을 10분단위로 나눔
+		});
 		
 		$("#returnDate").datetimepicker({
-		 	minDate: 0, 
-		 	ang:'ko',
-		    format:'Y/m/d H:i',
-		    step: 10 //시간 설정을 10분단위로 나눔
-	    }); 
+			minDate: 0, 
+			ang:'ko',
+			format:'Y/m/d H:i',
+			step: 10 //시간 설정을 10분단위로 나눔
+		}); 
 	});
 	$(function(){
 		$("#uCarZoneNames").autocomplete({
