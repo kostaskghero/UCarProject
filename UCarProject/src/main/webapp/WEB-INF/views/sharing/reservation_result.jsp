@@ -112,20 +112,7 @@
 							${reservationInfo.rentalPrice } 원
 						</label>
 					</div>
-<<<<<<< HEAD
-				<%-- 	<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
-					<div class="col-lg-10">
-						<select class="form-control" id="couponType">
-							<option value="">쿠폰선택</option>
-							<c:forEach items="${PointAndCoupon }">
-								<option value=""></option>
-							</c:forEach>
-						</select>
-					</div> --%>
-					<br><br>
-=======
 					<br><br><br>
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 					<label for="fee" class="col-lg-2 control-label">포인트</label>
 					<div class="col-lg-10" id = "pointForm">
 						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;

@@ -166,18 +166,6 @@
 <div class="section">
 	<div class="container">
 		<div class="row">
-<<<<<<< HEAD
-	  	<div class="col-md-5">
-			<form class="form-horizontal" role="form" id="searchForm">
-				<div class="form-group">
-			  <br><br>
-				<div class="col-sm-3 col-sm-offset-2">
-					<label for="uCarZoneName" class="control-label">지역</label>
-				</div>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneName" placeholder="지역">
-				</div>
-=======
 		  	<div class="col-md-5">
 				<form class="form-horizontal" id="searchForm">
 					<fieldset>
@@ -226,7 +214,6 @@
 						</div>
 					</div>
 				</form>
->>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 			</div>
 			<div class="col-md-4">
 				<div id="map_canvas" style="width:730px;height:500px;"></div>
