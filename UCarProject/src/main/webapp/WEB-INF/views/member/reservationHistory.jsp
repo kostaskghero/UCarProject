@@ -108,10 +108,10 @@
 	    }); 
 	});
 </script>
+<h4>예약내역관리</h4>
+<hr>
 <div class="container">
 	<div class="col-md-9">
-		<h1>예약내역관리</h1>
-		<br>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#reservationListView" data-toggle="tab">예약중인차량</a></li>
 			<li><a href="#usedListView" data-toggle="tab">이용한차량</a></li>
@@ -154,42 +154,34 @@
 							</c:choose>
 						</tbody>
 					</table>
-					<ul class="pagination"  >
-						<c:choose>
-							<c:when test="${reservationList.pagingBean.previousPageGroup}">
-								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.startPageOfPageGroup-1}">«</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="disabled">
-									<a href="#">«</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach var="i" begin="${reservationList.pagingBean.startPageOfPageGroup}" end="${reservationList.pagingBean.endPageOfPageGroup}">
-							<c:choose>
-								<c:when test="${reservationList.pagingBean.nowPage!=i}">
-									<li><a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${i}">${i }</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="active"><a href="#">${i }</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${reservationList.pagingBean.nextPageGroup}">
-								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.endPageOfPageGroup+1}">»</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="disabled">
-									<a href="#">»</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+					<br></br> <br> <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="col-md-12">
+						<ul class="pager">
+							<li>
+								<c:if test="${reservationList.pagingBean.previousPageGroup}">
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.startPageOfPageGroup-1}">Prev</a>
+								</c:if> &nbsp;&nbsp;
+							</li>
+							<li>
+								<c:forEach var="i" begin="${reservationList.pagingBean.startPageOfPageGroup}" end="${reservationList.pagingBean.endPageOfPageGroup}">
+									<c:choose>
+										<c:when test="${reservationList.pagingBean.nowPage!=i}">
+											<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${i}">${i}</a>
+										</c:when>
+										<c:otherwise>
+											${i}
+										</c:otherwise>
+									</c:choose>
+								</c:forEach> &nbsp;&nbsp;
+							</li>
+							<li>
+								<c:if test="${reservationList.pagingBean.nextPageGroup}">
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${reservationList.pagingBean.endPageOfPageGroup+1}"> Next </a>
+								</c:if>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="usedListView" >
@@ -254,42 +246,34 @@
 							</c:choose>
 						</tbody>
 					</table>
-					<ul class="pagination">
-						<c:choose>
-							<c:when test="${usedList.pagingBean.previousPageGroup}">
-								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.startPageOfPageGroup-1}">«</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="disabled">
-									<a href="#">«</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach var="i" begin="${usedList.pagingBean.startPageOfPageGroup}" end="${usedList.pagingBean.endPageOfPageGroup}">
-							<c:choose>
-								<c:when test="${usedList.pagingBean.nowPage!=i}">
-									<li><a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${i}">${i }</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="active"><a href="#">${i }</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${usedList.pagingBean.nextPageGroup}">
-								<li>
-									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.endPageOfPageGroup+1}">»</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="disabled">
-									<a href="#">»</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+					<br></br> <br> <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="col-md-12">
+						<ul class="pager">
+							<li>
+								<c:if test="${usedList.pagingBean.previousPageGroup}">
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.startPageOfPageGroup-1}">Prev</a>
+								</c:if> &nbsp;&nbsp;
+							</li>
+							<li>
+								<c:forEach var="i" begin="${usedList.pagingBean.startPageOfPageGroup}" end="${usedList.pagingBean.endPageOfPageGroup}">
+									<c:choose>
+										<c:when test="${usedList.pagingBean.nowPage!=i}">
+											<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${i}">${i}</a>
+										</c:when>
+										<c:otherwise>
+											${i}
+										</c:otherwise>
+									</c:choose>
+								</c:forEach> &nbsp;&nbsp;
+							</li>
+							<li>
+								<c:if test="${usedList.pagingBean.nextPageGroup}">
+									<a href="${initParam.root}auth_memberSharing_reservationHistory.do?pageNo=${usedList.pagingBean.endPageOfPageGroup+1}"> Next </a>
+								</c:if>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
