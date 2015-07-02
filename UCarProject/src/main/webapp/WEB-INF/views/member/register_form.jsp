@@ -39,9 +39,10 @@
 		});
 	});
 </script>
+<h4>회원가입</h4>
+<hr>
 <form:form class="form-horizontal" commandName="memberVO" method="post" action="${initParam.root}member_register.do" id="memberRegisterForm">
   <fieldset>
-    <legend>회원가입</legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-6">

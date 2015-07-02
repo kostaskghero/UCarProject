@@ -299,11 +299,6 @@ public class MemberController {
 		mv.addObject("searchPeriod", pointHistoryVO.getSearchPeriod());
 		return mv;
 	}
-	@RequestMapping(value="member_findMemberIdForm.do", method=RequestMethod.GET)
-	public ModelAndView findMemberIdForm(){
-		System.out.println("아이디 찾기 폼으로~");
-		return new ModelAndView("member_findMemberIdForm","memberVO",new MemberVO());
-	}
 	/**
 	 * 회원 아이디 찾기 
 	 * @param request
@@ -312,19 +307,15 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("member_findMemberId.do")
-	   public String findMemberId(HttpServletRequest request,Model model,MemberVO mvo){
-	      MemberVO vo = memberService.findMemberId(mvo);
-		if (vo != null) {
-			model.addAttribute("vo", vo);
+	public String findMemberId(HttpServletRequest request,Model model,MemberVO mvo){
+		mvo = memberService.findMemberId(mvo);
+		if (mvo != null) {
+			model.addAttribute("vo", mvo);
 			return "member_findMemberId_result";
-	      } else {
-	    	  return "member_findMemberId_fail";
-	      }
-	   }
-	@RequestMapping(value="member_findMemberPasswordForm.do", method=RequestMethod.GET)
-	public ModelAndView findMemberPasswordForm(){
-		System.out.println("비밀번호 찾기 폼으로~");
-		return new ModelAndView("member_findMemberPasswordForm","memberVO",new MemberVO());
+		} else {
+			model.addAttribute("flag", "fail");
+			return "member_findMemberId_form";
+		}
 	}
 	/**
 	 * 회원 비밀번호 찾기
@@ -335,13 +326,13 @@ public class MemberController {
 	 */
 	@RequestMapping("member_findMemberPassword.do")
 	   public String findMemberPassword(HttpServletRequest request,Model model ,MemberVO mvo) {
-	      MemberVO vo = memberService.findMemberPassword(mvo);
-	      System.out.println(vo);
-	      if (vo != null) {
-	    	  model.addAttribute("vo", vo);
+	      mvo = memberService.findMemberPassword(mvo);
+	      if (mvo != null) {
+	    	  model.addAttribute("vo", mvo);
 				return "member_findMemberPassword_result";
 	      } else {
-	    	 return "member_findMemberPassword_resultfail";
+	    	  model.addAttribute("flag", "fail");
+	    	 return "member_findMemberPassword_form";
 	      }
 	   }
 }
