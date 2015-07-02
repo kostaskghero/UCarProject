@@ -29,9 +29,9 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-sm-offset-2 col-sm-10">
+<%-- 	<div class="col-sm-offset-2 col-sm-10">
 		<a href="${initParam.root}auth_member_updateMember_form.do"><button type="button" class="btn btn-default">UpdateInfo</button></a>
 		<a href="${initParam.root}auth_member_lisenseInfo_view.do?memberId=${sessionScope.loginInfo.memberId }"><button type="button" class="btn btn-default">DrivingLicense</button></a>
 		<a href="${initParam.root}auth_member_cardInfo_view.do?memberId=${sessionScope.loginInfo.memberId }"><button type="button" class="btn btn-default">Card</button></a>
-	</div>
+	</div> --%>
 </div>

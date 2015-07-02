@@ -192,10 +192,6 @@
 	  	<div class="col-md-5">
 			<form class="form-horizontal" role="form" id="searchForm">
 				<div class="form-group">
-					<div class ="col-md-5 col-md-offset-5">
-		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
-						<!-- 	<input type = "radio" name = "travelType" value = "oneway">편도<br> -->
-			 		 </div>
 			  <br><br>
 				<div class="col-sm-3 col-sm-offset-2">
 					<label for="uCarZoneName" class="control-label">지역</label>

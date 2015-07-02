@@ -18,17 +18,27 @@
 <h4>탈퇴하시겠습니까</h4>
 <hr>
 <form method="post" action="${initParam.root }auth_member_deleteMember.do" id="deleteForm">
-	 <label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">아이디</label>
-	<div class="col-lg-8">
-		<input readonly="readonly" name="memberId" value="${sessionScope.loginInfo.memberId }"><br>
+<div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+          		<label for="inputMemberId" class="col-lg-1 col-lg-offset-1 control-label">아이디</label>
+				<div class="col-lg-3">
+				<input readonly="readonly" class="form-control" name="memberId" value="${sessionScope.loginInfo.memberId }"><br>
+				</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          		<label for="inputMemberId" class="col-lg-1 col-lg-offset-1 control-label">패스워드</label>
+				<div class="col-lg-3">
+				<input type="password" class="form-control" name="memberPassword" id="memberPassword"><br>
 	</div>
-	<br><br>
-	<label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">패스워드</label>
-	<div class="col-lg-8">
-		<input type="password" name="memberPassword" id="memberPassword"><br>
+          </div>
+        </div>
+        <div class="col-lg-9 col-lg-offset-4">
+	<button type="button" class="btn btn-primary" id="carSearchBtn">탈퇴</button>
 	</div>
-	<br><br>
-	<div class="col-lg-9 col-lg-offset-5">
-	<input type="submit" value="탈퇴">
-	</div>
+      </div>
+    </div>
 </form>

@@ -115,8 +115,7 @@
 							${reservationInfo.rentalPrice } 원
 						</label>
 					</div>
-					<br><br>
-					<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
+				<%-- 	<label for="coupon" class="col-lg-2 control-label">쿠폰</label>
 					<div class="col-lg-10">
 						<select class="form-control" id="couponType">
 							<option value="">쿠폰선택</option>
@@ -124,8 +123,8 @@
 								<option value=""></option>
 							</c:forEach>
 						</select>
-					</div>
-					<br><br><br>
+					</div> --%>
+					<br><br>
 					<label for="fee" class="col-lg-2 control-label">포인트</label>
 					<div class="col-lg-10" id = "pointForm">
 						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
@@ -135,7 +134,7 @@
 							<input type="text" id="pointText" name="pointText" placeholder="숫자를 입력하세요!">
 						</span><br>
 					</div>
-					<br><br><br>
+					<br><br><br><br>
 					<label for="driveFee" class="col-lg-2 control-label">주행요금</label>
 					<div class="col-lg-10">
 						<label for="driveFee" class="col-lg-10 control-label">

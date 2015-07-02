@@ -2,9 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/sunny/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+
+<link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
 <script>
 	$(function(){
 		$("#extensionBtnView").hide();
@@ -32,9 +40,9 @@
 		$(":input[name=returnViewBtn]").click(function(){
 			var reservationNo=$(this).val();
 			$("#"+reservationNo+"ButtonView").hide();
-			var inputForm="<input type='text' name='mileage' id='mileage'>km<br>";
-			inputForm+="<button type='button' class='btn btn-default btn-sm' name='returnBtn' value='"+reservationNo+"'>반납</button>";
-			inputForm+="<button type='button' class='btn btn-default btn-sm' name='cancelReturnBtn' value='"+reservationNo+"'>취소</button>";
+			var inputForm ="<input type='text' name='mileage' id='mileage' style='width:75%;'>km<br>";
+			inputForm+="<button type='button' class='btn btn-primary btn-xs' name='returnBtn' value='"+reservationNo+"'>반납</button>";
+			inputForm+="<button type='button' class='btn btn-primary btn-xs' name='cancelReturnBtn' value='"+reservationNo+"'>취소</button>";
 			$("#"+reservationNo+"inputMileageView").html(inputForm);
 		});
 		$("#usedListTable").on("click",":input[name=cancelReturnBtn]", function(){
@@ -65,12 +73,12 @@
 			$.ajax({
 				type:"post",
 				url:"${initParam.root}auth_memberSharing_checkExtension.do",
-				data:"reservationNo="+$("#reservationNo").val()+"&extensionDate="+$("#extensionDate").val()+"&returnDate="+$("#returnDateView").text(),
+				data:"reservationNo="+$("#reservationNo").val()+"&extensionDate="+$("#extensionDates").val()+"&returnDate="+$("#returnDateView").text(),
 				success:function(data){					
 					if(data.flag=="ok"){
 						$("#extensionPrice").val(data.extensionPrice);						
-						$("#hiddenExtensionDate").val($("#extensionDate").val());
-						$("#extensionPriceView").html("연장일시 : "+extensionDate+" / 이용요금 : "+data.extensionPrice+"원").show();
+						$("#hiddenExtensionDate").val($("#extensionDates").val());
+						$("#extensionPriceView").html("연장일시 : "+extensionDates+" / 이용요금 : "+data.extensionPrice+"원").show();
 						$("#extensionBtnView").show();
 					} else if(data.flag=="fail"){
 						alert("연장할수없습니다");
@@ -81,18 +89,22 @@
 			});
 		});
 		$("#extensionReservationBtn").click(function(){
-			if($("#hiddenExtensionDate").val()==$("#extensionDate").val()){
+			if($("#hiddenExtensionDate").val()==$("#extensionDates").val()){
 				alert("연장 가능한지 확인해주세요!");
 				return false;
 			} else{
 				$("#extensionForm").submit();
 			}
 		});
-		$("#extensionDate").datetimepicker({
-		 	minDate: 0, 
+		$("#extensionDates").appendDtpicker({
+		 	/* minDate: 0, 
 		 	ang:'ko',
 		    format:'Y/m/d H:i',
-		    step: 10 //시간 설정을 10분단위로 나눔
+		    step: 10, //시간 설정을 10분단위로 나눔	     */
+			'locale':'ko',
+			"minuteInterval": 10,
+			'format':'Y-m-d H:i'
+		
 	    }); 
 	});
 </script>
@@ -111,7 +123,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>번호</th><th>차모델</th><th>대여일시</th><th>반납일시</th><th>이용요금</th><th>상태</th><th></th>
+								<th><h5 align="center">번호</h5></th><th><h5 align="center">차모델</h5></th><th><h5 align="center">대여일시</h5></th><th><h5 align="center">반납일시</h5></th><th><h5 align="center">이용요금</h5></th><th><h5 align="center">상태</h5></th><th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -119,17 +131,17 @@
 								<c:when test="${fn:length(reservationList.list)!=0}">
 									<c:forEach items="${reservationList.list }" var="reservationInfo" varStatus="i">
 										<tr>
-											<td>${i.count }</td>
-											<td>${reservationInfo.carVO.carModelInfoVO.carModel }&nbsp;${reservationInfo.carVO.carNickName }</td>
-											<td>${reservationInfo.rentalDate }</td>
-											<td>${reservationInfo.returnDate }</td>
-											<td>${reservationInfo.rentalPrice } 원</td>
-											<td>${reservationInfo.sharingStatus }</td>
+											<td><h5 align="center">${i.count }</h5></td>
+											<td><h5 align="center">${reservationInfo.carVO.carModelInfoVO.carModel }&nbsp;${reservationInfo.carVO.carNickName }</h5></td>
+											<td><h5 align="center">${reservationInfo.rentalDate }</h5></td>
+											<td><h5 align="center">${reservationInfo.returnDate }</h5></td>
+											<td><h5 align="center">${reservationInfo.rentalPrice } 원</h5></td>
+											<td><h5 align="center">${reservationInfo.sharingStatus }</h5></td>
 											<td>
 												<c:if test="${reservationInfo.sharingStatus!='이용요금결제' }">
-													<button type="button" class="btn btn-default btn-sm" name="rentalPaymentBtn" id="rentalPaymentBtn" value="${reservationInfo.reservationNo }">결제</button>&nbsp;
+													<button type="button" class="btn btn-primary btn-xs" name="rentalPaymentBtn" id="rentalPaymentBtn" value="${reservationInfo.reservationNo }">결제</button>&nbsp;
 												</c:if>
-												<button type="button" class="btn btn-default btn-sm" name="cancelBtn" id="cancelBtn" value="${reservationInfo.reservationNo }">취소</button>
+												<button type="button" class="btn btn-primary btn-xs" name="cancelBtn" id="cancelBtn" value="${reservationInfo.reservationNo }">취소</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -142,7 +154,7 @@
 							</c:choose>
 						</tbody>
 					</table>
-					<ul class="pagination">
+					<ul class="pagination"  >
 						<c:choose>
 							<c:when test="${reservationList.pagingBean.previousPageGroup}">
 								<li>
@@ -180,13 +192,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="usedListView">
+			<div class="tab-pane fade" id="usedListView" >
 				<div class="col-md-12">
 					<br><br>
 					<table class="table table-hover" id="usedListTable">
 						<thead>
 							<tr>
-								<th>번호</th><th>차모델</th><th>대여일시</th><th>반납일시</th><th>추가요금</th><th>상태</th><th></th>
+								<th><h5 align="center">번호</h5></th><th><h5 align="center">차모델</h5></th><th><h5 align="center">대여일시</h5></th><th><h5 align="center">반납일시</h5></th><th><h5 align="center">추가요금</h5></th><th><h5 align="center">상태</h5></th><th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -194,36 +206,36 @@
 								<c:when test="${fn:length(usedList.list)!=0}">
 									<c:forEach items="${usedList.list }" var="usedInfo" varStatus="i">
 										<tr>
-											<td>${i.count }</td>
-											<td>${usedInfo.carVO.carModelInfoVO.carModel }&nbsp;${usedInfo.carVO.carNickName }</td>
-											<td>${usedInfo.rentalDate }</td>
+											<td><h5 align="center">${i.count }</h5></td>
+											<td><h5 align="center">${usedInfo.carVO.carModelInfoVO.carModel }&nbsp;${usedInfo.carVO.carNickName }</h5></td>
+											<td><h5 align="center">${usedInfo.rentalDate }</h5></td>
 											<c:choose>
 												<c:when test="${usedInfo.sharingStatus=='연장' }">
-													<td>${usedInfo.extensionDate }</td>
+													<td><h5 align="center">${usedInfo.extensionDate }</h5></td>
 												</c:when>
 												<c:otherwise>
-													<td id="${usedInfo.reservationNo }ReturnDate">${usedInfo.returnDate }</td>	
+													<td id="${usedInfo.reservationNo }ReturnDate"><h5 align="center">${usedInfo.returnDate }</h5></td>	
 												</c:otherwise>
 											</c:choose>											
-											<td>${usedInfo.extensionPrice + usedInfo.lateFee } 원<input type="hidden" id="${usedInfo.reservationNo }ExtensionPrice" value="${usedInfo.extensionPrice }"></td>
-											<td>${usedInfo.sharingStatus }</td>
-											<td>
+											<td><h5 align="center">${usedInfo.extensionPrice + usedInfo.lateFee } 원</h5><input type="hidden" id="${usedInfo.reservationNo }ExtensionPrice" value="${usedInfo.extensionPrice }"></td>
+											<td><h5 align="center">${usedInfo.sharingStatus }</h5></td>
+											<td width="250" height="70">
 												<div class="col-md-6">
 												<c:choose>
 													<c:when test="${usedInfo.sharingStatus =='이용중' }">
 														<span id="${usedInfo.reservationNo }ButtonView">
-															<button type="button" class="btn btn-default btn-sm" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
-															<button type="button" class="btn btn-default btn-sm" name="exetensionBtn" value="${usedInfo.reservationNo }">연장</button>
+															<button type="button" class="btn btn-primary btn-xs btn-xs" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
+															<button type="button" class="btn btn-primary btn-xs btn-xs" name="exetensionBtn" value="${usedInfo.reservationNo }">연장</button>
 														</span>
 														<span id="${usedInfo.reservationNo }inputMileageView">
 														</span>
 													</c:when>
 													<c:when test="${usedInfo.sharingStatus=='반납' }">
-														<button type="button" class="btn btn-default btn-sm" name="drivingPaymentBtn" value="${usedInfo.reservationNo }">결제</button>
+														<button type="button" class="btn btn-primary btn-xs" name="drivingPaymentBtn" value="${usedInfo.reservationNo }">결제</button>
 													</c:when>
 													<c:when test="${usedInfo.sharingStatus=='연장' || usedInfo.sharingStatus=='연체' }">
 														<span id="${usedInfo.reservationNo }ButtonView">
-															<button type="button" class="btn btn-default btn-sm" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
+															<button type="button" class="btn btn-primary btn-xs btn-xs" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
 														</span>
 														<span id="${usedInfo.reservationNo }inputMileageView">
 														</span>
@@ -283,6 +295,7 @@
 		</div>
 	</div>
 </div>
+
 <div id="extensionModal" class="modalDialog">
 	<div>
 		<a href="#close" title="Close" class="close">X</a>
@@ -295,7 +308,7 @@
 				</div>
 				<div class="form-group">
 					<label for="inputExtensionDate" class="control-label">연장</label>
-					<input type="text" class="form-control" id="extensionDate" name="extensionDate" placeholder="YYYY/MM/DD HH:MM">
+					<input type="text" class="form-control" id="extensionDates" name="extensionDate" placeholder="YYYY/MM/DD HH:MM">
 					<input type="hidden" id="reservationNo" name="reservationNo">
 					<input type="hidden" id="hiddenextensionDate" name="hiddenExtensionDate">
 					<input type="hidden" id="extensionPrice" name="extensionPrice">
@@ -307,7 +320,7 @@
 						<button type="button" class="btn" id="checkExtensionBtn" >연장확인</button>
 					</div>
 					<div class="col-lg-4" id="extensionBtnView">
-						<button type="button" class="btn btn-primary" id="extensionReservationBtn" >연장</button>
+						<button type="button" class="btn btn-primary btn-xs" id="extensionReservationBtn" >연장</button>
 					</div>
 				</div>
 			</fieldset>

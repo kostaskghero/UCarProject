@@ -140,12 +140,6 @@ $(function(){
 		<div class="col-md-4">
 			<form class="form-horizontal" role="form" id="searchForm" action = "${initParam.root }search_searchForm.do">
 				<div class="form-group">
-					<div class="col-sm-2">
-						<label for="sharingType" class="control-label"></label>
-					</div>
-					<div class ="col-md-5 col-md-offset-2">
-		       				<input type = "radio" name = "travelType" value = "round">왕복 &nbsp;&nbsp;&nbsp;
-			 		 </div>
 			  <br><br>
 				<div class="col-sm-3 col-sm-offset-1">
 					<label for="uCarZoneName" class="control-label">지역</label>

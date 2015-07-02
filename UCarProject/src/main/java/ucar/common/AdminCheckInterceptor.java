@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Controller
 public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
@@ -21,7 +22,7 @@ public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
 			HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session=request.getSession(false);
 		if(session==null || session.getAttribute("admin")==null){
-			response.sendRedirect("member_login_form.do");
+			response.sendRedirect("#openModal");
 			return false;
 		}
 		return true;
