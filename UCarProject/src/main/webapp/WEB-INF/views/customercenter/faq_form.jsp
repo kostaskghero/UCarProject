@@ -12,9 +12,7 @@ $(function() {
     });
   });
 $(document).ready(function(){
-	$("#faqWriteForm").click(function(){
-		location.href="${initParam.root}admin_faq_write_form.do";
-	});
+
 	$("#searchdataForm").submit(function(){
 		$("#searchWord").val($("#questionlist").val());
 	});
@@ -56,7 +54,7 @@ $(document).ready(function(){
 				});
 });
 </script>
-    <legend>자주 묻는 질문</legend>
+    <legend class="col-md-11">자주 묻는 질문</legend>
 <form class="form-horizontal" method="post"
 	action="${initParam.root}customercenter_searchdata.do"
 	id="searchdataForm">
@@ -71,7 +69,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 </form>
-<div class="col-md-9">
+<div class="col-md-11">
 	<ul class="nav nav-tabs">
 		<li class="active" id="tab1"><a href="#oftenquestion"
 			data-toggle="tab">자주묻는질문</a></li>
@@ -105,15 +103,15 @@ $(document).ready(function(){
 			</form>
 		</div>
 	</div>
-</div>
-
-<br>
-<br>
-<br>
-<c:if test="${sessionScope.admin!=null}">
-	<div class="col-md-12 col-lg-offset-8">
-		<button type="button" class="btn" id="faqWriteForm">글쓰기</button>
+	<br>
+	<c:if test="${sessionScope.admin!=null}">
+	<div class="col-md-12 col-md-offset-11">
+		<a href="${initParam.root}admin_faq_write_form.do"><img
+			id="writeImg" src="${initParam.root }/img/boardimg/write_btn.jpg"
+			border="0"></a>
 	</div>
 </c:if>
+</div>
+
 
 

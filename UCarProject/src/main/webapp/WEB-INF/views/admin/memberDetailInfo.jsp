@@ -3,21 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<legend>회원 정보 </legend>
+<legend class="col-lg-10"><h2>회원 상세 정보 </h2></legend><br>
 
 <html>
 <body>
+
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7"></div>
+				<div class="col-lg-8"></div>
 			</div>
 		</div>
 	</div>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7">
+			<h4>회원정보</h4>
+				<div class="col-lg-8">
 					<div id="searchTable">
 						<table class="table">
 							<thead>
@@ -50,19 +52,19 @@
 		</div>
 	</div>
 
-	<h2>면허정보</h2>
+<h4>면허 정보 </h4>
 	<br>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7"></div>
+				<div class="col-lg-8"></div>
 			</div>
 		</div>
 	</div>
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7">
+				<div class="col-lg-8">
 					<div id="searchTable">
 						<table class="table">
 							<thead>
@@ -92,19 +94,19 @@
 	<c:choose>
 		<c:when test="${vo.size()>=1 }">
 			<c:forEach items="${requestScope.vo }" var="vo" varStatus="i">
-				<h2>카드정보${i.index+1}</h2>
+			<h4>카드정보${i.index+1} </h4>
 				<br>
 				<div class="section">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-7"></div>
+							<div class="col-lg-8"></div>
 						</div>
 					</div>
 				</div>
 				<div class="section">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-7">
+							<div class="col-lg-8">
 								<div id="searchTable">
 									<table class="table">
 										<thead>
@@ -132,7 +134,7 @@
 				</div>
 			</c:forEach>
 		</c:when>
-	
+
 	</c:choose>
 	
 </body>

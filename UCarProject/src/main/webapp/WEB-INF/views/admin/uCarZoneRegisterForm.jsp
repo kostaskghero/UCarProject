@@ -55,10 +55,10 @@
 	action="${initParam.root }admin_uCarZoneRegister.do"
 	id="uCarZoneRegisterForm" method="post">
 	<fieldset>
-		<legend>UCar Zone 등록 </legend>
+		<legend><h2>유카존 등록</h2> </legend>
 		<div class="form-group">
 			<label for="inputUCarZoneName" class="col-lg-2 control-label">이름</label>
-			<div class="col-lg-4">
+			<div class="col-lg-5">
 				<input type="text" class="form-control" id="uCarZoneName"
 					name="uCarZoneName" placeholder="유카존 이름">
 			</div>
@@ -66,21 +66,21 @@
 		</div>
 		<div class="form-group">
 			<label for="inputuCarZoneAddress" class="col-lg-2 control-label">주소</label>
-			<div class="col-lg-6">
+			<div class="col-lg-5">
 				<input type="text" class="form-control" id="uCarZoneAddress"
 					name="uCarZoneAddress" placeholder="유카존 주소">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="inputLatitude" class="col-lg-2 control-label">위도</label>
-			<div class="col-lg-4">
+			<div class="col-lg-5">
 				<input type="text" class="form-control" id="latitude"
 					name="latitude" placeholder="유카존 위도">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="inputLongitude" class="col-lg-2 control-label">경도</label>
-			<div class="col-lg-4">
+			<div class="col-lg-5">
 				<input type="text" class="form-control" id="longitude"
 					name="longitude" placeholder="유카존 경도">
 			</div>

@@ -37,11 +37,10 @@
 </script>
 
 
-<legend>예약내역 </legend>
+<legend><h2>예약내역</h2> </legend>
 <form class="form-horizontal" id="searchSharingForm">
 	
 	<fieldset><br>
-	<label for="searchInput" class="col-lg-1 control-label col-lg-offset-1"><h4>검색</h4></label>
 		<div class="col-lg-2 col-lg-offset-1" >
 			<select class="form-control" id="sharingStatus" name="sharingStatus">
 				<option value="">상태</option>

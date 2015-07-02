@@ -14,10 +14,10 @@
 			<div class="col-md-3" >
 				<c:choose>
 					<c:when test="${best.reviewFileVO !=null }">
-						<img src="${best.reviewFileVO.filePath }" width="250" height="200">
+						<a href="${initParam.root}review_showContent.do?reviewNo=${best.reviewNo }"><img src="${best.reviewFileVO.filePath }" width="250" height="200"></a>
 					</c:when>
 					<c:otherwise>
-						<img src="${initParam.root }/img/logo.jpg"  width="250" height="200">
+						<a href="${initParam.root}review_showContent.do?reviewNo=${best.reviewNo }"><img src="${initParam.root }/img/logo.jpg" width="250" height="200"></a>
 					</c:otherwise>
 				</c:choose>
 				<h2>${best.reviewTitle }</h2>
