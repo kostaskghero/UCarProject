@@ -140,7 +140,7 @@ $(function(){
 		<div class="col-md-4">
 			<form class="form-horizontal" role="form" id="searchForm" action = "${initParam.root }search_searchForm.do">
 				<div class="form-group">
-				<label>예약하기</label>
+				<legend align="center">예약하기</legend>
 			  <br><br>
 					<div class="col-sm-3 col-sm-offset-1">
 					<label for="uCarZoneName" class="control-label">지역</label>
