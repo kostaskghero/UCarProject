@@ -3,6 +3,8 @@ package ucar.board.review.model;
 
 import java.util.List;
 
+import ucar.common.model.PagingBean;
+
 /**
  * 게시물 리스트 정보와 페이징 정보를 가지고 있는 클래스 
  * @author inst

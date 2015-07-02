@@ -27,9 +27,10 @@
 		});
 	});
 </script>
+<h4>회원탈퇴</h4>
+<hr>
 <form class="form-horizontal" method="post" action="${initParam.root }auth_member_deleteMember.do" id="deleteForm">
   <fieldset>
-    <legend>회원탈퇴</legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-6">

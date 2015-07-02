@@ -40,6 +40,8 @@
 		});
 	});
 </script>
+<h4>결제카드등록</h4>
+<hr>
 <form method="post" action="${initParam.root }auth_member_registerCard.do" id="registerCardForm">
 	<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId }">
 	<h4>결제카드</h4>

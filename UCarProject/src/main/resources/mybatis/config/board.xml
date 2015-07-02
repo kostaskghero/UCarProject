@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT notice_no, notice_title, notice_member_id, notice_content, notice_time_posted
 					    FROM(	 
 								SELECT notice_no, notice_title, notice_member_id, notice_content, notice_time_posted,
-								CEIL(rownum/5) AS page
+								CEIL(rownum/10) AS page
 								FROM ( 
 									SELECT notice_no, notice_title, notice_member_id, notice_content,
 									to_char(notice_time_posted,'YYYY.MM.DD') as notice_time_posted

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
+import ucar.common.model.PagingBean;
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Resource(name="boardDAOImpl")

@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
 					    FROM(	 
 								SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted,
-								CEIL(rownum/5) AS page, qna_ref, qna_restep, qna_relevel
+								CEIL(rownum/10) AS page, qna_ref, qna_restep, qna_relevel
 								FROM ( 
 									SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content,
 									to_char(qna_time_posted,'YYYY.MM.DD') as qna_time_posted, qna_ref, qna_restep, qna_relevel
@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted, qna_ref, qna_restep, qna_relevel  
 					    FROM(	 
 								SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content, qna_time_posted,
-								CEIL(rownum/5) AS page, qna_ref, qna_restep, qna_relevel
+								CEIL(rownum/10) AS page, qna_ref, qna_restep, qna_relevel
 								FROM ( 
 									SELECT qna_no, qna_category, qna_member_id, qna_title, qna_content,
 									to_char(qna_time_posted,'YYYY.MM.DD') as qna_time_posted, qna_ref, qna_restep, qna_relevel

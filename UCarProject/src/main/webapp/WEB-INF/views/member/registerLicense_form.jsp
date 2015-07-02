@@ -40,6 +40,8 @@
 		});
 	});
 </script>
+<h4>운전면허등록</h4>
+<hr>
 <div class="container">
 <form method="post" action="${initParam.root }auth_member_registerLicense.do" id="registerLicenseForm">
 	<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId }">

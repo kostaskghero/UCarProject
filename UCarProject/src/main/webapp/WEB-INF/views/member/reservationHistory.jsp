@@ -2,23 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/sunny/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
-
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-
 <script>
 	$(function(){
 		$("#extensionBtnView").hide();
 		$("#extensionPriceView").hide();
 		$(":input[name=cancelBtn]").click(function(){
-			//alert($(this).parent().siblings().eq(5).text());
 			var reservationNo=$(this).val();
 			var sharingStatus=$(this).parent().siblings().eq(5).text();
 			var flag=confirm("예약을 취소하시겠습니까?");
@@ -39,22 +30,16 @@
 		});
 		$(":input[name=returnViewBtn]").click(function(){
 			var reservationNo=$(this).val();
-			$("#"+reservationNo+"ButtonView").hide();
-			var inputForm ="<input type='text' name='mileage' id='mileage' style='width:75%;'>km<br>";
-			inputForm+="<button type='button' class='btn btn-primary btn-xs' name='returnBtn' value='"+reservationNo+"'>반납</button>";
-			inputForm+="<button type='button' class='btn btn-primary btn-xs' name='cancelReturnBtn' value='"+reservationNo+"'>취소</button>";
-			$("#"+reservationNo+"inputMileageView").html(inputForm);
+			$("#returnReservationNo").val(reservationNo);
+			location.href="#returnModal";
 		});
-		$("#usedListTable").on("click",":input[name=cancelReturnBtn]", function(){
-			var reservationNo=$(this).val();
-			$("#"+reservationNo+"inputMileageView").hide();
-			$("#"+reservationNo+"ButtonView").show();
-		});
-		$("#usedListTable").on("click",":input[name=returnBtn]", function(){
-			var reservationNo=$(this).val();
-			var flag=confirm("반납 하시겠습니까?");
-			if(flag)
-				location.href="${initParam.root}auth_memberSharing_returnSharingService.do?reservationNo="+reservationNo+"&memberId=${sessionScope.loginInfo.memberId}&mileage="+$(":input[name=mileage]").val();
+		$("#returnReservationBtn").click(function(){
+			if($("#mileage").val()==""){
+				alert("주행거리입력하세요!");
+				return false;
+			} else if(confirm("반납하시겠습니까?")){
+				$("#returnForm").submit();
+			}
 		});
 		$(":input[name=drivingPaymentBtn]").click(function(){
 			var reservationNo=$(this).val();
@@ -78,7 +63,7 @@
 					if(data.flag=="ok"){
 						$("#extensionPrice").val(data.extensionPrice);						
 						$("#hiddenExtensionDate").val($("#extensionDates").val());
-						$("#extensionPriceView").html("연장일시 : "+extensionDates+" / 이용요금 : "+data.extensionPrice+"원").show();
+						$("#extensionPriceView").html("연장일시 : "+$("#extensionDates").val()+" / 이용요금 : "+data.extensionPrice+"원").show();
 						$("#extensionBtnView").show();
 					} else if(data.flag=="fail"){
 						alert("연장할수없습니다");
@@ -97,14 +82,12 @@
 			}
 		});
 		$("#extensionDates").appendDtpicker({
-		 	/* minDate: 0, 
-		 	ang:'ko',
-		    format:'Y/m/d H:i',
-		    step: 10, //시간 설정을 10분단위로 나눔	     */
-			'locale':'ko',
+			"autodateOnStart": false,
+			"locale":"ko",
 			"minuteInterval": 10,
-			'format':'Y-m-d H:i'
-		
+			"closeOnSelected": true,
+			"dateFormat": "YYYY/MM/DD hh:mm",
+			"futureOnly": true
 	    }); 
 	});
 </script>
@@ -211,29 +194,19 @@
 											</c:choose>											
 											<td><h5 align="center">${usedInfo.extensionPrice + usedInfo.lateFee } 원</h5><input type="hidden" id="${usedInfo.reservationNo }ExtensionPrice" value="${usedInfo.extensionPrice }"></td>
 											<td><h5 align="center">${usedInfo.sharingStatus }</h5></td>
-											<td width="250" height="70">
-												<div class="col-md-6">
+											<td>
 												<c:choose>
 													<c:when test="${usedInfo.sharingStatus =='이용중' }">
-														<span id="${usedInfo.reservationNo }ButtonView">
 															<button type="button" class="btn btn-primary btn-xs btn-xs" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
-															<button type="button" class="btn btn-primary btn-xs btn-xs" name="exetensionBtn" value="${usedInfo.reservationNo }">연장</button>
-														</span>
-														<span id="${usedInfo.reservationNo }inputMileageView">
-														</span>
+															<button type="button" class="btn btn-primary btn-xs btn-xs" name="exetensionBtn" value="${usedInfo.reservationNo }">연장</button>														
 													</c:when>
 													<c:when test="${usedInfo.sharingStatus=='반납' }">
 														<button type="button" class="btn btn-primary btn-xs" name="drivingPaymentBtn" value="${usedInfo.reservationNo }">결제</button>
 													</c:when>
 													<c:when test="${usedInfo.sharingStatus=='연장' || usedInfo.sharingStatus=='연체' }">
-														<span id="${usedInfo.reservationNo }ButtonView">
-															<button type="button" class="btn btn-primary btn-xs btn-xs" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>
-														</span>
-														<span id="${usedInfo.reservationNo }inputMileageView">
-														</span>
+															<button type="button" class="btn btn-primary btn-xs btn-xs" name="returnViewBtn" value="${usedInfo.reservationNo }">반납</button>														
 													</c:when>
 												</c:choose>
-												</div>
 											</td>
 										</tr>
 									</c:forEach>
@@ -279,7 +252,6 @@
 		</div>
 	</div>
 </div>
-
 <div id="extensionModal" class="modalDialog">
 	<div>
 		<a href="#close" title="Close" class="close">X</a>
@@ -304,7 +276,30 @@
 						<button type="button" class="btn" id="checkExtensionBtn" >연장확인</button>
 					</div>
 					<div class="col-lg-4" id="extensionBtnView">
-						<button type="button" class="btn btn-primary btn-xs" id="extensionReservationBtn" >연장</button>
+						<button type="button" class="btn btn-primary" id="extensionReservationBtn" >연장</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<div id="returnModal" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<form class="form-horizontal" action="${initParam.root}auth_memberSharing_returnSharingService.do" id="returnForm">
+			<fieldset>
+				<legend></legend>
+					<div class="form-group">
+						<label for="inputEmail" class="col-lg-3 control-label">주행거리</label>
+						<div class="col-lg-6">
+							<input type="text" class="form-control" name="mileage" placeholder="주행거리를 입력하세요">
+							<input type="hidden" id="returnReservationNo" name="reservationNo" value="">
+						</div>
+						<label class="col-lg-3 control-label">km</label>
+					</div>
+				<div class="form-group" >
+					<div class="col-lg-4" id="extensionBtnView">
+						<button type="button" class="btn btn-primary" id="returnReservationBtn" >반납</button>
 					</div>
 				</div>
 			</fieldset>

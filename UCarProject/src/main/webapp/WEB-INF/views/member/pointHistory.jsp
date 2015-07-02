@@ -7,8 +7,8 @@
 	$(document).ready(function(){
 		$("#searchPeriod").change(function(){
 			location.href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod="+$(this).val();
-		})
-	})
+		});
+	});
 </script>&nbsp;&nbsp;&nbsp;
 <div class="jumbotron col-lg-7">
 <h2>현재 보유한 포인트</h2>

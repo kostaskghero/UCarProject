@@ -33,6 +33,8 @@ public class ReservationServiceImpl implements ReservationService {
 			return "noDrivingLisence";
 		} else if(reservationDAO.findReservationByMemberIdAndDate(reservationVO)!=null){
 			return reservationDAO.findReservationByMemberIdAndDate(reservationVO);
+		} else if(reservationDAO.findReservationByMemberId(reservationVO.getMemberVO().getMemberId())!=0){
+			return "fail";
 		}
 		return message;
 	}

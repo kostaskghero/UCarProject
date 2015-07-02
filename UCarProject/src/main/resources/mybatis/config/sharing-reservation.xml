@@ -74,4 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and r.reservation_no=s.reservation_no 
 			and c.car_model=m.car_model and r.reservation_no=#{value}
  	</select>
+ 	<select id="findReservationByMemberId" resultType="int">
+ 		select count(reservation_no) 
+ 		from 
+ 		(
+ 			select r.reservation_no, r.member_id, s.status 
+ 			from sharing_reservation r, sharing_status s 
+ 			where r.reservation_no=s.reservation_no and member_id=#{value}
+ 		) 
+ 		where status='연체' or status='반납' or status='연장'
+ 	</select>
  </mapper> 

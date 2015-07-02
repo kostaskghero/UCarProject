@@ -37,4 +37,9 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public ReservationVO findExtensionInfoByReservationNo(int reservationNo) {
 		return sqlSessionTemplate.selectOne("reservation.findExtensionInfoByReservationNo", reservationNo);
 	}
+
+	@Override
+	public int findReservationByMemberId(String memberId) {
+		return sqlSessionTemplate.selectOne("reservation.findReservationByMemberId", memberId);
+	}
 }

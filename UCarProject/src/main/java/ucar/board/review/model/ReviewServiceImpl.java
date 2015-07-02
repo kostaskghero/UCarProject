@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ucar.board.reviewcomment.model.ReviewCommentVO;
+import ucar.common.model.PagingBean;
 import ucar.member.model.MemberVO;
 
 @Service
@@ -54,6 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
 			list.get(i).setReviewLikeCount(reviewDAO.countReviewLikeByReviewNo(list.get(i).getReviewNo()));
 		}
 		int total = reviewDAO.totalContent();
+		System.out.println("total"+total);
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
 		ListVO lvo = new ListVO(list, paging);
 		System.out.println(lvo+"service test");

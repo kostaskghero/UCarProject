@@ -67,7 +67,7 @@ public class MemberSharingController {
 	@RequestMapping("auth_memberSharing_returnSharingService.do")
 	public String returnSharingService(ReservationVO reservationVO, ReturnVO returnVO){
 		reservationVO.setReturnVO(returnVO);
-		memberSharingService.returnSharingService(reservationVO);
+		memberSharingService.returnSharingService(reservationVO);		
 		return "redirect:auth_memberSharing_reservationHistory.do";
 	}
 	@RequestMapping("auth_memberSharing_checkExtension.do")

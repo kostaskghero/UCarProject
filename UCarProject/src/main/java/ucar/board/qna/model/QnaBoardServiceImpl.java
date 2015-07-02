@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import ucar.common.model.PagingBean;
+
 @Service
 public class QnaBoardServiceImpl implements QnaBoardService {
 	@Resource(name = "qnaBoardDAOImpl")

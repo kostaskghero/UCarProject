@@ -20,13 +20,14 @@
 		});
 	});
 </script>
+<h4>등록된 카드 정보</h4>
+<hr>
 <c:choose>
 	<c:when test="${fn:length(info)!=0}">
 		<c:forEach items="${info }" var="cardInfo" varStatus="i">
-			<h4>결제카드${i.count }</h4>
-			<hr>
+			<h5>결제카드${i.count }</h5>
 			<div class="container">
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<table class="table">
 						<tbody>
 							<tr>

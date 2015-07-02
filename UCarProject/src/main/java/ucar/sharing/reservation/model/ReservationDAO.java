@@ -16,4 +16,6 @@ public interface ReservationDAO {
 
 	public ReservationVO findExtensionInfoByReservationNo(int reservationNo);
 
+	public int findReservationByMemberId(String memberId);
+
 }

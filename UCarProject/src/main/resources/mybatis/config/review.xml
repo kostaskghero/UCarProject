@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM
 		(	 
 			SELECT review_no, review_title, review_member_id, review_time_posted,review_hit,
-				CEIL(rownum/5) AS page
+				CEIL(rownum/10) AS page
 			FROM 
 			( 
 				SELECT review_no, review_title, review_member_id, review_hit,
