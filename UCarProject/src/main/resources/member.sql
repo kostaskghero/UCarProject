@@ -16,18 +16,33 @@ delete from member where member_id='java'
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_level, member_register_date)
 values('admin','1234','관리자','ucar@gamil.com','01000000000', 2, sysdate);
 -- member
--- 카드1개등록
+-- 면허등록, 카드1개등록
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('java', '1234', '박서준', 'java@ucar.com', '01000000000', sysdate);
+values('java', '1234', '박서준', 'java@ucar.com', '01011111111', sysdate);
 -- 면허등록
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('hee', '1234', '유경희', 'hee@giveticon.com', '01000000000', sysdate);
+values('hee', '1234', '유경희', 'hee@giveticon.com', '01067296875', sysdate);
 -- 카드3개등록
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('minions', '1234', '케빈', 'banana@mini.com', '01000000000', sysdate);
+values('minions', '1234', '케빈', 'banana@mini.com', '01029386763', sysdate);
 -- 면허등록, 카드2개등록
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
 values('bobbob', '1234', '밥', 'bobbob@mini.com', '01000000000', sysdate);
+-- 면허등록, 카드2개등록
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+values('gnfkqhsh', '1234', '후노', 'hohoho@mini.com', '01032930583', sysdate);
+
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+values('mist', '1234', '킨킨', 'kaka@mini.com', '01036271958', sysdate);
+
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+values('yuri', '1234', '이유리', 'yuri@mini.com', '01036271958', sysdate);
+
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+values('jjin', '1234', '이진욱', 'jjin@mini.com', '01036271958', sysdate);
+
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
+values('suck', '1234', '유연석', 'suck@mini.com', '01036271958', sysdate);
 	
 -- 면허정보
 drop table driving_license;
@@ -47,9 +62,6 @@ select * from driving_license;
 insert into driving_license(license_no, member_id, license_type, license_renewal_term, license_issue_date, gender, license_birth)
 values('서울 11-010054-23', 'hee', '2종보통', to_date('2022-12-31','YYYY/MM/DD'), 
 	to_date('2010-12-24','YYYY/MM/DD'), '여', to_date('1990-11-03','YYYY/MM/DD'));
-insert into driving_license(license_no, member_id, license_type, license_renewal_term, license_issue_date, gender, license_birth)
-values('강원 13-032387-41', 'bobbob', '1종보통', to_date('2020-12-31','YYYY/MM/DD'), 
-	to_date('2016-10-24','YYYY/MM/DD'), '남', to_date('1990-05-30','YYYY/MM/DD'));
 		
 -- 결제카드
 drop table card
@@ -66,16 +78,6 @@ select * from card;
 
 insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
 values('5021-2377-5289-3307', 'minions', '개인', to_date('2018-02','YYYY/MM'), '50', to_date('1993-10-23','YYYY/MM/DD'));
-insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
-values('3922-4739-2639-2261', 'minions', '개인', to_date('2018-02','YYYY/MM'), '11', to_date('1993-10-23','YYYY/MM/DD'));
-insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
-values('3724-3923-2422-5457', 'minions', '개인', to_date('2018-02','YYYY/MM'), '11', to_date('1993-10-23','YYYY/MM/DD'));
-insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
-values('8745-2342-5465-4336', 'java', '개인', to_date('2018-02','YYYY/MM'), '11', to_date('1982-07-14','YYYY/MM/DD'));
-insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
-values('4592-8743-2687-1277', 'bobbob', '개인', to_date('2020-02','YYYY/MM'), '11', to_date('1990-05-30','YYYY/MM/DD'));
-insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
-values('2342-3794-2349-4568', 'bobbob', '개인', to_date('2018-02','YYYY/MM'), '11', to_date('1990-05-30','YYYY/MM/DD'));
 	
 -- 운전면허 지역정보
 create sequence license_location_seq nocache;
@@ -141,3 +143,13 @@ insert into point_history(point_history_no, member_id, point_value, point_date, 
 values(point_history_seq.nextval, 'minions', 10000, sysdate, '회원가입', '적립');
 insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
 values(point_history_seq.nextval, 'bobbob', 10000, sysdate, '회원가입', '적립');
+insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+values(point_history_seq.nextval, 'gnfkqhsh', 10000, sysdate, '회원가입', '적립');
+insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+values(point_history_seq.nextval, 'mist', 10000, sysdate, '회원가입', '적립');
+insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+values(point_history_seq.nextval, 'yuri', 10000, sysdate, '회원가입', '적립');
+insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+values(point_history_seq.nextval, 'jjin', 10000, sysdate, '회원가입', '적립');
+insert into point_history(point_history_no, member_id, point_value, point_date, point_content, point_type)
+values(point_history_seq.nextval, 'suck', 10000, sysdate, '회원가입', '적립');
