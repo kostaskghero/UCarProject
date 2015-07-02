@@ -69,6 +69,7 @@ public class ReservationController {
 			reservationVO=reservationService.findReturnInfoByReservationNo(reservationVO);
 		}
 		List<MemberVO> cardList=memberService.findCardInfoByMemberId(memberVO.getMemberId());
+		mv.addObject(viewId+"Info", reservationVO);
 		mv.addObject("cardListByMember",cardList);
 		mv.addObject("memberPoint",memberService.findPointByMemberId(memberVO.getMemberId()));
 		return mv;
