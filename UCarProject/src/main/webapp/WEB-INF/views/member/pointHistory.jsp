@@ -7,8 +7,8 @@
 	$(document).ready(function(){
 		$("#searchPeriod").change(function(){
 			location.href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod="+$(this).val();
-		})
-	})
+		});
+	});
 </script>
 <div class="jumbotron">
 현재 보유한 포인트 ${memberVO.memberPoint }점
@@ -58,39 +58,40 @@
 			</c:choose>
 		</tbody>
 	</table>
-	         		<br></br> 
-			<br><br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-             <div class="col-md-12">
-            <ul class="pager">
-              <li>
-                <c:if test="${pointList.pagingBean.previousPageGroup}">
-					 <a href=
-					 "${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.startPageOfPageGroup-1}">Prev</a>
-				 </c:if>
-				 &nbsp;&nbsp;
-              </li>
-              <li>
-		<c:forEach var="i" begin="${pointList.pagingBean.startPageOfPageGroup}" end="${pointList.pagingBean.endPageOfPageGroup}">
-							 <c:choose>
-							 <c:when test="${pointList.pagingBean.nowPage!=i}">
-							 <a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${i}">${i}</a>
-							 </c:when>
-							 <c:otherwise>
+	<br></br>
+	<br><br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<div class="col-md-12">
+		<ul class="pager">
+			<li>
+				<c:if test="${pointList.pagingBean.previousPageGroup}">
+					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.startPageOfPageGroup-1}">
+						Prev
+					</a>
+				</c:if>
+				&nbsp;&nbsp;
+			</li>
+			<li>
+				<c:forEach var="i" begin="${pointList.pagingBean.startPageOfPageGroup}" end="${pointList.pagingBean.endPageOfPageGroup}">
+					<c:choose>
+						<c:when test="${pointList.pagingBean.nowPage!=i}">
+							<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${i}">
+								${i}
+							</a>
+						</c:when>
+						<c:otherwise>
 							${i}
 						</c:otherwise>
-						</c:choose>
-					</c:forEach>	 
-					&nbsp;&nbsp;
-              </li>
-              <li>
-                <c:if test="${pointList.pagingBean.nextPageGroup}">
-	 			<a href=
-	 			"${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.endPageOfPageGroup+1}">
-					 Next
-	 				</a>
-	 			</c:if>	
-              </li>
-            </ul>
-          </div>
-	
+					</c:choose>
+				</c:forEach>
+				&nbsp;&nbsp;
+			</li>
+			<li>
+				<c:if test="${pointList.pagingBean.nextPageGroup}">
+					<a href="${initParam.root}auth_member_getPointListByMemberId.do?searchPeriod=${searchPeriod }&pointPageNo=${pointList.pagingBean.endPageOfPageGroup+1}">
+						Next
+					</a>
+				</c:if>
+			</li>
+		</ul>
+	</div>
 </div>

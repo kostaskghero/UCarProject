@@ -24,20 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="memberVO.memberId" column="member_id"/>
  	 	<result property="returnVO.drivingPrice" column="driving_price"/>
  	 	<result property="returnVO.mileage" column="mileage"/>
- 	 	<result property="returnVO.returnUcarZone" column="return_ucar_zone_name"/>
  	 	<result property="returnVO.realReturnDate" column="real_return_date"/>
  	 </resultMap>
  	<insert id="reservationCar" parameterType="rvo">
  		<selectKey keyProperty="reservationNo" resultType="int" order="BEFORE">
 			select sharing_reservation_seq.nextval from dual
 		</selectKey>
- 		insert into sharing_reservation(reservation_no, sharing_type, car_no, member_id, rental_price, rental_date, rental_ucar_zone_name, return_date, return_ucar_zone_name, reservation_date) 
- 		values(#{reservationNo}, #{sharingType}, #{carVO.carNo}, #{memberVO.memberId}, #{rentalPrice}, to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'), #{rentalUcarZoneName}, to_date(#{returnDate},'YYYY/MM/DD HH24:MI'), #{returnUcarZoneName}, sysdate)
+ 		insert into sharing_reservation(reservation_no, car_no, member_id, rental_price, rental_date, rental_ucar_zone_name, return_date, reservation_date) 
+ 		values(#{reservationNo}, #{carVO.carNo}, #{memberVO.memberId}, #{rentalPrice}, to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'), #{rentalUcarZoneName}, to_date(#{returnDate},'YYYY/MM/DD HH24:MI'), sysdate)
  	</insert>
  	<select id="findReservationInfoByReservationNo" resultMap="reservationRM">
  		select s.reservation_no, s.rental_price, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, c.ucar_zone_name, u.ucar_zone_address, 
  			c.car_model, to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
- 			ceil((s.return_date-s.rental_date)*24*60) as available_time, s.sharing_type
+ 			ceil((s.return_date-s.rental_date)*24*60) as available_time
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and c.car_model=m.car_model and reservation_no=#{value}
  	</select>
@@ -58,19 +57,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<select id="findReturnInfoByReservationNo" parameterType="int" resultMap="reservationRM">
-		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, r.return_ucar_zone_name,
+		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name,
 			u.ucar_zone_address, c.car_model, to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, 
 			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, ceil((s.return_date-s.rental_date)*24*60)+s.late_time as available_time, 
-			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date,  s.sharing_type, s.late_time, s.late_fee
+			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date, s.late_time, s.late_fee
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m, sharing_return r
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and r.reservation_no=s.reservation_no 
 			and c.car_model=m.car_model and r.reservation_no=#{value}
  	</select>
  	<select id="findExtensionInfoByReservationNo" parameterType="int" resultMap="reservationRM">
- 		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, r.return_ucar_zone_name,
+ 		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name,
 			u.ucar_zone_address, c.car_model, to_char(s.extension_date, 'YYYY/MM/DD DY HH24:MI') as return_date, s.extension_price,
 			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, ceil((s.extension_date-s.rental_date)*24*60)+s.late_time as available_time, 
-			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date,  s.sharing_type, s.late_time, s.late_fee
+			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date, s.late_time, s.late_fee
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m, sharing_return r
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and r.reservation_no=s.reservation_no 
 			and c.car_model=m.car_model and r.reservation_no=#{value}

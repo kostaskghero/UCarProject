@@ -11,6 +11,7 @@ create table member(
 	member_register_date date not null
 )
 select * from member;
+delete from member where member_id='java'
 -- admin
 insert into member(member_id, member_password, member_name, member_email, member_phone, member_level, member_register_date)
 values('admin','1234','관리자','ucar@gamil.com','01000000000', 2, sysdate);
@@ -38,7 +39,7 @@ create table driving_license(
 	license_issue_date date not null,
 	gender varchar2(50) not null,
 	license_birth date not null,
-	constraint fk_member_id foreign key(member_id) references member,
+	constraint fk_member_id foreign key(member_id) references member(member_id) on DELETE CASCADE,
 	constraint pk_member_id primary key(member_id)
 )
 select * from driving_license;
@@ -59,7 +60,7 @@ create table card(
 	card_expiration_date date not null,
 	card_password varchar2(50) not null,
 	card_birth date not null,
-	constraint fk_card_id foreign key(member_id) references member	
+	constraint fk_card_id foreign key(member_id) references member(member_id) on DELETE CASCADE	
 )
 select * from card;
 
@@ -128,7 +129,7 @@ create table point_history(
 	point_date date not null,
 	point_content varchar2(100) not null,
 	point_type varchar2(50) not null,
-	constraint fk_point_member_id foreign key (member_id) references member
+	constraint fk_point_member_id foreign key (member_id) references member(member_id) on DELETE CASCADE
 )
 select * from point_history;
 

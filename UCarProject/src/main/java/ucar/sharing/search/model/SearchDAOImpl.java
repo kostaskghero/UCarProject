@@ -42,7 +42,11 @@ public class SearchDAOImpl implements SearchDAO {
 
 	@Override
 	public List<UCarZoneVO> getMapInfo() {
-		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("ucarzone.getAllUCarZoneList");
+	}
+
+	@Override
+	public List<String> getAllCarOptionByCarModel(String carModel) {
+		return sqlSessionTemplate.selectList("search.getAllCarOptionByCarModel", carModel);
 	}
 }

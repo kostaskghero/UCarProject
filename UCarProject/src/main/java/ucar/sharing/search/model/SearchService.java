@@ -1,6 +1,5 @@
 package ucar.sharing.search.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ucar.car.model.UCarZoneVO;

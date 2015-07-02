@@ -1,6 +1,5 @@
 package ucar.sharing.reservation.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -70,10 +69,8 @@ public class ReservationController {
 			reservationVO=reservationService.findReturnInfoByReservationNo(reservationVO);
 		}
 		List<MemberVO> cardList=memberService.findCardInfoByMemberId(memberVO.getMemberId());
-		HashMap<String, Object> map=memberService.findPointAndCouponByMemberId(memberVO.getMemberId());
-		mv.addObject(viewId+"Info", reservationVO);
 		mv.addObject("cardListByMember",cardList);
-		mv.addObject("PointAndCoupon",map);
+		mv.addObject("memberPoint",memberService.findPointByMemberId(memberVO.getMemberId()));
 		return mv;
 	}
 }

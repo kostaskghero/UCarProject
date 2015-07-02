@@ -121,7 +121,7 @@ create table qna_board_reply(
    qna_ref number not null,
    qna_restep number default 0,
    qna_relevel number default 0,
-   constraint fk_qna_reply_member_id foreign key(qna_member_id) references member
+   constraint fk_qna_reply_member_id foreign key(qna_member_id) references member(member_id) on DELETE CASCADE
 )
 create sequence qna_board_reply_seq nocache;
 select * from qna_board_reply
@@ -137,7 +137,7 @@ create table notice_board(
    notice_member_id varchar2(50) not null,
    notice_content clob not null,
    notice_time_posted date not null,
-   constraint fk_notice_member_id foreign key(notice_member_id) references member
+   constraint fk_notice_member_id foreign key(notice_member_id) references member(member_id) on DELETE CASCADE
 )
 select * from notice_board
 

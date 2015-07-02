@@ -26,6 +26,7 @@ public class SearchServiceImpl implements SearchService {
 		for(int i=0; i<carList.size(); i++){
 			carList.get(i).setRentalDate(reservationVO.getRentalDate());
 			carList.get(i).setReturnDate(reservationVO.getReturnDate());
+			carList.get(i).getCarVO().getCarModelInfoVO().setCarOption(searchDAO.getAllCarOptionByCarModel(carList.get(i).getCarVO().getCarModelInfoVO().getCarModel()));
 			for(int j=0; j<scheduledCarList.size(); j++){
 				if(carList.get(i).getCarVO().getCarNo()==scheduledCarList.get(j)){
 					carList.get(i).getCarVO().setAvailable(false);

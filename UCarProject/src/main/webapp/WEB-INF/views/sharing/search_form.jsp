@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <!-- 자동완성 -->
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!-- 자동완성 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- 데이터 타임피커 -->
-<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css">
 <script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
 <style>
 	#searchForm {
@@ -20,7 +20,6 @@
 		padding: 5px 20px 13px 20px;
 		border-radius: 10px;
 	}
-
 </style> 
 <style type="text/css">   
 	html { height: 100% }   
@@ -29,7 +28,6 @@
 </style> 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-
 	$(document).ready(function(){
 		$("#carSearchBtn").click(function(){
 			if($("#ucarZoneNames").val()==""){
@@ -50,50 +48,51 @@
 							$("#ucarZoneNames").val("").focus();
 						} else{
 							var tableInfo="<table class='table table-hover' id='carTable'>";
-							tableInfo+="<thead><tr><th>유카존</th><th></th><th>차량</th><th>대여요금</th><th>주행요금</th><th></th></tr></thead>";
-							tableInfo+="<tbody>";
+							tableInfo+="<thead><tr><td class='info'>";
+							tableInfo+="<div class='col-md-1'><p class='text-center'><strong>유카존</strong></p></div>";
+							tableInfo+="<div class='col-md-2'></div>";
+							tableInfo+="<div class='col-md-6'><p class='text-center'><strong>차량정보</strong></p></div>";
+							tableInfo+="<div class='col-md-1'><p class='text-center'><strong>대여요금</strong></p></div>";
+							tableInfo+="<div class='col-md-1'><p class='text-center'><strong>주행요금</strong></p></div>";
+							tableInfo+="<div class='col-md-1'> </div>";
+							tableInfo+="</td></tr></thead><tbody>";
 							$.each(data, function(index, carList){
-								tableInfo+="<div id='"+carList.carVO.carNo+"Info'>";
-								tableInfo+="<tr><input type='hidden' name='selectCar' value='"+carList.carVO.carNo+"'>";	// car_no 를 넘겨야할듯?
-								tableInfo+="<td>"+carList.carVO.uCarZoneVO.uCarZoneName+"</td>";	// 유카존
-								tableInfo+="<td><img src='"+carList.carVO.carModelInfoVO.carPhoto+"'></td>";	// 차외관
-								tableInfo+="<td>"+carList.carVO.carModelInfoVO.carModel+" "+carList.carVO.carNickName+'     '+"<button type='button' class='btn btn-default' id='detailBtn' value='"+carList.carVO.carNo+"'>상세정보</button></td>";	// 차량정보(닫 : 모델명, 닉네임, 간략한 스케쥴 / 열 : 닫 + 유종, 옵션, 스케쥴 자세히)
-								tableInfo+="<td>"+carList.rentalPrice+"원</td>";	// 대여요금
-								tableInfo+="<td>"+carList.carVO.carModelInfoVO.drivingFee+"원/km</td>";	// 주행요금
+								tableInfo+="<tr><td><div class='row'>";
+								tableInfo+="<div class='col-md-1'><p class='text-center'>"+carList.carVO.uCarZoneVO.uCarZoneName+"</p></div>";
+								tableInfo+="<div class='col-md-2'><img src='"+carList.carVO.carModelInfoVO.carPhoto+"' alt='...' width='150' height='150'></div>";
+								tableInfo+="<div class='col-md-6'>";
+								tableInfo+="<div class='row'>";
+								tableInfo+="<div class='col-md-12' style='height: 50px'>";
+								tableInfo+=carList.carVO.carModelInfoVO.carModel+"  <strong>"+carList.carVO.carNickName+"</strong>";
+								tableInfo+="<p class='pull-right'>"+carList.carVO.carModelInfoVO.oilType+"  </p>";
+								tableInfo+="</div></div>";
+								tableInfo+="<div class='row'>";
+								tableInfo+="<div class='col-md-12' style='height: 50px'>";
+								tableInfo+="<strong>옵션</strong>";
+								$.each(carList.carVO.carModelInfoVO.carOption, function(index, carOption){
+									tableInfo+=" / "+carOption;
+								});
+								tableInfo+="</div></div>";
+								tableInfo+="<div class='row'>";
+								tableInfo+="<div class='col-md-12' style='height: 50px'>";
+								tableInfo+=carList.rentalDate+" ~ "+carList.returnDate;
+								tableInfo+="</div></div></div>";
+								tableInfo+="<div class='col-md-1 text-center'><p class='text-center'>"+carList.rentalPrice+" 원</p></div>";
+								tableInfo+="<div class='col-md-1 text-center'><p class='text-center'>"+carList.carVO.carModelInfoVO.drivingFee+" 원<br>(1km)</p></div>";
+								tableInfo+="<div class='col-md-1 text-center'>";
 								if(carList.carVO.available){	// true 이면 예약버튼 활성화 false 이면 예약버튼 비활성화
-									tableInfo+="<td>";
 									tableInfo+="<form method='post' action='${initParam.root}auth_reservation_reservationCar.do' id='"+carList.carVO.carNo+"Form'>";
-									tableInfo+="<input type='hidden' name='sharingType' value='왕복'>";
 									tableInfo+="<input type='hidden' name='rentalDate' value='"+carList.rentalDate+"'>";
 									tableInfo+="<input type='hidden' name='returnDate' value='"+carList.returnDate+"'>";
 									tableInfo+="<input type='hidden' name='memberId' value='${sessionScope.loginInfo.memberId}'>";
 									tableInfo+="<input type='hidden' name='carNo' value='"+carList.carVO.carNo+"'>";
 									tableInfo+="<input type='hidden' name='rentalPrice' value='"+carList.rentalPrice+"'>";
 									tableInfo+="<input type='hidden' name='rentalUcarZoneName' value='"+carList.carVO.uCarZoneVO.uCarZoneName+"'>";
-									tableInfo+="<input type='hidden' name='returnUcarZoneName' value='"+carList.carVO.uCarZoneVO.uCarZoneName+"'>";
-									tableInfo+="<button type='button' class='btn btn-default' id='reserveBtn' value='"+carList.carVO.carNo+"'>Reserve</button></form></td>";
+									tableInfo+="<button type='button' class='btn btn-default btn-sm' id='reserveBtn' value='"+carList.carVO.carNo+"'>Reserve</button></form>";
 								} else{
-									tableInfo+="<td><button type='button' class='btn btn-default disabled'>Reserve</button></td>";
+									tableInfo+="<button type='button' class='btn btn-default disabled btn-sm'>Reserve</button>";
 								}
-								tableInfo+="</tr></div>";
-								tableInfo+="<div class = 'col-md-10' id = 'detailView'><tr>";
-								tableInfo+="<td colspan = '9'  align = 'center'><p id = '"+carList.carVO.carNo+"'>"+carList.carVO.carModelInfoVO.carType+"</p></td></tr></span>";	//세부정보
-								/* tableInfo+="<div id='"+carList.carVO.carNo+"Detail'>";
-								tableInfo+="<tr><input type='hidden' name='selectCar' value='"+carList.carVO.carNo+"'>";
-								tableInfo+="<td rowspan='2'>6</td>";	// 유카존
-								tableInfo+="<td rowspan='2'>7</td>";	// 차외관
-								tableInfo+="<td>8</td>";	// 차량정보
-								tableInfo+="<td>9</td>";	// 대여요금
-								tableInfo+="<td>10</td>";	// 주행요금
-								if(carList.available){	// true 이면 예약버튼 활성화 false 이면 예약버튼 비활성화
-									tableInfo+="<td rowspan='2'><button type='button' class='btn btn-default'>Reserve</button></td>";
-								} else{
-									tableInfo+="<td rowspan='2'><button type='button' class='btn btn-default disabled'>Reserve</button></td>";
-								}
-								tableInfo+="</tr>";
-								tableInfo+="<tr>";
-								tableInfo+="<td colspan='3'>11</td>";
-								tableInfo+="</tr></div>"; */
+								tableInfo+="</div></div></td></tr>";
 							});
 							tableInfo+="</tbody></table>";
 							$("#carSearchResultView").html(tableInfo);
@@ -102,17 +101,6 @@
 				});
 			}
 		});
-		/* $("#carSearchResultView").on("click","#carTable tbody tr",function(){
-			alert($(this).children(":input[name=selectCar]").val());
-			$.ajax({
-				type:"post",
-				url:"${initParam.root}reservation_showDetailCarInfo.do",
-				data:"carNo="+$(this).children(":input[name=selectCar]").val(),
-				success:function(data){
-					alert(data);
-				}
-			});
-		}); */
 		$("#carSearchResultView").on("click","#reserveBtn",function(){
 			var formName="#"+$(this).val()+"Form";
 			$.ajax({
@@ -141,11 +129,6 @@
 			});
 			
 		});
-		$("#carSearchResultView").on("click","#detailBtn",function(){
-			detailName="#"+$(this).val();
-			 $(detailName).toggle(1000, function(){
-			}); 
-		});
 		$("#rentalDate").datetimepicker({
 			 	minDate: 0, 
 			 	ang:'ko',
@@ -173,22 +156,17 @@
 				});//ajax
 			}//source
 		});//autocomplete
-	});//read	alert("dddd:   "+$("#test").val()); 
+	});//read
 </script>
-
-<c:forEach items="${requestScope.mapDate.uCarZoneListLati } " var="Lati" varStatus="i">
-		<input type="hidden" value="${Lati }" id="${i.count}LatiValue">
+<c:forEach items="${ucarZoneList }" var="zoneInfo" varStatus="i">
+	<input type="hidden" value="${zoneInfo.latitude}" id="${i.count}UCarLati">
+	<input type="hidden" value="${zoneInfo.longitude}" id="${i.count}UCarLong">
+	<input type="hidden" value="${zoneInfo.uCarZoneName}" id="${i.count}UCarName">
 </c:forEach>
-<c:forEach items="${requestScope.mapDate.uCarZoneListLong } " var="Long" varStatus="i">
-	<input type="hidden" value="${Long }" id="${i.count}LongValue">
-</c:forEach>
-<c:forEach items="${requestScope.mapDate.uCarZoneListName } " var="Name" varStatus="i">
-<input type="hidden" value="${Name }" id="${i.count}NameValue">
-</c:forEach>
-
- <div class="section">
+<div class="section">
 	<div class="container">
 		<div class="row">
+<<<<<<< HEAD
 	  	<div class="col-md-5">
 			<form class="form-horizontal" role="form" id="searchForm">
 				<div class="form-group">
@@ -199,84 +177,162 @@
 				<div class="col-sm-5">
 					<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneName" placeholder="지역">
 				</div>
+=======
+		  	<div class="col-md-5">
+				<form class="form-horizontal" id="searchForm">
+					<fieldset>
+						<legend>유카찾기</legend>
+					</fieldset>	  		
+					<div class="form-group">
+						<div class="col-sm-3 col-sm-offset-2">
+							<label for="uCarZoneName" class="control-label">지역</label>
+						</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="uCarZoneNames" name="uCarZoneName" placeholder="지역" value="${realtimeSearchResult[0].carVO.uCarZoneVO.uCarZoneName }">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3 col-sm-offset-2" >
+							<label for="rentalDate" class="control-label">대여일</label>
+						</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="YYYY/MM/DD HH:MM" value="${realtimeSearchResult[0].rentalDate }">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3 col-sm-offset-2">
+							<label for="returnDate" class="control-label">반납일</label>
+						</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="returnDate" name="returnDate" placeholder="YYYY/MM/DD HH:MM" value="${realtimeSearchResult[0].returnDate }">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3 col-sm-offset-2">
+							<label for="carType" class="control-label">차종</label>
+						</div>
+						<div class="col-sm-5">
+							<select id="carModel" name="carModel" class="form-control">
+								<option value="all">전체차종</option>
+								<c:forEach items="${carModelList }" var="carModel">
+									<option value="${carModel }">${carModel }</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-7 col-sm-7">
+							<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
+						</div>
+					</div>
+				</form>
+>>>>>>> branch 'master' of https://github.com/kostaskghero/UCarProject.git
 			</div>
-			<div class="form-group">
-				<div class="col-sm-3 col-sm-offset-2" >
-					<label for="rentalDate" class="control-label">대여일</label>
-				</div>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="YYYY/MM/DD HH:MM">
-				</div>
+			<div class="col-md-4">
+				<div id="map_canvas" style="width:730px;height:500px;"></div>
 			</div>
-			<div class="form-group">
-				<div class="col-sm-3 col-sm-offset-2">
-					<label for="returnDate" class="control-label">반납일</label>
-				</div>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="returnDate" name="returnDate" placeholder="YYYY/MM/DD HH:MM">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-3 col-sm-offset-2">
-					<label for="carType" class="control-label">차종</label>
-				</div>
-				<div class="col-sm-4">
-					<select id="carModel" name="carModel">
-						<option value="all">전체차종</option>
-						<c:forEach items="${requestScope.mapDate.carModelList }" var="carModel">
-							<option value="${carModel }">${carModel }</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-7 col-sm-7">
-					<button type="button" class="btn btn-default" id="carSearchBtn">검색</button>
-				</div>
-			</div>
-			</form> 
-	      </div>
-	      <div class="col-md-4">
-          	   <div id="map_canvas" style="width:730px;height:500px;"></div>   
-		</div> 
 		</div>
-		<div class="col-md-12">
-			<hr>
-		</div>
+<br><br>
 		<!-- 검색결과 -->
 		<div class="col-md-12" id="carSearchResultView">
+			<c:if test="${fn:length(realtimeSearchResult)!=0 }">
+				<table class="table table-hover" id="carTable">
+					<thead>
+						<tr>
+							<td class="info">
+								<div class="col-md-1"><p class="text-center"><strong>유카존</strong></p></div>
+								<div class="col-md-2"></div>
+								<div class="col-md-6"><p class="text-center"><strong>차량정보</strong></p></div>
+								<div class="col-md-1"><p class="text-center"><strong>대여요금</strong></p></div>
+								<div class="col-md-1"><p class="text-center"><strong>주행요금</strong></p></div>
+								<div class="col-md-1"></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${realtimeSearchResult }" var="searchResult">
+							<tr>
+								<td>
+									<div class="row">
+										<div class="col-md-1"><p class="text-center">${searchResult.carVO.uCarZoneVO.uCarZoneName }</p></div>
+										<div class="col-md-2"><img src="${searchResult.carVO.carModelInfoVO.carPhoto}" alt="..." width="150" height="150"></div>
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-12" style="height: 50px">
+													${searchResult.carVO.carModelInfoVO.carModel }&nbsp;&nbsp;<strong>${searchResult.carVO.carNickName }</strong>
+													<p class="pull-right">${searchResult.carVO.carModelInfoVO.oilType }&nbsp;&nbsp;</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12" style="height: 50px">
+													<strong>옵션</strong> 
+													<c:forEach items="${searchResult.carVO.carModelInfoVO.carOption }" var="carOption">
+														/ ${carOption }&nbsp;
+													</c:forEach>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12" style="height: 50px">
+													${searchResult.rentalDate } ~ ${searchResult.returnDate }
+												</div>
+											</div>
+										</div>
+										<div class="col-md-1 text-center"><p class="text-center">${searchResult.rentalPrice } 원</p></div>
+										<div class="col-md-1 text-center"><p class="text-center">${searchResult.carVO.carModelInfoVO.drivingFee } 원<br>(1km)</p></div>
+										<div class="col-md-1 text-center">
+											<c:choose>
+												<c:when test="${searchResult.carVO.available }">
+													<form action="${initParam.root}auth_reservation_reservationCar.do" method="post" id="${searchResult.carVO.carNo }Form">
+														<input type="hidden" name="rentalDate" value="${searchResult.rentalDate }">
+														<input type="hidden" name="returnDate" value="${searchResult.returnDate }">
+														<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId}">
+														<input type="hidden" name="carNo" value="${searchResult.carVO.carNo }">
+														<input type="hidden" name="rentalPrice" value="${searchResult.rentalPrice }">
+														<input type="hidden" name="rentalUcarZoneName" value="${searchResult.carVO.uCarZoneVO.uCarZoneName }">
+														<button type="button" class="btn btn-default btn-sm" id="reserveBtn" value="${searchResult.carVO.carNo }">Reserve</button>
+													</form>
+												</c:when>
+												<c:otherwise>
+													<button type="button" class="btn btn-default btn-sm disabled">Reserve</button>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>						
+					</tbody>
+				</table>
+			</c:if>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-
-var map;
-var marker;
-var geocoder;
-var location;
-//지도에 찍을 위치정보를 저장함
-var locaTest =[];
-for(var i=0; i<50; i++) {
-	locaTest[i] = new google.maps.LatLng($("#"+i+"LatiValue").val(), $("#"+i+"LongValue").val());
-} 
-
-function initialize() {
-	var latlng = new google.maps.LatLng(37.5632667, 126.9798625);     
-	var myOptions = {       
-		zoom: 10,       
-		center: latlng,       
-		mapTypeId: google.maps.MapTypeId.ROADMAP     
-	};     
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
-	map.setTilt(45);
-	for(var i =0; i < locaTest.length; i++) {
-	   marker = new google.maps.Marker({
-		   position: locaTest[i],
-		   map : map
-		});   
-	   marker.setTitle((i + 1).toString());
-       attachSecretMessage(marker, i);
+	var map;
+	var marker;
+	var geocoder;
+	var location;
+	//지도에 찍을 위치정보를 저장함
+	var locaTest =[];
+	for(var i=0; i<50; i++) {
+		locaTest[i] = new google.maps.LatLng($("#"+i+"UCarLati").val(), $("#"+i+"UCarLong").val());
 	}
+	function initialize() {
+		var latlng = new google.maps.LatLng(37.5632667, 126.9798625);
+		var myOptions = {
+				zoom: 10,
+				center: latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP};
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		map.setTilt(45);
+		for(var i =0; i < locaTest.length; i++) {
+			marker = new google.maps.Marker({
+				position: locaTest[i],
+				map : map
+			});
+			marker.setTitle((i + 1).toString());
+			attachSecretMessage(marker, i);
+		}
   /*   // 지도클릭시 마커 생성
 	google.maps.event.addListener(map, 'click', function(event) {
 		marker = new google.maps.Marker({
@@ -285,22 +341,21 @@ function initialize() {
 		title: '위치마커'
 		});
 	}); */
-}
- //마커클릭시 정보
-function attachSecretMessage(marker, num) {
-	  var message = [];              
-	  for(var i =0; i<50; i++) {
-		  message[i] = $("#"+i+"NameValue").val();
-	  } 
-	  var infowindow = new google.maps.InfoWindow({
-	    content: message[num]
-	  });
-
-	  google.maps.event.addListener(marker, 'click', function() {
-	    infowindow.open(marker.get('map'), marker);
-	  });
 	}
-window.onload = function() {
-	initialize();
-} 
+	//마커클릭시 정보
+	function attachSecretMessage(marker, num) {
+		var message = [];
+		for(var i =0; i<50; i++) {
+			message[i] = $("#"+i+"UCarName").val();
+		}
+		var infowindow = new google.maps.InfoWindow({
+			content: message[num]
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(marker.get('map'), marker);
+		});
+	}
+	window.onload = function() {
+		initialize();
+	};
 </script> 
