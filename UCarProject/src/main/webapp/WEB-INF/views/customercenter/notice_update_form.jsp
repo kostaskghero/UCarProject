@@ -4,7 +4,7 @@
     <script type="text/javascript" src="${initParam.root}resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#noticeWrite").click(function(){
+		$("#noticeUpdate").click(function(){
 			obj.getById["noticeContent"].exec("UPDATE_CONTENTS_FIELD", []);
 			if($("#noticeTitle").val()==""){
 				alert("제목을 입력하세요!");
@@ -13,7 +13,7 @@
 				alert("내용을 입력하세요!");
 				return false;
 			}
-			$("#noticeWriteForm").submit();
+			$("#noticeUpdateForm").submit();
 		});
 		$("#noticeCancel").click(function(){
 			location.href = "${initParam.root }customercenter_home_notice.do";
@@ -23,7 +23,7 @@
 
 <c:choose>
 <c:when test="${sessionScope.admin!=null }">
-<form class="form-horizontal" method="post" action="${initParam.root }admin_notice_write.do" id="noticeWriteForm" enctype="multipart/form-data">
+<form class="form-horizontal" method="post" action="${initParam.root }admin_notice_update.do" id="noticeUpdateForm" enctype="multipart/form-data">
    <fieldset>
     <legend>공지사항 글쓰기</legend>
     <div class="form-group">
@@ -35,19 +35,20 @@
     <div class="form-group">
       <label for="inputTitle" class="col-lg-2 control-label">제목</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력하세요">
+        <input type="text" class="form-control" id="noticeTitle" name="noticeTitle" value="${bvo.noticeTitle}">
       </div>
     </div>
     <div class="form-group">
       <label for="inputContent" class="col-lg-2 control-label">내용</label>
       <div class="col-lg-10">
-       <textarea rows="24" style="width:100%;"name="noticeContent" id="noticeContent"></textarea>
+       <textarea rows="24" style="width:100%;"name="noticeContent" id="noticeContent" value="${bvo.noticeContent}"></textarea>
+      <input type="hidden" value="${bvo.noticeNo}" name="noticeNo" id="noticeNo">
       </div>
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default"  id = "noticeCancel">취소</button>
-          <button type="button" class="btn btn-primary" id ="noticeWrite">작성</button>
+          <button type="button" class="btn btn-primary" id ="noticeUpdate">수정</button>
       </div>
     </div>
   </fieldset>

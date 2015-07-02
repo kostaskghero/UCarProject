@@ -23,7 +23,7 @@
 <c:when test="${sessionScope.loginInfo!=null ||sessionScope.admin!=null }">
 <form class="form-horizontal" method="post" action="${initParam.root }qna_register.do" id="inquiretypeForm">
    <fieldset>
-    <legend>1:1 문의 게시판</legend>
+    <legend>1:1 문의 하기</legend>
     <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
       <div class="col-lg-5">
@@ -68,8 +68,9 @@
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Cancel</button>
+       
+        <button type="reset" class="btn btn-default">취소</button>
+         <button type="submit" class="btn btn-primary">작성</button>
       </div>
     </div>
   </fieldset>
