@@ -160,8 +160,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <div class="form-group" >
       <div class="col-lg-10 col-lg-offset-3">
         <button type="button" class="btn btn-primary btn-sm" id="memberLogin" >Login</button>
-        <a href="${initParam.root }member_findMemberIdForm.do?carModel=${carVO.carModel}" class="btn btn-primary btn-sm" role="button">FindId</a>
-        <a href="${initParam.root }member_findMemberPasswordForm.do?carModel=${carVO.carModel}" class="btn btn-primary btn-sm" role="button">FindId</a>
+      <a href="${initParam.root }member_findMemberIdForm.do" class="btn btn-primary" role="button">FindId</a>
+        <a href="${initParam.root }member_findMemberPasswordForm.do" class="btn btn-primary" role="button">FindPassword</a>
       </div>
     </div>
   </fieldset>
