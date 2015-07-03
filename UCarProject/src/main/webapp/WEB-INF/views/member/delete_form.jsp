@@ -3,9 +3,9 @@
 <script>
 	$(document).ready(function(){
 		$("#deleteBtn").click(function(){
-			if($("#memberPassword").val()==""){
+			if($("#memberPassworddds").val()==""){
 				alert("비밀번호 입력하세요!");
-				$("#memberPassword").focus();
+				$("#memberPassworddds").focus();
 				return false;
 			} else{
 				$.ajax({
@@ -17,7 +17,7 @@
 							location.href="${initParam.root}member_logout.do";
 						} else if(data=="fail"){
 							alert("비밀번호가 일치하지 않습니다!");
-							$("#memberPassword").val("").focus();
+							$("#memberPassworddds").val("").focus();
 						} else {
 							location.href="${initParam.root}member_login.do";
 						}
@@ -40,7 +40,7 @@
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-6">
-        <input type="password" class="form-control" name="memberPassword" id="memberPassword" placeholder="비밀번호">
+        <input type="password" class="form-control" name="memberPassworddds" id="memberPassword" placeholder="비밀번호">
       </div>      
     </div>
     <div class="form-group" >
