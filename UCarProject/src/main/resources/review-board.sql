@@ -10,6 +10,7 @@ create table review(
    review_time_posted date not null,
    review_hit number default 0 not null
 )
+
 -- 이용후기댓글
 drop table review_comment;
 drop sequence review_comment_seq;
@@ -42,3 +43,4 @@ review_no number not null,
 file_path varchar2(200) not null,
 constraint review_no_fk foreign key(review_no) references review(review_no) on DELETE CASCADE 
 )
+

@@ -69,57 +69,55 @@ $(function(){
 					<div class="carousel-inner">
 						<!-- slide image 1 -->
 						<div class="active item" id="img_slide" align="center" >
-							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[0].reviewNo }">														
-									<c:choose>
+								<div class = "col-md-8 col-md-offset-1" >									
+									<c:choose>		
 										<c:when test="${bestList[0].reviewFileVO !=null }">
-											<img src="${bestList[0].reviewFileVO.filePath }" alt="..." width="250" height="200">
+											<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[0].reviewNo }">	
+											<img src="${bestList[0].reviewFileVO.filePath }" width="250" height="200"></a>		
 										</c:when>
 										<c:otherwise>
 											<img src="${initParam.root }/img/logo.jpg" width="250" height="200">
 										</c:otherwise>
 									</c:choose>
-								<div class="caption">
-									<h2>${bestList[0].reviewTitle }</h2>
-									<p>작성자 : ${bestList[0].memberId} 추천수 : ${bestList[0].reviewLikeCount}</p>
+									<h3>${bestList[0].reviewTitle }</h3>
+									<p>작성자 : ${bestList[0].memberId} <br>추천수 : ${bestList[0].reviewLikeCount}</p>				
 								</div>
-							</a>							
 						</div>
 						<!-- slide image 2 -->
 						<div class="item" id="img_slide" align="center" >
-							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[1].reviewNo }">
+						<div class = "col-md-8 col-md-offset-1" >
 									<c:choose>
-										<c:when test="${bestList[1].reviewFileVO !=null }">
-											<img src="${bestList[1].reviewFileVO.filePath }" width="250" height="200">
+										<c:when test="${bestList[1].reviewFileVO !=null }">	
+											<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[1].reviewNo }">
+											<img src="${bestList[1].reviewFileVO.filePath }" width="250" height="200"></a>
 										</c:when>
 										<c:otherwise>
 											<img src="${initParam.root }/img/logo.jpg" width="250" height="200">
 										</c:otherwise>
 									</c:choose>
 								<div class="caption">
-									<h2>${bestList[1].reviewTitle }</h2>
-									<p>작성자 : ${bestList[1].memberId} 추천수 : ${bestList[1].reviewLikeCount}</p>
+									<h3>${bestList[1].reviewTitle }</h3>
+									<p>작성자 : ${bestList[1].memberId} <br>추천수 : ${bestList[1].reviewLikeCount}</p>
 								</div>
-							</a>
+							</div>
 						</div>
 						<!-- slide image 3 -->
 						<div class="item" id="img_slide" align="center" >
-							<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[2].reviewNo }">
+						<div class = "col-md-8 col-md-offset-1" >
 									<c:choose>
 										<c:when test="${bestList[2].reviewFileVO !=null }">
-											<img src="${bestList[2].reviewFileVO.filePath }" width="250" height="200">
+										<a href="${initParam.root }review_showContent.do?reviewNo=${bestList[2].reviewNo }">
+											<img src="${bestList[2].reviewFileVO.filePath }" width="250" height="200"></a>
 										</c:when>
 										<c:otherwise>
 											<img src="${initParam.root }/img/logo.jpg"  width="250" height="200">
 										</c:otherwise>
 									</c:choose>
-								<div class="caption">
-									<h2>${bestList[2].reviewTitle }</h2>
-									<p>작성자 : ${bestList[2].memberId} 추천수 : ${bestList[2].reviewLikeCount}</p>
-								</div>
-							</a>
+									<h3>${bestList[2].reviewTitle }</h3>
+									<p>작성자 : ${bestList[2].memberId} <br>추천수 : ${bestList[2].reviewLikeCount}</p>
+							</div>
 						</div>
-					</div>
-					
+					</div>			
 				</div>
 			</div>
 			<!-- UCar garage -->
