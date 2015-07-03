@@ -67,21 +67,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 			if($("#memberId").val()==""){
 				alert("아이디 입력하세요!");
 				$("#memberId").focus();
-			} else if($("#memberPassword").val()==""){
+			} else if($("#memberPassworddds").val()==""){
 				alert("패스워드 입력하세요!");
-				$("#memberPassword").focus();
+				$("#memberPassworddds").focus();
 			} else{
 				$.ajax({
 					type:"post",
 					url:"${initParam.root}member_login.do",
-					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassword").val(),
+					data:"memberId="+$("#memberId").val()+"&memberPassword="+$("#memberPassworddds").val(),
 					success:function(data){
 						if(data.flag=="ok"){
 							location.href="${initParam.root}home.do";
 						} else{
 							alert("로그인실패");
 							$("#memberId").val("");
-							$("#memberPassword").val("");
+							$("#memberPassworddds").val("");
 						}
 					}
 				});
@@ -154,7 +154,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 col-lg-offset-2 control-label">Password</label>
       <div class="col-lg-6">
-        <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호">
+        <input type="password" class="form-control" id="memberPassworddds" name="memberPassword" placeholder="비밀번호">
       </div>      
     </div>
     <div class="form-group" >
