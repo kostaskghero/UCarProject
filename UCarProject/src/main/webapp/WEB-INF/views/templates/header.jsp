@@ -146,22 +146,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   <fieldset>
     <legend>로그인</legend>
     <div class="form-group">
-      <label for="inputMemberId" class="col-lg-2 col-lg-offset-1 control-label">Id</label>
+      <label for="inputMemberId" class="col-lg-2 col-lg-offset-2 control-label">Id</label>
       <div class="col-lg-6">
         <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputPassword" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
+      <label for="inputPassword" class="col-lg-2 col-lg-offset-2 control-label">Password</label>
       <div class="col-lg-6">
         <input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호">
       </div>      
     </div>
     <div class="form-group" >
-      <div class="col-lg-10 col-lg-offset-3">
+      <div class="col-lg-10 col-lg-offset-5">
         <button type="button" class="btn btn-primary btn-sm" id="memberLogin" >Login</button>
-      <a href="${initParam.root }member_findMemberId_form.do" class="btn btn-primary btn-sm">FindId</a>
-        <a href="${initParam.root }member_findMemberPassword_form.do" class="btn btn-primary btn-sm" >FindPassword</a>
+      	<br>
+      </div>
+      <div class="col-lg-10 col-lg-offset-2">
+      <br>
+      <a href="${initParam.root }member_register_form.do">회원가입</a>&nbsp;|
+      <a href="${initParam.root }member_findMemberId_form.do" >아이디찾기</a>&nbsp;|
+      <a href="${initParam.root }member_findMemberPassword_form.do"  >패스워드찾기</a>
       </div>
     </div>
   </fieldset>
