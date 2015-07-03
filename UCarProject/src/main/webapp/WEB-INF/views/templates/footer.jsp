@@ -5,10 +5,6 @@
 <!-- 	<div class="container" >  -->
 		<div class="row"> 
 			<div class="col-sm-12" > 
-				<div class="btn-group" >
-					&nbsp;&nbsp;<a href="#" class="btn btn-default">조 소개</a>
-					&nbsp;&nbsp;<a href="#" class="btn btn-default">만든소감</a>
-				</div>
 				<br><br>
 				<font color ="#ffffff">&nbsp;&nbsp;경기도 성남시 분당구 삼평동 대왕판교로 670길(구 682번지) 유스페이스2  B동 8층 세미나룸<br>
 				&nbsp;&nbsp;Copyright(C) 4-In-One All rights reserved.

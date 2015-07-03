@@ -25,19 +25,19 @@
    <fieldset>
     <legend>1:1 문의 하기</legend>
     <div class="form-group">
-      <label for="inputMemberId" class="col-lg-2 control-label">Id</label>
+      <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-5">
         <input type="text" class="form-control" id="qnamemberId" name="qnamemberId" value="${sessionScope.loginInfo.memberId }" readonly="readonly">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+      <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
       <div class="col-lg-5">
         <input type="text" class="form-control" id="memberEmail" name="memberEmail" value="${sessionScope.loginInfo.memberEmail }" readonly="readonly">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
+      <label for="inputPhone" class="col-lg-2 control-label">핸드폰</label>
       <div class="col-lg-5">
         <input type="text" class="form-control" id="memberPhone" name="memberPhone" value="${sessionScope.loginInfo.memberPhone }" readonly="readonly">
       </div>
@@ -54,9 +54,12 @@
       <div class="col-lg-2">
         <select class="form-control" id="categoryType">
         	<option value="">문의유형</option>
-        		<option value="payment">결제</option>
-        		<option value="usecar">차이용</option>
-        		<option value="accident">사고</option>
+        	<option value="예약/결제문의">예약/결제문의</option>
+        		<option value="가입문의">가입문의</option>
+        		<option value="차량이용/사고">차량이용/사고</option>
+        		<option value="불편접수/건의">불편접수/건의</option>
+        		<option value="탈퇴">탈퇴</option>
+        		<option value="기타">기타</option>
         </select>
    	 </div>
     </div>

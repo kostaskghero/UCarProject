@@ -18,7 +18,7 @@
 </script>
 <form class="form-horizontal" method="post" action="admin_notice_update.do" id="noticeWriteForm">
 	 <fieldset>
-    <legend>공지 사항 글 수정</legend>
+    <legend>공지 사항</legend>
      <div class="form-group">
       <label for="inputMemberId" class="col-lg-2 control-label">아이디</label>
       <div class="col-lg-8">

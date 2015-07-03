@@ -13,36 +13,36 @@ create table member(
 select * from member;
 delete from member where member_id='java'
 -- admin
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_level, member_register_date)
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_level,member_register_date)
 values('admin','1234','관리자','ucar@gamil.com','01000000000', 2, sysdate);
 -- member
 -- 면허등록, 카드1개등록
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('java', '1234', '박서준', 'java@ucar.com', '01011111111', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('java', '1234', '박서준', 'java@ucar.com', '01011111111', 10000, sysdate);
 -- 면허등록
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('hee', '1234', '유경희', 'hee@giveticon.com', '01067296875', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('hee', '1234', '유경희', 'hee@giveticon.com', '01067296875',  10000, sysdate);
 -- 카드3개등록
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('minions', '1234', '케빈', 'banana@mini.com', '01029386763', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('minions', '1234', '케빈', 'banana@mini.com', '01029386763', 10000, sysdate);
 -- 면허등록, 카드2개등록
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('bobbob', '1234', '밥', 'bobbob@mini.com', '01000000000', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone, member_point,  member_register_date)
+values('bobbob', '1234', '밥', 'bobbob@mini.com', '01000000000', 10000, sysdate);
 -- 면허등록, 카드2개등록
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('gnfkqhsh', '1234', '후노', 'hohoho@mini.com', '01032930583', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('gnfkqhsh', '1234', '후노', 'hohoho@mini.com', '01032930583', 10000, sysdate);
 
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('mist', '1234', '킨킨', 'kaka@mini.com', '01036271958', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('mist', '1234', '킨킨', 'kaka@mini.com', '01036271958', 10000, sysdate);
 
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('yuri', '1234', '이유리', 'yuri@mini.com', '01036271958', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('yuri', '1234', '이유리', 'yuri@mini.com', '01036271958', 10000, sysdate);
 
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('jjin', '1234', '이진욱', 'jjin@mini.com', '01036271958', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('jjin', '1234', '이진욱', 'jjin@mini.com', '01036271958', 10000, sysdate);
 
-insert into member(member_id, member_password, member_name, member_email, member_phone, member_register_date)
-values('suck', '1234', '유연석', 'suck@mini.com', '01036271958', sysdate);
+insert into member(member_id, member_password, member_name, member_email, member_phone,  member_point, member_register_date)
+values('suck', '1234', '유연석', 'suck@mini.com', '01036271958', 10000, sysdate);
 	
 -- 면허정보
 drop table driving_license;
