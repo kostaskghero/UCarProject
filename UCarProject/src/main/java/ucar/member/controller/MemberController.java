@@ -65,7 +65,7 @@ public class MemberController {
 	public String logoutMember(HttpServletRequest request){
 		HttpSession session=request.getSession();
 		session.invalidate();
-		return "home";
+		return "redirect:home.do";
 	}
 	/**
 	 * 회원가입 id 중복체크와 길이체크를 한다.
