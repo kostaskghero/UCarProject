@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- 
-	갱신기간 만료일, 면허 발급일, 유효기간, 면허생년월일(6자리) 체크해야함
-	갱신기간 만료일, 면허 발급일, 카드유효기간이 현재 날짜 이전인지 이후인지 체크. 이전이면 안됨
-	면허생년월일로 만 21세 이상인지 체크.
-	select 로 보여주는 날짜가 동적으로 보여져야함.
-	숫자로 입력해야 하는건 숫자만 입력되어 있는지 체크
- -->
+<link rel="stylesheet" href="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.css"> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="//cdn.rawgit.com/xdan/datetimepicker/master/jquery.datetimepicker.js"></script> 
 <script>
 	$(document).ready(function(){
 		$("#registerLicenseForm").submit(function(){
@@ -17,13 +13,13 @@
 			} else if($("#licenseNo1").val()=="" || $("#licenseNo2").val()=="" || $("#licenseNo3").val()==""){
 				alert("면허번호 입력하세요!");
 				return false;
-			} else if($("#licenseRenewalTermYear").val()=="" || $("#licenseRenewalTermMonth").val()=="" || $("#licenseRenewalTermDay").val()==""){
+			} else if($("#licenseRenewalTerm").val()==""){
 				alert("갱신기간 만료일 선택하세요!");
 				return false;
-			} else if($("#licenseIssueDateYear").val()=="" || $("#licenseIssueDateMonth").val()=="" || $("#licenseIssueDateDay").val()==""){
+			} else if($("#licenseIssueDate").val()==""){
 				alert("면허발급일 선택하세요!");
 				return false;
-			} else if($("#licenseBirthYear").val()=="" || $("#licenseBirthMonth").val()=="" || $("#licenseBirthDay").val()==""){
+			} else if($("#licenseBirth").val()==""){
 				alert("생년월일 선택하세요!");
 				return false;
 			} else if($(":radio[name=gender]:checked").length==0){
@@ -34,9 +30,26 @@
 				return false;
 			}
 			$("#licenseNo").val($("#licenseLocation").val()+" "+$("#licenseNo1").val()+"-"+$("#licenseNo2").val()+"-"+$("#licenseNo3").val());
-			$("#licenseRenewalTerm").val($("#licenseRenewalTermYear").val()+"/"+$("#licenseRenewalTermMonth").val()+"/"+$("#licenseRenewalTermDay").val());
-			$("#licenseIssueDate").val($("#licenseIssueDateYear").val()+"/"+$("#licenseIssueDateMonth").val()+"/"+$("#licenseIssueDateDay").val());
-			$("#licenseBirth").val($("#licenseBirthYear").val()+"/"+$("#licenseBirthMonth").val()+"/"+$("#licenseBirthDay").val());
+		});
+		$("#licenseRenewalTerm").datetimepicker({
+			minDate: 0,
+			ang:'ko',
+			format:'Y/m/d',
+			timepicker: false
+		});
+		$("#licenseIssueDate").datetimepicker({
+			maxDate: 0,
+			startDate:'1960/01/01',
+			ang:'ko',
+			format:'Y/m/d',
+			timepicker: false
+		});
+		$("#licenseBirth").datetimepicker({
+			maxDate: 0,
+			startDate:'1980/07/03',
+			ang:'ko',
+			format:'Y/m/d',
+			timepicker: false
 		});
 	});
 </script>
@@ -47,8 +60,6 @@
 	<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId }">
 	<div class ="row">
 	 <div class="col-md-12">	
-		<h4>운전면허</h4>
-		<hr>
 		<div class = "col-md -5">
 			<label for="carModel" class="col-lg-1 control-label">면허종류</label>
 		</div>
@@ -69,87 +80,28 @@
 				<option value="${location }">${location } </option>
 			</c:forEach>
 		</select>
-		<input type="text" name="licenseNo1" id="licenseNo1">&nbsp;&nbsp;<input type="text" name="licenseNo2" id="licenseNo2">&nbsp;&nbsp;<input type="text" name="licenseNo3" id="licenseNo3">
+		<input type="text" name="licenseNo1" maxlength="2" id="licenseNo1">&nbsp;&nbsp;<input type="text" maxlength="6" name="licenseNo2" id="licenseNo2">&nbsp;&nbsp;<input type="text" maxlength="2" name="licenseNo3" id="licenseNo3">
 		*지역란 숫자선택 가능 
 		</div>	
 		<div class="col-md-12">	
 			<br>
 			<div class = "col-md -5">
 			<label for="carModel" class="col-lg-1 control-label">갱신기간 만료일</label>	
-				<input type="hidden" id="licenseRenewalTerm" name="licenseRenewalTerm" value="">
-				<!-- 1945년 1월 1일부터 2030년 12월 31일까지/ 월별로 날짜 달라짐 -->
-					<select id="licenseRenewalTermYear">
-						<option value="">년</option>
-						<c:forEach begin="1945" end="2030" step="1" var="year">
-						<option value=${year }>${year }년</option>	
-					</c:forEach>
-				</select>
-		<select id="licenseRenewalTermMonth">
-			<option value="">월</option>
-			<c:forEach begin="1" end="12" step="1" var="month">
-				<option value=${month }>${month }월</option>	
-			</c:forEach>			
-		</select>
-		<select id="licenseRenewalTermDay">
-			<option value="">일</option>
-			<c:forEach begin="1" end="31" step="1" var="day">
-				<option value="${day }">${day }일</option>
-			</c:forEach>
-		</select>
+			<input type="text" id="licenseRenewalTerm" name="licenseRenewalTerm" value="">
 		</div>
 		</div>
 		<div class="col-md-12">	
 			<br>
 			<div class = "col-md -5">
-			<label for="carModel" class="col-lg-1 control-label">	면허 발급일</label>	
-
-		<input type="hidden" id="licenseIssueDate" name="licenseIssueDate" value="">
-		<!-- 1945년 1월 1일부터 현재날짜까지/ 월별로 날짜 달라짐 -->
-		<select id="licenseIssueDateYear">
-			<option value="">년</option>
-			<c:forEach begin="1945" end="2015" step="1" var="year">
-				<option value=${year }>${year }년</option>	
-			</c:forEach>
-		</select>
-		<select id="licenseIssueDateMonth">
-			<option value="">월</option>
-			<c:forEach begin="1" end="12" step="1" var="month">
-				<option value=${month }>${month }월</option>	
-			</c:forEach>			
-		</select>
-		<select id="licenseIssueDateDay">
-			<option value="">일</option>
-			<c:forEach begin="1" end="31" step="1" var="day">
-				<option value="${day }">${day }일</option>
-			</c:forEach>
-		</select>
+			<label for="carModel" class="col-lg-1 control-label">	면허 발급일</label>
+		<input type="text" id="licenseIssueDate" name="licenseIssueDate" value="">
 		</div>
 		</div>
 		<div class="col-md-12">	
 			<br>
 			<div class = "col-md -5">
 			<label for="carModel" class="col-lg-1 control-label">생년월일</label>	
-	
-		<input type="hidden" id="licenseBirth" name="licenseBirth" value="">
-		<!-- 1930년 1월 1일부터 1994년 현재날짜까지/ 월별로 날짜 달라짐 -->
-		<select id="licenseBirthYear">
-			<option value="">년</option>
-			<c:forEach begin="1945" end="2015" step="1" var="year">
-				<option value=${year }>${year }년</option>	
-			</c:forEach>
-		</select>
-		<select id="licenseBirthMonth">
-			<option value="">월</option>
-			<c:forEach begin="1" end="12" step="1" var="month">
-				<option value=${month }>${month }월</option>	
-			</c:forEach>			
-		</select>
-		<select id="licenseBirthDay">
-			<option value="">일</option>
-			<c:forEach begin="1" end="31" step="1" var="day">
-				<option value="${day }">${day }일</option>
-			</c:forEach>
-		</select>
+		<input type="text" id="licenseBirth" name="licenseBirth" value="">
 		</div>
 		</div>
 		<div class="col-md-12">	
@@ -166,23 +118,10 @@
 		</div>
 	</div>
 	<hr>
-	<div class="col-md-12">	
-		<br>
-		<div class = "col-md -12 col-md-offset-8">
-	<input type="submit" value="등록">
-	</div>
-	</div>
+	<div class="form-group" >
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary">등록</button>
+      </div>
+    </div>
 </form>
-	</div>
-	<div class="col-md-12">	
-	<br>
-	<div class = "col-md -12 col-md-offset-10">
-	<a href="${initParam.root }auth_member_registerCard_form.do">결제카드등록</a><br>
-	</div>
-	</div>
-	<div class="col-md-12">	
-	<div class = "col-md -12 col-md-offset-10">
-	<a href="${initParam.root }auth_member_myPage.do">마이페이지</a><br>
-	</div>
-	</div> 
-
+</div>
