@@ -41,7 +41,7 @@
     <div class="form-group">
       <label for="inputContent" class="col-lg-2 control-label">내용</label>
       <div class="col-lg-10">
-       <textarea rows="24" style="width:100%;"name="noticeContent" id="noticeContent" value="${bvo.noticeContent}"></textarea>
+       <textarea rows="24" style="width:100%;"name="noticeContent" id="noticeContent" >${bvo.noticeContent}</textarea>
       <input type="hidden" value="${bvo.noticeNo}" name="noticeNo" id="noticeNo">
       </div>
     </div>

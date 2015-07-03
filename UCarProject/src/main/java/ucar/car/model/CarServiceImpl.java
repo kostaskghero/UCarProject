@@ -200,11 +200,13 @@ public class CarServiceImpl implements CarService {
 	 carDAO.deleteCarOption(carModel);
 	}
 	
-	@Override
 	@Transactional
 	public void registerCarModelAndOption(CarModelInfoVO carModelInfoVO,
 			CarPicVO carPicVO, CarOptionVO carOptionVO) {
-
+		System.out.println("service");
+		System.out.println(carModelInfoVO);
+		System.out.println(carOptionVO);
+		System.out.println(carPicVO);
 		carDAO.registerCarModel(carModelInfoVO);
 		if (carOptionVO.getOptionComp() != null
 				|| carOptionVO.getOptionInfo().size() != 0) {
@@ -223,17 +225,15 @@ public class CarServiceImpl implements CarService {
 	      }
 		if (!fileOriginalName.equals("")) {
 			try {
-				fileName = viewCarPath + System.currentTimeMillis()
+				fileName = System.currentTimeMillis()
 						+ fileOriginalName;
-				file.transferTo(new File(uploadCarPicPath
-						+ System.currentTimeMillis() + fileOriginalName));
-				System.out.println(new File(uploadCarPicPath
-						+ System.currentTimeMillis() + fileOriginalName));
-				System.out.println("fileupload ok:" + fileName);
+			
 				carPicVO.setOriginalName(fileOriginalName);
-				carPicVO.setFilePath(fileName);
+				carPicVO.setFilePath(viewCarPath+fileName);
 				carDAO.registerCarPic(carPicVO);
-
+				file.transferTo(new File(uploadCarPicPath
+						+ fileName));
+				System.out.println("fileupload ok:" + fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

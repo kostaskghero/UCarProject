@@ -301,7 +301,7 @@
 	var location;
 	//지도에 찍을 위치정보를 저장함
 	var locaTest =[];
-	for(var i=0; i<50; i++) {
+	for(var i=0; i<200; i++) {
 		locaTest[i] = new google.maps.LatLng($("#"+i+"UCarLati").val(), $("#"+i+"UCarLong").val());
 	}
 	function initialize() {
@@ -332,7 +332,7 @@
 	//마커클릭시 정보
 	function attachSecretMessage(marker, num) {
 		var message = [];
-		for(var i =0; i<50; i++) {
+		for(var i =0; i<200; i++) {
 			message[i] = $("#"+i+"UCarName").val();
 		}
 		var infowindow = new google.maps.InfoWindow({
