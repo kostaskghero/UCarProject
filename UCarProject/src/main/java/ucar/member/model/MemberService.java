@@ -43,4 +43,6 @@ public interface MemberService {
 	
 	public MemberVO findMemberPassword(MemberVO vo);
 
+	public void deleteCardByCardNo(String cardNo);
+
 }

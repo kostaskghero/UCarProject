@@ -143,4 +143,8 @@ public class MemberServiceImpl implements MemberService {
 	      System.out.println("패스워드 찾기 서비스");
 	      return memberDAO.findMemberPassword(memberVO);
 	   }
+	@Override
+	public void deleteCardByCardNo(String cardNo) {
+		memberDAO.deleteCard(cardNo);
+	}
 }

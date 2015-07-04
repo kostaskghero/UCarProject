@@ -18,6 +18,11 @@
 				}
 			});
 		});
+		$(":input[name=deleteBtn]").click(function(){
+			var cardNo=$("#"+$(this).val()+"CardInfo").children().children().eq(1).children().eq(1).text();
+			alert(cardNo);
+			location.href="${initParam.root}auth_member_deleteCard.do?cardNo="+cardNo+"&memberId=${sessionScope.loginInfo.memberId}";
+		});
 	});
 </script>
 <h4>등록된 카드 정보</h4>
@@ -25,10 +30,12 @@
 <c:choose>
 	<c:when test="${fn:length(info)!=0}">
 		<c:forEach items="${info }" var="cardInfo" varStatus="i">
-			<h5>결제카드${i.count }</h5>
+			<strong>결제카드${i.count }</strong>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" class="btn btn-default btn-xs" name="deleteBtn" value="${i.count }">삭제</button>
 			<div class="container">
 				<div class="col-md-9">
-					<table class="table">
+					<table class="table" id="${i.count }CardInfo">
 						<tbody>
 							<tr>
 								<td>카드종류</td>

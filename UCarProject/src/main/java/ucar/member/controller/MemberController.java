@@ -27,11 +27,15 @@ import ucar.member.model.MemberVO;
 public class MemberController {
 	@Resource
 	private MemberService memberService;
+	
 	/**
-	 * 로그인 폼에서 입력받은 memberVO (memberId 와 memberPassword) 로 로그인
+	 * 로그인
+	 * 로그인 폼에서 입력받은 memberVO (memberId 와 memberPassword) 로 로그인한다.
+	 * memberId 가 회원일 경우 session 에 회원 정보를 loginInfo 로 세팅하고
+	 * memberId 가 관리자일 경우 session 에 관리자 정보를 admin 으로 세팅한다.
 	 * 로그인 결과는 Ajax 로 응답하고
-	 * 로그인 성공하면 flag 에 ok 를 실어서 보내고 main 페이지로 이동
-	 * 로그인 실패하면 flag 에 fail 을 실어서 보내고 login_form.jsp 로 이동
+	 * memberId 와 memberPassword 가 일치할 경우 flag 에 ok 정보를 담아 보내고 main 페이지로 이동
+	 * memberId 와 memberPassword 가 일치하지 않을 경우 flag 에 fail 정보를 담아 보내고 login_form.jsp 로 이동
 	 * @param mvo
 	 * @param request
 	 * @return
@@ -40,13 +44,11 @@ public class MemberController {
 	@ResponseBody
 	public HashMap<String,Object> loginMember(MemberVO memberVO, HttpServletRequest request){
 		HashMap<String,Object> map=new HashMap<String,Object>();
-		System.out.println("mvo:"+memberVO);
 		memberVO=memberService.loginMember(memberVO);
 		map.put("flag", "fail");
 		if(memberVO!=null){
 			map.put("flag", "ok");
 			HttpSession session=request.getSession(false);
-			//관리자 다른세션주기
 			if(memberVO.getMemberId().equals("admin")){
 				session.setAttribute("admin", memberVO);
 			}else{
@@ -55,9 +57,11 @@ public class MemberController {
 		}
 		return map;
 	}
+	
 	/**
-	 * 로그인 된 상태에서 session 에 있는 loginInfo 를 소멸시킨다.
-	 * 로그아웃 후 main 페이지로 TilseView 를 이용한 방식으로 이동한다.
+	 * 로그아웃
+	 * 로그인 된 상태에서 session 에 저장된 모든 정보를 소멸시킨다.
+	 * 로그아웃 후 home 페이지로 이동한다.
 	 * @param request
 	 * @return
 	 */
@@ -67,7 +71,21 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:home.do";
 	}
+	
 	/**
+	 * 회원가입 폼
+	 * 회원가입 폼을 제공하는 페이지 제공한다.
+	 * Validation 을 위해 register_form.jsp 에서 사용할 수 있도록 객체를 생성해 전달한다. 
+	 * <form:form action="register.do" commandName="memberVO">
+	 * @return
+	 */
+	@RequestMapping(value="member_register_form.do", method=RequestMethod.GET)
+	public ModelAndView registerForm(){
+		return new ModelAndView("member_register_form","memberVO",new MemberVO());
+	}
+	
+	/**
+	 * ID 중복체크
 	 * 회원가입 id 중복체크와 길이체크를 한다.
 	 * 체크 결과는 Ajax 로 응답한다.
 	 * 중복된 id 가 존재하거나 id 의 길이 4자 이상 10자 이하가 아닐 경우
@@ -86,18 +104,10 @@ public class MemberController {
 			map.put("exception", e.getMessage());
 		}
 		return map;
-	}
+	}	
+	
 	/**
-	 * 회원가입 폼을 제공하는 페이지를 TilseView 를 이용한 방식으로 제공한다.
-	 * Validation 을 위해 register_form.jsp 에서 사용할 수 있도록 객체를 생성해 전달한다. 
-	 * <form:form action="register.do" commandName="memberVO">
-	 * @return
-	 */
-	@RequestMapping(value="member_register_form.do", method=RequestMethod.GET)
-	public ModelAndView registerForm(){
-		return new ModelAndView("member_register_form","memberVO",new MemberVO());
-	}
-	/**
+	 * 회원가입
 	 * 회원가입 폼에서 전달된 회원 가입 정보 (memberVO) 를 member 테이블에 insert 한다.
 	 * Validation 검사에서 에러가 있으면 회원가입 폼으로 다시 보낸다.
 	 * insert 가 중복되지 않기 위해 redirect 방식으로 전송한다.
@@ -116,8 +126,10 @@ public class MemberController {
 		session.setAttribute("loginInfo", memberVO);
 		return "redirect:member_register_result.do";
 	}
+	
 	/**
-	 * 면허정보 등록하는 폼 제공
+	 * 면허정보 등록 폼
+	 * 면허정보 등록하는 폼을 제공한다.
 	 * 회원가입 후 alert 창을 띄우고 확인을 선택했을 때 registerLicense_form.jsp 로 이동하게 한다.
 	 * 회원가입 후 링크를 제공하고 추가로 입력할 수 있게 한다.
 	 * 면허정보 입력에 필요한 licenseLocation 정보가 저장된 테이블에서 리스트를 가져와서
@@ -131,6 +143,7 @@ public class MemberController {
 		mv.addObject("licenseLocation",memberService.getAllLicenseLocationList());
 		return mv;		
 	}
+	
 	/**
 	 * 면허정보 등록
 	 * 동일한 면허번호가 존재할 경우 exception 메세지를 전송하고
@@ -154,6 +167,7 @@ public class MemberController {
 		}
 		return mv;
 	}
+	
 	/**
 	 * 결제카드 등록
 	 * 동일한 카드번호가 존재할 경우 exception 메세지를 전송하고
@@ -177,6 +191,28 @@ public class MemberController {
 		}
 		return mv;
 	}
+	
+	/**
+	 * 결제카드 삭제
+	 * 선택한 카드번호에 해당하는 정보를 card table 에서 삭제한다.
+	 * 삭제 후 카드정보 페이지로 이동한다.
+	 * @param cardVO
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping("auth_member_deleteCard.do")
+	public String deleteCard(CardVO cardVO, String memberId){
+		memberService.deleteCardByCardNo(cardVO.getCardNo());
+		return "redirect:auth_member_cardInfo_view.do?memberId="+memberId;
+	}
+	
+	/**
+	 * 회원 마이페이지 제공
+	 * 마이페이지 화면에 session 에 저장된 회원 Id 에 해당하는
+	 * 정보를 조회해서 제공한다.
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("auth_member_myPage.do")
 	public ModelAndView memberPage(HttpServletRequest request){
 		HttpSession session=request.getSession(false);
@@ -184,6 +220,7 @@ public class MemberController {
 		memberVO=memberService.findMemberInfoByMemberId(memberVO.getMemberId());
 		return new ModelAndView("member_myPage", "memberInfo", memberVO);
 	}
+	
 	/**
 	 * 회원정보 수정하는 폼 제공
 	 * validation 적용을 위해 MemberVO 객체 생성
@@ -193,6 +230,7 @@ public class MemberController {
 	public ModelAndView updateForm(){
 		return new ModelAndView("member_updateMember_form","memberVO",new MemberVO());
 	}
+	
 	/**
 	 * 회원정보 수정
 	 * email, phone 정보 수정하고 수정완료하면 result 페이지로 이동
@@ -210,6 +248,7 @@ public class MemberController {
 		memberVO=memberService.updateMember(memberVO);
 		return new ModelAndView("member_updateMember_result","message","회원정보수정완료");
 	}
+	
 	/**
 	 * 회원비밀번호 수정
 	 * 기존 비밀번호가 일치하는지 먼저 체크. 일치하지않으면 flag 가 fail
@@ -228,6 +267,7 @@ public class MemberController {
 		}
 		return new ModelAndView("member_updateMember_result","message",map.get("message"));
 	}
+	
 	/**
 	 * 회원의 운전면허 정보를 검색해서 제공
 	 * @param memberVO
@@ -238,6 +278,7 @@ public class MemberController {
 		memberVO=memberService.findLicenseInfoByMemberId(memberVO.getMemberId());
 		return new ModelAndView("member_lisenseInfo_view","info",memberVO);		
 	}
+	
 	/**
 	 * 회원의 카드정보를 검색해서 제공
 	 * @param memberId
@@ -248,6 +289,7 @@ public class MemberController {
 		List<MemberVO> list=memberService.findCardInfoByMemberId(memberId);
 		return new ModelAndView("member_cardInfo_view","info",list);		
 	}
+	
 	/**
 	 * 회원의 memberId 로 저장된 결제카드의 수를 카운트
 	 * 회원 당 결제카드는 3개까지 등록가능
@@ -266,6 +308,7 @@ public class MemberController {
 		}
 		return map;
 	}
+	
 	/**
 	 * 회원탈퇴
 	 * 정상적으로 삭제완료되면 session 을 종료하는 member_logout.do 로 이동하고
