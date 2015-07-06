@@ -19,7 +19,7 @@
 				alert("숫자 입력하세요!");
 				$("#pointText").val("");
 				return false;
-			} else if(Number("${PointAndCoupon.memberPoint}")<$("#pointText").val()){
+			} else if(Number("${memberPoint}")<$("#pointText").val()){
 				alert("사용가능한 포인트를 초과해서 사용할 수 없습니다");
 				$("#pointText").val("");
 				$("#payTotalView").html("${reservationInfo.rentalPrice }");
