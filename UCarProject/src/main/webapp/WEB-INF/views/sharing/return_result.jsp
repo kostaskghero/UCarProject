@@ -3,37 +3,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#pointTextView").hide();
-		$("#pointText").val("");
+		$("#usingPointView").hide();
+		$("#usingPoint").val(0);
 		$("#pointForm").change(function(){
 			if($(":input[name=pointType]:checked").val()!="pointuse"){
-				$("#pointTextView").hide();
-				$("#pointText").val("");
-				$("#payTotalView").html("${returnInfo.rentalPrice }");
+				$("#usingPointView").hide();
+				$("#usingPoint").val(0);
+				$("#payTotalView").html("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
+				$("#paymentPrice").val("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
 			} else{
-				$("#pointTextView").show();
+				$("#usingPointView").show();
 			}
 		});
-		$("#pointText").keyup(function(){
-			if(isNaN($("#pointText").val())){
+		$("#usingPoint").keyup(function(){
+			if(isNaN($("#usingPoint").val())){
 				alert("숫자 입력하세요!");
-				$("#pointText").val("");
+				$("#usingPoint").val("");
 				return false;
-			} else if(Number("${memberPoint}")<$("#pointText").val()){
+			} else if(Number("${memberPoint}")<$("#usingPoint").val()){
 				alert("사용가능한 포인트를 초과해서 사용할 수 없습니다");
-				$("#pointText").val("");
-				$("#payTotalView").html("${returnInfo.returnVO.drivingPrice }");
+				$("#usingPoint").val("");
+				$("#payTotalView").html("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
+				$("#paymentPrice").val("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
 				return false;
-			} else{
-				$("#payTotalView").html((Number("${returnInfo.returnVO.drivingPrice }")-$("#pointText").val()));	
+			} else if($("#usingPoint").val()>Number("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }")){
+				alert("결제금액을 초과해서 포인트를 사용할 수 없습니다");
+				$("#usingPoint").val("");
+				$("#payTotalView").html("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
+				$("#paymentPrice").val("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }");
+			}else{
+				$("#payTotalView").html((Number("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }")-$("#usingPoint").val()));
+				$("#paymentPrice").val((Number("${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }")-$("#usingPoint").val()));
 			}	
 		});
-		$("#reserveRegisterBtn").click(function(){
-			var usingPoint=Number($("#pointText").val());
+		$("#drivingPaymentBtn").click(function(){
 			if($("#payCardType").val()==""){
 				alert("결제카드를 선택하세요!");
 				return false;
-			} else if($(":input[name=pointType]:checked").val()=="pointuse" && $("#pointText").val()==""){
+			} else if($(":input[name=pointType]:checked").val()=="pointuse" && $("#usingPoint").val()==""){
 				alert("포인트 입력하세요!");
 				return false;
 			} else{
@@ -43,8 +50,7 @@
 					data:"cardNo="+$("#payCardNo").val()+"&memberId=${sessionScope.loginInfo.memberId}&cardPassword="+$("#cardPassword").val(),
 					success:function(data){
 						if(data=='ok'){
-							location.href="${initParam.root}auth_payment_paymentDrivingPrice.do?reservationNo=${returnInfo.reservationNo}&paymentPrice="+
-							$("#payTotalView").text()+"&paymentCardNo="+$("#payCardNo").val()+"&usingPoint="+usingPoint+"&paymentType=주행요금결제&memberId=${sessionScope.loginInfo.memberId}";
+							$("#drivingPricePaymentForm").submit();
 						} else if(data=='fail'){
 							alert("카드비밀번호를 확인하세요!");
 						} else{
@@ -139,67 +145,75 @@
 		<div class="col-md-6">
 			<fieldset>
 				<legend>결제내역</legend>
-				<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
-				<div class="col-lg-9">
-					<label for="fee" class="col-lg-9 control-label" id="rentalPrice">
-						${returnInfo.returnVO.drivingPrice } 원
-					</label>
-				</div>
-				<br><br>
-				<c:if test="${returnInfo.extensionPrice>0 }">
-					<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
+				<form action="${initParam.root}auth_payment_paymentDrivingPrice.do" method="post" id="drivingPricePaymentForm">
+					<input type="hidden" name="reservationNo" value="${returnInfo.reservationNo}">
+					<input type="hidden" name="memberId" value="${sessionScope.loginInfo.memberId }">
+					<input type="hidden" name="paymentType" value="주행요금결제">
+					<label for="drivingPrice" class="col-lg-2 control-label">주행요금</label>
 					<div class="col-lg-9">
-						<label for="extensionPrice" class="col-lg-9 control-label">
-							${returnInfo.extensionPrice } 원
+						<label for="fee" class="col-lg-9 control-label" id="rentalPrice">
+							${returnInfo.returnVO.drivingPrice } 원
 						</label>
 					</div>
 					<br><br>
-				</c:if>
-				<c:if test="${returnInfo.lateFee>0 }">
-					<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
+					<c:if test="${returnInfo.extensionPrice>0 }">
+						<label for="extensionPrice" class="col-lg-2 control-label">연장이용요금</label>
+						<div class="col-lg-9">
+							<label for="extensionPrice" class="col-lg-9 control-label">
+								${returnInfo.extensionPrice } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
+					<c:if test="${returnInfo.lateFee>0 }">
+						<label for="lateFee" class="col-lg-2 control-label">연체이용요금</label>
+						<div class="col-lg-9">
+							<label for="lateFee" class="col-lg-9 control-label">
+								${returnInfo.lateFee } 원
+							</label>
+						</div>
+						<br><br>
+					</c:if>
+					<br>
+					<label for="point" class="col-lg-2 control-label">포인트</label>
+					<div class="col-lg-9" id = "pointForm">
+						<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
+						<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
+						<span id = "usingPointView">
+							사용가능한 포인트 : ${memberPoint} 점<br>
+							<input type="text" id="usingPoint" name="usingPoint" placeholder="숫자를 입력하세요!">
+						</span><br>
+					</div>
+					<br><br><br>
+					<label for="payCard" class="col-lg-2 control-label">결제카드</label>
 					<div class="col-lg-9">
-						<label for="lateFee" class="col-lg-9 control-label">
-							${returnInfo.lateFee } 원
+						<select class="form-control" id="payCardNo" name="paymentCardNo">
+							<option value="">결제카드</option>
+							<c:forEach items="${cardListByMember }" var="cardInfo">
+								<option value="${cardInfo.cardVO.cardNo }">${cardInfo.cardVO.cardNo }</option>
+							</c:forEach>
+						</select>
+					</div>
+					<br><br><br>
+					<label for="payCard" class="col-lg-2 control-label">카드비밀번호</label>
+					<div class="col-lg-9">
+						<input type="password" id="cardPassword" maxlength="2">**
+					</div>
+					<br><br><br>
+					<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
+					<div class="col-lg-9">
+						<label for="payTotal" class="col-lg-9 control-label">
+							<input type="hidden" name="paymentPrice" id="paymentPrice" value="${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }">
+							<span id="payTotalView">
+								${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }
+							</span> 원
 						</label>
 					</div>
 					<br><br>
-				</c:if>
-				<br>
-				<label for="point" class="col-lg-2 control-label">포인트</label>
-				<div class="col-lg-9" id = "pointForm">
-					<input type = "radio" name = "pointType" value = "pointuse">포인트 사용&nbsp;&nbsp;
-					<input type = "radio" name = "pointType" value = "pointnouse" checked="checked">포인트 미사용<br>				
-					<span id = "pointTextView">
-						사용가능한 포인트 : ${memberPoint} 점<br>
-						<input type="text" id="pointText" name="pointText" placeholder="숫자를 입력하세요!">
-					</span><br>
-				</div>
-				<br><br><br>
-				<label for="payCard" class="col-lg-2 control-label">결제카드</label>
-				<div class="col-lg-9">
-					<select class="form-control" id="payCardNo">
-						<option value="">결제카드</option>
-						<c:forEach items="${cardListByMember }" var="cardInfo">
-							<option value="${cardInfo.cardVO.cardNo }">${cardInfo.cardVO.cardNo }</option>
-						</c:forEach>
-					</select>
-				</div>
-				<br><br><br>
-				<label for="payCard" class="col-lg-2 control-label">카드비밀번호</label>
-				<div class="col-lg-9">
-					<input type="password" id="cardPassword" maxlength="2">**
-				</div>
-				<br><br><br>
-				<label for="payTotal" class="col-lg-2 control-label">결제요금</label>
-				<div class="col-lg-9">
-					<label for="payTotal" class="col-lg-9 control-label">
-						<span id="payTotalView">${returnInfo.returnVO.drivingPrice + returnInfo.extensionPrice + returnInfo.lateFee }</span> 원
-					</label>
-				</div>
-				<br><br>
+				</form>
 			</fieldset>
 			<div class="col-lg-9 col-lg-offset-9">
-				<button type="button" class="btn btn-primary" id ="reserveRegisterBtn">결제하기</button>
+				<button type="button" class="btn btn-primary" id ="drivingPaymentBtn">결제하기</button>
 			</div>				
 		</div>
 	</div>
