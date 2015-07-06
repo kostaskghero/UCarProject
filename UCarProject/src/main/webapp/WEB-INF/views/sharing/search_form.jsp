@@ -122,7 +122,11 @@
 						if(flag){
 							location.href="${initParam.root}";
 						}
-					} else{
+					}  else if(data=="fail"){
+		                  if(confirm("완료되지 않은 이용내역이 존재합니다. 확인하시겠습니까?")){
+		                      location.href="${initParam.root}auth_memberSharing_reservationHistory.do";
+		                   }
+		                }else{
 						location.href="${initParam.root}member_login_form.do";
 					}
 				}
