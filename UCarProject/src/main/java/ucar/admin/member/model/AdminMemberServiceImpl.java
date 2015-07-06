@@ -20,11 +20,22 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	AdminMemberDAO adminMemberDAO;
 	@Resource(name = "memberDAOImpl")
 	MemberDAO memberDAO;
-
+	/**
+	 * 전체 회원의 목록을 반환한다. 
+	 */
+	@Override
 	public List<MemberVO> getAllMemberList() {
 		return adminMemberDAO.getAllMemberList();
 	}
-
+	
+	/**
+	 *  아이디로 해당 회원의 상세정보를 반환하는 메서드
+	 *  해당아이디에 면허정보와 카드정보들이 등록되어있는지 확인하여
+	 *  MemberVO에 넣어준뒤
+	 *  면허와 카드 모두 등록한경우, 카드만 등록한 경우, 
+	 *  면허만 등록한경우, 둘다 등록하지 않은 경우의 
+	 *  4가지 경우의 수에 맞게 결과 리스트를 반환한다. 
+	 */
 	@Override
 	public List<MemberVO> findDetailMemberInfoByMemberId(String memberId) {
 		List<MemberVO> list = new ArrayList<MemberVO>();
@@ -45,29 +56,30 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
 		if (vo.getDrivingLicenseVO() == null) {
 			if (vo.getCardVO() == null) {
-				// System.out.println("카드, 면허 둘다 없음");
 				vo = memberDAO.findMemberInfoByMemberId(memberId);
 				list.add(vo);
 			} else {
-				// System.out.println("카드만있음");
 				list = adminMemberDAO
 						.findDetailMemberInfoAndCardByMemberId(memberId);
 
 			}
 		} else {
 			if (vo.getCardVO() == null) {
-				// System.out.println("면허만있음");
 				vo = adminMemberDAO
 						.findDetailMemberInfoAndLicenseByMemberId(memberId);
 				list.add(vo);
 			} else {
-				// System.out.println("둘다있음");
 				list = adminMemberDAO.findDetailMemberInfoByMemberId(memberId);
 			}
 		}
 		return list;
 	}
 
+	/**
+	 * 트랜젝션을 이용하여 회원을 탈퇴시킬때
+	 * 해당아이디의 카드정보와 면허정보를 함께 지워준다. 
+	 * DB에서 on Delete cascade를 명시한 해당아이디의 참조테이블들이 함께 삭제 된다. 
+	 */
 	@Transactional
 	@Override
 	public void adminDeleteMember(String memberId) {
@@ -75,7 +87,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		memberDAO.deleteLicenseByMemberId(memberId);
 		adminMemberDAO.adminDeleteMember(memberId);
 	}
-
+	/**
+	 * 전체 포인트 내역을 반환하는 메서드 
+	 * 페이징 처리를 위해 해당 
+	 */
 	public PointListVO getAllPointHistory(String pageNo) {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
