@@ -24,9 +24,10 @@ public class SearchController {
 	private String uploadCarPicPath;
 	@Resource(name = "viewCarPath")
 	private String viewCarPath;
+	
 	/**
-	 * 차량검색폼으로 이동
-	 * 차종리스트를 반환한다.
+	 * 쉐어링 검색 폼
+	 * 
 	 * @return
 	 */
 	@RequestMapping("search_searchForm.do")

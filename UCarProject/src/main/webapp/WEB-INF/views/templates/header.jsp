@@ -79,7 +79,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 						if(data.flag=="ok"){
 							location.href="${initParam.root}home.do";
 						} else{
-							alert("로그인실패");
+							alert("아이디가 존재하지 않거나 일치하지 않습니다.");
 							$("#memberId").val("");
 							$("#memberPassworddds").val("");
 						}

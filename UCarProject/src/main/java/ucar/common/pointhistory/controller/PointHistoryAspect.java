@@ -36,10 +36,6 @@ public class PointHistoryAspect {
 			pointHistoryVO.setMemberId(((MemberVO)param[0]).getMemberId());
 			pointHistoryVO.setPointValue(10000);
 			pointHistoryVO.setPointContent("회원가입");
-		} else if(methodName.contains("Comment")){
-			pointHistoryVO.setMemberId(((ReviewCommentVO)param[0]).getReviewCommentMemberId());
-			pointHistoryVO.setPointValue(500);
-			pointHistoryVO.setPointContent("댓글작성");
 		} else if(methodName.contains("Review")){
 			pointHistoryVO.setMemberId(((ReviewVO)param[0]).getMemberId());
 			pointHistoryVO.setPointValue(2000);

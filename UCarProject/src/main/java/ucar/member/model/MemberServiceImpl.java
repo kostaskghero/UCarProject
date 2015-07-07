@@ -21,17 +21,30 @@ import ucar.member.model.exception.InvalidMemberIdException;
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
-
+	/**
+	 * 로그인
+	 * 입력한 아이디와 비밀번호가 일치하는 회원정보를 조회해서 회원정보를 반환한다.
+	 */
 	@Override
 	public MemberVO loginMember(MemberVO mvo) {
 		return memberDAO.loginMember(mvo);
 	}
+	
+	/**
+	 * 회원가입
+	 * 입력한 정보를 member table 에 삽입하고 point table 에도 회원가입으로 인해 발생한 포인트 내역을 삽입한다.
+	 */
 	@Transactional
 	@Override
 	public void registerMemberSavingPoint(MemberVO mvo) {
 		memberDAO.registerMember(mvo);
 	}
-
+	
+	/**
+	 * 아이디체크
+	 * 회원가입 시 입력한 아이디의 중복여부와 길이를 체크한다.
+	 * 아이디의 길이가 적합하지 않을 경우 InvalidMemberIdException 을 발생하고, 아이디가 중복될 경우 DuplicateMemberIdException 을 발생한다.
+	 */
 	@Override
 	public String memberIdCheck(String memberId) throws Exception {
 		String result="fail";
@@ -45,11 +58,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 면허지역리스트
+	 * 운전면허정보 등록할 때 선택할 수 있는 지역리스트를 반환한다.
+	 */
 	@Override
 	public List<String> getAllLicenseLocationList() {
 		return memberDAO.getAllLicenseLocationList();
 	}
+	
+	/**
+	 * 회원탈퇴
+	 * 탈퇴할 회원의 비밀번호가 일치하면 member table 에서 회원정보를 삭제한다.
+	 * 탈퇴할 회원의 비밀번호가 일치하지않으면 0을 반환한다.
+	 */
 	@Transactional
 	@Override
 	public int deleteMember(MemberVO memberVO) {
@@ -58,6 +81,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return memberDAO.deleteMember(memberVO.getMemberId());
 	}
+	
 	@Override
 	public void registerLicense(MemberVO memberVO) throws Exception {
 		if(memberDAO.findLicenseInfoByLicenseNo(memberVO.getDrivingLicenseVO().getLicenseNo())!=null)

@@ -55,7 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{memberId}, #{memberPassword}, #{memberName}, #{memberEmail}, #{memberPhone}, sysdate)
 	</insert>
 	<select id="loginMember" parameterType="mvo" resultMap="memberRM">
-		select member_id, member_password, member_name, member_email, member_phone, member_point from member where member_id=#{memberId} and member_password=#{memberPassword}
+		select member_id, member_password, member_name, member_email, member_phone, member_point 
+		from member 
+		where member_id=#{memberId} and member_password=#{memberPassword}
 	</select>
 	<select id="memberIdCheck" resultType="int">
 		select count(*) from member where member_id=#{value}

@@ -9,7 +9,6 @@ public class CardVO {
 	private String cardBirth;
 	public CardVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public CardVO(String cardNo, String cardType, String cardExpirationDate,
 			String cardPassword, String cardBirth) {

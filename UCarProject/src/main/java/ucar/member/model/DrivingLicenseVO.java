@@ -10,7 +10,6 @@ public class DrivingLicenseVO {
 	private String licenseBirth;
 	public DrivingLicenseVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public DrivingLicenseVO(String licenseNo, String licenseType,
 			String licenseRenewalTerm, String licenseIssueDate, String gender,

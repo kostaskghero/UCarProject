@@ -13,7 +13,10 @@ import ucar.common.pointhistory.model.PointHistoryVO;
 public class MemberDAOImpl implements MemberDAO {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
-
+	/**
+	 * 로그인
+	 * member Table 에서 memberVO 의 memberId 와 memberPassword 가 일치하는 회원정보를 조회
+	 */
 	@Override
 	public MemberVO loginMember(MemberVO memberVO) {
 		return sqlSessionTemplate.selectOne("member.loginMember", memberVO);
