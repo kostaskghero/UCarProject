@@ -59,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		r.reservation_no=s.reservation_no and
 		s.status=#{sharingStatus}
 	</select>
+	
 	<select id="searchSharingByMemberId" resultMap="reservationRM"
 		parameterType="rvo">
 		select r.reservation_no, r.rental_price, m.driving_fee,

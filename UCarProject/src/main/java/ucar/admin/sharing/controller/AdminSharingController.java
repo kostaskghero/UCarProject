@@ -22,6 +22,12 @@ public class AdminSharingController {
 	@Resource
 	private AdminSharingService adminSharingService;
 
+	/**
+	 * 전체 예약목록을 보여주는 페이지로 이동시켜줌.
+	 * 이때 검색select에 사용할 상태목록과 전체 예약목록을 map에 넣어
+	 * 보내준다. 
+	 * @return
+	 */
 	@RequestMapping("admin_sharing_List.do")
 	public ModelAndView sharingList() {
 		List<ReservationVO> rvo = adminSharingService.getAllReservationList();
@@ -41,14 +47,23 @@ public class AdminSharingController {
 		return new ModelAndView("admin_sharing_List", "data", map);
 	}
 
+	/**
+	 * Ajax로 검색결과를 반환하는 메서드 
+	 * 상태, 차량 닉네임, 멤버 아이디 조합으로 검색하여 결과를
+	 * 반환한다. 
+	 * 
+	 * @param reservationVO
+	 * @param carVO
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("admin_searchSharing.do")
 	@ResponseBody
 	public List<ReservationVO> searchSharingByCondiction(
 			ReservationVO reservationVO, CarVO carVO, MemberVO memberVO) {
 		reservationVO.setCarVO(carVO);
 		reservationVO.setMemberVO(memberVO);
-	//	System.out.println("controlelr 테스트 : "+reservationVO);
-		List<ReservationVO> list=	adminSharingService.searchSharingByCondiction(reservationVO);
+		List<ReservationVO> list= adminSharingService.searchSharingByCondiction(reservationVO);
 		return list;
 	}
 }

@@ -24,7 +24,6 @@ public class AdminSharingServiceImpl implements AdminSharingService {
 		String carNickName=rvo.getCarVO().getCarNickName();
 		String memberId=rvo.getMemberVO().getMemberId();
 		List<ReservationVO> list = new ArrayList<ReservationVO>();
-		System.out.println(status+carNickName+memberId);
 		if ((status == null || status.equals(""))
 				&& (carNickName == null || carNickName.equals(""))
 				&& (memberId == null || memberId.equals(""))) {
