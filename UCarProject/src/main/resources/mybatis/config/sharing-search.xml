@@ -19,19 +19,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 	<result property="carVO.carModelInfoVO.oilType" column="oil_type"/>
  	 </resultMap>
  	<select id="getAllCarListByUcarZoneName" parameterType="rvo" resultMap="reservationRM">
- 		select c.car_no, c.car_nick_name, c.ucar_zone_name, m.car_model, 
- 			m.car_type, m.rental_fee*((to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'))*24*60/10) as rental_price, 
- 			m.driving_fee, m.oil_type, p.file_path  
+ 		select c.car_no, c.car_nick_name, c.ucar_zone_name, m.car_model, m.car_type, 
+ 			m.rental_fee*(
+ 				(to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')
+ 			)*24*60/10) as rental_price, m.driving_fee, m.oil_type, p.file_path  
 		from car c, car_model_info m, car_pic p  
-		where c.car_model=m.car_model and c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} and c.car_model=p.car_model 
+		where c.car_model=m.car_model and c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} 
+			and c.car_model=p.car_model 
 		order by c.car_no			
  	</select>
  	<select id="getCarListByUcarZoneNameAndCarModel" parameterType="rvo" resultMap="reservationRM">
- 		select c.car_no, c.car_nick_name, c.ucar_zone_name, m.car_model, 
- 			m.car_type, m.rental_fee*((to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'))*24*60/10) as rental_price, 
- 			m.driving_fee, m.oil_type, p.file_path 
+ 		select c.car_no, c.car_nick_name, c.ucar_zone_name, m.car_model, m.car_type, 
+ 			m.rental_fee*(
+ 				(to_date(#{returnDate},'YYYY/MM/DD HH24:MI')-to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')
+ 			)*24*60/10) as rental_price, m.driving_fee, m.oil_type, p.file_path 
 		from car c, car_model_info m, car_pic p 
- 		where c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} and c.car_model=#{carVO.carModelInfoVO.carModel} and c.car_model=m.car_model and c.car_model=p.car_model
+ 		where c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} 
+ 			and c.car_model=#{carVO.carModelInfoVO.carModel} 
+ 			and c.car_model=m.car_model and c.car_model=p.car_model
  		order by c.car_no 			
  	</select>
  	<select id="checkSchedule" parameterType="rvo" resultType="int">
@@ -40,11 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		(
  			select r.car_no, r.rental_date, r.return_date 
  			from car c, sharing_reservation r, sharing_status s 
- 			where c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} and c.car_no=r.car_no and r.reservation_no=s.reservation_no 
+ 			where c.ucar_zone_name=#{carVO.uCarZoneVO.uCarZoneName} and c.car_no=r.car_no 
+ 				and r.reservation_no=s.reservation_no 
  				and (s.status='예약' or s.status='이용요금결제' or s.status='이용중' or s.status='연장')
  		)
-		<![CDATA[where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
-		and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))]]>
+		<![CDATA[
+		where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
+			and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))
+		]]>
  	</select>
  	<select id="searchUCarZone" resultType="string">
  		select UCAR_ZONE_NAME from ucar_zone where UCAR_ZONE_NAME like '%${value}%'

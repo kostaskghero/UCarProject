@@ -34,22 +34,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(#{reservationNo}, #{carVO.carNo}, #{memberVO.memberId}, #{rentalPrice}, to_date(#{rentalDate},'YYYY/MM/DD HH24:MI'), #{rentalUcarZoneName}, to_date(#{returnDate},'YYYY/MM/DD HH24:MI'), sysdate)
  	</insert>
  	<select id="findReservationInfoByReservationNo" resultMap="reservationRM">
- 		select s.reservation_no, s.rental_price, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, c.ucar_zone_name, u.ucar_zone_address, 
- 			c.car_model, to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
+ 		select s.reservation_no, s.rental_price, m.driving_fee, c.car_no, s.member_id, c.car_nick_name, 
+ 			c.ucar_zone_name, u.ucar_zone_address, c.car_model, 
+ 			to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, 
+ 			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
  			ceil((s.return_date-s.rental_date)*24*60) as available_time
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m
-		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and c.car_model=m.car_model and reservation_no=#{value}
+		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name 
+			and c.car_model=m.car_model and reservation_no=#{value}
  	</select>
  	<select id="findReservationByMemberIdAndDate" parameterType="rvo" resultMap="reservationRM">
- 		select to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, to_char(return_date, 'YYYY/MM/DD DY HH24:MI') as return_date 
+ 		select to_char(rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
+ 			to_char(return_date, 'YYYY/MM/DD DY HH24:MI') as return_date 
 		from 
 		(
 			select r.car_no, r.rental_date, r.return_date 
 			from sharing_reservation r, sharing_status s
-			where r.member_id=#{memberVO.memberId} and (s.status='예약' or s.status='이용요금결제' or s.status='이용중' or s.status='연장') and r.reservation_no=s.reservation_no
+			where r.member_id=#{memberVO.memberId} 
+				and (s.status='예약' or s.status='이용요금결제' or s.status='이용중' or s.status='연장') 
+				and r.reservation_no=s.reservation_no
 		)
-		<![CDATA[where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
-			and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))]]>
+		<![CDATA[
+		where to_date(#{rentalDate},'YYYY/MM/DD HH24:MI')<(return_date+numtodsinterval(10,'minute'))
+			and to_date(#{returnDate},'YYYY/MM/DD HH24:MI')>(rental_date-numtodsinterval(10,'minute'))
+		]]>
  	</select>
  	
  	<insert id="insertSharingStatus" parameterType="int">
@@ -57,18 +65,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<select id="findReturnInfoByReservationNo" parameterType="int" resultMap="reservationRM">
-		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name,
-			u.ucar_zone_address, c.car_model, to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, 
-			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, ceil((s.return_date-s.rental_date)*24*60)+s.late_time as available_time, 
+		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, 
+			s.member_id, c.car_nick_name, u.ucar_zone_address, c.car_model, 
+			to_char(s.return_date, 'YYYY/MM/DD DY HH24:MI') as return_date, 
+			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
+			ceil((s.return_date-s.rental_date)*24*60)+s.late_time as available_time, 
 			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date, s.late_time, s.late_fee
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m, sharing_return r
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and r.reservation_no=s.reservation_no 
 			and c.car_model=m.car_model and r.reservation_no=#{value}
  	</select>
  	<select id="findExtensionInfoByReservationNo" parameterType="int" resultMap="reservationRM">
- 		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, s.member_id, c.car_nick_name,
-			u.ucar_zone_address, c.car_model, to_char(s.extension_date, 'YYYY/MM/DD DY HH24:MI') as return_date, s.extension_price,
-			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, ceil((s.extension_date-s.rental_date)*24*60)+s.late_time as available_time, 
+ 		select r.reservation_no, r.driving_price, r.mileage, m.driving_fee, c.car_no, 
+ 			s.member_id, c.car_nick_name, u.ucar_zone_address, c.car_model, 
+ 			to_char(s.extension_date, 'YYYY/MM/DD DY HH24:MI') as return_date, s.extension_price,
+			to_char(s.rental_date,'YYYY/MM/DD DY HH24:MI') as rental_date, 
+			ceil((s.extension_date-s.rental_date)*24*60)+s.late_time as available_time, 
 			to_char(r.real_return_date, 'YYYY/MM/DD DY HH24:MI') as real_return_date, s.late_time, s.late_fee
 		from sharing_reservation s, car c, ucar_zone u, car_model_info m, sharing_return r
 		where s.car_no=c.car_no and c.ucar_zone_name=u.ucar_zone_name and r.reservation_no=s.reservation_no 

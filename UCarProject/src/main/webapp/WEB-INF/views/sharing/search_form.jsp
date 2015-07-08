@@ -58,12 +58,15 @@
 							tableInfo+="</td></tr></thead><tbody>";
 							$.each(data, function(index, carList){
 								tableInfo+="<tr><td><div class='row'>";
-								tableInfo+="<div class='col-md-1'><p class='text-center'>"+carList.carVO.uCarZoneVO.uCarZoneName+"</p></div>";
-								tableInfo+="<div class='col-md-2'><img src='"+carList.carVO.carModelInfoVO.carPhoto+"' alt='...' width='150' height='150'></div>";
+								tableInfo+="<div class='col-md-1'>"
+									+"<p class='text-center'>"+carList.carVO.uCarZoneVO.uCarZoneName+"</p></div>";
+								tableInfo+="<div class='col-md-2'>"+"<img src='"
+									+carList.carVO.carModelInfoVO.carPhoto+"' alt='...' width='150' height='150'></div>";
 								tableInfo+="<div class='col-md-6'>";
 								tableInfo+="<div class='row'>";
 								tableInfo+="<div class='col-md-12' style='height: 50px'>";
-								tableInfo+=carList.carVO.carModelInfoVO.carModel+"  <strong>"+carList.carVO.carNickName+"</strong>";
+								tableInfo+=carList.carVO.carModelInfoVO.carModel+"  <strong>"
+									+carList.carVO.carNickName+"</strong>";
 								tableInfo+="<p class='pull-right'>"+carList.carVO.carModelInfoVO.oilType+"  </p>";
 								tableInfo+="</div></div>";
 								tableInfo+="<div class='row'>";
@@ -80,7 +83,7 @@
 								tableInfo+="<div class='col-md-1 text-center'><p class='text-center'>"+carList.rentalPrice+" 원</p></div>";
 								tableInfo+="<div class='col-md-1 text-center'><p class='text-center'>"+carList.carVO.carModelInfoVO.drivingFee+" 원<br>(1km)</p></div>";
 								tableInfo+="<div class='col-md-1 text-center'>";
-								if(carList.carVO.available){	// true 이면 예약버튼 활성화 false 이면 예약버튼 비활성화
+								if(carList.carVO.available){
 									tableInfo+="<form method='post' action='${initParam.root}auth_reservation_reservationCar.do' id='"+carList.carVO.carNo+"Form'>";
 									tableInfo+="<input type='hidden' name='rentalDate' value='"+carList.rentalDate+"'>";
 									tableInfo+="<input type='hidden' name='returnDate' value='"+carList.returnDate+"'>";
@@ -88,7 +91,8 @@
 									tableInfo+="<input type='hidden' name='carNo' value='"+carList.carVO.carNo+"'>";
 									tableInfo+="<input type='hidden' name='rentalPrice' value='"+carList.rentalPrice+"'>";
 									tableInfo+="<input type='hidden' name='rentalUcarZoneName' value='"+carList.carVO.uCarZoneVO.uCarZoneName+"'>";
-									tableInfo+="<button type='button' class='btn btn-default btn-sm' id='reserveBtn' value='"+carList.carVO.carNo+"'>Reserve</button></form>";
+									tableInfo+="<button type='button' class='btn btn-default btn-sm' id='reserveBtn' value='"
+										+carList.carVO.carNo+"'>Reserve</button></form>";
 								} else{
 									tableInfo+="<button type='button' class='btn btn-default disabled btn-sm'>Reserve</button>";
 								}
@@ -120,7 +124,7 @@
 					} else if(data.rentalDate!=null){
 						var flag=confirm(data.rentalDate+" ~ "+data.returnDate+" 에 예약이 존재합니다. 예약내역을 확인하시겠습니까?");
 						if(flag){
-							location.href="${initParam.root}";
+							location.href="${initParam.root}auth_memberSharing_reservationHistory.do";
 						}
 					}  else if(data=="fail"){
 		                  if(confirm("완료되지 않은 이용내역이 존재합니다. 확인하시겠습니까?")){
@@ -137,14 +141,14 @@
 			minDate: 0, 
 			ang:'ko',
 			format:'Y/m/d H:i',
-			step: 10 //시간 설정을 10분단위로 나눔
+			step: 10
 		});
 		
 		$("#returnDate").datetimepicker({
 			minDate: 0, 
 			ang:'ko',
 			format:'Y/m/d H:i',
-			step: 10 //시간 설정을 10분단위로 나눔
+			step: 10
 		}); 
 	});
 	$(function(){
@@ -324,14 +328,6 @@
 			marker.setTitle((i + 1).toString());
 			attachSecretMessage(marker, i);
 		}
-  /*   // 지도클릭시 마커 생성
-	google.maps.event.addListener(map, 'click', function(event) {
-		marker = new google.maps.Marker({
-		position: event.latLng,
-		map: map,
-		title: '위치마커'
-		});
-	}); */
 	}
 	//마커클릭시 정보
 	function attachSecretMessage(marker, num) {

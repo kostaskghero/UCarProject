@@ -114,7 +114,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public void deleteLicenseByMemberId(String memberId) {
 		sqlSessionTemplate.delete("member.deleteLicenseByMemberId", memberId);
 	}
-
+	/**
+	 * 회원의 면허정보를 조회한다.
+	 */
 	@Override
 	public MemberVO findLicenseInfoByMemberId(String memberId) {
 		return sqlSessionTemplate.selectOne("member.findLicenseInfoByMemberId", memberId);

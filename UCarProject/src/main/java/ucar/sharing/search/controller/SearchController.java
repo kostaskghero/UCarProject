@@ -27,7 +27,10 @@ public class SearchController {
 	
 	/**
 	 * 쉐어링 검색 폼
-	 * 
+	 * 검색 페이지에 필요한 정보를 제공한다.
+	 * 구글맵에 유카존을 매핑하기 위해 모든 유카존의 정보를 조회해서 ucarZoneList 에 세팅하고
+	 * 차종 검색에 필요한 자동차 모델 목록을 carModelList 에 세팅한다.
+	 * 메인페이지에서 검색 할 경우 검색결과를 realtimeSearchResult 에 세팅한다.
 	 * @return
 	 */
 	@RequestMapping("search_searchForm.do")
@@ -40,14 +43,13 @@ public class SearchController {
 			carVO.setuCarZoneVO(uCarZoneVO);
 			carVO.setCarModelInfoVO(carModelInfoVO);
 			reservationVO.setCarVO(carVO);
-			mv.addObject("realtimeSearchResult", searchService.searchCar(reservationVO));
+			mv.addObject("realtimeSearchResult", searchCar(reservationVO, carVO, carModelInfoVO, uCarZoneVO));
 		}
 		return mv;
 	}
 	/**
-	 * searchVO 의 ucarZoneName 에 해당하는 모든 carList 를 리턴
-	 * 이용을 원하는 시간에 예약이 되어있는 차량의 리스트는 checkAvailable method 에서 리턴받아
-	 * 예약가능한지 아닌지 표시한다.  
+	 * 자동차 검색
+	 * 검색조건을 ReservationVO 에 세팅하고 조건에 해당하는 자동차 리스트를 리턴한다. 
 	 * @param searchVO
 	 * @return
 	 */
@@ -60,14 +62,12 @@ public class SearchController {
 		return searchService.searchCar(reservationVO);
 	}
 	
-	@RequestMapping("search_searchMapList.do")
-	@ResponseBody
-	public List<UCarZoneVO> searchMapList(){
-		List<UCarZoneVO> list = searchService.getMapInfo();
-		System.out.println("맵위도경도:"	+ list.size());
-		return searchService.getMapInfo();
-	}
-	
+	/**
+	 * 유카존 검색
+	 * 유카존에 term 을 입력하면 term 포함하는 모든 유카존을 반환한다.
+	 * @param term
+	 * @return
+	 */
 	@RequestMapping("search_searchUCarZone.do")
 	@ResponseBody
 	public List<String> searchUCarZone(String term){

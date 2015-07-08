@@ -17,6 +17,7 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	/**
+	 * 결제카드 비밀번호 확인
 	 * 입력한 카드 비밀번호와 카드번호가 일치하는지 체크
 	 * 일치하면 ok 를 일치하지 않으면 fail 을 반환
 	 * @param memberVO
@@ -49,6 +50,14 @@ public class PaymentController {
 		paymentService.paymentDrivingPriceSavingPoint(paymentVO, memberId);
 		return "redirect:auth_memberSharing_reservationHistory.do";
 	}
+	
+	/**
+	 * 결제취소
+	 * 이용요금을 결제한 상태에서 예약을 취소하면 결제를 취소하고 결제 시 사용한 포인트가 있을 경우 되돌려준다.
+	 * @param paymentVO
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping("auth_payment_paymentCancel.do")
 	public String paymentRentalPriceCancel(PaymentVO paymentVO, String memberId){
 		paymentVO=paymentService.findPaymentInfoByReservationNo(paymentVO.getReservationNo());

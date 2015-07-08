@@ -33,8 +33,10 @@
 				$("#payTotalView").html("${reservationInfo.rentalPrice }");
 				$("#paymentPrice").val("${reservationInfo.rentalPrice }");
 			}else{
-				$("#payTotalView").html((Number("${reservationInfo.rentalPrice }")-$("#usingPoint").val()));
-				$("#paymentPrice").val((Number("${reservationInfo.rentalPrice }")-$("#usingPoint").val()));
+				$("#payTotalView").html(
+						(Number("${reservationInfo.rentalPrice }")-$("#usingPoint").val()));
+				$("#paymentPrice").val(
+						(Number("${reservationInfo.rentalPrice }")-$("#usingPoint").val()));
 			}	
 		});
 		$("#reserveRegisterBtn").click(function(){
