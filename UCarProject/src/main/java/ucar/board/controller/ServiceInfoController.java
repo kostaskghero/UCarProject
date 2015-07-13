@@ -5,27 +5,36 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ServiceInfoController {
+	/**
+	 * 서비스 안내 탭을 누르면 기본으로 이용방법페이지로 이동한다.
+	 * @returnt
+	 */
 	@RequestMapping("service_home_usehow.do")
 	public ModelAndView usehow(){
-		System.out.println("서비스홈");
 		return new ModelAndView("service_usehow_form");
 	}
+	/**
+	 * 이용방법 메뉴를 클릭했을때 이동하는 페이지
+	 * @return
+	 */
 	@RequestMapping("service_home_userule.do")
-	public ModelAndView userule(){
-		System.out.println("서비스룰");
-		
+	public ModelAndView userule(){		
 		return new ModelAndView("service_userule_form");
 	}
+	/**
+	 * 이용규칙 메뉴를 클릭했을때 이동하는 페이지
+	 * @return
+	 */
 	@RequestMapping("service_home_ucarguide.do")
 	public ModelAndView ucarguide(){
-		System.out.println("유카가이드");
-		
 		return new ModelAndView("service_ucarguide_form");
 	}
+	/**
+	 * 유카 이펙트 메뉴를 클릭했을때 이동하는 페이지
+	 * @return
+	 */
 	@RequestMapping("service_home_ucareffect.do")
 	public ModelAndView serviceinfoQna(){
-		System.out.println("유카이팩트");
-		
 		return new ModelAndView("service_ucareffect_form");
 	}
 }

@@ -13,11 +13,17 @@ import ucar.sharing.reservation.model.ReservationVO;
 public class AdminSharingServiceImpl implements AdminSharingService {
 	@Resource(name="adminSharingDAOImpl")
 	private AdminSharingDAO adminSharingDAO;
-	
+	/**
+	 * 모든 예약내역을 받아온다.
+	 */
 	public List<ReservationVO> getAllReservationList(){
 		return adminSharingDAO.getAllReservationList();
 	}
-
+	/**
+	 * 예약상태, 차량닉네임, 회원아이디 3가지 조건의 8가지 조합으로
+	 * 예약내역을 검색한다.
+	 * 
+	 */
 	@Override
 	public List<ReservationVO> searchSharingByCondiction(ReservationVO rvo) {
 		String status=rvo.getSharingStatus();

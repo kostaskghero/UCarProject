@@ -88,11 +88,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countReviewLikeByReviewNo" parameterType="int" resultType="int">
 		select count(review_no) from review_like where review_no=#{value}
 	</select>
+	
 	<select id="getBestReviewNo" resultType="Integer">
 	select review_no from (select count(*) as like_count  ,review_no  from review_like
     group by review_no  order by like_count desc) where
      <![CDATA[ rownum<4 and like_count>=5 ]]>
 	</select>
+	
 	<select id="getBestReviewByReviewNo" parameterType="int" resultMap="reviewRM">
 		select review_no, review_title, review_member_id, 
 			(select file_path from review_file  <![CDATA[where rownum<2 and review_no=#{value}]]>) as file_path,

@@ -44,7 +44,7 @@ $(document).ready(function(){
 	<div class="form-group">
 		<div class="col-lg-5  col-lg-offset-2" >
 			<input type="text" class="form-control" id="word" name="word"
-				placeholder="검색할 내용 입력">
+				placeholder="검색할 내용 입력" onKeyDown="javascript:if (event.keyCode == 13) return false;">
 		</div>
 		<div class="col-lg-2 ">
 			<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
