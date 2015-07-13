@@ -21,7 +21,7 @@ create table ucar_zone (
 	drop table car;
 	create sequence car_seq nocache;
 	CREATE TABLE CAR (
-		CAR_NO NUMBER primary key,
+		CAR	_NO NUMBER primary key,
 		CAR_MODEL VARCHAR2(50),
 		UCAR_ZONE_NAME VARCHAR2(50) NOT NULL,
 		CAR_NICK_NAME VARCHAR2(50) NOT NULL,

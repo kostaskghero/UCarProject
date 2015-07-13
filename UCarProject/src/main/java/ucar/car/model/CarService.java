@@ -9,7 +9,7 @@ public interface CarService {
 
 	public List<String> getCarModelByType(String carType);
 
-	public CarVO carNickNameCheck(String carNickName);
+	public String carNickNameCheck(String carNickName);
 
 	public List<CarVO> getAllCarList();
 

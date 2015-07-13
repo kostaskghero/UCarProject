@@ -12,7 +12,8 @@
 				success : function(data) {
 					
 					var table="<table class='table table-hover'>";
-						table+="<thead><tr><th>번호</th><th>차모델</th><th>대여자</th><th>대여일시</th><th>반납일시</th><th>이용요금</th><th>상태</th></tr></thead>";
+						table+="<thead><tr><th>번호</th><th>차모델</th><th>대여자</th><th>대여일시</th>";
+						table+="<th>반납일시</th><th>이용요금</th><th>상태</th></tr></thead>";
 						table+="<tbody>";
 				 		$.each(data,function(i,vo){
 							table+="<tr>";

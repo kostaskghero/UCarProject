@@ -27,48 +27,43 @@ public class AdminSharingServiceImpl implements AdminSharingService {
 		if ((status == null || status.equals(""))
 				&& (carNickName == null || carNickName.equals(""))
 				&& (memberId == null || memberId.equals(""))) {
-		//	System.out.println("셋다x");
+		//	조건없이검색
 			list=adminSharingDAO.getAllReservationList();
 		}else if ((status != null || !status.equals(""))
 				&& (carNickName == null || carNickName.equals(""))
 				&& (memberId == null || memberId.equals(""))) {
-		//	System.out.println("상태만");
+		//	상태만
 			list=adminSharingDAO.searchSharingByStatus(rvo);
 		}else if ((status == null || status.equals(""))
 				&& (carNickName != null || !carNickName.equals(""))
 				&& (memberId == null || memberId.equals(""))) {
-		//	System.out.println("닉네임만");
+		//	닉네임만
 			list=adminSharingDAO.searchSharingByCarNickName(rvo);
 		}else if ((status == null || status.equals(""))
 				&& (carNickName == null || carNickName.equals(""))
 				&& (memberId != null ||! memberId.equals(""))) {
-		//	System.out.println("아이디만");
+		//	아이디만
 			list=adminSharingDAO.searchSharingByMemberId(rvo);
-		}else if ((status != null ||! status.equals(""))
-				&& (carNickName != null || !carNickName.equals(""))
-				&& (memberId == null || memberId.equals(""))) {
-		//	System.out.println("닉네임, 상태");
-			list=adminSharingDAO.searchSharingBySatausAndCarNickName(rvo);
 		}else if ((status != null ||! status.equals(""))
 				&& (carNickName == null || carNickName.equals(""))
 				&& (memberId != null || !memberId.equals(""))) {
-			//System.out.println("아이디, 상태");
+		//	아이디,상태
 			list=adminSharingDAO.searchSharingBySatausAndMemberId(rvo);
 		}else if ((status != null ||! status.equals(""))
 				&& (carNickName != null || !carNickName.equals(""))
 				&& (memberId == null || memberId.equals(""))) {
-			//System.out.println("닉네임, 상태");
+		//	닉네임,상태
 			list=adminSharingDAO.searchSharingBySatausAndCarNickName(rvo);
 		}else if ((status == null || status.equals(""))
 				&& (carNickName != null || !carNickName.equals(""))
 				&& (memberId != null ||! memberId.equals(""))) {
-			//System.out.println("닉네임, 아이디");
+		//	닉네임,아이디
 			list=adminSharingDAO.searchSharingByCarNickNameAndMemberId(rvo);
 		}
 		else if ((status != null || !status.equals(""))
 				&& (carNickName != null || !carNickName.equals(""))
 				&& (memberId != null ||! memberId.equals(""))) {
-		//	System.out.println("셋다 조건");
+		//	닉네임,아이디,상태
 			list=adminSharingDAO.searchSharingByCarNickNameAndMemberIdAndStataus(rvo);
 		}
 		return list;

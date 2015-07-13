@@ -42,10 +42,7 @@ public class CarDAOImpl implements CarDAO {
 	}
 
 	public List<UCarZoneVO> getAllUCarZoneList() {
-		/*
-		 * System.out.println(sqlSessionTemplate
-		 * .selectList("ucarzone.getAllUCarZoneList"));
-		 */
+	
 		return sqlSessionTemplate.selectList("ucarzone.getAllUCarZoneList");
 	}
 

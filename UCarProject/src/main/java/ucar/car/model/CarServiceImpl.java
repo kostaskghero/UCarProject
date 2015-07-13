@@ -23,7 +23,6 @@ public class CarServiceImpl implements CarService {
 	}
 
 	public void registerCar(CarVO cvo) {
-		System.out.println("service" + cvo);
 		carDAO.registerCar(cvo);
 	}
 
@@ -32,8 +31,12 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public CarVO carNickNameCheck(String carNickName) {
-		return carDAO.carNickNameCheck(carNickName);
+	public String carNickNameCheck(String carNickName) {
+		CarVO vo = carDAO.carNickNameCheck(carNickName);
+		if (vo != null) {
+			return "fail";
+		}
+		return "O";
 	}
 
 	public List<CarVO> getAllCarList() {
@@ -95,7 +98,6 @@ public class CarServiceImpl implements CarService {
 		String model = cvo.getCarModelInfoVO().getCarModel();
 		String uCarZone = cvo.getuCarZoneVO().getuCarZoneName();
 		String nickName = cvo.getCarNickName();
-		// System.out.println(model+" ,"+uCarZone+","+nickName+"//d뚱루둡루둡듀");
 		if ((model == null || model.equals(""))
 				&& (uCarZone == null || uCarZone.equals(""))
 				&& (nickName == null || nickName.equals(""))) {
@@ -188,7 +190,7 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public CarModelInfoVO getModelDetailInfo(String carModel) {
-		CarModelInfoVO carModelVO=carDAO.getMdoelDetailInfo(carModel);
+		CarModelInfoVO carModelVO = carDAO.getMdoelDetailInfo(carModel);
 		carModelVO.setCarOption(carDAO.getModelOption(carModel));
 		return carModelVO;
 	}
@@ -196,17 +198,14 @@ public class CarServiceImpl implements CarService {
 	@Override
 	@Transactional
 	public void deleteCarModelAndOption(String carModel) {
-	 carDAO.deleteCarModel(carModel);
-	 carDAO.deleteCarOption(carModel);
+		carDAO.deleteCarModel(carModel);
+		carDAO.deleteCarOption(carModel);
 	}
-	
+
 	@Transactional
 	public void registerCarModelAndOption(CarModelInfoVO carModelInfoVO,
 			CarPicVO carPicVO, CarOptionVO carOptionVO) {
-		System.out.println("service");
-		System.out.println(carModelInfoVO);
-		System.out.println(carOptionVO);
-		System.out.println(carPicVO);
+		
 		carDAO.registerCarModel(carModelInfoVO);
 		if (carOptionVO.getOptionComp() != null
 				|| carOptionVO.getOptionInfo().size() != 0) {
@@ -220,30 +219,28 @@ public class CarServiceImpl implements CarService {
 		String fileOriginalName = file.getOriginalFilename();
 		String fileName = "";
 		File picFile = new File(uploadCarPicPath);
-	      if (!picFile.exists()) {
-	    	  picFile.mkdirs();
-	      }
+		if (!picFile.exists()) {
+			picFile.mkdirs();
+		}
 		if (!fileOriginalName.equals("")) {
 			try {
-				fileName = System.currentTimeMillis()
-						+ fileOriginalName;
-			
+				fileName = System.currentTimeMillis() + fileOriginalName;
+
 				carPicVO.setOriginalName(fileOriginalName);
-				carPicVO.setFilePath(viewCarPath+fileName);
+				carPicVO.setFilePath(viewCarPath + fileName);
 				carDAO.registerCarPic(carPicVO);
-				file.transferTo(new File(uploadCarPicPath
-						+ fileName));
-				System.out.println("fileupload ok:" + fileName);
+				file.transferTo(new File(uploadCarPicPath + fileName));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	public boolean  modelDeleteCheck(String carModel){
-		boolean flag=false;
-		List<CarVO> list=carDAO.modelDeleteCheck(carModel);
-		if(list==null||list.size()==0){//존재x 삭제가능
-			flag=true;
+
+	public boolean modelDeleteCheck(String carModel) {
+		boolean flag = false;
+		List<CarVO> list = carDAO.modelDeleteCheck(carModel);
+		if (list == null || list.size() == 0) {// 존재x 삭제가능
+			flag = true;
 		}
 		return flag;
 	}

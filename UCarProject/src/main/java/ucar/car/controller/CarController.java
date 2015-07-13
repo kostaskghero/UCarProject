@@ -104,11 +104,8 @@ public class CarController {
 	@RequestMapping("nickNamecheck.do")
 	@ResponseBody
 	public String nickNamecheck(String carNickName) {
-		CarVO vo = carService.carNickNameCheck(carNickName);
-		if (vo != null) {
-			return "fail";
-		}
-		return "O";
+		return carService.carNickNameCheck(carNickName);
+		
 	}
 
 	/**

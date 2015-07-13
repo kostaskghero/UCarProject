@@ -25,7 +25,7 @@ public class AdminMemberController {
 	 * @return
 	 */
 	@RequestMapping("admin_member_list.do")
-	public ModelAndView member_list() {
+	public ModelAndView memberList() {
 		List<MemberVO> memberList = adminMemberService.getAllMemberList();
 		return new ModelAndView("admin_member_list", "memberList", memberList);
 	}
