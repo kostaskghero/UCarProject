@@ -18,7 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{reviewCommentNo}, #{reviewNo}, #{reviewCommentMemberId}, #{reviewCommentContent}, sysdate)
 	</insert>
 	<select id="getAllCommentListByReviewNo" parameterType="int" resultMap="reviewCommentRM">
-		select review_comment_no, review_no, review_comment_member_id, review_comment_content, to_char(review_comment_time_posted, 'YYYY/MM/DD HH24:MI:SS') as review_comment_time_posted 
+		select review_comment_no, review_no, review_comment_member_id, review_comment_content, 
+			to_char(review_comment_time_posted, 'YYYY/MM/DD HH24:MI:SS') as review_comment_time_posted 
 		from review_comment where review_no=#{value}
 		order by review_comment_no
 	</select>

@@ -56,7 +56,8 @@ public class ReviewController {
 	 * @param response
 	 */
 	@RequestMapping("auth_review_multiplePhotoUpload.do")
-	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+	public void multiplePhotoUpload(HttpServletRequest request, 
+			HttpServletResponse response) {
 		try {
 			HttpSession session=request.getSession(false);
 			MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
