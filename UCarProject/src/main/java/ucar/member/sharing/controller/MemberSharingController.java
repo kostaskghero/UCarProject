@@ -23,7 +23,8 @@ public class MemberSharingController {
 	private MemberSharingService memberSharingService;
 	
 	/**
-	 * 회원의 예약/이용내역을 List 로 제공
+	 * 예약내역 조회
+	 * 회원의 예약/이용내역을 목록으로 제공한다.
 	 * @param request
 	 * @return
 	 */
@@ -39,11 +40,11 @@ public class MemberSharingController {
 		mv.addObject("usedList", usedListVO);
 		return mv;
 	}
+	
 	/**
-	 * 예약상태인 차량을 취소
-	 * 예약취소하면 DB 에는 기록이 남고 회원은 볼 수 없다
-	 * 미구현 >> 이용요금을 결제한 상태에서 취소한 경우 포인트 사용했으면 사용한 포인트 지급, 결제로 쌓은 포인트 반환
-	 * 미구현 >> 예약을 하고 이용요금결제하지 않으면 이용시간 10분전에 자동으로 취소
+	 * 예약 취소
+	 * 예약상태인 차량을 취소한다.
+	 * 예약취소하면 DB 에는 기록이 남고 회원은 볼 수 없다.
 	 * @param reservationVO
 	 * @param pageNo
 	 * @return
@@ -57,9 +58,10 @@ public class MemberSharingController {
 		}
 		return "redirect:auth_memberSharing_reservationHistory.do";
 	}
+	
 	/**
 	 * 이용차량 반납
-	 * 주행거리 입력받아 반납 DB 에 등록되고 예약상태 DB 에 반납으로 변경
+	 * 주행거리 입력받아 반납 DB 에 등록되고 예약상태 DB 에 반납으로 변경한다.
 	 * @param reservationVO
 	 * @param returnVO
 	 * @return
@@ -70,14 +72,27 @@ public class MemberSharingController {
 		memberSharingService.returnSharingService(reservationVO);		
 		return "redirect:auth_memberSharing_reservationHistory.do";
 	}
+	
+	/**
+	 * 연장 확인
+	 * 연장을 원하는 시간에 연장할 수 있는 지 확인한다.
+	 * @param resrevationVO
+	 * @return
+	 */
 	@RequestMapping("auth_memberSharing_checkExtension.do")
 	@ResponseBody
 	public HashMap<String,Object> checkExtension(ReservationVO resrevationVO){
 		return memberSharingService.checkExtension(resrevationVO);
 	}
+	
+	/**
+	 * 이용시간 연장
+	 * 연장 확인된 상태에서 반납시간을 연장한다.
+	 * @param reservationVO
+	 * @return
+	 */
 	@RequestMapping("auth_memberSharing_extensionReservation.do")
 	public String extensionReservation(ReservationVO reservationVO){
-		System.out.println(reservationVO);
 		memberSharingService.extensionReservation(reservationVO);
 		return "redirect:auth_memberSharing_reservationHistory.do";
 	}

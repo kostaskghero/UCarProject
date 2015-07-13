@@ -73,7 +73,7 @@ public class MemberController {
 	
 	/**
 	 * 회원가입 폼
-	 * 회원가입 폼을 제공하는 페이지 제공한다.
+	 * 회원가입 폼을 제공하는 페이지로 이동한다.
 	 * Validation 을 위해 register_form.jsp 에서 사용할 수 있도록 객체를 생성해 전달한다. 
 	 * <form:form action="register.do" commandName="memberVO">
 	 * @return
@@ -109,6 +109,7 @@ public class MemberController {
 	 * 회원가입
 	 * 회원가입 폼에서 전달된 회원 가입 정보 (memberVO) 를 member 테이블에 insert 한다.
 	 * Validation 검사에서 에러가 있으면 회원가입 폼으로 다시 보낸다.
+	 * 회원가입 하면 세션에 loginInfo 를 설정하여 로그인 상태로 만든다.
 	 * insert 가 중복되지 않기 위해 redirect 방식으로 전송한다.
 	 * @param memberVO
 	 * @param result
@@ -131,7 +132,7 @@ public class MemberController {
 	 * 면허정보 등록하는 폼을 제공한다.
 	 * 회원가입 후 alert 창을 띄우고 확인을 선택했을 때 registerLicense_form.jsp 로 이동하게 한다.
 	 * 회원가입 후 링크를 제공하고 추가로 입력할 수 있게 한다.
-	 * 면허정보 입력에 필요한 licenseLocation 정보가 저장된 테이블에서 리스트를 가져와서
+	 * 면허정보 입력에 필요한 licenseLocation 정보가 저장된 테이블에서 지역 목록을 가져와서
 	 * 페이지로 이동하게 된다.
 	 * @return
 	 */

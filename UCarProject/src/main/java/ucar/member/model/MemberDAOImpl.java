@@ -13,31 +13,44 @@ import ucar.common.pointhistory.model.PointHistoryVO;
 public class MemberDAOImpl implements MemberDAO {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
+	
 	/**
-	 * 로그인
-	 * member Table 에서 memberVO 의 memberId 와 memberPassword 가 일치하는 회원정보를 조회
+	 * member Table 에서 memberVO 의 memberId 와 memberPassword 가 일치하는 회원정보를 조회한다.
 	 */
 	@Override
 	public MemberVO loginMember(MemberVO memberVO) {
 		return sqlSessionTemplate.selectOne("member.loginMember", memberVO);
 	}
-
+	
+	/**
+	 * member Table 에 memberVO 의 정보를 삽입한다.
+	 */
 	@Override
 	public void registerMember(MemberVO memberVO) {
 		sqlSessionTemplate.insert("member.registerMember", memberVO);
 	}
-
+	
+	/**
+	 * member Table 에 memberId 와 일치하는 정보가 있는지 조회한다.
+	 * 없으면 ok 를 있으면 fail 을 반환
+	 */
 	@Override
 	public String memberIdCheck(String memberId) {
 		int count=sqlSessionTemplate.selectOne("member.memberIdCheck",memberId);
 		return (count==0)? "ok":"fail";
 	}
-
+	
+	/**
+	 * card Table 에 memberId 를 외래키로 memberVO 의 정보를 삽입한다.
+	 */
 	@Override
 	public void registerCard(MemberVO memberVO) {
 		sqlSessionTemplate.insert("member.registerCard", memberVO);
 	}
-
+	
+	/**
+	 * card Table 에 cardNo와 일치하는 정보가 있는지 조회한다.
+	 */
 	@Override
 	public MemberVO findCardInfoByCardNo(String cardNo) {
 		return sqlSessionTemplate.selectOne("member.findCardInfoByCardNo",cardNo);
@@ -58,7 +71,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSessionTemplate.delete("member.deleteMember", memberId);
 		
 	}
-
+	
+	/**
+	 * member Table 에서 memberId 에 해당하는 정보를 조회한다.
+	 */
 	@Override
 	public MemberVO findMemberInfoByMemberId(String memberId) {
 		return sqlSessionTemplate.selectOne("member.findMemberInfoByMemberId", memberId);
@@ -68,12 +84,18 @@ public class MemberDAOImpl implements MemberDAO {
 	public int updateCardInfo(MemberVO memberVO) {
 		return sqlSessionTemplate.update("member.updateCardInfo", memberVO);
 	}
-
+	
+	/**
+	 * driving_license Table 에서 licenseNo 와 일치하는 정보를 조회한다.
+	 */
 	@Override
 	public MemberVO findLicenseInfoByLicenseNo(String licenseNo) {
 		return sqlSessionTemplate.selectOne("member.findLicenseInfoByLicenseNo", licenseNo);
 	}
-
+	
+	/**
+	 * driving_license Table 에 memberId 를 외래키로 memberVO 의 정보를 삽입한다.
+	 */
 	@Override
 	public void registerLicense(MemberVO memberVO) {
 		sqlSessionTemplate.insert("member.registerLicense", memberVO);
@@ -99,7 +121,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public int updateMemberPassword(MemberVO memberVO) {
 		return sqlSessionTemplate.update("member.updateMemberPassword", memberVO);
 	}
-
+	
+	/**
+	 * license_location Table 의 정보를 모두 조회한다.
+	 */
 	@Override
 	public List<String> getAllLicenseLocationList() {
 		return sqlSessionTemplate.selectList("member.getAllLicenseLocationList");

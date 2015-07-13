@@ -21,8 +21,8 @@ import ucar.member.model.exception.InvalidMemberIdException;
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
+	
 	/**
-	 * 로그인
 	 * 입력한 아이디와 비밀번호가 일치하는 회원정보를 조회해서 회원정보를 반환한다.
 	 */
 	@Override
@@ -31,7 +31,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	/**
-	 * 회원가입
 	 * 입력한 정보를 member table 에 삽입하고 point table 에도 회원가입으로 인해 발생한 포인트 내역을 삽입한다.
 	 */
 	@Transactional
@@ -60,8 +59,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	/**
-	 * 면허지역리스트
-	 * 운전면허정보 등록할 때 선택할 수 있는 지역리스트를 반환한다.
+	 * 운전면허정보 등록할 때 선택할 수 있는 지역목록을 반환한다.
 	 */
 	@Override
 	public List<String> getAllLicenseLocationList() {
@@ -82,13 +80,21 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.deleteMember(memberVO.getMemberId());
 	}
 	
+	/**
+	 * memberVO 의 licenceNo 를 조회해서 중복되면 DuplicateLicenseNumberException 발생시키고
+	 * 중복되지 않으면 면허정보를 등록한다.
+	 */
 	@Override
 	public void registerLicense(MemberVO memberVO) throws Exception {
 		if(memberDAO.findLicenseInfoByLicenseNo(memberVO.getDrivingLicenseVO().getLicenseNo())!=null)
 			throw new DuplicateLicenseNumberException("중복되는 면허번호 존재");
 		memberDAO.registerLicense(memberVO);
 	}
-
+	
+	/**
+	 * memberVO 의 cardNo 를 조회해서 중복되면 DuplicateCardNumberException 발생시키고
+	 * 중복되지 않으면 결제카드정보를 등록한다.
+	 */
 	@Override
 	public void registerCard(MemberVO memberVO) throws Exception {
 		if(memberDAO.findCardInfoByCardNo(memberVO.getCardVO().getCardNo())!=null)
@@ -142,7 +148,10 @@ public class MemberServiceImpl implements MemberService {
 	public int findPointByMemberId(String memberId) {
 		return memberDAO.findPointByMemberId(memberId);
 	}		
-
+	
+	/**
+	 * memberId 에 해당하는 정보를 조회한다.
+	 */
 	@Override
 	public MemberVO findMemberInfoByMemberId(String memberId) {
 		return memberDAO.findMemberInfoByMemberId(memberId);

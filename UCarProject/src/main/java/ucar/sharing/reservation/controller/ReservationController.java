@@ -24,7 +24,7 @@ public class ReservationController {
 	private MemberService memberService;
 	
 	/**
-	 * 회원이 예약을 진행할 수 있는지 확인
+	 * 회원이 예약을 진행할 수 있는지 확인한다.
 	 * 1. 회원의 운전면허 정보가 있는가
 	 * 2. 이용을 원하는 시간에 회원이 다른 차를 예약했는가
 	 * 3. 이용완료 되지 않은 내역이 남아있는가
