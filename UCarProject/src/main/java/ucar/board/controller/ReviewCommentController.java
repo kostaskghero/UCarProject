@@ -18,6 +18,7 @@ public class ReviewCommentController {
 	private ReviewCommentService reviewCommentService;
 	/**
 	 * 댓글작성
+	 * 댓글 등록하고 댓글 목록을 commentList 에 세팅한다.
 	 * @param reviewCommentVO
 	 * @return
 	 */
@@ -31,6 +32,7 @@ public class ReviewCommentController {
 	}
 	/**
 	 * 댓글수정
+	 * 댓글 수정하고 댓글 목록을 commentList 에 세팅한다.
 	 * @param reviewCommentVO
 	 * @return
 	 */
@@ -44,6 +46,7 @@ public class ReviewCommentController {
 	}
 	/**
 	 * 댓글삭제
+	 * 댓글 삭제하고 댓글 목록을 commentList 에 세팅한다.
 	 * @param reviewCommentVO
 	 * @return
 	 */
@@ -60,6 +63,13 @@ public class ReviewCommentController {
 		}		
 		return map;
 	}
+	
+	/**
+	 * 댓글 수정 폼
+	 * 댓글을 수정하기 위한 폼을 제공한다.
+	 * @param reviewNo
+	 * @return
+	 */
 	@RequestMapping("reviewComment_editCommentForm.do")
 	@ResponseBody
 	public List<ReviewCommentVO> editCommentForm(int reviewNo){

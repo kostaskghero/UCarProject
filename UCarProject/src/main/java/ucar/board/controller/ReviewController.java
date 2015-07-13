@@ -28,13 +28,20 @@ public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
 	
+	/**
+	 * 이용후기 작성 폼으로 이동한다.
+	 * @return
+	 */
 	@RequestMapping("auth_review_write_form.do")
 	public ModelAndView writeReviewForm() {
 		return new ModelAndView("customercenter_review_write_form");
 	}
 
 	/**
+	 * 이용후기 등록
 	 * 게시글을 insert 새로고침시 재입력을 막기 위해 redirect 시킨다. post 방식일때만 등록가능
+	 * @param vo
+	 * @return
 	 */
 	@RequestMapping(value = "auth_review_write.do", method = RequestMethod.POST)
 	public ModelAndView write(ReviewVO vo) {
@@ -42,13 +49,22 @@ public class ReviewController {
 		return new ModelAndView("redirect:review_showContentNoHit.do?reviewNo="+ vo.getReviewNo());
 	}
 	
+	/**
+	 * 이용후기 작성 시 파일업로드
+	 * 스마트 에디터를 사용해 파일을 삽입할 때 서버에 저장하고 에디터에 이미지 태그의 경로를 입력한다.
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping("auth_review_multiplePhotoUpload.do")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			HttpSession session=request.getSession(false);
 			MemberVO memberVO=(MemberVO)session.getAttribute("loginInfo");
+			// header 에서 파일명을 가져온다.
 			String oriName = request.getHeader("file-name");
+			// 저장될 파일 이름을 변환하고 경로를 설정
 			HashMap<String, String> map = reviewService.fileNameFomat(memberVO, oriName);
+			// 서버에 저장
 			InputStream is = request.getInputStream();
 			OutputStream os = new FileOutputStream(map.get("filePath"));
 			int numRead;
@@ -61,6 +77,7 @@ public class ReviewController {
 			}
 			os.flush();
 			os.close();
+			// 후기 입력 폼에 파일 정보를 기록한다.
 			PrintWriter print = response.getWriter();
 			print.print(map.get("fileInfo"));
 			print.flush();
@@ -70,7 +87,7 @@ public class ReviewController {
 		}	
 	}
 	/**
-	 * 최근 게시물 5개를 보여주는 메서드 , 이후 페이징시 업데이트 해야 한다.
+	 * 최근 게시물 10개를 보여주는 메서드 , 이후 페이징시 업데이트 해야 한다.
 	 * 
 	 * @param request
 	 * @param response
@@ -154,11 +171,25 @@ public class ReviewController {
 		return new ModelAndView("redirect:review_showContentNoHit.do?reviewNo="
 				+ vo.getReviewNo());
 	}
+	
+	/**
+	 * 이용후기 추천
+	 * reviewNo 에 해당하는 글을 추천한다.
+	 * @param reviewVO
+	 * @return
+	 */
 	@RequestMapping("auth_review_likeReview.do")
 	@ResponseBody
 	public HashMap<String, String> likeReview(ReviewVO reviewVO){
 		return reviewService.likeReview(reviewVO);
 	}
+	
+	/**
+	 * 이용후기 추천 취소
+	 * reviewNo 에 해당하는 글의 추천을 취소한다.
+	 * @param reviewVO
+	 * @return
+	 */
 	@RequestMapping("auth_review_likeReviewCancel.do")
 	@ResponseBody
 	public HashMap<String, String> lickeReviewCancel(ReviewVO reviewVO){

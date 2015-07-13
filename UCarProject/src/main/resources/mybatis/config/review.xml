@@ -2,16 +2,8 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="review"> 
-<insert id="writeReview" parameterType="reviewVO" >
- 	 <selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
-		select review_seq.nextval from dual
-	</selectKey>  
-  insert into review(
-	  review_no, review_title, review_member_id, review_content, review_time_posted  
-  )  values(#{reviewNo}, #{reviewTitle},#{memberId},#{reviewContent}, sysdate)
-  </insert>
-     <resultMap type="reviewVO" id="reviewRM">
+<mapper namespace="review">
+	<resultMap type="reviewVO" id="reviewRM">
 		<result property="reviewNo" column="review_no" />			
 		<result property="reviewTitle" column="review_title" /> 
 		<result property="memberId" column="review_member_id" /> 
@@ -29,6 +21,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewCommentContent" column="review_comment_content"/>
 		<result property="reviewCommentTimePosted" column="review_comment_time_posted"/>
 	</resultMap>
+	<insert id="writeReview" parameterType="reviewVO" >
+		<selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review(review_no, review_title, review_member_id, review_content, review_time_posted)
+		values(#{reviewNo}, #{reviewTitle},#{memberId},#{reviewContent}, sysdate)
+	</insert>
 	<select id="getReviewList" resultMap="reviewRM">
 		SELECT review_no, review_title, review_member_id, review_time_posted,review_hit
 		FROM
@@ -59,7 +58,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update review set review_title=#{reviewTitle}, review_content=#{reviewContent}
 	where review_no=#{reviewNo}
 	</update>
-
 	<select id="totalContent" resultType="int">
 		select count(*) from review
 	</select>	
@@ -102,35 +100,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from review 
 		where review_no=#{value}
 	</select>
- </mapper> 		
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ </mapper> 

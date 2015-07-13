@@ -26,7 +26,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Resource(name="viewPath")
 	private String viewPath;
 	
-	@Transactional
+	/**
+	 * 이용후기를 등록하고 reviewContent 에 있는 이미지 태그를 추출해 파일을 등록한다.
+	 */
 	@Override
 	public void writeReviewSavingPoint(ReviewVO vo) {
 		reviewDAO.writeReview(vo);
@@ -77,7 +79,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewCommentVO> getCommentListByReviewNo(int reviewNo) {
 		return reviewDAO.getCommentListByReviewNo(reviewNo);
 	}
-
+	
+	/**
+	 * 추천은 중복할 수 없다.
+	 * reviewNo 를 추천한 id 중 memberId 가 있으면 중복되므로 flag 에 fail 을 세팅한다.
+	 * memberId 가 없으면 추가하고 flag 에 ok 를 세팅하고, 변경된 추천수를 likeCount 에 세팅한다.
+	 */
 	@Override
 	public HashMap<String, String> likeReview(ReviewVO reviewVO) {
 		HashMap<String, String> map=new HashMap<String, String>();
@@ -90,7 +97,11 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return map;
 	}
-
+	
+	/**
+	 * 추천을 취소한다.
+	 * flag 에 ok 를 세팅하고, 변경된 추천수를 likeCount 에 세팅한다.
+	 */
 	@Override
 	public HashMap<String, String> likeReviewCancel(ReviewVO reviewVO) {
 		HashMap<String, String> map=new HashMap<String, String>();
@@ -100,8 +111,15 @@ public class ReviewServiceImpl implements ReviewService {
 		return map;
 	}
 	
+	/**
+	 * 등록하려는 파일의 이름을 변경하고 경로 (절대경로) 를 지정한다.
+	 * 관리를 위해 memberId 별로 별도의 디렉토리에 파일을 관리한다.
+	 * memberId 에 해당하는 디렉토리가 없을 경우 디렉토리를 생성한다.
+	 * 변경되는 파일은 명은 중복을 막기 위해 '아이디_현재시간.확장자' 의 형태로 변경한다.
+	 */
 	@Override
 	public HashMap<String, String> fileNameFomat(MemberVO memberVO, String oriName) throws Exception{
+		// 회원 별로 별도의 디렉토리를 생성한다.
 		HashMap<String, String> map=new HashMap<String, String>();
 		oriName = URLDecoder.decode(oriName, "UTF-8");	
 		String destPath = path + memberVO.getMemberId() + "\\";
@@ -109,6 +127,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
+		// 등록한 파일의 파일명을 변환한다.
 		String fileName = memberVO.getMemberId()+"_"+System.currentTimeMillis() + oriName.substring(oriName.lastIndexOf("."));
 		String filePath = destPath + fileName;
 		String fileInfo = "&bNewLine=true";
@@ -118,6 +137,13 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("fileInfo", fileInfo);
 		return map;
 	}
+	
+	/**
+	 * 파일을 DB 에 등록한다.
+	 * reviewNo 를 외래키로 참조하는 파일을 모두 삭제하고
+	 * reviewContent 에서 추출된 파일 정보를 이용해 서버에 저장된 경로 (상대경로) 를 DB 에 등록한다.
+	 * @param reviewVO
+	 */
 	@Transactional
 	public void registerFile(ReviewVO reviewVO){
 		reviewDAO.deleteFileByReviewNo(reviewVO.getReviewNo());
@@ -125,7 +151,6 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewFileVO rfvo=new ReviewFileVO();
 		rfvo.setReviewNo(reviewVO.getReviewNo());
 		List<String> list=convertHtmlimg(content);
-		System.out.println("img:"+list);
 		for(String imgUrl : list){			
 			String imgName[]=imgUrl.split("/");
 			String fileName=imgName[imgName.length-1].toString();
@@ -133,6 +158,12 @@ public class ReviewServiceImpl implements ReviewService {
 			reviewDAO.registerFile(rfvo);
 		}
 	}
+	
+	/**
+	 * 이미지 태그를 추출해 파일 경로를 List 로 저장한다.
+	 * @param img
+	 * @return
+	 */
 	public static List<String> convertHtmlimg(String img) {
 		Pattern nonValidPattern = Pattern
 				.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
