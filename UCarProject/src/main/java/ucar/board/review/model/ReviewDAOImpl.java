@@ -130,12 +130,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 		sqlSessionTemplate.delete("reviewFile.deleteFileByReviewNo", reviewNo);
 	}
 	/**
-	 * 베스트 이용
+	 * 베스트 이용후기 3개의 번호를 찾기
 	 */
 	public List<Integer> getBestReviewNo(){
 		return sqlSessionTemplate.selectList("review.getBestReviewNo");
 	}
-
+	/**
+	 * 베스트 이용후기 번호로 글 정보를 찾아오는 메서드 
+	 */
 	@Override
 	public ReviewVO getBestReviewByReviewNo(int reviewNo) {
 		return sqlSessionTemplate.selectOne("review.getBestReviewByReviewNo", reviewNo);
