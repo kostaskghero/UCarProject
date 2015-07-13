@@ -20,34 +20,47 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void writeReview(ReviewVO vo) {
 		sqlSessionTemplate.insert("review.writeReview", vo);
 	}
-
+	/**
+	 * 이용후기 수정
+	 */
 	public void updateReview(ReviewVO vo) {
 		sqlSessionTemplate.update("review.updateReview", vo);
 	}
-
+	/**
+	 * 이용후기 삭제
+	 */
 	public void deleteReview(int reviewNo) {
 		sqlSessionTemplate.delete("review.deleteReview", reviewNo);
 	}
-
+	/**
+	 * 선택한 페이지에 해당하는 
+	 */
 	public List<ReviewVO> getReviewList(String pageNo) {
 		return sqlSessionTemplate.selectList("review.getReviewList", pageNo);
 	}
-
+	/**
+	 * 이용후기 상세보기 
+	 */
 	public ReviewVO showContent(int reviewNo) {
 		return sqlSessionTemplate.selectOne("review.showContent", reviewNo);
 	}
-
+	/**
+	 * 페이징 처리를 위해 전체 글 개수를 반환
+	 */
 	@Override
 	public int totalContent() {
 		return sqlSessionTemplate.selectOne("review.totalContent");
 	}
-
+	/**
+	 * 조회수증가
+	 */
 	@Override
 	public void updateCount(int reviewNo) {
 		sqlSessionTemplate.update("review.updateCount", reviewNo);
-
 	}
-
+	/**
+	 * 해당글의 댓글목록 가져오기
+	 */
 	@Override
 	public List<ReviewCommentVO> getCommentListByReviewNo(int reviewNo) {
 		return sqlSessionTemplate.selectList("review.getCommentListByReviewNo", reviewNo);
@@ -94,12 +107,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void registerFile(ReviewFileVO rfvo){
 		sqlSessionTemplate.insert("reviewFile.registerFile",rfvo);
 	}
-
+	/**
+	 * 해당글에 달린 댓글의 개수를 반환
+	 */
 	@Override
 	public int countReviewCommentByReviewNo(int reviewNo) {
 		return sqlSessionTemplate.selectOne("review.countReviewCommentByReviewNo", reviewNo);
 	}
-
+	/**
+	 * 해당글의 추천수를 반환
+	 */
 	@Override
 	public int countReviewLikeByReviewNo(int reviewNo) {
 		return sqlSessionTemplate.selectOne("review.countReviewLikeByReviewNo", reviewNo);
@@ -112,10 +129,15 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void deleteFileByReviewNo(int reviewNo) {
 		sqlSessionTemplate.delete("reviewFile.deleteFileByReviewNo", reviewNo);
 	}
+	/**
+	 * 베스트 이용후기 3개의 번호를 찾기
+	 */
 	public List<Integer> getBestReviewNo(){
 		return sqlSessionTemplate.selectList("review.getBestReviewNo");
 	}
-
+	/**
+	 * 베스트 이용후기 번호로 글 정보를 찾아오는 메서드 
+	 */
 	@Override
 	public ReviewVO getBestReviewByReviewNo(int reviewNo) {
 		return sqlSessionTemplate.selectOne("review.getBestReviewByReviewNo", reviewNo);

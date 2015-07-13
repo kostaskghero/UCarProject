@@ -5,6 +5,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
+  
 <script type="text/javascript">
 $(function() {
     $( "#accordion" ).accordion({
@@ -40,6 +41,7 @@ $(document).ready(function(){
 		$("#searchBtn").click(function(){
 			location.href="customercenter_searchFaqByKeyWord.do?word="+$("#word").val();
 		});
+		
 		$(":input[name=faqDeleteBtn]").click(
 				function() {
 					if (confirm("삭제하시겠습니까?"))
@@ -62,10 +64,10 @@ $(document).ready(function(){
 	<div class="form-group">
 		<div class="col-lg-5  col-lg-offset-2" >
 			<input type="text" class="form-control" id="word" name="word"
-				placeholder="검색할 내용 입력">
+				placeholder="검색할 내용 입력" onKeyDown="javascript:if (event.keyCode == 13) return false;">
 		</div>
 		<div class="col-lg-2 ">
-			<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+			<button type="button" class="btn btn-primary" id="searchBtn" >검색</button>
 		</div>
 	</div>
 </form>

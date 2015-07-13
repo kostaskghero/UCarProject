@@ -70,7 +70,11 @@ public class NoticeController {
 		return new ModelAndView("redirect:notice_showContent.do?noticeNo="
 				+ bvo.getNoticeNo());
 	}
-
+	/**
+	 * 관리자가 공지사항을 수정하는 폼으로 이동하는 메서드 
+	 * @param noticeNo
+	 * @return
+	 */
 	@RequestMapping("admin_notice_update_form.do")
 	public ModelAndView noticeUpdateForm(int noticeNo) {
 		BoardVO bvo = boardService.showContent(noticeNo);

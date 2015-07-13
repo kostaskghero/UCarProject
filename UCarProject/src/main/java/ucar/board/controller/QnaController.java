@@ -26,6 +26,7 @@ public class QnaController {
 	 *   1:1문의글 쓰는 페이지로 이동
 	 * @return
 	 */
+	
 	@RequestMapping("auth_customercenter_home_qna.do")
 	public ModelAndView serviceinfoQna(){
 		return new ModelAndView("customercenter_qna_form");
@@ -33,20 +34,13 @@ public class QnaController {
 	
 	/**
 	 * 관리자 모드에서 
-	 * 최근 게시물 5개를 보여주는 메서드
+	 * 최근 게시물10개를 보여주는 메서드
 	 * @return
 	 * @
 	 */
 	@RequestMapping("admin_customercenter_home_qna_boardList.do")
-	public ModelAndView list(String pageNo, HttpServletRequest request) {	
-		MemberVO mvo=null;
-		HttpSession session=request.getSession(false);
-		if(session.getAttribute("loginInfo")!=null){
-			mvo=(MemberVO)session.getAttribute("loginInfo");
-		} else if(session.getAttribute("admin")!=null){
-			mvo=(MemberVO)session.getAttribute("admin");
-		}		
-		QnaListVO qvo = qnaBoardService.getBoardList(pageNo, mvo.getMemberId());
+	public ModelAndView qnaAdminlist(String pageNo, HttpServletRequest request) {	
+		QnaListVO qvo = qnaBoardService.getBoardList(pageNo);
 		return new ModelAndView("admin_qna_list_form_admin","lvo",qvo);
 	}	
 	/**
@@ -57,11 +51,7 @@ public class QnaController {
 	public ModelAndView qnaCustomerList(String pageNo, HttpServletRequest request){
 		MemberVO mvo=null;
 		HttpSession session=request.getSession(false);
-		if(session.getAttribute("loginInfo")!=null){
 			mvo=(MemberVO)session.getAttribute("loginInfo");
-		} else if(session.getAttribute("admin")!=null){
-			mvo=(MemberVO)session.getAttribute("admin");
-		}		
 		QnaListVO qvo = qnaBoardService.getQnaListById(pageNo, mvo.getMemberId());
 		return new ModelAndView("qna_qna_list_form","lvo",qvo);
 	}
@@ -117,7 +107,6 @@ public class QnaController {
 	public ModelAndView replyView(int qnaNo) {		
 		QnaBoardVO qvo= new QnaBoardVO();
 		qvo=qnaBoardService.showContent(qnaNo);
-	//	System.out.println(qvo+"controlelrtets");
 	return new ModelAndView("admin_qna_reply_form", "qvo", qvo);
 	}
 	/**

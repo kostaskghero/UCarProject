@@ -14,58 +14,40 @@ import ucar.common.model.PagingBean;
 public class QnaBoardServiceImpl implements QnaBoardService {
 	@Resource(name = "qnaBoardDAOImpl")
 	private QnaBoardDAO qnaboardDAO;
-
+	
+	/**
+	 * Qna 작성하는 메서드
+	 */
 	@Override
 	public void write(QnaBoardVO bvo) {
 		qnaboardDAO.write(bvo);
 	}
 
-	
+	/**
+	 * 관리자 모드의 1:1문의 리스트 
+	 */
 	@Override
-	public QnaListVO getBoardList(String pageNo, String sessionId) {
+	public QnaListVO getBoardList(String pageNo) {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
-		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
 		List<QnaBoardVO> list = qnaboardDAO.getBoardList(pageNo);
 		int total =qnaboardDAO.totalContent();
-	//	System.out.println("aaaa" + sessionId);
-	/*	if (sessionId.equals("admin")) {
-			resultList = list;
-			total=qnaboardDAO.totalContent();
-		} else {
-			total=qnaboardDAO.totalContentByMemberId(sessionId);
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("리스트이름" + list.get(i).getQnaMemberId());
-				if(list.get(i).getQnaMemberId().equals(sessionId)){
-					resultList.add(list.get(i));
-				}		
-			}
-		}*/
-	
-
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
 		QnaListVO lvo = new QnaListVO(list, paging);
 		return lvo;
 	}
+	/**
+	 * 로그인한 회원의 아이디로 그 회원이 작성한 1:1문의 목록을 찾는다. 
+	 * 검색된 목록 전체를 반복문으로 돌면서 해당 글에 답변이 되었는지 확인하는 메서드를
+	 * 수행한 후에 답글이 달렸으면 checkReply를 ture로 바꿔주고 
+	 * 목록과 페이징빈을 ListVO에 담아 반환한다. 
+	 */
 	public QnaListVO getQnaListById(String pageNo, String sessionId) {
 		if (pageNo == null || pageNo == "")
 			pageNo = "1";
-		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
 		List<QnaBoardVO> list = qnaboardDAO.getQnaListById(sessionId, pageNo);
 		int total =qnaboardDAO.totalContentByMemberId(sessionId);
-	//	System.out.println("aaaa" + sessionId);
-/*		if (sessionId.equals("admin")) {
-			resultList = list;
-			total=qnaboardDAO.totalContent();
-		} else {
-			total=qnaboardDAO.totalContentByMemberId(sessionId);
-			for (int i = 0; i < list.size(); i++) {
-			//	System.out.println("리스트이름" + list.get(i).getQnaMemberId());
-				if(list.get(i).getQnaMemberId().equals(sessionId)){
-					resultList.add(list.get(i));
-				}		
-			}
-		}*/
+	
 		for(int i =0;i<list.size();i++){
 			if(qnaboardDAO.getReplyByQnaNo(list.get(i).getQnaNo()).size()!=0){
 				list.get(i).setCheckReply(true);
@@ -75,80 +57,25 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		QnaListVO lvo = new QnaListVO(list, paging);
 		return lvo;
 	}
-	/*public QnaListVO getBoardList(String pageNo, String sessionId) {
-		if (pageNo == null || pageNo == "")
-			pageNo = "1";
-		List<QnaBoardVO> resultList = new ArrayList<QnaBoardVO>();
-		List<QnaBoardVO> adminList = new ArrayList<QnaBoardVO>();
-		List<QnaBoardVO> memberList = new ArrayList<QnaBoardVO>();
-		List<QnaBoardVO> totalList = new ArrayList<QnaBoardVO>();
-		List<QnaBoardVO> list = qnaboardDAO.getBoardList(pageNo);
-		
-		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getQnaMemberId().equals("admin")) {
-				adminList.add(list.get(i));
-			}
-			if(list.get(i).getQnaMemberId().equals(sessionId)) {
-				memberList.add(list.get(i));
-			}
-		}
-		int total =0;
-		System.out.println("aaaa" + sessionId);
-		if (sessionId.equals("admin")) {
-			totalList = list;
-			total=qnaboardDAO.totalContent();
-		} else {
-			total=qnaboardDAO.totalContentByMemberId(sessionId);
-			System.out.println(total + "sfasfasfasfs");
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("REF:"+ list.get(i).getQnaRef());
-				for(int j = 0; j<memberList.size(); j++) {
-					for(int k =0; k<adminList.size(); k++) {
-						if(list.get(i).getQnaMemberId().equals(sessionId)){
-							if(memberList.get(j).getQnaRef() == adminList.get(k).getQnaRef()) {
-								resultList.add(adminList.get(k));
-								resultList.add(memberList.get(j));
-							}
-						}	
-					}
-				}
-			}
-			for(int i =0; i<resultList.size(); i++){
-				totalList.add(resultList.get(i));
-			}
-		}
-		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
-		QnaListVO lvo = new QnaListVO(totalList, paging);
-		return lvo;
-	}*/
-
+	
+	/**
+	 * 문의 내용 보기
+	 */
 	@Override
 	public QnaBoardVO showContent(int no) {
 		return qnaboardDAO.showContent(no);
 	}
 
-	@Override
-	public QnaBoardVO showContentNoHit(int no) {
-		return qnaboardDAO.showContent(no);
-	}
-
-	@Override
-	public boolean checkPass(String no, String pass) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("no", no);
-		map.put("pass", pass);
-		int count = qnaboardDAO.checkPass(map);
-		boolean flag = false;
-		if (count > 0)
-			flag = true;
-		return flag;
-	}
-
+	/**
+	 * 문의글 삭제 메서드
+	 */
 	@Override
 	public void deleteBoard(String no) {
 		qnaboardDAO.deleteBoard(no);
 	}
-
+	/**
+	 * 1:1문의 수정
+	 */
 	@Override
 	public void updateBoard(QnaBoardVO bvo) {
 		qnaboardDAO.updateBoard(bvo);
@@ -167,6 +94,9 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	 * 
 	 * }
 	 */
+	/**
+	 * 답변글의 restep과 relevel을 증가시켜주는 메서드 
+	 */
 	@Override
 	public void insertRef(QnaBoardVO vo) {
 		int ref = vo.getQnaRef();
@@ -180,6 +110,9 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		vo.setQnaRelevel(relevel + 1);
 		qnaboardDAO.insertRef(vo);// 답변 글 입력
 	}
+	/**
+	 * 해당글에 답변이 달렸는지 확인하는 메서드 
+	 */
 	public List<QnaBoardVO> getReplyByQnaNo(int no){
 		return qnaboardDAO.getReplyByQnaNo(no);
 	}

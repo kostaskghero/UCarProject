@@ -34,19 +34,31 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDAO.writeReview(vo);
 		registerFile(vo);
 	}
+	/**
+	 * 이용후기를 수정한다.
+	 */
 	@Transactional
 	@Override
 	public void updateReview(ReviewVO vo) {
 		reviewDAO.updateReview(vo);
 		registerFile(vo);
 	}
+	/**
+	 * 이용후기를 삭제하고 함께 등록된 사진도 삭제한다.
+	 */
 	@Transactional
 	@Override
 	public void deleteReview(int reviewNo) {
 		reviewDAO.deleteReview(reviewNo);
 		reviewDAO.deleteFileByReviewNo(reviewNo);
 	}
-
+	/**
+	 * 이용후기 페이지로 들어갔을때 
+	 * 일반 이용후기를 보여주기위한 메서드 
+	 * 해당 페이지에 들어갈 이용후기 리스트를 받아서
+	 * 글 번호로 댓글 수와 추천수를 setting하여 페이징빈화함께
+	 * ListVO로 리턴한다.
+	 */
 	@Override
 	public ListVO getReviewList(String pageNo) {
 		if (pageNo == null || pageNo == "")
@@ -57,24 +69,32 @@ public class ReviewServiceImpl implements ReviewService {
 			list.get(i).setReviewLikeCount(reviewDAO.countReviewLikeByReviewNo(list.get(i).getReviewNo()));
 		}
 		int total = reviewDAO.totalContent();
-		System.out.println("total"+total);
 		PagingBean paging = new PagingBean(total, Integer.parseInt(pageNo));
 		ListVO lvo = new ListVO(list, paging);
-		System.out.println(lvo+"service test");
 		return lvo;
 	}
-
+	/**
+	 * 이용후기 상세보기 메서드
+	 */
+	
 	@Override
 	public ReviewVO showContent(int no) {
 		reviewDAO.updateCount(no);
 		return reviewDAO.showContent(no);
 	}
-
+	
+	/**
+	 * 조회수를 증가시키지 않고 글을 보여주는 메서드 
+	 */
+	
 	@Override
 	public ReviewVO showContentNoHit(int no) {
 		return reviewDAO.showContent(no);
 	}
-
+	
+	/**
+	 * 글 번호로 작성된 댓글 목록을 찾아 반환하는 메서드
+	 */
 	@Override
 	public List<ReviewCommentVO> getCommentListByReviewNo(int reviewNo) {
 		return reviewDAO.getCommentListByReviewNo(reviewNo);
@@ -177,6 +197,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return result;
 	}
+	/**
+	 * 베스트 이용후기 목록에 들어갈 상위 3개의 글 번호를 검색하고
+	 * 해당 글 번호로 검색하여 베스트 이용후기 목록을 생성해 반환한다. 
+	 */
 	@Override
 	public List<ReviewVO> getBestReview(){
 		List<Integer> list= reviewDAO.getBestReviewNo();

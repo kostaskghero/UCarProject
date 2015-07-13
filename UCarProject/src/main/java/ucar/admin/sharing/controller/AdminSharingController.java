@@ -57,6 +57,7 @@ public class AdminSharingController {
 	 * @param memberVO
 	 * @return
 	 */
+	
 	@RequestMapping("admin_searchSharing.do")
 	@ResponseBody
 	public List<ReservationVO> searchSharingByCondiction(
@@ -66,4 +67,5 @@ public class AdminSharingController {
 		List<ReservationVO> list= adminSharingService.searchSharingByCondiction(reservationVO);
 		return list;
 	}
+	
 }

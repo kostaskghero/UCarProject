@@ -41,11 +41,6 @@ public interface CarService {
 
 	public void updateUcarZone(UCarZoneVO zvo);
 
-	public void registerCarModel(CarModelInfoVO carDetailVO);
-
-	public void registerCarPic(CarPicVO carPicVO);
-
-	public void registerCarOption(CarOptionVO carOptionVO);
 
 	public CarModelInfoVO carModelNameCheck(String modelName);
 

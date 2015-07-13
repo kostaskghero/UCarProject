@@ -151,20 +151,32 @@ public class ReviewController {
 		mv.addObject("commentList", reviewService.getCommentListByReviewNo(reviewNo));
 		return mv;
 	}
-
+	/**
+	 * 작성한 이용후기를 삭제
+	 * @param reviewNo
+	 * @return
+	 */
 	@RequestMapping("auth_review_delete.do")
 	public ModelAndView deleteReview(int reviewNo) {
 		reviewService.deleteReview(reviewNo);
 		return new ModelAndView("customercenter_review_list", "lvo",
 				reviewService.getReviewList("1"));
 	}
-
-
+	/**
+	 * 이용후기 수정 폼으로 이동
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping("auth_update_review_form.do")
 	public ModelAndView updateReviewForm(ReviewVO vo) {
 		return new ModelAndView("customercenter_review_update_form",
 				"vo", reviewService.showContentNoHit(vo.getReviewNo()));
 	}
+	/**
+	 * 이용후기 수정
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping("review_update.do")
 	public ModelAndView updateReview(ReviewVO vo){
 		System.out.println("fejhafkhlakfhlaieufhafiuhafieufkhaaeukhfkejafhkjefhlk");
