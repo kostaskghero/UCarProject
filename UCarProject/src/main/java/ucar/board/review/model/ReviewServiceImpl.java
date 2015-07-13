@@ -138,7 +138,8 @@ public class ReviewServiceImpl implements ReviewService {
 	 * 변경되는 파일은 명은 중복을 막기 위해 '아이디_현재시간.확장자' 의 형태로 변경한다.
 	 */
 	@Override
-	public HashMap<String, String> fileNameFomat(MemberVO memberVO, String oriName) throws Exception{
+	public HashMap<String, String> fileNameFomat(MemberVO memberVO, 
+			String oriName) throws Exception{
 		// 회원 별로 별도의 디렉토리를 생성한다.
 		HashMap<String, String> map=new HashMap<String, String>();
 		oriName = URLDecoder.decode(oriName, "UTF-8");	
@@ -148,7 +149,8 @@ public class ReviewServiceImpl implements ReviewService {
 			file.mkdirs();
 		}
 		// 등록한 파일의 파일명을 변환한다.
-		String fileName = memberVO.getMemberId()+"_"+System.currentTimeMillis() + oriName.substring(oriName.lastIndexOf("."));
+		String fileName = memberVO.getMemberId()+"_"+System.currentTimeMillis() 
+				+ oriName.substring(oriName.lastIndexOf("."));
 		String filePath = destPath + fileName;
 		String fileInfo = "&bNewLine=true";
 		fileInfo += "&sFileName=" + fileName;

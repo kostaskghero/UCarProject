@@ -26,7 +26,8 @@
 				$.ajax({
 					type:"post",
 					url:"${initParam.root }auth_review_likeReview.do",
-					data:"reviewNo=${requestScope.vo.reviewNo}&memberId=${sessionScope.loginInfo.memberId}",
+					data:"reviewNo=${requestScope.vo.reviewNo}"
+						+"&memberId=${sessionScope.loginInfo.memberId}",
 					success:function(data){
 						if(data.flag=='ok'){
 							$("#reviewLikeView").html(data.likeCount);
@@ -35,7 +36,8 @@
 								$.ajax({
 									type:"post",
 									url:"${initParam.root }auth_review_likeReviewCancel.do",
-									data:"reviewNo=${requestScope.vo.reviewNo}&memberId=${sessionScope.loginInfo.memberId}",
+									data:"reviewNo=${requestScope.vo.reviewNo}"
+										+"&memberId=${sessionScope.loginInfo.memberId}",
 									success:function(data){
 										if(data.flag=="ok"){
 											$("#reviewLikeView").html(data.likeCount);
@@ -70,13 +72,20 @@
 							$.each(data.commentList, function(index, comment){
 								commentTable+="<tr>";
 								commentTable+="<td>";
-								commentTable+="<div class='col-md-1'>"+comment.reviewCommentMemberId+"</div>";
-								commentTable+="<div class='col-md-8' id='"+comment.reviewCommentNo+"CommentContent'>"+comment.reviewCommentContent+"</div>";
-								commentTable+="<div class='col-md-2'>"+comment.reviewCommentTimePosted+"</div>";
-								if((comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}") || ("${sessionScope.admin.memberId}"=="admin")){
+								commentTable+="<div class='col-md-1'>"
+									+comment.reviewCommentMemberId+"</div>";
+								commentTable+="<div class='col-md-8' id='"
+									+comment.reviewCommentNo+"CommentContent'>"
+									+comment.reviewCommentContent+"</div>";
+								commentTable+="<div class='col-md-2'>"
+									+comment.reviewCommentTimePosted+"</div>";
+								if((comment.reviewCommentMemberId=="${sessionScope.loginInfo.memberId}") 
+										|| ("${sessionScope.admin.memberId}"=="admin")){
 									commentTable+="<div class='col-md-1'>";
-									commentTable+="<button type='button' class='btn btn-xs' name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
-									commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' value='"+comment.reviewCommentNo+"'>삭제</button>";
+									commentTable+="<button type='button' class='btn btn-xs' "
+										+"name='editCommentFormBtn' value='"+comment.reviewCommentNo+"'>수정</button>";
+									commentTable+="<button type='button' class='btn btn-xs' name='deleteCommentBtn' "
+										+"value='"+comment.reviewCommentNo+"'>삭제</button>";
 									commentTable+="</div>";
 								}
 								commentTable+="</td>";

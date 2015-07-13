@@ -1,4 +1,4 @@
-package ucar.common.aop;
+package ucar.common;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,6 +14,6 @@ public class AspectLogging {
 	
 	@Before("execution(public * ucar..*Service.*(..))")
 	public void beforLog(JoinPoint point){
-		logger.debug("{} method", point.getClass().getName());
+		//logger.debug("{} method", point.getClass().getName());
 	}
 }

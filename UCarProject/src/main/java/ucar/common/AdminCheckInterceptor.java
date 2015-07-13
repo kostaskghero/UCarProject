@@ -14,7 +14,7 @@ public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
 	 * 세션 유무 판단과 세션이 존재하면 인증 정보의 존재 유무를 판단하여
 	 * 비인증 상태이면 redirect return false;
 	 * true 반환하면 컨트롤러 수행
-	 * servlet-context.xml 에 설정하고 auth_*.do 의 url 은 모두 session 유무 판단
+	 * servlet-context.xml 에 설정하고 admin_*.do 의 url 은 모두 session 유무 판단
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request,

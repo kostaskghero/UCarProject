@@ -20,14 +20,21 @@ import ucar.sharing.payment.model.PaymentVO;
 public class PointHistoryAspect {
 	@Resource
 	private PointHistoryService pointHistoryService;
+	/**
+	 * 포인트 적립
+	 * 회원에게 서비스 이용에 대한 포인트를 지급한다.
+	 * 포인트 지급은 공통 사항으로 처리한다.
+	 * 모든 서비스 계층에 있는 method 중 SavingPoint 로 끝나는 method 가 실행된 후
+	 * 포인트 적립되는 savingPoint() 가 수행된다.
+	 * @param point
+	 */
 	@After("execution(public * ucar..*Service.*SavingPoint(..))")
 	public void savingPoint(JoinPoint point){
 		Object param[]=point.getArgs();
 		PointHistoryVO pointHistoryVO=new PointHistoryVO();
 		pointHistoryVO.setPointType("적립");
 		String methodName=point.getSignature().getName();
-		System.out.println("point"+methodName);
-		if(methodName.contains("payment")){	// 반납결제
+		if(methodName.contains("payment")){
 			PaymentVO paymentVO=(PaymentVO) param[0];
 			pointHistoryVO.setMemberId((String)param[1]);
 			pointHistoryVO.setPointValue(paymentVO.getPaymentPrice()*0.1);
@@ -43,11 +50,18 @@ public class PointHistoryAspect {
 		}
 		if(!pointHistoryVO.getMemberId().equals("admin")){
 			pointHistoryService.savingPoint(pointHistoryVO);
-		}		
-		System.out.println(("메서드 인자값 : "+param[0]));
-		System.out.println("메서드명:"+point.getClass().getName());
+		}
 	}
 	
+	/**
+	 * 포인트 차감 & 환불
+	 * 서비스 결제 시 포인트를 사용하면 보유 포인트를 차감하고
+	 * 포인트 사용한 결제에 대한 취소가 이루어질 때 환불해준다.
+	 * 모든 결제가 이루어 질 때 공통 사항으로 처리한다.
+	 * 모든 서비스 계층에 있는 method 중 payment 로 시작하는 method 가 실행되기 전
+	 * 포인트 차감 or 환불에 대한 payingByPoint() 가 수행된다.
+	 * @param point
+	 */
 	@Before("execution(public * ucar..*Service.payment*(..))")
 	public void payingByPoint(JoinPoint point){
 		Object param[]=point.getArgs();

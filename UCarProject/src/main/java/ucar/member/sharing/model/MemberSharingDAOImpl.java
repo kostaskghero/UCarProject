@@ -13,7 +13,9 @@ import ucar.sharing.reservation.model.ReservationVO;
 public class MemberSharingDAOImpl implements MemberSharingDAO {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+	/**
+	 * 
+	 */
 	@Override
 	public List<ReservationVO> getReservationListByMemberId(ReservationVO reservationVO) {
 		return sqlSessionTemplate.selectList("memberSharing.getReservationListByMemberId", reservationVO);
@@ -34,7 +36,9 @@ public class MemberSharingDAOImpl implements MemberSharingDAO {
 		return sqlSessionTemplate.selectOne("memberSharing.totalUsedByMemberId", memberId);
 	}
 
-
+	/**
+	 * sharing_status Table 의 status 를 변경한다.
+	 */
 	@Override
 	public void changeSharingStatusByReservationNo(ReservationVO reservationVO) {
 		sqlSessionTemplate.update("memberSharing.changeSharingStatusByReservationNo", reservationVO);
@@ -62,11 +66,17 @@ public class MemberSharingDAOImpl implements MemberSharingDAO {
 		sqlSessionTemplate.update("memberSharing.extensionReservation", reservationVO);
 	}
 
+	/**
+	 * sharing_status Table 에서 status 가 취소 or 완료가 아닌 reservationNo 의 정보를 sharing_reservation Table 에서 조회한다.
+	 */
 	@Override
 	public List<ReservationVO> getAllSharingListExcludeCancel() {
 		return sqlSessionTemplate.selectList("memberSharing.getAllSharingListExcludeCancel");
 	}
-
+	
+	/**
+	 * sharing_reservation Table 의 late_fee 와 late_time 을 변경한다.
+	 */
 	@Override
 	public void updateLateFeeAndTime(ReservationVO reservationVO) {
 		sqlSessionTemplate.update("memberSharing.updateLateFeeAndTime", reservationVO);

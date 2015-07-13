@@ -9,10 +9,7 @@
 			if($("#reviewTitle").val()==""){
 				alert("제목을 입력하세요!");
 				return false;
-			}/* else if($("#reviewContent").val()==""){
-				alert("내용을 입력하세요!");
-				return false;
-			} */
+			}
 			$("#reviewWriteForm").submit();
 		});
 		$("#reviewCancel").click(function(){
@@ -56,19 +53,9 @@
 				<textarea rows="24" style="width:100%;" id="reviewContent" name="reviewContent"></textarea><br>
 			</div>
 		</div>
-		<!-- <div class="form-group">
-			<label for="inputFile" class="col-lg-2 control-label">파일첨부</label>
-			<div class="col-lg-5">
-				<input type="file" class="form-control"  name="file[0]" id="file[0]">
-				<input type="file" class="form-control" name="file[1]" id="file[1]" >
-				<input type="file" class="form-control" name="file[2]" id="file[2]">
-			</div>
-		</div> -->
 	</fieldset>
 
 </form>
-<%-- <img src="${initParam.root }img/notice.png" width="500" height="400"> --%>
-
 <div class="form-group">
 	<div class="col-lg-10 col-lg-offset-2">
 		<button type="reset" class="btn btn-default" id="reviewCancel">취소</button>
