@@ -12,7 +12,7 @@ $(document).ready(function(){
 			});
 	$(":input[name=pointBtn]").click(function() {
 		var point=$("#"+$(this).val()+"memberPoint").val();
-	if(	confirm($(this).val() +"님에게 "+point+"점을 지금하시겠습니까?"))
+	if(	confirm($(this).val() +"님에게 "+point+"점을 지급하시겠습니까?"))
 		location.href="admin_givePoint.do?point="+point+"&memberId="+$(this).val();
 });
 });
@@ -38,7 +38,7 @@ $(document).ready(function(){
 									<th>아이디</th>
 									<th>이름</th>
 									<th>포인트</th>
-									<th>회원관리</th>
+									<th>포인트 지급</th>
 									<th>회원삭제</th>
 								</tr>
 							</thead>
