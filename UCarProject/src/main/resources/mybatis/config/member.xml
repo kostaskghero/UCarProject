@@ -78,9 +78,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into card(card_no, member_id, card_type, card_expiration_date, card_password, card_birth) 
 		values(#{cardVO.cardNo}, #{memberId}, #{cardVO.cardType}, to_date(#{cardVO.cardExpirationDate},'YYYY/MM'), #{cardVO.cardPassword}, to_date(#{cardVO.cardBirth},'YYYY/MM/DD'))
 	</insert>
-	<update id="updateCardInfo" parameterType="mvo">
-		update card set card_expiration_date=to_date(#{cardVO.cardExpirationDate},'YYYY/MM'), card_password=#{cardVO.cardPassword} where member_id=#{memberId} and card_no=#{cardVO.cardNo}
-	</update>
 	<delete id="deleteCard">
 		delete from card where card_no=#{value}
 	</delete>
@@ -91,12 +88,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findLicenseInfoByLicenseNo" resultMap="memberRM">
 		select license_no, member_id, license_type, to_char(license_renewal_term, 'YYYY/MM/DD') as license_renewal_term, to_char(license_issue_date, 'YYYY/MM/DD') as license_issue_date, gender, to_char(license_birth, 'YYYY/MM/DD') as license_birth from driving_license where license_no=#{drivingLicenseVO.licenseNo}
 	</select>
-	<update id="updateLicenseInfo" parameterType="mvo">
-		update driving_license set license_renewal_term=to_date(#{drivingLicenseVO.licenseRenewalTerm},'YYYY/MM/DD'), license_issue_date=to_date(#{drivingLicenseVO.licenseIssueDate},'YYYY/MM/DD') where member_id=#{memberId} and license_no=#{drivingLicenseVO.licenseNo}
-	</update>
-	<delete id="deleteLicense">
-		delete from driving_license where license_no=#{value}
-	</delete>
 	<select id="memberPasswordCheck" parameterType="mvo" resultType="int">
 		select count(*) from member where member_id=#{memberId} and member_password=#{memberPassword}
 	</select>

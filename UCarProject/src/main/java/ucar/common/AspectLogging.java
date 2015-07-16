@@ -14,6 +14,6 @@ public class AspectLogging {
 	
 	@Before("execution(public * ucar..*Service.*(..))")
 	public void beforLog(JoinPoint point){
-		//logger.debug("{} method", point.getClass().getName());
+		logger.debug("{} method", point.getClass().getName());
 	}
 }

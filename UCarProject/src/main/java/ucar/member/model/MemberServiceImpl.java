@@ -101,12 +101,21 @@ public class MemberServiceImpl implements MemberService {
 			throw new DuplicateCardNumberException("중복되는 결제카드 존재");
 		memberDAO.registerCard(memberVO);		
 	}
+	
+	/**
+	 * 입력받은 정보로 회원정보를 수정한다.
+	 */
 	@Transactional
 	@Override
 	public MemberVO updateMember(MemberVO memberVO) {
 		memberDAO.updateMemberInfo(memberVO);
 		return memberDAO.findMemberInfoByMemberId(memberVO.getMemberId());
 	}
+	
+	/**
+	 * 기존 비밀번호가 일치하는지 확인하고, 일치하면 새로운 비밀번호로 변경한다.
+	 * 일치하지 않으면 flag 에 fail 을 세팅한다.
+	 */
 	@Transactional
 	@Override
 	public HashMap<String,Object> updateMemberPassword(String oriMemberPassword, MemberVO memberVO) {
@@ -125,17 +134,27 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return map;
 	}
-
+	
+	/**
+	 * 회원의 면허정보를 조회한다.
+	 */
 	@Override
 	public MemberVO findLicenseInfoByMemberId(String memberId) {
 		return memberDAO.findLicenseInfoByMemberId(memberId);
 	}
-
+	
+	/**
+	 * 회원의 결제카드목록을 조회한다.
+	 */
 	@Override
 	public List<MemberVO> findCardInfoByMemberId(String memberId) {
 		return memberDAO.findCardInfoByMemberId(memberId);
 	}
-
+	
+	/**
+	 * 회원의 등록한 결제카드의 수를 조회한다. 
+	 * 3개 이상이면 ExceedNumberOfCardException 을 발생하고 그렇지 않으면 ok 를 반환한다.
+	 */
 	@Override
 	public String countCardByMemberId(String memberId) throws Exception {
 		if(memberDAO.countCardByMemberId(memberId)>2){
@@ -156,6 +175,10 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO findMemberInfoByMemberId(String memberId) {
 		return memberDAO.findMemberInfoByMemberId(memberId);
 	}
+	
+	/**
+	 * 회원의 포인트 내역을 조회한다. 
+	 */
 	@Override
 	public PointListVO getPointListByMemberId(PointHistoryVO pointHistoryVO) {
 		if(pointHistoryVO.getPointPageNo()==null||pointHistoryVO.getPointPageNo().equals("")) 
@@ -166,16 +189,26 @@ public class MemberServiceImpl implements MemberService {
 		PointListVO listVO=new PointListVO(list, pagingBean);
 		return listVO;
 	}
+	
+	/**
+	 * 회원의 아이디를 조회한다.
+	 */
 	@Override
 	public MemberVO findMemberId(MemberVO memberVO){
-	      System.out.println("아이디 찾기 서비스");
-	      return memberDAO.findMemberId(memberVO);
-	   }
+		return memberDAO.findMemberId(memberVO);
+	}
+	
+	/**
+	 * 회원의 비밀번호를 조회한다.
+	 */
 	@Override
 	public MemberVO findMemberPassword(MemberVO memberVO){
-	      System.out.println("패스워드 찾기 서비스");
-	      return memberDAO.findMemberPassword(memberVO);
-	   }
+		return memberDAO.findMemberPassword(memberVO);
+	}
+	
+	/**
+	 * 카드번호로 결제 카드 삭제
+	 */
 	@Override
 	public void deleteCardByCardNo(String cardNo) {
 		memberDAO.deleteCard(cardNo);

@@ -22,17 +22,11 @@ public interface MemberDAO {
 	
 	public MemberVO findCardInfoByCardNo(String cardNo);
 	
-	public int updateCardInfo(MemberVO memberVO);
-	
 	public int deleteCard(String cardNo);
 	
 	public MemberVO findLicenseInfoByLicenseNo(String licenseNo);
 	
 	public void registerLicense(MemberVO memberVO);
-	
-	public int updateLicenseInfo(MemberVO memberVO);
-	
-	public int deleteLicense(String licenseNo);
 	
 	public String memberPasswordCheck(MemberVO memberVO);
 	
