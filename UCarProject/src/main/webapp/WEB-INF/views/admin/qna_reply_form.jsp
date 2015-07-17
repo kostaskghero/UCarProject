@@ -11,7 +11,7 @@
 			$("#qnaRepluForm").submit();
 		});
 		$("#qnaList").click(function(){
-			location.href ="${initParam.root }customercenter_home_qna_boardList.do?sessionId=${sessionScope.loginInfo.memberId}";
+			location.href ="${initParam.root }admin_customercenter_home_qna_boardList.do";
 		});
 	});
 </script>

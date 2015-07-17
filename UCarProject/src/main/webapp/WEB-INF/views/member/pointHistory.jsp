@@ -10,13 +10,14 @@
 		});
 	});
 </script>&nbsp;&nbsp;&nbsp;
+	<div class="row">
 <div class="jumbotron col-lg-7">
 <h2>현재 보유한 포인트</h2>
 </div>
 <div class="jumbotron col-lg-5">
 <h2 style="color: red" align="right">${memberVO.memberPoint }점</h2>
 </div>
-
+</div>
 <div class="form-group">
 	<label for="select" class="col-lg-2 control-label" >조회기간</label>
 	<div class="col-lg-2">
